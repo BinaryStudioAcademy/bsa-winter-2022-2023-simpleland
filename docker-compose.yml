@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres:15.2'
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: simpleland
+    ports:
+      - 5432:5432
