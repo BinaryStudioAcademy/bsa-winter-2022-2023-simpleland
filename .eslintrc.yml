@@ -1,9 +1,7 @@
-env:
-  # root: true
-  es2022: true
-
 root: true
-parser: '@typescript-eslint/parser'
+
+env:
+  es2022: true
 
 parserOptions:
   ecmaVersion: 2021
