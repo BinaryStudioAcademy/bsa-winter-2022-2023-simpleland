@@ -25,7 +25,7 @@ This is the repository responsible for SimpleLand's apps.
 
 ## 🏃‍♂️ Simple Start
 
-1. **`npm run install:all`** at the root
+1. **`npm install`** at the root
 2. Fill ENVs
 3. **`npx simple-git-hooks`** at the root
 4. **`cd frontend && npm run start:dev`** then **`cd backend && npm run start:dev`**
@@ -43,26 +43,26 @@ TBA
 
 ### 🌑 Backend
 
-- [Fastify](https://www.fastify.io/) – a backend framework.
-- [Knex](https://knexjs.org/) – a query builder.
-- [Objection](https://vincit.github.io/objection.js/) – an ORM.
+- [Fastify](https://www.fastify.io/) — a backend framework.
+- [Knex](https://knexjs.org/) — a query builder.
+- [Objection](https://vincit.github.io/objection.js/) — an ORM.
 
 ### 🌕 Frontend
 
-- [React](https://reactjs.org/) – a frontend library.
-- [Redux](https://redux.js.org/) + [Redux Toolkit](https://redux-toolkit.js.org/) – a state manager.
+- [React](https://reactjs.org/) — a frontend library.
+- [Redux](https://redux.js.org/) + [Redux Toolkit](https://redux-toolkit.js.org/) — a state manager.
 
 ### 🥊 Code quality
 
 - [simple-git-hooks](https://www.npmjs.com/package/simple-git-hooks) — a tool that lets you easily manage git hooks.
 - [lint-staged](https://www.npmjs.com/package/lint-staged) — run linters on git staged files.
-- [dangerjs](https://danger.systems/js/) – automate common code review chores.
-- [commitlint](https://commitlint.js.org/) – helps your team adhere to a commit convention.
+- [dangerjs](https://danger.systems/js/) — automate common code review chores.
+- [commitlint](https://commitlint.js.org/) — helps your team adhere to a commit convention.
 - [editorconfig](https://editorconfig.org/) — helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs.
 - [prettier](https://prettier.io/) — an opinionated code formatter.
 - [ls-lint](https://ls-lint.org/) — file and directory name linter.
-- [eslint](https://eslint.org/) – find problems in your JS code.
-- [stylelint](https://stylelint.io/) – find and fix problems in your CSS code.
+- [eslint](https://eslint.org/) — find problems in your JS code.
+- [stylelint](https://stylelint.io/) — find and fix problems in your CSS code.
 
 ## 🧑‍💻 CI
 
