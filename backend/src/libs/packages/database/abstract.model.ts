@@ -8,8 +8,10 @@ class Abstract extends Model {
   public 'updatedAt': string;
 
   public override $beforeInsert(): void {
-    this.createdAt = new Date().toISOString();
-    this.updatedAt = new Date().toISOString();
+    const insertDate = new Date().toISOString();
+
+    this.createdAt = insertDate;
+    this.updatedAt = insertDate;
   }
 
   public override $beforeUpdate(): void {
