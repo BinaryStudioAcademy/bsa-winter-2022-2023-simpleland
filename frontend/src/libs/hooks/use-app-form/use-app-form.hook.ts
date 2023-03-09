@@ -11,13 +11,13 @@ import { useForm } from 'react-hook-form';
 
 import { type ValidationSchema } from '~/libs/types/types.js';
 
-type UseAppFormParameters<T extends FieldValues = FieldValues> = {
+type Parameters<T extends FieldValues = FieldValues> = {
   defaultValues: DeepPartial<T>;
   validationSchema?: ValidationSchema;
   mode?: keyof ValidationMode;
 };
 
-type UseAppFormResult<T extends FieldValues = FieldValues> = {
+type ReturnValue<T extends FieldValues = FieldValues> = {
   control: Control<T, null>;
   errors: FieldErrors<T>;
   handleSubmit: UseFormHandleSubmit<T>;
@@ -27,7 +27,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
   validationSchema,
   defaultValues,
   mode,
-}: UseAppFormParameters<T>): UseAppFormResult<T> => {
+}: Parameters<T>): ReturnValue<T> => {
   const {
     control,
     handleSubmit,

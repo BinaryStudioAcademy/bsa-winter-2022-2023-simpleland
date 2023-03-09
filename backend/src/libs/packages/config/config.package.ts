@@ -1,5 +1,4 @@
-import { type Config as TConfig } from 'convict';
-import convict from 'convict';
+import convict, { type Config as TConfig } from 'convict';
 import { config } from 'dotenv';
 
 import { AppEnvironment } from '~/libs/enums/enums.js';

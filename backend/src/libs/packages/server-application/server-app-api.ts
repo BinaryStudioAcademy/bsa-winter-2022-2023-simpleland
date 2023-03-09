@@ -37,7 +37,7 @@ class ServerAppApi implements IServerAppApi {
         openapi: '3.0.0',
         info: {
           title: 'Hello World',
-          version: '1.0.0',
+          version: `${this.version}.0.0`,
         },
       },
       apis: [`src/packages/**/*.controller.${controllerExtension}`],

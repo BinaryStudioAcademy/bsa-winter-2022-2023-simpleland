@@ -3,7 +3,7 @@ import { type ConfigEnv, defineConfig, loadEnv } from 'vite';
 import tsconfigPathsPlugin from 'vite-tsconfig-paths';
 
 const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
-  const { VITE_APP_PROXY_SERVER_URL, VITE_APP_API_ORIGIN_URL } = loadEnv(
+  const { VITE_APP_PROXY_SERVER_URL, VITE_APP_API_ORIGIN_URL, VITE_APP_DEVELOPMENT_PORT } = loadEnv(
     mode,
     process.cwd(),
   );
@@ -14,7 +14,7 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
     },
     plugins: [tsconfigPathsPlugin(), reactPlugin()],
     server: {
-      port: 3000,
+      port: Number(VITE_APP_DEVELOPMENT_PORT),
       proxy: {
         [VITE_APP_API_ORIGIN_URL]: {
           target: VITE_APP_PROXY_SERVER_URL,
