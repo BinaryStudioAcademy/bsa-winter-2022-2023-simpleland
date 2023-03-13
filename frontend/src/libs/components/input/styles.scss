@@ -1,0 +1,26 @@
+.input {
+  width: 100%;
+  padding: 6px 8px;
+  background-color: var(--white);
+  border: 2px solid var(--black);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--gray-300);
+}
+
+.input:focus {
+  border-color: var(--yellow);
+  box-shadow: 0 4px 8px -2px rgb(16 24 40 / 16%),
+    0 2px 4px -2px rgb(16 24 40 / 6%);
+}
+
+.input:disabled {
+  color: var(--gray-disable);
+  border-color: var(--gray-disable);
+}
+
+.input.error {
+  border-color: var(--red);
+}
