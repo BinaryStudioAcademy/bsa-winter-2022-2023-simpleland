@@ -1,3 +1,5 @@
+import './styles.scss';
+
 import {
   type Control,
   type FieldErrors,
@@ -14,6 +16,7 @@ type Properties<T extends FieldValues> = {
   name: FieldPath<T>;
   placeholder?: string;
   type?: 'text' | 'email';
+  disabled?: boolean;
 };
 
 const Input = <T extends FieldValues>({
@@ -23,6 +26,7 @@ const Input = <T extends FieldValues>({
   name,
   placeholder = '',
   type = 'text',
+  disabled = false,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -31,8 +35,14 @@ const Input = <T extends FieldValues>({
 
   return (
     <label>
-      <span>{label}</span>
-      <input {...field} type={type} placeholder={placeholder} />
+      <span className="input-label">{label}</span>
+      <input
+        {...field}
+        type={type}
+        placeholder={placeholder}
+        disabled={disabled}
+        className={`${hasError ? 'error' : ''} input`}
+      />
       {hasError && <span>{error as string}</span>}
     </label>
   );
