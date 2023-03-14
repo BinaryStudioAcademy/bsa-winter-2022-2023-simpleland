@@ -3,15 +3,18 @@
   flex-direction: column;
   width: 100%;
   padding: 6px 8px;
+  color: var(--gray-600);
+  font-size: 14px;
+  line-height: 24px;
   background-color: var(--white);
   border: 2px solid var(--black);
   outline: none;
 }
 
 .input::placeholder {
-  color: var(--gray-600);
+  color: var(--gray-300);
   font-size: 14px;
-  line-height: 20px;
+  line-height: 24px;
 }
 
 .input:focus {
