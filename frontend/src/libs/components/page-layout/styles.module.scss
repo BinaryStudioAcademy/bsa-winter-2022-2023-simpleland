@@ -14,7 +14,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  color: var(--text-white-100);
+  color: var(--white);
   font-size: 132px;
   line-height: 0.8;
   text-transform: uppercase;
@@ -24,9 +24,9 @@
 }
 
 .yellow {
-  background-color: var(--brand-yellow);
+  background-color: var(--yellow);
 }
 
 .black {
-  background-color: var(--background-gray-600);
+  background-color: var(--gray-600);
 }

@@ -1,5 +1,5 @@
 .pageContent {
-  background-color: var(--background-white);
+  background-color: var(--white);
 }
 
 .logoWrapper {
@@ -8,20 +8,24 @@
   align-items: center;
   gap: 5px;
   padding: 20px 107px;
-  color: var(--brand-yellow);
+  color: var(--yellow);
   font-size: 32px;
   background: left / auto repeat url("../../assets/img/background-pattern.png"),
-    var(--brand-black);
+    var(--black);
 }
 
 .logoDot {
   display: block;
   width: 32px;
   height: 32px;
-  background-color: var(--brand-yellow);
+  background-color: var(--yellow);
   border-radius: 50%;
 }
 
 .formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 30px 50px 60px;
 }
