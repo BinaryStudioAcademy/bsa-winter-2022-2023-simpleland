@@ -1,3 +1,7 @@
+import 'react-toastify/dist/ReactToastify.css';
+
+import { ToastContainer } from 'react-toastify';
+
 import reactLogo from '~/assets/img/react.svg';
 import { Link, RouterOutlet } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
@@ -56,6 +60,8 @@ const App: React.FC = () => {
           </ul>
         </>
       )}
+
+      <ToastContainer />
     </>
   );
 };
