@@ -35,6 +35,22 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
       <form className={styles.formWrapper} onSubmit={handleFormSubmit}>
         <Input
           type="text"
+          label="First name"
+          placeholder="Enter your first name"
+          name="firstName"
+          control={control}
+          errors={errors}
+        />
+        <Input
+          type="text"
+          label="Last name"
+          placeholder="Enter your last name"
+          name="lastName"
+          control={control}
+          errors={errors}
+        />
+        <Input
+          type="text"
           label="Email"
           placeholder="Enter your email"
           name="email"
