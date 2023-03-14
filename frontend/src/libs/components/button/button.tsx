@@ -5,7 +5,7 @@ type Properties = {
   type?: 'button' | 'submit';
   isFull?: boolean;
   isSmall?: boolean;
-  disabled?: boolean;
+  isDisabled?: boolean;
 };
 
 const Button: React.FC<Properties> = ({
@@ -13,7 +13,7 @@ const Button: React.FC<Properties> = ({
   label,
   isFull = true,
   isSmall = false,
-  disabled = false,
+  isDisabled = false,
 }: Properties) => (
   <button
     type={type}
@@ -23,7 +23,7 @@ const Button: React.FC<Properties> = ({
       ${isFull ? styles.btnEmpty : styles.btnFull}
       ${isSmall ? styles.btnSmall : ''}
     `}
-    disabled={disabled}
+    disabled={isDisabled}
   >
     {label}
   </button>

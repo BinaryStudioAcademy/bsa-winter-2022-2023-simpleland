@@ -21,5 +21,5 @@ export {
 } from './libs/types/types.js';
 export {
   userSignInValidationSchema,
-  userSignUpValidationSchema
+  userSignUpValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

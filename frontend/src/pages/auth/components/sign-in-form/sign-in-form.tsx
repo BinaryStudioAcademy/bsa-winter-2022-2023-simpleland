@@ -53,11 +53,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           errors={errors}
         />
         <div className={styles.btnWrapper}>
-          <Button
-            type="submit"
-            label="Log In"
-            isSmall={true}
-          />
+          <Button type="submit" label="Log In" isSmall={true} />
         </div>
       </form>
     </>
