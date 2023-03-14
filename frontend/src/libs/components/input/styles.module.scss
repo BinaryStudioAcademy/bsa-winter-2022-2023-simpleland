@@ -9,7 +9,9 @@
 }
 
 .input::placeholder {
-  color: var(--gray-300);
+  color: var(--gray-600);
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .input:focus {
@@ -21,6 +23,14 @@
 .input:disabled {
   color: var(--gray-disable);
   border-color: var(--gray-disable);
+}
+
+.inputLabel {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--gray-600);
+  font-size: 14px;
+  line-height: 16px;
 }
 
 .hasError {
