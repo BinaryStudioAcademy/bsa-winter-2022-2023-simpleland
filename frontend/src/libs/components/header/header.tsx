@@ -1,5 +1,3 @@
-import '~/assets/css/header.scss';
-
 import React from 'react';
 
 type Properties<T> = T;

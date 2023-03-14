@@ -1,13 +1,17 @@
-$logo-color: #FFB61D;
-$logo-font-size: 24px;
-$font-main-color: #FFFFFF;
+:root {
+  --logo-color: #FFB61D;
+  --logo-font-size: 24px;
+  --font-main-color: #FFFFFF;
+}
+
+
 
 header {
   display: flex;
   align-items: center;
   width: 100%;
-  color: $font-main-color;
-  font-family: Roboto, serif;
+  color: var(--font-main-color);
+  font-family: Roboto, sans-serif;
   background: none;
 }
 
@@ -21,13 +25,13 @@ header {
 .header__logo {
   width: 41px;
   height: 41px;
-  background-color: $logo-color;
+  background-color: var(--logo-color);
   border-radius: 50%;
 }
 
 .header__logo__text {
   font-weight: 400;
-  font-size: $logo-font-size;
+  font-size: var(--logo-font-size);
   font-style: normal;
   line-height: 103.5%;
 }
