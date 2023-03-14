@@ -1,15 +1,17 @@
 import React from 'react';
 
+import styles from './header.module.scss';
+
 type Properties<T> = T;
 
 const Header: React.FC<Properties<React.PropsWithChildren>> = ({ children }) => {
   return (
-     <header>
-       <div className='logo__container'>
-         <div className='header__logo'/>
-         <span className='header__logo__text'>logo</span>
+     <header className={styles.header}>
+       <div className={styles.logoContainer}>
+         <div className={styles.headerLogo}/>
+         <span className={styles.headerLogoText}>logo</span>
        </div>
-       <div className='children__container'>{ children }</div>
+       <div className={styles.childrenContainer}>{ children }</div>
      </header>
   );
 };
