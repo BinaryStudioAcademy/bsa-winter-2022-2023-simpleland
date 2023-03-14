@@ -6,6 +6,7 @@ type Properties = {
   isFull?: boolean;
   isSmall?: boolean;
   disabled?: boolean;
+  className?: string;
 };
 
 const Button: React.FC<Properties> = ({
@@ -14,6 +15,7 @@ const Button: React.FC<Properties> = ({
   isFull = true,
   isSmall = false,
   disabled = false,
+  className = '',
 }: Properties) => (
   <button
     type={type}
@@ -22,6 +24,7 @@ const Button: React.FC<Properties> = ({
       button-text-2
       ${isFull ? 'btn-empty' : 'btn-full'}
       ${isSmall ? 'btn--small' : ''}
+      ${className}
     `}
     disabled={disabled}
   >

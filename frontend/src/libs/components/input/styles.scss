@@ -1,4 +1,6 @@
 .input {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 6px 8px;
   background-color: var(--white);

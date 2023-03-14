@@ -1,0 +1,33 @@
+.signUp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.signUpTitle {
+  margin: 0;
+  color: var(--text-type-400);
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 48px;
+}
+
+.question {
+  margin-bottom: 32px;
+  color: var(--text-type-300);
+  line-height: 20px;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 29px;
+  width: 100%;
+}
+
+.submitButton {
+  align-self: center;
+}
