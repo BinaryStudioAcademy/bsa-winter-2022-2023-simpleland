@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {
   type Control,
   type FieldErrors,
@@ -41,7 +42,7 @@ const Input = <T extends FieldValues>({
         type={type}
         placeholder={placeholder}
         disabled={isDisabled}
-        className={`${hasError ? styles.error : ''} ${styles.input}`}
+        className={clsx(hasError && styles.error, styles.input)}
       />
       {hasError && <span>{error as string}</span>}
     </label>
