@@ -9,19 +9,18 @@ interface RouteError {
 
 const ErrorPage = (): JSX.Element => {
     const error = useRouteError() as RouteError;
-  
+
     return (
-      <div className={styless.errorPage}>
-        <h1 className={styless.warningMessage}>Oops!</h1>
-        <p className={styless.text404}>
-          Sorry, an unexpected error has occurred.
-        </p>
-        <p>
-          <i className={styless.status}>{error.statusText ?? error.message}</i>
-        </p>
-      </div>
+        <div className={styless.errorPage}>
+            <h1 className={styless.warningMessage}>Oops!</h1>
+            <p className={styless.text404}>
+                Sorry, an unexpected error has occurred.
+            </p>
+            <p>
+                <i className={styless.status}>{error.statusText ?? error.message}</i>
+            </p>
+        </div>
     );
-  };
+};
 
 export { ErrorPage as ErrorFunction };
-  
