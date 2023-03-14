@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
-  padding: 20px 107px;
+  padding: 20px 50px;
   color: var(--yellow);
   font-size: 32px;
   background: left / auto repeat url("../../assets/img/background-pattern.png"),
@@ -27,5 +27,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 32px;
+  width: 422px;
   padding: 30px 50px 60px;
 }

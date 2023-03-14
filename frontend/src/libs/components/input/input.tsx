@@ -1,5 +1,3 @@
-import './styles.scss';
-
 import {
   type Control,
   type FieldErrors,
@@ -8,6 +6,8 @@ import {
 } from 'react-hook-form';
 
 import { useFormController } from '~/libs/hooks/hooks.js';
+
+import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
   control: Control<T, null>;
@@ -34,14 +34,14 @@ const Input = <T extends FieldValues>({
   const hasError = Boolean(error);
 
   return (
-    <label>
+    <label className={styles.label}>
       <span className="inputLabel">{label}</span>
       <input
         {...field}
         type={type}
         placeholder={placeholder}
         disabled={disabled}
-        className={`${hasError ? 'error' : ''} input`}
+        className={`${hasError ? styles.error : ''} ${styles.input}`}
       />
       {hasError && <span>{error as string}</span>}
     </label>

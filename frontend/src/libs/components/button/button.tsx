@@ -1,4 +1,4 @@
-import './styles.scss';
+import styles from './styles.module.scss';
 
 type Properties = {
   label: string;
@@ -18,10 +18,10 @@ const Button: React.FC<Properties> = ({
   <button
     type={type}
     className={`
-      btn
       buttonText-2
-      ${isFull ? 'btnEmpty' : 'btnFull'}
-      ${isSmall ? 'btnSmall' : ''}
+      ${styles.btn}
+      ${isFull ? styles.btnEmpty : styles.btnFull}
+      ${isSmall ? styles.btnSmall : ''}
     `}
     disabled={disabled}
   >

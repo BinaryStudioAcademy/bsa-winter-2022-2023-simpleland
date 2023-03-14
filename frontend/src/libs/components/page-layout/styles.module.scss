@@ -1,9 +1,9 @@
 .pageLayout {
   position: relative;
   display: flex;
-  flex-grow: 1;
   justify-content: center;
   align-items: center;
+  height: 100vh;
   background: center / cover no-repeat
       url("../../../assets/img/background-image.svg"),
     left / auto repeat url("../../../assets/img/background-pattern.png");
