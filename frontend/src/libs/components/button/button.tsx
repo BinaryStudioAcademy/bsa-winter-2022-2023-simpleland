@@ -14,7 +14,7 @@ const Button: React.FC<Properties> = ({
   isFull = true,
   isSmall = false,
   disabled = false,
-}) => (
+}: Properties) => (
   <button
     type={type}
     className={`
