@@ -19,9 +19,9 @@ const Button: React.FC<Properties> = ({
     type={type}
     className={`
       btn
-      button-text-2
-      ${isFull ? 'btn-empty' : 'btn-full'}
-      ${isSmall ? 'btn--small' : ''}
+      buttonText-2
+      ${isFull ? 'btnEmpty' : 'btnFull'}
+      ${isSmall ? 'btnSmall' : ''}
     `}
     disabled={disabled}
   >

@@ -35,7 +35,7 @@ const Input = <T extends FieldValues>({
 
   return (
     <label>
-      <span className="input-label">{label}</span>
+      <span className="inputLabel">{label}</span>
       <input
         {...field}
         type={type}

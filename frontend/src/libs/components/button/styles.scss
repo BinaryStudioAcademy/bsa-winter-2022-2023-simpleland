@@ -9,38 +9,38 @@
   cursor: pointer;
 }
 
-.btn--small {
+.btnSmall {
   width: 138px;
   height: 32px;
   padding: 4px 16px;
 }
 
-.btn-empty {
+.btnEmpty {
   background: var(--yellow);
 }
 
-.btn-empty:hover {
+.btnEmpty:hover {
   color: var(--white);
   background: var(--black);
 }
 
-.btn-empty[disabled] {
+.btnEmpty[disabled] {
   color: var(--white);
   background: var(--gray-disable);
   cursor: not-allowed;
 }
 
-.btn-full {
+.btnFull {
   background: var(--white);
   border: 2px solid var(--black);
 }
 
-.btn-full:hover {
+.btnFull:hover {
   background: var(--yellow);
   border: none;
 }
 
-.btn-full[disabled] {
+.btnFull[disabled] {
   color: var(--gray-disable);
   background: var(--white);
   border-color: var(--gray-disable);
