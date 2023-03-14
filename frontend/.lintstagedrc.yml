@@ -1,2 +1,2 @@
 'src/**/*.scss': npm run lint:css
-'src/**/*.{ts,tsx}': npm run lint
+'src/**/*.{ts,tsx}': npm run lint:js
