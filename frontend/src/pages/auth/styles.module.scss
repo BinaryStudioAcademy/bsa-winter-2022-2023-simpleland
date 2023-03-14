@@ -1,0 +1,27 @@
+.pageContent {
+  background-color: var(--background-white);
+}
+
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 20px 107px;
+  color: var(--brand-yellow);
+  font-size: 32px;
+  background: left / auto repeat url("../../assets/img/background-pattern.png"),
+    var(--brand-black);
+}
+
+.logoDot {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-color: var(--brand-yellow);
+  border-radius: 50%;
+}
+
+.formWrapper {
+  padding: 30px 50px 60px;
+}
