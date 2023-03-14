@@ -7,6 +7,7 @@ import { storage, StorageKey } from '~/libs/packages/storage/storage.js';
 
 const ProtectRouteComponent = (): React.ReactElement => {
   const navigate = useNavigate();
+
   useEffect(() => {
     storage
       .get(StorageKey.TOKEN)
