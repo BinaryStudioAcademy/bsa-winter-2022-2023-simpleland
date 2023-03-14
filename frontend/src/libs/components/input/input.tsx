@@ -43,7 +43,7 @@ const Input = <T extends FieldValues>({
         disabled={disabled}
         className={`${hasError ? 'error' : ''} input`}
       />
-      {hasError && <span>{error as string}</span>}
+      <div className="errorMessage">{hasError && (error as string)}</div>
     </label>
   );
 };
