@@ -8,11 +8,10 @@ import {
   RouterProvider,
   StoreProvider,
 } from '~/libs/components/components.js';
+import { ProtectRouteComponent } from '~/libs/components/protect-route-component/protect-route-component.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import { store } from '~/libs/packages/store/store.js';
 import { Auth } from '~/pages/auth/auth.js';
-
-import { ProtectRouteComponent } from './pages/auth/components/components.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
   <StrictMode>
@@ -21,18 +20,18 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
         routes={[
           {
             path: AppRoute.ROOT,
+            element: <ProtectRouteComponent />,
+            children: [],
+          },
+          {
+            path: AppRoute.ROOT,
             element: <App />,
             children: [
               {
                 path: AppRoute.ROOT,
-                element: <ProtectRouteComponent />,
-                children: [
-                  {
-                    path: AppRoute.ROOT,
-                    element: 'Root',
-                  },
-                ],
+                element: 'Root',
               },
+
               {
                 path: AppRoute.SIGN_IN,
                 element: <Auth />,
