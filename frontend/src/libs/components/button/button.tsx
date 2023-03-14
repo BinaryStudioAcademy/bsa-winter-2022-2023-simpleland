@@ -1,32 +1,22 @@
-import './styles.scss';
+import styles from './styles.module.scss';
 
 type Properties = {
   label: string;
-  type?: 'button' | 'submit';
-  isFull?: boolean;
-  isSmall?: boolean;
-  disabled?: boolean;
+  size?: 'big' | 'small';
+  style?: 'primary' | 'secondary' | 'plain';
   className?: string;
-};
+} & React.ComponentPropsWithoutRef<'button'>;
 
 const Button: React.FC<Properties> = ({
-  type = 'button',
   label,
-  isFull = true,
-  isSmall = false,
-  disabled = false,
+  size = 'big',
+  style = 'primary',
   className = '',
+  ...mirroredProperties
 }: Properties) => (
   <button
-    type={type}
-    className={`
-      btn
-      button-text-2
-      ${isFull ? 'btn-empty' : 'btn-full'}
-      ${isSmall ? 'btn--small' : ''}
-      ${className}
-    `}
-    disabled={disabled}
+    className={`${styles.button} ${styles[style]} ${styles[size]} ${className}`}
+    {...mirroredProperties}
   >
     {label}
   </button>

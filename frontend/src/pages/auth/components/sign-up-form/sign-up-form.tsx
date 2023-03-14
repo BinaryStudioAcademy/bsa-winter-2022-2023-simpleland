@@ -66,8 +66,9 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           errors={errors}
         />
         <Button
-          isSmall
           type="submit"
+          style="primary"
+          size="small"
           label="Sign up"
           className={styles.submitButton}
         />
