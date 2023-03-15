@@ -1,4 +1,5 @@
 import {
+  type UserSignInRequestDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
 } from '~/packages/users/libs/types/types.js';
@@ -9,6 +10,10 @@ class AuthService {
 
   public constructor(userService: UserService) {
     this.userService = userService;
+  }
+
+  public signIn(userRequestDto: UserSignInRequestDto): UserSignInRequestDto {
+    return userRequestDto;
   }
 
   public signUp(
