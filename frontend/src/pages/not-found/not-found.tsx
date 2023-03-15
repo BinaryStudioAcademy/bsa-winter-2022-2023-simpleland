@@ -1,6 +1,6 @@
 import styles from './not-found.module.scss';
 
-const  NotFound = (): JSX.Element => {
+const NotFound = (): JSX.Element => {
   return (
     <div className={styles.errorPage}>
       <h1 className={styles.warningMessage}>Oops!</h1>
@@ -12,4 +12,4 @@ const  NotFound = (): JSX.Element => {
   );
 };
 
-export {  NotFound as  NotFoundPage };
+export { NotFound as NotFoundPage };
