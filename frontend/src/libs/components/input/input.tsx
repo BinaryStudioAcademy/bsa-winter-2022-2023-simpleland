@@ -5,7 +5,10 @@ import {
   type FieldValues,
 } from 'react-hook-form';
 
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useFormController } from '~/libs/hooks/hooks.js';
+
+import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
   control: Control<T, null>;
@@ -13,7 +16,8 @@ type Properties<T extends FieldValues> = {
   label: string;
   name: FieldPath<T>;
   placeholder?: string;
-  type?: 'text' | 'email';
+  isDisabled?: boolean;
+  type?: 'text' | 'email' | 'password';
 };
 
 const Input = <T extends FieldValues>({
@@ -22,6 +26,7 @@ const Input = <T extends FieldValues>({
   label,
   name,
   placeholder = '',
+  isDisabled = false,
   type = 'text',
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
@@ -31,9 +36,20 @@ const Input = <T extends FieldValues>({
 
   return (
     <label>
-      <span>{label}</span>
-      <input {...field} type={type} placeholder={placeholder} />
-      {hasError && <span>{error as string}</span>}
+      <span className={styles.inputLabel}>{label}</span>
+      <input
+        {...field}
+        className={getValidClassNames(
+          styles.input,
+          hasError && styles.hasError,
+        )}
+        type={type}
+        placeholder={placeholder}
+        disabled={isDisabled}
+      />
+      <span className={styles.errorMessage}>
+        {hasError && (error as string)}
+      </span>
     </label>
   );
 };
