@@ -12,7 +12,7 @@ import { AppRoute } from '~/libs/enums/enums.js';
 import { store } from '~/libs/packages/store/store.js';
 import { Auth } from '~/pages/auth/auth.js';
 
-import { ProtectRouteComponent } from './pages/auth/components/components.js';
+import { ProtectedRoute } from './libs/components/protected-route/protected-route.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
   <StrictMode>
@@ -25,7 +25,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
             children: [
               {
                 path: AppRoute.ROOT,
-                element: <ProtectRouteComponent />,
+                element: <ProtectedRoute />,
                 children: [
                   {
                     path: AppRoute.ROOT,

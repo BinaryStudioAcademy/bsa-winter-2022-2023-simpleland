@@ -5,9 +5,8 @@ import { AppRoute } from '~/libs/enums/app-route.enum';
 import { useEffect, useNavigate } from '~/libs/hooks/hooks.js';
 import { storage, StorageKey } from '~/libs/packages/storage/storage.js';
 
-const ProtectRouteComponent = (): React.ReactElement => {
+const ProtectedRoute = (): React.ReactElement => {
   const navigate = useNavigate();
-
   useEffect(() => {
     storage
       .get(StorageKey.TOKEN)
@@ -25,4 +24,4 @@ const ProtectRouteComponent = (): React.ReactElement => {
   return <Outlet />;
 };
 
-export { ProtectRouteComponent };
+export { ProtectedRoute };
