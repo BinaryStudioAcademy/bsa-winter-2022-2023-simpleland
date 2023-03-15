@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { AppRoute } from '~/libs/enums/app-route.enum';
-import { useAppSelector,useNavigate } from '~/libs/hooks/hooks.js';
+import { useAppSelector, useNavigate } from '~/libs/hooks/hooks.js';
 
 const ProtectedRoute = (): React.ReactElement => {
   const navigate = useNavigate();
