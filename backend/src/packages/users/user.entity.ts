@@ -1,15 +1,15 @@
 import { type IEntity } from '~/libs/interfaces/interfaces.js';
 
 class UserEntity implements IEntity {
-  private 'id': number | null;
+  protected 'id': number | null;
 
-  private 'email': string;
+  protected 'email': string;
 
-  private 'passwordHash': string;
+  protected 'passwordHash': string;
 
-  private 'passwordSalt': string;
+  protected 'passwordSalt': string;
 
-  private constructor({
+  protected constructor({
     id,
     email,
     passwordHash,
