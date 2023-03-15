@@ -1,6 +1,6 @@
 import { type IService } from '~/libs/interfaces/interfaces.js';
+import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserRepository } from '~/packages/users/user.repository.js';
-import { UserWithDetailsEntity } from '~/packages/users/user-details.entity.js';
 
 import {
   type UserGetAllResponseDto,
@@ -31,14 +31,12 @@ class UserService implements IService {
     payload: UserSignUpRequestDto,
   ): Promise<UserSignUpResponseDto> {
     const user = await this.userRepository.create(
-      UserWithDetailsEntity.initializeNew({
+      UserEntity.initializeNew({
         email: payload.email,
         passwordSalt: 'SALT', // TODO
         passwordHash: 'HASH', // TODO
-        userDetails: {
-          firstName: payload.firstName,
-          lastName: payload.lastName,
-        },
+        firstName: payload.firstName,
+        lastName: payload.lastName,
       }),
     );
 
