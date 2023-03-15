@@ -1,0 +1,40 @@
+:root {
+  --logo-font-size: 24px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: var(--white);
+  font-family: Roboto, sans-serif;
+  background: none;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 25px 65px;
+}
+
+.headerLogo {
+  width: 41px;
+  height: 41px;
+  background-color: var(--yellow);
+  border-radius: 50%;
+}
+
+.headerLogoText {
+  font-weight: 400;
+  font-size: var(--logo-font-size);
+  font-style: normal;
+  line-height: 103.5%;
+  cursor: pointer;
+}
+
+.childrenContainer {
+  width: 100%;
+  height: 100%;
+  padding-right: 30px;
+}
