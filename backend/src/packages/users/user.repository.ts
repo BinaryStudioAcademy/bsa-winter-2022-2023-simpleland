@@ -1,6 +1,8 @@
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserModel } from '~/packages/users/user.model.js';
+import { UserWithDetailsEntity } from '~/packages/users/user-details.entity.js';
+import { type UserDetailsModel } from '~/packages/users/user-details.model.js';
 
 class UserRepository implements IRepository {
   private userModel: typeof UserModel;
@@ -19,8 +21,11 @@ class UserRepository implements IRepository {
     return users.map((it) => UserEntity.initialize(it));
   }
 
-  public async create(entity: UserEntity): Promise<UserEntity> {
+  public async create(
+    entity: UserWithDetailsEntity,
+  ): Promise<UserWithDetailsEntity> {
     const { email, passwordSalt, passwordHash } = entity.toNewObject();
+    const { firstName = '', lastName = '' } = entity.userDetails;
 
     const item = await this.userModel
       .query()
@@ -32,7 +37,16 @@ class UserRepository implements IRepository {
       .returning('*')
       .execute();
 
-    return UserEntity.initialize(item);
+    if (firstName && lastName) {
+      await item
+        .$relatedQuery<UserDetailsModel>('userDetails')
+        .insert({ firstName, lastName });
+    }
+
+    return UserWithDetailsEntity.initialize({
+      ...item,
+      userDetails: { firstName, lastName },
+    });
   }
 
   public update(): ReturnType<IRepository['update']> {
