@@ -1,3 +1,5 @@
+import { clsx } from 'clsx';
+
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -20,7 +22,7 @@ const Button: React.FC<Properties> = ({
   <button
     type={type}
     disabled={isDisabled}
-    className={`${styles.button} ${styles[style]} ${styles[size]} ${className}`}
+    className={clsx(styles.button, styles[style], styles[size], className)}
   >
     {label}
   </button>
