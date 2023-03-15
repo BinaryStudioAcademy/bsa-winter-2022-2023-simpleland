@@ -9,8 +9,6 @@ import { type ILogger } from '~/libs/packages/logger/logger.js';
 import {
   type UserSignInRequestDto,
   type UserSignUpRequestDto,
-} from '~/packages/users/users.js';
-import {
   userSignInValidationSchema,
   userSignUpValidationSchema,
 } from '~/packages/users/users.js';
