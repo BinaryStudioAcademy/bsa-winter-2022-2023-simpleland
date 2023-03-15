@@ -20,7 +20,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
         routes={[
           {
             path: AppRoute.ROOT,
-            errorElement: <NotFoundPage />,
             element: <App />,
             children: [
               {
@@ -36,6 +35,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 element: <Auth />,
               },
             ],
+          },
+          {
+            path: AppRoute.NOT_FOUND,
+            element: <NotFoundPage />,
           },
         ]}
       />
