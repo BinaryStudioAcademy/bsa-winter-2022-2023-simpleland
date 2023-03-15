@@ -47,7 +47,9 @@ const Input = <T extends FieldValues>({
         placeholder={placeholder}
         disabled={isDisabled}
       />
-      <div className={styles.errorMessage}>{hasError && (error as string)}</div>
+      <span className={styles.errorMessage}>
+        {hasError && (error as string)}
+      </span>
     </label>
   );
 };
