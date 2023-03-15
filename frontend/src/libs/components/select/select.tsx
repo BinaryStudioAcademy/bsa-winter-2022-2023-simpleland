@@ -17,7 +17,7 @@ const SelectTheme = (theme: Theme): Theme => ({
   colors: {
     ...theme.colors,
     primary25: 'white',
-    primary: '#FFB61D',
+    primary: 'white',
   },
 });
 
