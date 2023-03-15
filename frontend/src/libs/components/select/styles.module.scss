@@ -1,6 +1,36 @@
-.select [class$='-control'] {
+.select [class$="-control"] {
+  font-size: 14px;
   border: 0;
   border: 2px solid #e0e0e0;
   border-radius: 0;
 }
 
+.select [class$="-control"]:hover {
+  border-color: #ffb61d;
+}
+
+.select [class$="-control"]:focus-within {
+  border-color: #ffb61d;
+}
+
+.select [class$="-control"] [class$="-value-container"] [class$="-single-value"] {
+  color: #000000;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.select [class$="-menu"] {
+  margin-top: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+.select [class$="-menu"] [class$="-option"] {
+  color: #000000;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.select [class$="-menu"] [class$="-option"]:hover {
+  background-color: #ffb61d;
+}
