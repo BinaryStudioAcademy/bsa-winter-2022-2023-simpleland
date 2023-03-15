@@ -1,12 +1,12 @@
 import joi from 'joi';
 
-import { UserValidationMessage, UserValidationRules } from '../enums/enums.js';
+import { UserValidationMessage, UserValidationRule } from '../enums/enums.js';
 import { type UserSignUpRequestDto } from '../types/types.js';
 
 const userSignUp = joi.object<UserSignUpRequestDto, true>({
   email: joi
     .string()
-    .regex(UserValidationRules.EMAIL_REGEX)
+    .regex(UserValidationRule.EMAIL_REGEX)
     .email({
       tlds: {
         allow: false,
@@ -20,7 +20,7 @@ const userSignUp = joi.object<UserSignUpRequestDto, true>({
     }),
   password: joi
     .string()
-    .pattern(UserValidationRules.PASSWORD_REGEX)
+    .pattern(UserValidationRule.PASSWORD_REGEX)
     .required()
     .messages({
       'string.pattern.base': UserValidationMessage.PASSWORD_IS_INVALID,
@@ -28,12 +28,12 @@ const userSignUp = joi.object<UserSignUpRequestDto, true>({
     }),
   firstName: joi
     .string()
-    .pattern(UserValidationRules.FIRST_NAME_REGEX)
+    .pattern(UserValidationRule.FIRST_NAME_REGEX)
     .messages({
       'string.pattern.base': UserValidationMessage.FIRST_NAME_IS_INVALID,
       'string.empty': UserValidationMessage.FIRST_NAME_REQUIRE,
     }),
-  lastName: joi.string().pattern(UserValidationRules.LAST_NAME_REGEX).messages({
+  lastName: joi.string().pattern(UserValidationRule.LAST_NAME_REGEX).messages({
     'string.pattern.base': UserValidationMessage.LAST_NAME_IS_INVALID,
     'string.empty': UserValidationMessage.LAST_NAME_REQUIRE,
   }),

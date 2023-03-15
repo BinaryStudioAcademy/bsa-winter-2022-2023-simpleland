@@ -4,19 +4,23 @@ type Properties = {
   label: string;
   size?: 'big' | 'small';
   style?: 'primary' | 'secondary' | 'plain';
+  type?: 'button' | 'submit';
+  isDisabled?: boolean;
   className?: string;
-} & React.ComponentPropsWithoutRef<'button'>;
+};
 
 const Button: React.FC<Properties> = ({
   label,
   size = 'big',
   style = 'primary',
+  type = 'button',
+  isDisabled = false,
   className = '',
-  ...mirroredProperties
 }: Properties) => (
   <button
+    type={type}
+    disabled={isDisabled}
     className={`${styles.button} ${styles[style]} ${styles[size]} ${className}`}
-    {...mirroredProperties}
   >
     {label}
   </button>

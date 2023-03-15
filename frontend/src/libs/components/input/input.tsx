@@ -14,14 +14,19 @@ type Properties<T extends FieldValues> = {
   errors: FieldErrors<T>;
   label: string;
   name: FieldPath<T>;
-} & React.ComponentPropsWithoutRef<'input'>;
+  placeholder?: string;
+  isDisabled?: boolean;
+  type?: 'text' | 'email' | 'password';
+};
 
 const Input = <T extends FieldValues>({
   control,
   errors,
   label,
   name,
-  ...mirroredProperties
+  placeholder = '',
+  isDisabled = false,
+  type = 'text',
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -33,8 +38,10 @@ const Input = <T extends FieldValues>({
       <span className={styles.inputLabel}>{label}</span>
       <input
         {...field}
-        {...mirroredProperties}
         className={`${styles.input} ${hasError ? styles.hasError : ''}`}
+        type={type}
+        placeholder={placeholder}
+        disabled={isDisabled}
       />
       <div className={styles.errorMessage}>{hasError && (error as string)}</div>
     </label>
