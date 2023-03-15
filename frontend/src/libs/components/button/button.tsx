@@ -1,34 +1,33 @@
-import clsx from 'clsx';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
   label: string;
-  size?: 's' | 'm';
+  size?: 'big' | 'small';
+  style?: 'primary' | 'secondary' | 'plain';
   type?: 'button' | 'submit';
-  isFull?: boolean;
   isDisabled?: boolean;
   className?: string;
 };
 
 const Button: React.FC<Properties> = ({
-  type = 'button',
   label,
-  size = 'm',
-  isFull = true,
+  size = 'big',
+  style = 'primary',
+  type = 'button',
   isDisabled = false,
-  className,
+  className = '',
 }: Properties) => (
   <button
     type={type}
-    className={clsx(
-      'buttonText-2',
-      styles.btn,
-      isFull ? styles.btnEmpty : styles.btnFull,
-      styles[`btn__${size}`],
+    disabled={isDisabled}
+    className={getValidClassNames(
+      styles.button,
+      styles[style],
+      styles[size],
       className,
     )}
-    disabled={isDisabled}
   >
     {label}
   </button>

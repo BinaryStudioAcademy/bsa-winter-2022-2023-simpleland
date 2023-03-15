@@ -5,9 +5,14 @@
 }
 
 .input {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 36px;
   padding: 6px 8px;
+  color: var(--gray-600);
+  font-size: 14px;
+  line-height: 24px;
   background-color: var(--white);
   border: 2px solid var(--black);
   outline: none;
@@ -15,6 +20,8 @@
 
 .input::placeholder {
   color: var(--gray-300);
+  font-size: 14px;
+  line-height: 24px;
 }
 
 .input:focus {
@@ -28,6 +35,19 @@
   border-color: var(--gray-disable);
 }
 
-.error {
+.inputLabel {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--gray-600);
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.hasError {
   border-color: var(--red);
+}
+
+.errorMessage {
+  display: block;
+  height: 20px;
 }

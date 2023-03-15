@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import {
   type Control,
   type FieldErrors,
@@ -6,6 +5,7 @@ import {
   type FieldValues,
 } from 'react-hook-form';
 
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useFormController } from '~/libs/hooks/hooks.js';
 
 import styles from './styles.module.scss';
@@ -36,15 +36,20 @@ const Input = <T extends FieldValues>({
 
   return (
     <label className={styles.label}>
-      <span className="inputLabel">{label}</span>
+      <span className={styles.inputLabel}>{label}</span>
       <input
         {...field}
+        className={getValidClassNames(
+          styles.input,
+          hasError && styles.hasError,
+        )}
         type={type}
         placeholder={placeholder}
         disabled={isDisabled}
-        className={clsx(hasError && styles.error, styles.input)}
       />
-      {hasError && <span>{error as string}</span>}
+      <span className={styles.errorMessage}>
+        {hasError && (error as string)}
+      </span>
     </label>
   );
 };

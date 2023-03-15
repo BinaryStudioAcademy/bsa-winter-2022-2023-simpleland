@@ -6,6 +6,7 @@ import { actions as userActions } from '~/slices/users/users.js';
 const App: React.FC = () => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
+
   const isRoot = pathname === AppRoute.ROOT;
 
   useEffect(() => {
@@ -14,11 +15,7 @@ const App: React.FC = () => {
     }
   }, [isRoot, dispatch]);
 
-  return (
-    <div>
-      <RouterOutlet />
-    </div>
-  );
+  return <RouterOutlet />;
 };
 
 export { App };

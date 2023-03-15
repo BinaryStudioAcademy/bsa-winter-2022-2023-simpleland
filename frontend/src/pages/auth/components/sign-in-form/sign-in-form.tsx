@@ -27,13 +27,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   );
 
   return (
-    <>
-      <div className={styles.headerWrapper}>
-        <h1 className="heading-2">Log In</h1>
-        <h3 className="body-2">
-          No account?&nbsp;
-          <Link to={AppRoute.SIGN_UP}>Sign Up</Link>
-        </h3>
+    <div className={styles.signIn}>
+      <h2 className={styles.signInTitle}>Log In</h2>
+      <div className={styles.question}>
+        No account?&nbsp; <Link to={AppRoute.SIGN_UP}>Sign Up</Link>
       </div>
       <form onSubmit={handleFormSubmit} className={styles.formWrapper}>
         <Input
@@ -52,11 +49,15 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           control={control}
           errors={errors}
         />
-        <div className={styles.btnWrapper}>
-          <Button type="submit" label="Log In" size="s" />
-        </div>
+        <Button
+          type="submit"
+          style="primary"
+          size="small"
+          label="Log In"
+          className={styles.submitButton}
+        />
       </form>
-    </>
+    </div>
   );
 };
 

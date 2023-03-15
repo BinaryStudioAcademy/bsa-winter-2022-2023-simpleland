@@ -1,17 +1,19 @@
-import clsx from 'clsx';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-  className?: string;
   children: React.ReactNode;
+  style?: 'yellow' | 'black';
 };
 
 const PageLayout: React.FC<Properties> = ({
   children,
-  className,
+  style = 'yellow',
 }: Properties) => (
-  <div className={clsx(styles.pageLayout, className)}>{children}</div>
+  <div className={getValidClassNames(styles.pageLayout, styles[style])}>
+    {children}
+  </div>
 );
 
 export { PageLayout };

@@ -41,7 +41,7 @@ const Auth: React.FC = () => {
   };
 
   return (
-    <PageLayout className={styles.yellow}>
+    <PageLayout>
       <div className={styles.pageContent}>
         <div className={styles.logoWrapper}>
           <span className={styles.logoDot}></span>
