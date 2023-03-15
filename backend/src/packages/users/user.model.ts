@@ -14,7 +14,11 @@ class UserModel extends AbstractModel {
 
   public 'passwordSalt': string;
 
-  public userDetails: UserDetailsModel | undefined;
+  public 'firstName': string;
+
+  public 'lastName': string;
+
+  public userDetails: UserDetailsModel = new UserDetailsModel();
 
   public static override get tableName(): string {
     return DatabaseTableName.USERS;
