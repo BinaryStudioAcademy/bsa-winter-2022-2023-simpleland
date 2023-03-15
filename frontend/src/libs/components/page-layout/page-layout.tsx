@@ -3,15 +3,15 @@ import clsx from 'clsx';
 import styles from './styles.module.scss';
 
 type Properties = {
-  className?: 'yellow' | 'black';
+  className?: string;
   children: React.ReactNode;
 };
 
 const PageLayout: React.FC<Properties> = ({
   children,
-  className = 'yellow',
+  className,
 }: Properties) => (
-  <div className={clsx(styles.pageLayout, styles[className])}>{children}</div>
+  <div className={clsx(styles.pageLayout, className)}>{children}</div>
 );
 
 export { PageLayout };
