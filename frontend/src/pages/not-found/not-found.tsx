@@ -12,4 +12,4 @@ const NotFound = (): JSX.Element => {
   );
 };
 
-export { NotFound as NotFoundPage };
+export { NotFound };
