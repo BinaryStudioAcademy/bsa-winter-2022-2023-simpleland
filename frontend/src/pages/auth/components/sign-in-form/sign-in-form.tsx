@@ -1,16 +1,64 @@
-import { Button } from '~/libs/components/components.js';
+import { Button, Input, Link } from '~/libs/components/components.js';
+import { AppRoute } from '~/libs/enums/enums.js';
+import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
+import {
+  type UserSignInRequestDto,
+  userSignInValidationSchema,
+} from '~/packages/users/users.js';
+
+import { DEFAULT_SIGN_IN_PAYLOAD } from './libs/constants.js';
+import styles from './styles.module.scss';
 
 type Properties = {
-  onSubmit: () => void;
+  onSubmit: (payload: UserSignInRequestDto) => void;
 };
 
-const SignInForm: React.FC<Properties> = () => (
-  <>
-    <h1>Sign In</h1>
-    <form>
-      <Button label="Sign in" />
-    </form>
-  </>
-);
+const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+  const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
+    defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
+    validationSchema: userSignInValidationSchema,
+  });
+
+  const handleFormSubmit = useCallback(
+    (event_: React.BaseSyntheticEvent): void => {
+      void handleSubmit(onSubmit)(event_);
+    },
+    [handleSubmit, onSubmit],
+  );
+
+  return (
+    <div className={styles.signIn}>
+      <h2 className={styles.signInTitle}>Log In</h2>
+      <div className={styles.question}>
+        No account?&nbsp; <Link to={AppRoute.SIGN_UP}>Sign Up</Link>
+      </div>
+      <form onSubmit={handleFormSubmit} className={styles.formWrapper}>
+        <Input
+          type="email"
+          label="Email"
+          placeholder="Enter your email"
+          name="email"
+          control={control}
+          errors={errors}
+        />
+        <Input
+          type="password"
+          label="Password"
+          placeholder="Enter your password"
+          name="password"
+          control={control}
+          errors={errors}
+        />
+        <Button
+          type="submit"
+          style="primary"
+          size="small"
+          label="Log In"
+          className={styles.submitButton}
+        />
+      </form>
+    </div>
+  );
+};
 
 export { SignInForm };

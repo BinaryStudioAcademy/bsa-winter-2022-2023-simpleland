@@ -1,12 +1,12 @@
 import joi from 'joi';
 
-import { UserValidationMessage } from '../enums/enums.js';
+import { UserValidationMessage, UserValidationRule } from '../enums/enums.js';
 import { type UserSignInRequestDto } from '../types/types.js';
 
 const userSignIn = joi.object<UserSignInRequestDto, true>({
   email: joi
     .string()
-    .trim()
+    .regex(UserValidationRule.EMAIL_REGEX)
     .email({
       tlds: {
         allow: false,
@@ -14,10 +14,18 @@ const userSignIn = joi.object<UserSignInRequestDto, true>({
     })
     .required()
     .messages({
+      'string.pattern.base': UserValidationMessage.EMAIL_IS_INVALID,
       'string.email': UserValidationMessage.EMAIL_WRONG,
       'string.empty': UserValidationMessage.EMAIL_REQUIRE,
     }),
-  password: joi.string().trim().required(),
+  password: joi
+    .string()
+    .pattern(UserValidationRule.PASSWORD_REGEX)
+    .required()
+    .messages({
+      'string.pattern.base': UserValidationMessage.PASSWORD_IS_INVALID,
+      'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
+    }),
 });
 
 export { userSignIn };
