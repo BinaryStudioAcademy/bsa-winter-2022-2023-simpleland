@@ -5,3 +5,11 @@ export {
   type ValidationSchema,
   type ValueOf,
 } from 'shared/build/index.js';
+
+type Option = {
+  value: string;
+  label: string;
+};
+
+export { type Option };
+
