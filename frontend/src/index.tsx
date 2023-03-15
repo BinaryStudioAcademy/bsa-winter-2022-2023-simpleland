@@ -40,5 +40,5 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
         ]}
       />
     </StoreProvider>
-  </StrictMode>,
+  </StrictMode>
 );
