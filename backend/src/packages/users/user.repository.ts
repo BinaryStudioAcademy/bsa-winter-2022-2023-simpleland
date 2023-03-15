@@ -1,7 +1,6 @@
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserModel } from '~/packages/users/user.model.js';
-import { UserWithDetailsEntity } from '~/packages/users/user-details.entity.js';
 import { type UserDetailsModel } from '~/packages/users/user-details.model.js';
 
 class UserRepository implements IRepository {
@@ -16,16 +15,17 @@ class UserRepository implements IRepository {
   }
 
   public async findAll(): Promise<UserEntity[]> {
-    const users = await this.userModel.query().execute();
+    const users = await this.userModel
+      .query()
+      .withGraphFetched('userDetails')
+      .execute();
 
     return users.map((it) => UserEntity.initialize(it));
   }
 
-  public async create(
-    entity: UserWithDetailsEntity,
-  ): Promise<UserWithDetailsEntity> {
-    const { email, passwordSalt, passwordHash } = entity.toNewObject();
-    const { firstName = '', lastName = '' } = entity.userDetails;
+  public async create(entity: UserEntity): Promise<UserEntity> {
+    const { email, passwordSalt, passwordHash, firstName, lastName } =
+      entity.toNewObject();
 
     const item = await this.userModel
       .query()
@@ -37,15 +37,14 @@ class UserRepository implements IRepository {
       .returning('*')
       .execute();
 
-    if (firstName && lastName) {
-      await item
-        .$relatedQuery<UserDetailsModel>('userDetails')
-        .insert({ firstName, lastName });
-    }
+    await item
+      .$relatedQuery<UserDetailsModel>('userDetails')
+      .insert({ firstName, lastName });
 
-    return UserWithDetailsEntity.initialize({
+    return UserEntity.initialize({
       ...item,
-      userDetails: { firstName, lastName },
+      firstName,
+      lastName,
     });
   }
 
