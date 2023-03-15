@@ -1,8 +1,9 @@
 .select [class$="-control"] {
+  width: 324px;
   font-size: 14px;
-  border: 0;
   border: 2px solid #e0e0e0;
-  border-radius: 0;
+  border-radius: 0; 
+  cursor: pointer;
 }
 
 .select [class$="-control"]:hover {
@@ -13,24 +14,21 @@
   border-color: #ffb61d;
 }
 
-.select [class$="-control"] [class$="-value-container"] [class$="-single-value"] {
-  color: #000000;
-  font-weight: 500;
-  font-size: 14px;
-}
-
 .select [class$="-menu"] {
-  margin-top: 0;
-  padding: 0;
+  width: 324px;
+  margin-top: 1px;
   border-radius: 0;
+  cursor:pointer;
 }
 
 .select [class$="-menu"] [class$="-option"] {
   color: #000000;
-  font-weight: 500;
   font-size: 14px;
+  cursor: pointer;
 }
 
 .select [class$="-menu"] [class$="-option"]:hover {
   background-color: #ffb61d;
 }
+
+
