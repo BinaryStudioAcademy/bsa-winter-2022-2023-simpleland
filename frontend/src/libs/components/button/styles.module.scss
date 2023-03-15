@@ -3,16 +3,18 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 54px;
-  padding: 8px 24px;
   border: none;
   cursor: pointer;
 }
 
-.btnSmall {
-  width: 100%;
+.btn__s {
   height: 32px;
   padding: 4px 16px;
+}
+
+.btn__m {
+  height: 54px;
+  padding: 8px 24px;
 }
 
 .btnEmpty {

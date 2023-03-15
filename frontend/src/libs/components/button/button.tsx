@@ -4,18 +4,20 @@ import styles from './styles.module.scss';
 
 type Properties = {
   label: string;
+  size?: 's' | 'm';
   type?: 'button' | 'submit';
   isFull?: boolean;
-  isSmall?: boolean;
   isDisabled?: boolean;
+  className?: string;
 };
 
 const Button: React.FC<Properties> = ({
   type = 'button',
   label,
+  size = 'm',
   isFull = true,
-  isSmall = false,
   isDisabled = false,
+  className,
 }: Properties) => (
   <button
     type={type}
@@ -23,7 +25,8 @@ const Button: React.FC<Properties> = ({
       'buttonText-2',
       styles.btn,
       isFull ? styles.btnEmpty : styles.btnFull,
-      isSmall && styles.btnSmall,
+      styles[`btn__${size}`],
+      className,
     )}
     disabled={isDisabled}
   >
