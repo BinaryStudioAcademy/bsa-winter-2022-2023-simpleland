@@ -9,7 +9,9 @@ import { type UserGetAllItemResponseDto } from '~/packages/users/users.js';
 
 const ProtectedRoute = (): React.ReactElement => {
   const navigate = useNavigate();
-  const { users }  = useSelector((user: { users: UserGetAllItemResponseDto[], dataStatus: string }) => user);
+  const { users } = useSelector(
+    (user: { users: UserGetAllItemResponseDto[]; dataStatus: string }) => user,
+  );
   const hasUser = Boolean(users);
 
   useEffect(() => {
