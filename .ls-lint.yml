@@ -25,3 +25,4 @@ ignore:
   - frontend/node_modules
   - backend/build
   - backend/node_modules
+  - .idea
