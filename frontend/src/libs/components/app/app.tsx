@@ -56,7 +56,7 @@ const App: React.FC = () => {
           </ul>
         </>
       )}
-      <Toastr/>
+      <Toastr />
     </>
   );
 };
