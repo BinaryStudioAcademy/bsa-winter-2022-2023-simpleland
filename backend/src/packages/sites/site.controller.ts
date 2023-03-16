@@ -76,6 +76,17 @@ class SiteController extends Controller {
    *                   items:
    *                     $ref: '#/components/schemas/Site'
    *                   minItems: 0
+   */
+  private async findAll(): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.siteService.findAll(),
+    };
+  }
+
+  /**
+   * @swagger
+   * /sites:
    *   post:
    *     description: Create a site. Returns object with site info
    *     requestBody:
@@ -97,15 +108,8 @@ class SiteController extends Controller {
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/Site'
+   *
    */
-
-  private async findAll(): Promise<ApiHandlerResponse> {
-    return {
-      status: HttpCode.OK,
-      payload: await this.siteService.findAll(),
-    };
-  }
-
   private async create(
     options: ApiHandlerOptions<{
       body: SiteCreateRequestDto;
