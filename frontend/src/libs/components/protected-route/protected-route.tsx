@@ -1,19 +1,19 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { AppRoute, DataStatus } from '~/libs/enums/enums.js';
+import { useAppSelector, useEffect, useNavigate } from '~/libs/hooks/hooks.js';
 
-import { AppRoute } from '~/libs/enums/app-route.enum';
-import { useAppSelector, useNavigate } from '~/libs/hooks/hooks.js';
-
-const ProtectedRoute = (): React.ReactElement => {
+type Properties = {
+  children: React.ReactNode;
+};
+const ProtectedRoute: React.FC<Properties> = ({ children }: Properties) => {
+  const { auth } = useAppSelector((users) => users);
   const navigate = useNavigate();
-  const { users } = useAppSelector((user) => user);
-  const hasUser = Boolean(users);
+  useEffect(() => {
+    if (auth.dataStatus !== DataStatus.FULFILLED) {
+      navigate(AppRoute.SIGN_IN);
+    }
+  }, [auth, navigate]);
 
-  if (!hasUser) {
-    navigate(AppRoute.SIGN_IN);
-  }
-
-  return <Outlet />;
+  return <>{children}</>;
 };
 
 export { ProtectedRoute };
