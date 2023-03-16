@@ -7,6 +7,7 @@ type Properties = {
 const ProtectedRoute: React.FC<Properties> = ({ children }: Properties) => {
   const { auth } = useAppSelector((auth) => auth);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (auth.dataStatus === DataStatus.IDLE) {
       navigate(AppRoute.SIGN_IN);
