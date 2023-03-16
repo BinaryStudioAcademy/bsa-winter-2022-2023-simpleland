@@ -5,9 +5,7 @@ const NotFound = (): JSX.Element => {
     <div className={styles.notFoundPage}>
       <h1 className={styles.warningMessage}>Oops!</h1>
       <p className={styles.warningNumber}>404</p>
-      <p>
-        <p className={styles.status}>Page not found</p>
-      </p>
+      <p className={styles.status}>Page not found</p>
     </div>
   );
 };
