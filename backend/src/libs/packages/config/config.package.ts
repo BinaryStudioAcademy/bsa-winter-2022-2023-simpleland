@@ -76,6 +76,18 @@ class Config implements IConfig {
           env: 'SECRET_KEY',
           default: null,
         },
+        ALGORITHM: {
+          doc: 'Encoding algorithm',
+          format: String,
+          env: 'ALGORITHM',
+          default: null,
+        },
+        EXP_TIME: {
+          doc: 'Token expiration time',
+          format: String,
+          env: 'EXP_TIME',
+          default: null,
+        },
       },
     });
   }

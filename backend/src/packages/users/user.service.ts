@@ -2,11 +2,10 @@ import { type IService } from '~/libs/interfaces/interfaces.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserRepository } from '~/packages/users/user.repository.js';
 
-import { createToken } from '../auth/libs/helpers/token/create-token/create.token.helper.js';
 import {
+  type UserAuthResponse,
   type UserGetAllResponseDto,
   type UserSignUpRequestDto,
-  type UserSignUpResponseDto,
 } from './libs/types/types.js';
 
 class UserService implements IService {
@@ -16,8 +15,8 @@ class UserService implements IService {
     this.userRepository = userRepository;
   }
 
-  public find(): ReturnType<IService['find']> {
-    return Promise.resolve(null);
+  public async find(payload: string): ReturnType<IService['find']> {
+    return await this.userRepository.find(payload);
   }
 
   public async findAll(): Promise<UserGetAllResponseDto> {
@@ -30,7 +29,7 @@ class UserService implements IService {
 
   public async create(
     payload: UserSignUpRequestDto,
-  ): Promise<UserSignUpResponseDto> {
+  ): Promise<UserAuthResponse> {
     const user = await this.userRepository.create(
       UserEntity.initializeNew({
         email: payload.email,
@@ -38,8 +37,7 @@ class UserService implements IService {
         passwordHash: 'HASH', // TODO
       }),
     );
-    const outUser = user.toObject();
-    return { token: createToken(outUser.id), user: outUser };
+    return user.toObject();
   }
 
   public update(): ReturnType<IService['update']> {
