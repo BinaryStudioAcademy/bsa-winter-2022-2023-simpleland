@@ -1,12 +1,10 @@
-:root {
-  --logo-font-size: 24px;
-  --profile-data-font-size: 16px;
-}
-
 .header {
+  position: fixed;
+  top: 0;
   display: flex;
   align-items: center;
   width: 100%;
+  height: 60px;
   color: var(--white);
   font-weight: 400;
   font-family: Roboto, sans-serif;
@@ -14,26 +12,23 @@
   background: var(--gray-600);
 }
 
-.logoContainer {
+.logoWrapper {
   display: flex;
   align-items: center;
   gap: 7px;
   padding: 15px 40px;
 }
 
-.logoContainer > * {
-  cursor: pointer;
-}
-
-.headerLogo {
+.logoIcon {
   width: 32.14px;
   height: 32.14px;
   background-color: var(--yellow);
   border-radius: 50%;
+  cursor: pointer;
 }
 
-.headerLogoText {
-  font-size: var(--logo-font-size);
+.logoText {
+  font-size: 24px;
   line-height: 103.5%;
   cursor: pointer;
 }
@@ -48,29 +43,32 @@
   padding-left: 95px;
 }
 
-.headerSectionTitle {
-  font-size: var(--profile-data-font-size);
-  line-height: 28px;
-  border-bottom: 2px solid #ffb61d;
+.headerNavList {
+  display: flex;
+  padding: 0;
+  list-style-type: none;
 }
 
-.headerProfileData {
+.sectionTitle {
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.profileDataWrapper {
   display: flex;
   align-items: center;
   gap: 7px;
 }
 
-.headerProfileData > * {
+.profileCaption {
+  font-size: 16px;
+  line-height: 28px;
   cursor: pointer;
 }
 
-.headerProfileCaption {
-  font-size: var(--profile-data-font-size);
-  line-height: 28px;
-}
-
-.headerProfileIcon {
+.profileIcon {
   width: 36px;
   height: 36px;
   border-radius: 50%;
+  cursor: pointer;
 }

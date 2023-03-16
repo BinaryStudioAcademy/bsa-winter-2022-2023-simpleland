@@ -1,31 +1,32 @@
-import styles from './header.module.scss';
+import { Link } from '~/libs/components/components.js';
+import { type UserGetAllItemResponseDto } from '~/packages/users/libs/types/types.js';
+
+import styles from './styles.module.scss';
 
 type Properties = {
-  caption: string;
-  username: string;
-  image: string;
+  user: UserGetAllItemResponseDto;
 };
 
-const Header: React.FC<Properties> = ({
-  caption,
-  username,
-  image,
-}: Properties) => {
+const Header: React.FC<Properties> = ({ user }: Properties) => {
   return (
     <header className={styles.header}>
-      <div className={styles.logoContainer}>
-        <div className={styles.headerLogo} />
-        <span className={styles.headerLogoText}>logo</span>
+      <div className={styles.logoWrapper}>
+        <div className={styles.logoIcon} />
+        <span className={styles.logoText}>logo</span>
       </div>
       <div className={styles.headerSidebar}>
-        <span className={styles.headerSectionTitle}>{caption}</span>
-        <div className={styles.headerProfileData}>
-          <img
-            src={image}
-            alt="profile-icon"
-            className={styles.headerProfileIcon}
-          />
-          <span className={styles.headerProfileCaption}>{username}</span>
+        <ul className={styles.headerNavList}>
+          <li>
+            <Link to={'/'}>
+              <span className={styles.sectionTitle}>My sites</span>
+            </Link>
+          </li>
+        </ul>
+        <div className={styles.profileDataWrapper}>
+          <img alt={'img'} src={''} className={styles.profileIcon} />
+          <span className={styles.profileCaption}>
+            {user.firstName} {user.lastName}
+          </span>
         </div>
       </div>
     </header>
