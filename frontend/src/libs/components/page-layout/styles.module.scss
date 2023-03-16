@@ -1,0 +1,32 @@
+.pageLayout {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: center / cover no-repeat
+      url("../../../assets/img/background-image.svg"),
+    left / auto repeat url("../../../assets/img/background-pattern.png");
+}
+
+.pageLayout::after {
+  content: "SimpleLand";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: var(--white);
+  font-size: 132px;
+  line-height: 0.8;
+  text-transform: uppercase;
+  transform: rotate(-90deg) translate(0, 100%);
+  transform-origin: bottom left;
+  opacity: 0.3;
+}
+
+.yellow {
+  background-color: var(--yellow);
+}
+
+.black {
+  background-color: var(--gray-600);
+}
