@@ -1,4 +1,4 @@
-import styles from './not-found.module.css';
+import styles from './not-found.module.scss';
 
 const NotFound = (): JSX.Element => {
   return (
@@ -6,7 +6,7 @@ const NotFound = (): JSX.Element => {
       <h1 className={styles.warningMessage}>Oops!</h1>
       <p className={styles.warningNumber}>404</p>
       <p>
-        <i className={styles.status}>Page not found</i>
+        <p className={styles.status}>Page not found</p>
       </p>
     </div>
   );
