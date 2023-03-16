@@ -14,11 +14,7 @@ class UserModel extends AbstractModel {
 
   public 'passwordSalt': string;
 
-  public 'firstName': string;
-
-  public 'lastName': string;
-
-  public userDetails: UserDetailsModel = new UserDetailsModel();
+  public 'userDetails': UserDetailsModel;
 
   public static override get tableName(): string {
     return DatabaseTableName.USERS;
@@ -30,7 +26,7 @@ class UserModel extends AbstractModel {
         modelClass: UserDetailsModel,
         join: {
           from: 'users.id',
-          to: 'user_details.user_id',
+          to: 'user_details.userId',
         },
       },
     };
