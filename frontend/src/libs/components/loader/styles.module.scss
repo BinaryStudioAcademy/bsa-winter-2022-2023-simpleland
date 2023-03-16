@@ -1,0 +1,132 @@
+.outWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.wrapper {
+  position: relative;
+}
+
+.loader {
+  width: 34px;
+  height: 34px;
+}
+
+.loader::after,
+.loader span::before,
+.loader span::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: auto;
+  border-radius: 50%;
+}
+
+.loader::after {
+  animation: loader1 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+
+.loader.yellow::after {
+  background-color: var(--yellow);
+}
+
+.loader.black::after {
+  background-color: var(--gray-600);
+}
+
+.loader span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  margin: auto;
+  animation: loader2 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+
+.loader span::before,
+.loader span::after {
+  animation: loader3 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+
+.loader span::after {
+  animation: loader4 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+
+.loader.yellow span::before,
+.loader.yellow span::after {
+  background-color: var(--yellow);
+}
+
+.loader.black span::before,
+.loader.black span::after {
+  background-color: var(--gray-600);
+}
+
+@keyframes loader1 {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes loader2 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(-18px, 0, 0) scale(0.5);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes loader4 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(18px, 0, 0) scale(0.5);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
