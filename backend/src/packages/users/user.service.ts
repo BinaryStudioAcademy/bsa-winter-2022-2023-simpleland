@@ -2,6 +2,7 @@ import { type IService } from '~/libs/interfaces/interfaces.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserRepository } from '~/packages/users/user.repository.js';
 
+import { createToken } from '../auth/libs/helpers/token/create-token/create.token.helper.js';
 import {
   type UserGetAllResponseDto,
   type UserSignUpRequestDto,
@@ -37,8 +38,8 @@ class UserService implements IService {
         passwordHash: 'HASH', // TODO
       }),
     );
-
-    return user.toObject();
+    const outUser = user.toObject();
+    return { token: createToken(outUser.id), user: outUser };
   }
 
   public update(): ReturnType<IService['update']> {
