@@ -1,13 +1,16 @@
 import { ApiPath } from '~/libs/enums/enums.js';
 import {
+  type ApiHandlerOptions,
   type ApiHandlerResponse,
-  Controller,
 } from '~/libs/packages/controller/controller.js';
+import { Controller } from '~/libs/packages/controller/controller.js';
 import { HttpCode } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type SiteService } from '~/packages/sites/site.service.js';
 
 import { SitesApiPath } from './libs/enums/enums.js';
+import { type SiteCreateRequestDto } from './libs/types/types.js';
+import { siteCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -41,6 +44,18 @@ class SiteController extends Controller {
       method: 'GET',
       handler: () => this.findAll(),
     });
+
+    this.addRoute({
+      path: SitesApiPath.ROOT,
+      method: 'POST',
+      validation: {
+        body: siteCreateValidationSchema,
+      },
+      handler: (options) =>
+        this.create(
+          options as ApiHandlerOptions<{ body: SiteCreateRequestDto }>,
+        ),
+    });
   }
 
   /**
@@ -58,15 +73,47 @@ class SiteController extends Controller {
    *               properties:
    *                 items:
    *                   type: array
-   *                   items
+   *                   items:
    *                     $ref: '#/components/schemas/Site'
    *                   minItems: 0
+   *   post:
+   *     description: Create a site. Returns object with site info
+   *     requestBody:
+   *       description: Site payload
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             name:
+   *               type: string
+   *             publishedUrl:
+   *               type: string
+   *               format: uri
+   *               nullable: true
+   *     responses:
+   *       201:
+   *         description: Successful creation
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Site'
    */
 
   private async findAll(): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
       payload: await this.siteService.findAll(),
+    };
+  }
+
+  private async create(
+    options: ApiHandlerOptions<{
+      body: SiteCreateRequestDto;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.CREATED,
+      payload: await this.siteService.create(options.body),
     };
   }
 }

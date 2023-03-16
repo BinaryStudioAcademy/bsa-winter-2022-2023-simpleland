@@ -11,7 +11,10 @@ const siteController = new SiteController(logger, siteService);
 
 export { siteController, siteService };
 export {
+  type SiteCreateRequestDto,
+  type SiteCreateResponseDto,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
 } from './libs/types/types.js';
+export { siteCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
 export { SiteModel } from './site.model.js';

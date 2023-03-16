@@ -1,7 +1,7 @@
 import { type IEntity } from '~/libs/interfaces/interfaces.js';
 
-class SiteEntity implements Omit<IEntity, 'toNewObject'> {
-  private 'id': number;
+class SiteEntity implements IEntity {
+  private 'id': number | null;
 
   private 'name': string;
 
@@ -12,7 +12,7 @@ class SiteEntity implements Omit<IEntity, 'toNewObject'> {
     name,
     publishedUrl,
   }: {
-    id: number;
+    id: number | null;
     name: string;
     publishedUrl: string | null;
   }) {
@@ -33,9 +33,30 @@ class SiteEntity implements Omit<IEntity, 'toNewObject'> {
     return new SiteEntity({ id, name, publishedUrl });
   }
 
+  public static initializeNew({
+    name,
+    publishedUrl,
+  }: {
+    name: string;
+    publishedUrl: string | null;
+  }): SiteEntity {
+    return new SiteEntity({
+      id: null,
+      name,
+      publishedUrl,
+    });
+  }
+
   public toObject(): { id: number; name: string; publishedUrl: string | null } {
     return {
-      id: this.id,
+      id: this.id as number,
+      name: this.name,
+      publishedUrl: this.publishedUrl,
+    };
+  }
+
+  public toNewObject(): { name: string; publishedUrl: string | null } {
+    return {
       name: this.name,
       publishedUrl: this.publishedUrl,
     };
