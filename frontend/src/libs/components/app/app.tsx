@@ -1,9 +1,5 @@
-import 'react-toastify/dist/ReactToastify.css';
-
-import { ToastContainer } from 'react-toastify';
-
 import reactLogo from '~/assets/img/react.svg';
-import { Link, RouterOutlet } from '~/libs/components/components.js';
+import { Link, RouterOutlet, Toastr } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
@@ -60,8 +56,7 @@ const App: React.FC = () => {
           </ul>
         </>
       )}
-
-      <ToastContainer />
+      <Toastr/>
     </>
   );
 };

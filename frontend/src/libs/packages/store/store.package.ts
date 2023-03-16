@@ -13,6 +13,7 @@ import { reducer as authReducer } from '~/slices/auth/auth.js';
 import { reducer as usersReducer } from '~/slices/users/users.js';
 
 import { notification } from '../notification/notification.js';
+import { handleErrorMiddleware } from './middlewares/middlewares.js';
 
 type RootReducer = {
   auth: ReturnType<typeof authReducer>;
@@ -42,11 +43,14 @@ class Store {
         users: usersReducer,
       },
       middleware: (getDefaultMiddleware) => {
-        return getDefaultMiddleware({
-          thunk: {
-            extraArgument: this.extraArguments,
-          },
-        });
+        return [
+          handleErrorMiddleware,
+          ...getDefaultMiddleware({
+            thunk: {
+              extraArgument: this.extraArguments,
+            },
+          }),
+        ];
       },
     });
   }

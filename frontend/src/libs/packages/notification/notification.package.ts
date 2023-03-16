@@ -1,13 +1,14 @@
+import { type ToastOptions } from 'react-toastify';
 import { toast } from 'react-toastify';
 
-import { type ValueOf } from '~/libs/types/types.js';
-
-import { type NotificationType } from './libs/enums/enums.js';
-import { type INotification } from './libs/interfaces/interfaces.js';
-
-class Notification implements INotification {
-  public show(message: string, type: ValueOf<typeof NotificationType>): void {
-    toast[type](message);
+class Notification {
+  public error(message: string): void {
+    this.show(message, {
+      type: 'error',
+    });
+  }
+  private show(message: string, parameters: ToastOptions): void {
+    toast(message, parameters);
   }
 }
 
