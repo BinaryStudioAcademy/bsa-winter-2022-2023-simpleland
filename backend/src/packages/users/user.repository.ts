@@ -1,17 +1,14 @@
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserModel } from '~/packages/users/user.model.js';
-import { type UserDetailsModel } from '~/packages/users/user-details.model.js';
 
-class UserRepository implements IRepository {
+class UserRepository
+  implements Omit<IRepository, 'find' | 'update' | 'delete'>
+{
   private userModel: typeof UserModel;
 
   public constructor(userModel: typeof UserModel) {
     this.userModel = userModel;
-  }
-
-  public find(): ReturnType<IRepository['find']> {
-    return Promise.resolve(null);
   }
 
   public async findAll(): Promise<UserEntity[]> {
@@ -38,18 +35,16 @@ class UserRepository implements IRepository {
 
     const user = await this.userModel
       .query()
-      .insert({
+      .insertGraphAndFetch({
         email,
         passwordSalt,
         passwordHash,
+        userDetails: {
+          firstName,
+          lastName,
+        },
       })
-      .returning('*')
-      .execute();
-
-    const userDetails = await user
-      .$relatedQuery<UserDetailsModel>('userDetails')
-      .insert({ firstName, lastName })
-      .returning('*')
+      .withGraphFetched('userDetails')
       .execute();
 
     return UserEntity.initialize({
@@ -57,17 +52,9 @@ class UserRepository implements IRepository {
       email: user.email,
       passwordHash: user.passwordHash,
       passwordSalt: user.passwordSalt,
-      firstName: userDetails.firstName,
-      lastName: userDetails.lastName,
+      firstName: user.userDetails.firstName,
+      lastName: user.userDetails.lastName,
     });
-  }
-
-  public update(): ReturnType<IRepository['update']> {
-    return Promise.resolve(null);
-  }
-
-  public delete(): ReturnType<IRepository['delete']> {
-    return Promise.resolve(true);
   }
 }
 
