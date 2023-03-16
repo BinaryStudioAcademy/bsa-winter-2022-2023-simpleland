@@ -15,16 +15,29 @@ class UserRepository implements IRepository {
   }
 
   public async findAll(): Promise<UserEntity[]> {
-    const users = await this.userModel.query().execute();
+    const users = await this.userModel
+      .query()
+      .withGraphFetched('userDetails')
+      .returning('*')
+      .execute();
 
-    return users.map((it) => UserEntity.initialize(it));
+    return users.map((user) => {
+      return UserEntity.initialize({
+        id: user.id,
+        email: user.email,
+        passwordHash: user.passwordHash,
+        passwordSalt: user.passwordSalt,
+        firstName: user.userDetails.firstName,
+        lastName: user.userDetails.lastName,
+      });
+    });
   }
 
   public async create(entity: UserEntity): Promise<UserEntity> {
     const { email, passwordSalt, passwordHash, firstName, lastName } =
       entity.toNewObject();
 
-    const item = await this.userModel
+    const user = await this.userModel
       .query()
       .insert({
         email,
@@ -34,14 +47,19 @@ class UserRepository implements IRepository {
       .returning('*')
       .execute();
 
-    await item
+    const userDetails = await user
       .$relatedQuery<UserDetailsModel>('userDetails')
-      .insert({ firstName, lastName });
+      .insert({ firstName, lastName })
+      .returning('*')
+      .execute();
 
     return UserEntity.initialize({
-      ...item,
-      firstName,
-      lastName,
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
+      firstName: userDetails.firstName,
+      lastName: userDetails.lastName,
     });
   }
 
