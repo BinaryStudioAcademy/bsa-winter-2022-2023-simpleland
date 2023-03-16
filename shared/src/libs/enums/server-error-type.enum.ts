@@ -1,6 +1,6 @@
 const ServerErrorType = {
-  COMMON: 'COMMON',
-  VALIDATION: 'VALIDATION',
+  COMMON: 'common',
+  VALIDATION: 'validation',
 } as const;
 
 export { ServerErrorType };
