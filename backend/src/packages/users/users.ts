@@ -20,3 +20,4 @@ export {
   userSignUpValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
 export { UserModel } from './user.model.js';
+export { UserDetailsModel } from './user-details.model.js';

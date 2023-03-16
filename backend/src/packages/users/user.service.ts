@@ -8,7 +8,7 @@ import {
   type UserSignUpRequestDto,
 } from './libs/types/types.js';
 
-class UserService implements IService {
+class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
   private userRepository: UserRepository;
 
   public constructor(userRepository: UserRepository) {
@@ -35,17 +35,11 @@ class UserService implements IService {
         email: payload.email,
         passwordSalt: 'SALT', // TODO
         passwordHash: 'HASH', // TODO
+        firstName: payload.firstName,
+        lastName: payload.lastName,
       }),
     );
     return user.toObject();
-  }
-
-  public update(): ReturnType<IService['update']> {
-    return Promise.resolve(null);
-  }
-
-  public delete(): ReturnType<IService['delete']> {
-    return Promise.resolve(true);
   }
 }
 
