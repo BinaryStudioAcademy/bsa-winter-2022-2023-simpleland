@@ -6,10 +6,10 @@ export {
   type ValueOf,
 } from 'shared/build/index.js';
 
-type Option = {
-  value: string;
+type Options = {
+  value: string
   label: string;
 };
 
-export { type Option };
+export { type Options };
 
