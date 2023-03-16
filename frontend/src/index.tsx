@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 
 import {
   App,
+  PageLayout,
   RouterProvider,
   StoreProvider,
 } from '~/libs/components/components.js';
@@ -25,7 +26,11 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
             children: [
               {
                 path: AppRoute.ROOT,
-                element: <ProtectedRoute>Root</ProtectedRoute>,
+                element: (
+                  <PageLayout>
+                    <ProtectedRoute>Root</ProtectedRoute>
+                  </PageLayout>
+                ),
               },
               {
                 path: AppRoute.SIGN_IN,
