@@ -27,9 +27,9 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
               {
                 path: AppRoute.ROOT,
                 element: (
-                  <PageLayout>
-                    <ProtectedRoute>Root</ProtectedRoute>
-                  </PageLayout>
+                  <ProtectedRoute>
+                    <PageLayout>Root</PageLayout>
+                  </ProtectedRoute>
                 ),
               },
               {
