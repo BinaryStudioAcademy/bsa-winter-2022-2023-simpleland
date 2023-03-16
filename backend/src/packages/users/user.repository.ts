@@ -17,9 +17,8 @@ class UserRepository implements IRepository {
   public async findAll(): Promise<UserEntity[]> {
     const users = await this.userModel
       .query()
-      .withGraphFetched('userDetails')
-      .returning('*')
-      .execute();
+      .select()
+      .withGraphJoined('userDetails');
 
     return users.map((user) => {
       return UserEntity.initialize({
