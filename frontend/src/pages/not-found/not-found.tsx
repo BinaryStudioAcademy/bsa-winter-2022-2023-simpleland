@@ -4,7 +4,7 @@ const NotFound = (): JSX.Element => {
   return (
     <div className={styles.notFoundPage}>
       <h1 className={styles.warningMessage}>Oops!</h1>
-      <p className={styles.namberError}>404</p>
+      <p className={styles.warningNumber}>404</p>
       <p>
         <i className={styles.status}>Page not found</i>
       </p>
