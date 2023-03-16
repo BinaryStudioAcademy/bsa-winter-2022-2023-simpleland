@@ -2,7 +2,7 @@ import { type Knex } from 'knex';
 
 const TABLE_NAME = 'sites';
 
-const COLUMN_NAME = {
+const ColumnName = {
   ID: 'id',
   NAME: 'name',
   PUBLISHED_URL: 'published_url',
@@ -12,15 +12,15 @@ const COLUMN_NAME = {
 
 function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(TABLE_NAME, (table) => {
-    table.increments(COLUMN_NAME.ID).primary();
-    table.string(COLUMN_NAME.NAME).notNullable();
-    table.string(COLUMN_NAME.PUBLISHED_URL).nullable().defaultTo(null);
+    table.increments(ColumnName.ID).primary();
+    table.string(ColumnName.NAME).notNullable();
+    table.string(ColumnName.PUBLISHED_URL).nullable().defaultTo(null);
     table
-      .dateTime(COLUMN_NAME.CREATED_AT)
+      .dateTime(ColumnName.CREATED_AT)
       .notNullable()
       .defaultTo(knex.fn.now());
     table
-      .dateTime(COLUMN_NAME.UPDATED_AT)
+      .dateTime(ColumnName.UPDATED_AT)
       .notNullable()
       .defaultTo(knex.fn.now());
   });
