@@ -2,6 +2,7 @@ import { config } from '~/libs/packages/config/config.js';
 import { database } from '~/libs/packages/database/database.js';
 import { logger } from '~/libs/packages/logger/logger.js';
 import { authController } from '~/packages/auth/auth.js';
+import { projectController } from '~/packages/projects/projects.js';
 import { siteController } from '~/packages/sites/sites.js';
 import { userController } from '~/packages/users/users.js';
 
@@ -14,6 +15,7 @@ const apiV1 = new ServerAppApi(
   ...authController.routes,
   ...userController.routes,
   ...siteController.routes,
+  ...projectController.routes,
 );
 const serverApp = new ServerApp({
   config,
