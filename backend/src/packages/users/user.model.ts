@@ -5,6 +5,7 @@ import {
   DatabaseTableName,
   getJoinRelationPath,
 } from '~/libs/packages/database/database.js';
+import { ProjectModel } from '~/packages/projects/project.model.js';
 import { UserDetailsModel } from '~/packages/users/user-details.model.js';
 
 class UserModel extends AbstractModel {
@@ -28,6 +29,17 @@ class UserModel extends AbstractModel {
         from: 'users.id',
         to: getJoinRelationPath<UserDetailsModel>(
           DatabaseTableName.USER_DETAILS,
+          'userId',
+        ),
+      },
+    },
+    projects: {
+      relation: Model.HasOneRelation,
+      modelClass: ProjectModel,
+      join: {
+        from: 'users.id',
+        to: getJoinRelationPath<UserDetailsModel>(
+          DatabaseTableName.PROJECTS,
           'userId',
         ),
       },
