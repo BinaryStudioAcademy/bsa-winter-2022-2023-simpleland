@@ -1,3 +1,5 @@
+import './styles.module.scss';
+
 import {
   type Control,
   type FieldErrors,
@@ -8,11 +10,8 @@ import Select, { type StylesConfig } from 'react-select';
 
 import { useFormController } from '~/libs/hooks/hooks.js';
 
-import { type Options } from '../../types/types.js';
-
 type SelectProperties<T extends FieldValues> = {
   control: Control<T, null>;
-  label: string;
   name: FieldPath<T>;
   options: Options[];
   placeholder?: string;
@@ -22,16 +21,23 @@ type SelectProperties<T extends FieldValues> = {
   errors: FieldErrors<T>;
 };
 
+type Options = {
+  value: string | number | string[] | undefined;
+  label: string;
+};
+
 const SelectStyles: StylesConfig<Options> = {
+
   control: (provided) => ({
     ...provided,
     border: '2px solid #FFB61D',
     '&:hover': {
       border: '2px solid #FFB61D',
     },
+    borderRadius: '0',
+    boxShadow: 'none',
     width: '324px',
     cursor: 'pointer',
-
   }),
   option: (provided, state) => ({
     ...provided,
@@ -41,34 +47,54 @@ const SelectStyles: StylesConfig<Options> = {
       backgroundColor: '#C4C4C4',
     },
     cursor: 'pointer',
+    fontSize: '14px',
+    padding: '6px 16px',
+    height: '36px',
+
   }),
   menu: (provided) => ({
     ...provided,
     backgroundColor: 'white',
     borderRadius: '0',
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
-    marginTop: '0',
     cursor: 'pointer',
     width: '324px',
   }),
-  placeholder: (provided) => ({
+  menuList: (provided) => ({
     ...provided,
-    color: '#C9C9C9',
+    padding: '0',
   }),
   dropdownIndicator: (provided, state) => {
-    const isFocused = state.isFocused;
-    const rotation = isFocused ? '180deg' : '0deg';
+    const rotation = state.selectProps.menuIsOpen ? '180deg' : '0deg';
     return {
       ...provided,
       color: '#343434',
       transform: `rotate(${rotation})`,
     };
   },
+  indicatorSeparator: (provided) => ({
+    ...provided,
+    display: 'none',
+  }),
+  valueContainer: (provided, state) => ({
+    ...provided,
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 10px',
+    '&::before': {
+      content: '""',
+      display: state.selectProps.menuIsOpen ? 'none' : 'inline-block',
+      width: '16px',
+      height: '16px',
+      backgroundImage: 'url(../../../assets/img/icons/search2.png)',
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+    },
+  }),
 };
 
 const SelectComponent = <T extends FieldValues>({
   control,
-  label,
   name,
   options,
   placeholder = '',
@@ -81,19 +107,17 @@ const SelectComponent = <T extends FieldValues>({
 
   return (
     <div>
-      <label>{label}</label>
-      <div>
-        <Select
-          {...field}
-          value={options.find((option) => option.value === field.value)}
-          defaultValue={null}
-          classNamePrefix="react-select"
-          options={options}
-          placeholder={placeholder}
-          name={name}
-          styles={SelectStyles}
-        />
-      </div>
+      <div className="test"></div>
+      <Select
+        {...field}
+        value={options.find((option) => option.value === field.value)}
+        defaultValue={null}
+        classNamePrefix="react-select"
+        options={options}
+        placeholder={placeholder}
+        name={name}
+        styles={SelectStyles}
+      />
       {hasError && <span>{error as string}</span>}
     </div>
   );
