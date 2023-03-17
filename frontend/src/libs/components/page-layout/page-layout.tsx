@@ -13,7 +13,7 @@ const PageLayout: React.FC<Properties> = ({
   style = 'yellow',
 }: Properties) => (
   <div className={getValidClassNames(styles.pageLayout, styles[style])}>
-    <Header/>
+    <Header />
     {children}
   </div>
 );

@@ -5,10 +5,11 @@ import { useAppSelector } from '~/libs/hooks/hooks.js';
 import styles from './styles.module.scss';
 
 const Header: React.FC = () => {
-
-  const { user: userData } = useAppSelector(({ auth }) => ({ user: auth.user }));
+  const { user: userData } = useAppSelector(({ auth }) => ({
+    user: auth.user,
+  }));
   const { users } = useAppSelector(({ users }) => users);
-  const user = users.find(user => user.id === userData?.id);
+  const user = users.find((user) => user.id === userData?.id);
 
   return (
     <header className={styles.header}>
