@@ -1,3 +1,4 @@
+import { Header } from '~/libs/components/header/header.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 
 import styles from './styles.module.scss';
@@ -12,6 +13,7 @@ const PageLayout: React.FC<Properties> = ({
   style = 'yellow',
 }: Properties) => (
   <div className={getValidClassNames(styles.pageLayout, styles[style])}>
+    <Header/>
     {children}
   </div>
 );

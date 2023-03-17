@@ -1,14 +1,15 @@
 import profileImage from '~/assets/img/profile-image.png';
 import { Link } from '~/libs/components/components.js';
-import { type UserGetAllItemResponseDto } from '~/packages/users/libs/types/types.js';
+import { useAppSelector } from '~/libs/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
-type Properties = {
-  user: UserGetAllItemResponseDto;
-};
+const Header: React.FC = () => {
 
-const Header: React.FC<Properties> = ({ user }: Properties) => {
+  const { user: userData } = useAppSelector(({ auth }) => ({ user: auth.user }));
+  const { users } = useAppSelector(({ users }) => users);
+  const user = users.find(user => user.id === userData?.id);
+
   return (
     <header className={styles.header}>
       <div className={styles.logoWrapper}>
@@ -26,7 +27,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
         <div className={styles.profileDataWrapper}>
           <img alt={'img'} src={profileImage} className={styles.profileIcon} />
           <span className={styles.profileCaption}>
-            {user.firstName} {user.lastName}
+            {user?.firstName} {user?.lastName}
           </span>
         </div>
       </div>
