@@ -1,5 +1,3 @@
-import './styles.module.scss';
-
 import {
   type Control,
   type FieldErrors,
@@ -81,12 +79,12 @@ const SelectStyles: StylesConfig<Options> = {
     display: 'flex',
     alignItems: 'center',
     padding: '0 10px',
-    '&::before': {
+    '&::after': {
       content: '""',
       display: state.selectProps.menuIsOpen ? 'none' : 'inline-block',
       width: '16px',
       height: '16px',
-      backgroundImage: 'url(../../../assets/img/icons/search2.png)',
+      backgroundImage: 'url(../../../assets/img/icons/search.svg)',
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
     },
