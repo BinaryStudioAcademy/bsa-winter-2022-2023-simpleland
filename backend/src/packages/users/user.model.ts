@@ -31,7 +31,7 @@ class UserModel extends AbstractModel {
           'userId',
         ),
       },
-    }
+    },
   });
 }
 
