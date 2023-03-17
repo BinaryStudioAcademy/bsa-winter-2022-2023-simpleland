@@ -7,6 +7,7 @@ const ProtectedRoute: React.FC<React.PropsWithChildren> = ({
 }: React.PropsWithChildren) => {
   const { user } = useAppSelector(({ auth }) => ({ user: auth.user }));
   const hasAuthenticatedUser = Boolean(user);
+
   if (!hasAuthenticatedUser) {
     return <Navigate to={AppRoute.SIGN_IN} replace />;
   }

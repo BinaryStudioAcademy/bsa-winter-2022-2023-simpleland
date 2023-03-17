@@ -14,6 +14,7 @@ const signUp = createAsyncThunk<
   AsyncThunkConfig
 >(`${sliceName}/sign-up`, (registerPayload, { extra }) => {
   const { authApi } = extra;
+
   return authApi.signUp(registerPayload);
 });
 

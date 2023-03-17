@@ -11,6 +11,7 @@ const loadAll = createAsyncThunk<
   AsyncThunkConfig
 >(`${sliceName}/sign-up`, (_, { extra }) => {
   const { userApi } = extra;
+
   return userApi.getAll();
 });
 
