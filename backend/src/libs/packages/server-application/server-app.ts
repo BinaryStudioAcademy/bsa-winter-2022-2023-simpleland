@@ -8,6 +8,8 @@ import { type IConfig } from '~/libs/packages/config/config.js';
 import { type IDatabase } from '~/libs/packages/database/database.js';
 import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
+import { type WhiteRoutesConfig } from '~/libs/packages/white-routes-config/white-routes-config.js';
+import { authorization } from '~/libs/plugins/authorization.plugin.js';
 import {
   type ServerCommonErrorResponse,
   type ServerValidationErrorResponse,
@@ -25,6 +27,7 @@ type Constructor = {
   logger: ILogger;
   database: IDatabase;
   apis: IServerAppApi[];
+  whiteRoutesConfig: WhiteRoutesConfig;
 };
 
 class ServerApp implements IServerApp {
@@ -38,11 +41,20 @@ class ServerApp implements IServerApp {
 
   private app: ReturnType<typeof Fastify>;
 
-  public constructor({ config, logger, database, apis }: Constructor) {
+  private whiteRoutesConfig: WhiteRoutesConfig;
+
+  public constructor({
+    config,
+    logger,
+    database,
+    apis,
+    whiteRoutesConfig,
+  }: Constructor) {
     this.config = config;
     this.logger = logger;
     this.database = database;
     this.apis = apis;
+    this.whiteRoutesConfig = whiteRoutesConfig;
 
     this.app = Fastify();
   }
@@ -72,6 +84,12 @@ class ServerApp implements IServerApp {
     const routers = this.apis.flatMap((it) => it.routes);
 
     this.addRoutes(routers);
+  }
+
+  private async initPlugins(): Promise<void> {
+    await this.app.register(authorization, {
+      whiteRoutesConfig: this.whiteRoutesConfig,
+    });
   }
 
   public async initMiddlewares(): Promise<void> {
@@ -154,6 +172,8 @@ class ServerApp implements IServerApp {
 
   public async init(): Promise<void> {
     this.logger.info('Application initialization…');
+
+    await this.initPlugins();
 
     await this.initMiddlewares();
 

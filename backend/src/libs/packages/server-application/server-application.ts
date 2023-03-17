@@ -6,6 +6,7 @@ import { projectController } from '~/packages/projects/projects.js';
 import { siteController } from '~/packages/sites/sites.js';
 import { userController } from '~/packages/users/users.js';
 
+import { whiteRoutesConfig } from '../white-routes-config/white-routes-config.js';
 import { ServerApp } from './server-app.js';
 import { ServerAppApi } from './server-app-api.js';
 
@@ -22,6 +23,7 @@ const serverApp = new ServerApp({
   logger,
   database,
   apis: [apiV1],
+  whiteRoutesConfig,
 });
 
 export { serverApp };
