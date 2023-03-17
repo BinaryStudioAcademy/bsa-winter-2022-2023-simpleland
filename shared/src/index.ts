@@ -32,7 +32,6 @@ export {
   type UserAuthResponse,
   type UserGetAllItemResponseDto,
   type UserGetAllResponseDto,
-  type UserRegisterResponse,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,

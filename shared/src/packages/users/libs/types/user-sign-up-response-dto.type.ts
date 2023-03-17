@@ -1,8 +1,8 @@
-import { type UserRegisterResponse } from './user-register-response.type.js';
+import { type UserAuthResponse } from './user-auth-response.type.js';
 
 type UserSignUpResponseDto = {
   token: string;
-  user: UserRegisterResponse;
+  user: UserAuthResponse;
 };
 
 export { type UserSignUpResponseDto };
