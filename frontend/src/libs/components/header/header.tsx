@@ -1,3 +1,4 @@
+import profileImage from '~/assets/img/profile-image.png';
 import { Link } from '~/libs/components/components.js';
 import { type UserGetAllItemResponseDto } from '~/packages/users/libs/types/types.js';
 
@@ -23,7 +24,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
           </li>
         </ul>
         <div className={styles.profileDataWrapper}>
-          <img alt={'img'} src={''} className={styles.profileIcon} />
+          <img alt={'img'} src={profileImage} className={styles.profileIcon} />
           <span className={styles.profileCaption}>
             {user.firstName} {user.lastName}
           </span>
