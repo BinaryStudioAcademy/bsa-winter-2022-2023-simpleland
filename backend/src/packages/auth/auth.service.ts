@@ -1,6 +1,4 @@
-import * as jose from 'jose';
-
-import { config } from '~/libs/packages/config/config.js';
+import { type Token } from '~/libs/packages/token/token-package.js';
 import {
   type UserAuthResponse,
   type UserSignInRequestDto,
@@ -12,9 +10,10 @@ import { type UserService } from '~/packages/users/user.service.js';
 
 class AuthService {
   private userService: UserService;
-
-  public constructor(userService: UserService) {
+  private token: Token;
+  public constructor(userService: UserService, token: Token) {
     this.userService = userService;
+    this.token = token;
   }
 
   public async signIn(
@@ -43,11 +42,7 @@ class AuthService {
   }
 
   private createToken = async (data: number): Promise<string> => {
-    const secret = new TextEncoder().encode(config.ENV.JWT.SECRET_KEY);
-    return await new jose.SignJWT({ data })
-      .setProtectedHeader({ alg: config.AUTH.ALGORITHM })
-      .setExpirationTime(config.AUTH.EXP_TIME)
-      .sign(secret);
+    return await this.token.createToken(data);
   };
 }
 
