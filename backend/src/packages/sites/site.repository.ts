@@ -3,8 +3,7 @@ import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteModel } from '~/packages/sites/site.model.js';
 
 class SiteRepository
-  implements
-    Omit<IRepository<SiteEntity>, 'find' | 'update' | 'delete' | 'findByEmail'>
+  implements Omit<IRepository<SiteEntity>, 'find' | 'update' | 'delete'>
 {
   private siteModel: typeof SiteModel;
 

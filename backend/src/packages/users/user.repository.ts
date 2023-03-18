@@ -2,9 +2,7 @@ import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserModel } from '~/packages/users/user.model.js';
 
-class UserRepository
-  implements Omit<IRepository, 'find' | 'update' | 'delete'>
-{
+class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
   private userModel: typeof UserModel;
 
   public constructor(userModel: typeof UserModel) {

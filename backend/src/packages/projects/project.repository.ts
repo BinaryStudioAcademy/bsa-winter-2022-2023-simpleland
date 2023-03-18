@@ -3,7 +3,7 @@ import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectModel } from '~/packages/projects/project.model.js';
 
 class ProjectRepository
-  implements Omit<IRepository, 'find' | 'update' | 'delete' | 'findByEmail'>
+  implements Omit<IRepository, 'find' | 'update' | 'delete'>
 {
   private projectModel: typeof ProjectModel;
 
