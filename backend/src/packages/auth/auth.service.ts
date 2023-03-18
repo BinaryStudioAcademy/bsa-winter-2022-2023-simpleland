@@ -45,8 +45,8 @@ class AuthService {
   private createToken = async (data: number): Promise<string> => {
     const secret = new TextEncoder().encode(config.ENV.JWT.SECRET_KEY);
     return await new jose.SignJWT({ data })
-      .setProtectedHeader({ alg: config.ENV.JWT.ALGORITHM })
-      .setExpirationTime(config.ENV.JWT.EXP_TIME)
+      .setProtectedHeader({ alg: config.AUTH.ALGORITHM })
+      .setExpirationTime(config.AUTH.EXP_TIME)
       .sign(secret);
   };
 }
