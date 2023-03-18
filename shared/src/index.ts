@@ -29,6 +29,22 @@ export {
 } from './libs/types/types.js';
 export { AuthApiPath } from './packages/auth/auth.js';
 export {
+  type ProjectCreateRequestDto,
+  type ProjectCreateResponseDto,
+  type ProjectGetAllItemResponseDto,
+  type ProjectGetAllResponseDto,
+  projectCreateValidationSchema,
+  ProjectsApiPath,
+} from './packages/projects/projects.js';
+export {
+  type SiteCreateRequestDto,
+  type SiteCreateResponseDto,
+  type SiteGetAllItemResponseDto,
+  type SiteGetAllResponseDto,
+  siteCreateValidationSchema,
+  SitesApiPath,
+} from './packages/sites/sites.js';
+export {
   type UserAuthResponse,
   type UserGetAllItemResponseDto,
   type UserGetAllResponseDto,
