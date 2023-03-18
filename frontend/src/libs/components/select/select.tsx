@@ -5,6 +5,7 @@ import {
   type FieldValues,
 } from 'react-hook-form';
 import Select, { type StylesConfig } from 'react-select';
+import searchIcon from 'src/assets/img/icons/search.svg';
 
 import { useFormController } from '~/libs/hooks/hooks.js';
 
@@ -15,17 +16,15 @@ type SelectProperties<T extends FieldValues> = {
   placeholder?: string;
   setValue?: (name: string, value: string) => void;
   value?: string;
-  className?: string;
   errors: FieldErrors<T>;
 };
 
 type Options = {
-  value: string | number | string[] | undefined;
+  value: string | number | undefined;
   label: string;
 };
 
 const SelectStyles: StylesConfig<Options> = {
-
   control: (provided) => ({
     ...provided,
     border: '2px solid #FFB61D',
@@ -48,7 +47,6 @@ const SelectStyles: StylesConfig<Options> = {
     fontSize: '14px',
     padding: '6px 16px',
     height: '36px',
-
   }),
   menu: (provided) => ({
     ...provided,
@@ -74,20 +72,26 @@ const SelectStyles: StylesConfig<Options> = {
     ...provided,
     display: 'none',
   }),
-  valueContainer: (provided, state) => ({
+  placeholder: (provided, state) => ({
     ...provided,
     display: 'flex',
     alignItems: 'center',
-    padding: '0 10px',
-    '&::after': {
+    flexDirection: 'row',
+    gap: '10px',
+    '&::before': {
       content: '""',
+      width: '18px',
+      height: '18px',
       display: state.selectProps.menuIsOpen ? 'none' : 'inline-block',
-      width: '16px',
-      height: '16px',
-      backgroundImage: 'url(../../../assets/img/icons/search.svg)',
-      backgroundSize: 'contain',
+      backgroundImage: `url(${searchIcon})`,
       backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'contain',
     },
+  }),
+  valueContainer: (provided) => ({
+    ...provided,
+    caretColor: 'transparent',
   }),
 };
 
@@ -105,7 +109,6 @@ const SelectComponent = <T extends FieldValues>({
 
   return (
     <div>
-      <div className="test"></div>
       <Select
         {...field}
         value={options.find((option) => option.value === field.value)}
@@ -122,4 +125,3 @@ const SelectComponent = <T extends FieldValues>({
 };
 
 export { SelectComponent };
-
