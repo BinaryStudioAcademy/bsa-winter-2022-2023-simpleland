@@ -6,9 +6,10 @@ import { type EnvironmentSchema } from './libs/types/types.js';
 
 class Config implements IConfig {
   public ENV: EnvironmentSchema;
-
+  public AUTH: null;
   public constructor() {
     this.ENV = this.envSchema;
+    this.AUTH = null;
   }
 
   private get envSchema(): EnvironmentSchema {
