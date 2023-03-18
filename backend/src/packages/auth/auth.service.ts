@@ -25,9 +25,7 @@ class AuthService {
   }
 
   private async login(email: string): Promise<UserSignInResponseDto> {
-    const user: UserAuthResponse = (await this.userService.find(
-      email,
-    )) as UserAuthResponse;
+    const user: UserAuthResponse = await this.userService.findByEmail(email);
     return {
       token: await this.createToken(user.id),
       user,

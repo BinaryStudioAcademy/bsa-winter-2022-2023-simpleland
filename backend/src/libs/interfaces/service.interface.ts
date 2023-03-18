@@ -1,5 +1,6 @@
 interface IService<T = unknown> {
-  find(payload: unknown): Promise<T>;
+  find(id: number): Promise<T>;
+  findByEmail(email: string): Promise<T>;
   findAll(): Promise<{
     items: T[];
   }>;
