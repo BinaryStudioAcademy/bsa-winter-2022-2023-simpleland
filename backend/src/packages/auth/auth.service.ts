@@ -1,4 +1,4 @@
-import { type Token } from '~/libs/packages/token/token-package.js';
+import { type Token } from '~/libs/packages/token/token.js';
 import {
   type UserAuthResponse,
   type UserSignInRequestDto,
@@ -6,25 +6,27 @@ import {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
 } from '~/packages/users/libs/types/types.js';
-import { type UserService } from '~/packages/users/user.service.js';
+import { type UserService } from '~/packages/users/users.js';
 
 class AuthService {
   private userService: UserService;
-  private token: Token;
+  private tokenServise: Token;
   public constructor(userService: UserService, token: Token) {
     this.userService = userService;
-    this.token = token;
+    this.tokenServise = token;
   }
 
   public async signIn(
     userRequestDto: UserSignInRequestDto,
-  ): Promise<UserSignInResponseDto> {
+  ): Promise<UserSignInResponseDto | null> {
     const { email } = userRequestDto;
     return await this.login(email);
   }
 
   private async login(email: string): Promise<UserSignInResponseDto> {
-    const user: UserAuthResponse = await this.userService.findByEmail(email);
+    const user: UserAuthResponse = (await this.userService.findByEmail(
+      email,
+    )) as UserAuthResponse;
     return {
       token: await this.createToken(user.id),
       user,
@@ -42,7 +44,7 @@ class AuthService {
   }
 
   private createToken = async (data: number): Promise<string> => {
-    return await this.token.createToken(data);
+    return await this.tokenServise.create(data);
   };
 }
 

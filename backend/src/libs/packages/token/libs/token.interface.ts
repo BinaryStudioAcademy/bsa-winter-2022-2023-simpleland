@@ -1,4 +1,6 @@
 interface IToken {
-  createToken(id: number): Promise<string>;
+  create(payload: unknown): Promise<string>;
+  verify(): void;
+  decode(): void;
 }
 export { type IToken };

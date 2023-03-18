@@ -1,5 +1,5 @@
 interface IRepository<T = unknown> {
-  find(id: number): Promise<T>;
+  find(id: unknown): Promise<T>;
   findAll(): Promise<T[]>;
   create(payload: unknown): Promise<T>;
   update(): Promise<T>;

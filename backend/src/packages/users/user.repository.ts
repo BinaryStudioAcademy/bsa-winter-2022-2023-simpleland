@@ -9,7 +9,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
     this.userModel = userModel;
   }
 
-  public async find(id: number): Promise<UserEntity> {
+  public async find(id: number): Promise<UserEntity | null> {
     const user = await this.userModel
       .query()
       .where('id', id)
@@ -17,7 +17,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
       .withGraphJoined('userDetails');
 
     if (!user) {
-      throw new Error('User Not Exist');
+      return null;
     }
 
     return UserEntity.initialize({
@@ -30,7 +30,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
     });
   }
 
-  public async findByEmail(email: string): Promise<UserEntity> {
+  public async findByEmail(email: string): Promise<UserEntity | null> {
     const user = await this.userModel
       .query()
       .where('email', email)
@@ -38,7 +38,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
       .withGraphJoined('userDetails');
 
     if (!user) {
-      throw new Error('User Not Exist');
+      return null;
     }
 
     return UserEntity.initialize({
