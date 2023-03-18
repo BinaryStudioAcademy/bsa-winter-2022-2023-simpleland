@@ -1,5 +1,6 @@
 import { Header } from '~/libs/components/header/header.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
+import { useAppSelector } from '~/libs/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
@@ -11,11 +12,19 @@ type Properties = {
 const PageLayout: React.FC<Properties> = ({
   children,
   style = 'yellow',
-}: Properties) => (
-  <div className={getValidClassNames(styles.pageLayout, styles[style])}>
-    <Header />
-    {children}
-  </div>
-);
+}: Properties) => {
+  const { user: userData } = useAppSelector(({ auth }) => ({
+    user: auth.user,
+  }));
+  const { users } = useAppSelector(({ users }) => users);
+  const user = users.find((user) => user.id === userData?.id);
+
+  return (
+    <div className={getValidClassNames(styles.pageLayout, styles[style])}>
+      <Header user={user} />
+      {children}
+    </div>
+  );
+};
 
 export { PageLayout };
