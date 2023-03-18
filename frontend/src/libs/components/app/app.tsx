@@ -1,4 +1,4 @@
-import { RouterOutlet, Toastr } from '~/libs/components/components.js';
+import { RouterOutlet } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import { useAppDispatch, useEffect, useLocation } from '~/libs/hooks/hooks.js';
 import { actions as userActions } from '~/slices/users/users.js';
@@ -18,7 +18,6 @@ const App: React.FC = () => {
   return (
     <>
       <RouterOutlet />
-      <Toastr />
     </>
   );
 };

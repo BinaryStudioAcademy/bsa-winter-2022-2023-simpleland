@@ -1,8 +1,5 @@
-const NotificationType = {
-  INFO: 'info',
-  SUCCESS: 'success',
-  WARNING: 'warning',
-  ERROR: 'error',
-} as const;
+import { type TypeOptions } from 'react-toastify';
 
-export { NotificationType };
+type NotificationType = TypeOptions;
+
+export { type NotificationType };

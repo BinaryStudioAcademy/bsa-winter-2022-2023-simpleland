@@ -15,9 +15,6 @@ const signUp = createAsyncThunk<
 >(`${sliceName}/sign-up`, (registerPayload, { extra }) => {
   const { authApi } = extra;
 
-  // EXAMPLE
-  throw new Error('test');
-
   return authApi.signUp(registerPayload);
 });
 

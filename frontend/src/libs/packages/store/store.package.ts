@@ -9,15 +9,17 @@ import { AppEnvironment } from '~/libs/enums/enums.js';
 import { type IConfig } from '~/libs/packages/config/config.js';
 import { authApi } from '~/packages/auth/auth.js';
 import { userApi } from '~/packages/users/users.js';
+import { reducer as appReducer } from '~/slices/app/app.js';
 import { reducer as authReducer } from '~/slices/auth/auth.js';
 import { reducer as usersReducer } from '~/slices/users/users.js';
 
 import { notification } from '../notification/notification.js';
-import { handleErrorMiddleware } from './middlewares/middlewares.js';
+import { handleError } from './middlewares/middlewares.js';
 
 type RootReducer = {
   auth: ReturnType<typeof authReducer>;
   users: ReturnType<typeof usersReducer>;
+  app: ReturnType<typeof appReducer>;
 };
 
 type ExtraArguments = {
@@ -41,10 +43,11 @@ class Store {
       reducer: {
         auth: authReducer,
         users: usersReducer,
+        app: appReducer,
       },
       middleware: (getDefaultMiddleware) => {
         return [
-          handleErrorMiddleware,
+          handleError,
           ...getDefaultMiddleware({
             thunk: {
               extraArgument: this.extraArguments,
