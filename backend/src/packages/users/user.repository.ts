@@ -11,12 +11,46 @@ class UserRepository
     this.userModel = userModel;
   }
 
-  public async find(email: string): ReturnType<IRepository['find']> {
-    return await this.userModel
+  public async find(id: number): Promise<UserEntity> {
+    const user = await this.userModel
       .query()
-      .select('id', 'email')
+      .where('id', id)
+      .first()
+      .withGraphJoined('userDetails');
+
+    if (!user) {
+      throw new Error('User Not Exist');
+    }
+
+    return UserEntity.initialize({
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
+      firstName: user.userDetails.firstName,
+      lastName: user.userDetails.lastName,
+    });
+  }
+
+  public async findByEmail(email: string): Promise<UserEntity> {
+    const user = await this.userModel
+      .query()
       .where('email', email)
-      .execute();
+      .first()
+      .withGraphJoined('userDetails');
+
+    if (!user) {
+      throw new Error('User Not Exist');
+    }
+
+    return UserEntity.initialize({
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
+      firstName: user.userDetails.firstName,
+      lastName: user.userDetails.lastName,
+    });
   }
 
   public async findAll(): Promise<UserEntity[]> {
