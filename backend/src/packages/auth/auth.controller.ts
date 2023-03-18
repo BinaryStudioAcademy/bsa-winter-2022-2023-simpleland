@@ -6,8 +6,12 @@ import {
 } from '~/libs/packages/controller/controller.js';
 import { HttpCode } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
-import { type UserSignUpRequestDto } from '~/packages/users/users.js';
-import { userSignUpValidationSchema } from '~/packages/users/users.js';
+import {
+  type UserSignInRequestDto,
+  type UserSignUpRequestDto,
+  userSignInValidationSchema,
+  userSignUpValidationSchema,
+} from '~/packages/users/users.js';
 
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './libs/enums/enums.js';
@@ -30,6 +34,20 @@ class AuthController extends Controller {
         this.signUp(
           options as ApiHandlerOptions<{
             body: UserSignUpRequestDto;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: AuthApiPath.SIGN_IN,
+      method: 'POST',
+      validation: {
+        body: userSignInValidationSchema,
+      },
+      handler: (options) =>
+        this.signIn(
+          options as ApiHandlerOptions<{
+            body: UserSignInRequestDto;
           }>,
         ),
     });
@@ -73,6 +91,46 @@ class AuthController extends Controller {
     return {
       status: HttpCode.CREATED,
       payload: await this.authService.signUp(options.body),
+    };
+  }
+  /**
+   * @swagger
+   * /auth/sign-in:
+   *    post:
+   *      description: Sign in user into the system
+   *      requestBody:
+   *        description: User auth data
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                email:
+   *                  type: string
+   *                  format: email
+   *                password:
+   *                  type: string
+   *      responses:
+   *        200:
+   *          description: Successful operation
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: object
+   *                properties:
+   *                  message:
+   *                    type: object
+   *                    $ref: '#/components/schemas/User'
+   */
+  private signIn(
+    options: ApiHandlerOptions<{
+      body: UserSignInRequestDto;
+    }>,
+  ): ApiHandlerResponse {
+    return {
+      status: HttpCode.OK,
+      payload: this.authService.signIn(options.body),
     };
   }
 }

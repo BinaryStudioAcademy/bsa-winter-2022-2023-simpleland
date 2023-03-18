@@ -1,7 +1,7 @@
+import { PageLayout } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
-  useAppSelector,
   useCallback,
   useLocation,
 } from '~/libs/hooks/hooks.js';
@@ -9,12 +9,11 @@ import { type UserSignUpRequestDto } from '~/packages/users/users.js';
 import { actions as authActions } from '~/slices/auth/auth.js';
 
 import { SignInForm, SignUpForm } from './components/components.js';
+import styles from './styles.module.scss';
 
 const Auth: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { dataStatus } = useAppSelector(({ auth }) => ({
-    dataStatus: auth.dataStatus,
-  }));
+
   const { pathname } = useLocation();
 
   const handleSignInSubmit = useCallback((): void => {
@@ -42,10 +41,15 @@ const Auth: React.FC = () => {
   };
 
   return (
-    <>
-      state: {dataStatus}
-      {getScreen(pathname)}
-    </>
+    <PageLayout>
+      <div className={styles.pageContent}>
+        <div className={styles.logoWrapper}>
+          <span className={styles.logoDot}></span>
+          <div className={styles.logoText}>SimpleLand</div>
+        </div>
+        <div className={styles.formWrapper}>{getScreen(pathname)}</div>
+      </div>
+    </PageLayout>
   );
 };
 
