@@ -8,7 +8,6 @@ import { type IConfig } from '~/libs/packages/config/config.js';
 import { type IDatabase } from '~/libs/packages/database/database.js';
 import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
-import { type WhiteRoutesConfig } from '~/libs/packages/white-routes-config/white-routes-config.js';
 import { authorization } from '~/libs/plugins/authorization.plugin.js';
 import {
   type ServerCommonErrorResponse,
@@ -16,6 +15,7 @@ import {
   type ValidationSchema,
 } from '~/libs/types/types.js';
 
+import { WHITE_ROUTES } from './libs/constants/constants.js';
 import {
   type IServerApp,
   type IServerAppApi,
@@ -27,7 +27,6 @@ type Constructor = {
   logger: ILogger;
   database: IDatabase;
   apis: IServerAppApi[];
-  whiteRoutesConfig: WhiteRoutesConfig;
 };
 
 class ServerApp implements IServerApp {
@@ -41,20 +40,11 @@ class ServerApp implements IServerApp {
 
   private app: ReturnType<typeof Fastify>;
 
-  private whiteRoutesConfig: WhiteRoutesConfig;
-
-  public constructor({
-    config,
-    logger,
-    database,
-    apis,
-    whiteRoutesConfig,
-  }: Constructor) {
+  public constructor({ config, logger, database, apis }: Constructor) {
     this.config = config;
     this.logger = logger;
     this.database = database;
     this.apis = apis;
-    this.whiteRoutesConfig = whiteRoutesConfig;
 
     this.app = Fastify();
   }
@@ -88,7 +78,7 @@ class ServerApp implements IServerApp {
 
   private async initPlugins(): Promise<void> {
     await this.app.register(authorization, {
-      whiteRoutesConfig: this.whiteRoutesConfig,
+      whiteRoutesConfig: WHITE_ROUTES,
     });
   }
 
