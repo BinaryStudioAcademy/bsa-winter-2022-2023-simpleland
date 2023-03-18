@@ -10,7 +10,10 @@ export {
   ValidationError,
 } from './libs/exceptions/exceptions.js';
 export { configureString } from './libs/helpers/helpers.js';
-export { type IConfig } from './libs/packages/config/config.js';
+export {
+  type IConfig,
+  type ITokenConfig,
+} from './libs/packages/config/config.js';
 export {
   type HttpMethod,
   type HttpOptions,

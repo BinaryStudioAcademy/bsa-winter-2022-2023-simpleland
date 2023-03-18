@@ -5,14 +5,12 @@ import { AppEnvironment } from '~/libs/enums/enums.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 
 import { type IConfig } from './libs/interfaces/interfaces.js';
-import { type AuthConfig } from './libs/types/auth-config.type.js';
 import { type EnvironmentSchema } from './libs/types/types.js';
 
 class Config implements IConfig {
   private logger: ILogger;
 
   public ENV: EnvironmentSchema;
-  public AUTH: AuthConfig;
   public constructor(logger: ILogger) {
     this.logger = logger;
 
@@ -25,7 +23,6 @@ class Config implements IConfig {
     });
 
     this.ENV = this.envSchema.getProperties();
-    this.AUTH = this.authConfig.getProperties();
     this.logger.info('.env file found and successfully parsed!');
   }
 
@@ -78,23 +75,6 @@ class Config implements IConfig {
           env: 'SECRET_KEY',
           default: null,
         },
-      },
-    });
-  }
-
-  private get authConfig(): TConfig<AuthConfig> {
-    return convict<AuthConfig>({
-      ALGORITHM: {
-        doc: 'Encoding algorithm',
-        format: String,
-        env: 'ALGORITHM',
-        default: null,
-      },
-      EXP_TIME: {
-        doc: 'Token expiration time',
-        format: String,
-        env: 'EXP_TIME',
-        default: null,
       },
     });
   }
