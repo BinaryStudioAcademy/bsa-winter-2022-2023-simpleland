@@ -13,11 +13,9 @@ const PageLayout: React.FC<Properties> = ({
   children,
   style = 'yellow',
 }: Properties) => {
-  const { user: userData } = useAppSelector(({ auth }) => ({
+  const { user } = useAppSelector(({ auth }) => ({
     user: auth.user,
   }));
-  const { users } = useAppSelector(({ users }) => users);
-  const user = users.find((user) => user.id === userData?.id);
 
   return (
     <div className={getValidClassNames(styles.pageLayout, styles[style])}>

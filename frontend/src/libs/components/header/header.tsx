@@ -1,5 +1,6 @@
 import profileImage from '~/assets/img/profile-image.png';
 import { Link } from '~/libs/components/components.js';
+import { useAppSelector } from '~/libs/hooks/hooks.js';
 import { type UserSignInResponseDto } from '~/packages/users/users.js';
 
 import styles from './styles.module.scss';
@@ -8,7 +9,10 @@ type Properties = {
   user: UserSignInResponseDto | null;
 };
 
-const Header: React.FC<Properties> = ({ user }: Properties) => {
+const Header: React.FC<Properties> = ({ user: authUserData }: Properties) => {
+  const { users } = useAppSelector(({ users }) => users);
+  const user = users.find((user) => user.id === authUserData?.id);
+
   return (
     <header className={styles.header}>
       <div className={styles.logoWrapper}>
