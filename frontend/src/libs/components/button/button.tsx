@@ -9,9 +9,11 @@ type Properties = {
   type?: 'button' | 'submit';
   isDisabled?: boolean;
   className?: string;
+  onClick?: () => void;
 };
 
 const Button: React.FC<Properties> = ({
+  onClick,
   label,
   size = 'big',
   style = 'primary',
@@ -20,6 +22,7 @@ const Button: React.FC<Properties> = ({
   className = '',
 }: Properties) => (
   <button
+    onClick={onClick}
     type={type}
     disabled={isDisabled}
     className={getValidClassNames(
