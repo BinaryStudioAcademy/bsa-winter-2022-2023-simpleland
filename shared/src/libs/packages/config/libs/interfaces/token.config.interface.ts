@@ -1,5 +1,5 @@
 interface ITokenConfig<T> {
-  TOKEN: T;
+  AUTH: T;
 }
 
 export { type ITokenConfig };
