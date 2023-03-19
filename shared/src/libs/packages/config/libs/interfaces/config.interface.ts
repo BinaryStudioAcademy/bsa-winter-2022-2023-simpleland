@@ -1,6 +1,5 @@
-interface IConfig<T, K> {
+interface IConfig<T> {
   ENV: T;
-  AUTH: K;
 }
 
 export { type IConfig };
