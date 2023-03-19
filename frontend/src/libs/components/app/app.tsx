@@ -15,11 +15,7 @@ const App: React.FC = () => {
     }
   }, [isRoot, dispatch]);
 
-  return (
-    <>
-      <RouterOutlet />
-    </>
-  );
+  return <RouterOutlet />;
 };
 
 export { App };
