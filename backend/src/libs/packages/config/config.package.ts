@@ -21,8 +21,7 @@ class Config implements IConfig {
       allowed: 'strict',
       output: (message) => this.logger.info(message),
     });
-    this.authConfig.load({});
-    this.AUTH = this.authConfig.getProperties();
+    this.AUTH = this.authConfig;
     this.ENV = this.envSchema.getProperties();
 
     this.logger.info('.env file found and successfully parsed!');
@@ -81,11 +80,11 @@ class Config implements IConfig {
     });
   }
 
-  private get authConfig(): TConfig<AuthConfig> {
-    return convict<AuthConfig>({
+  private get authConfig(): AuthConfig {
+    return {
       ALGORITHM: 'HS256',
       EXP_TIME: '24h',
-    });
+    };
   }
 }
 
