@@ -102,7 +102,9 @@ const Stepper: React.FC<Properties> = ({
         onClick={isLastStep ? saveValues : toNextStep}
         className={styles.button}
       >
-        <span className="visually-hidden">Go to the next step or save values</span>
+        <span className="visually-hidden">
+          Go to the next step or save values
+        </span>
       </Button>
     </div>
   );
