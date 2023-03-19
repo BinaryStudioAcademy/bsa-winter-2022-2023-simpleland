@@ -46,7 +46,6 @@ const SelectStyles: StylesConfig<Options> = {
     cursor: 'pointer',
     fontSize: '14px',
     padding: '6px 16px',
-    height: '36px',
   }),
   menu: (provided) => ({
     ...provided,
@@ -55,6 +54,7 @@ const SelectStyles: StylesConfig<Options> = {
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
     cursor: 'pointer',
     width: '324px',
+    margin: '0px',
   }),
   menuList: (provided) => ({
     ...provided,
