@@ -8,7 +8,9 @@ import {
   type ProjectGetAllResponseDto,
 } from './libs/types/types.js';
 
-class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
+class ProjectService
+  implements Omit<IService, 'find' | 'update' | 'delete' | 'findByEmail'>
+{
   private projectRepository: ProjectRepository;
 
   public constructor(projectRepository: ProjectRepository) {

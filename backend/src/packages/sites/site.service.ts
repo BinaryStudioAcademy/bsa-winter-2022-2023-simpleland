@@ -8,7 +8,9 @@ import {
   type SiteGetAllResponseDto,
 } from './libs/types/types.js';
 
-class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
+class SiteService
+  implements Omit<IService, 'find' | 'update' | 'delete' | 'findByEmail'>
+{
   private siteRepository: SiteRepository;
 
   public constructor(siteRepository: SiteRepository) {

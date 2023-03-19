@@ -5,13 +5,12 @@ import { AppEnvironment } from '~/libs/enums/enums.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 
 import { type IConfig } from './libs/interfaces/interfaces.js';
-import { type EnvironmentSchema } from './libs/types/types.js';
+import { type AuthConfig, type EnvironmentSchema } from './libs/types/types.js';
 
 class Config implements IConfig {
   private logger: ILogger;
-
+  public AUTH: AuthConfig;
   public ENV: EnvironmentSchema;
-
   public constructor(logger: ILogger) {
     this.logger = logger;
 
@@ -22,8 +21,10 @@ class Config implements IConfig {
       allowed: 'strict',
       output: (message) => this.logger.info(message),
     });
-
+    this.authConfig.load({});
+    this.AUTH = this.authConfig.getProperties();
     this.ENV = this.envSchema.getProperties();
+
     this.logger.info('.env file found and successfully parsed!');
   }
 
@@ -69,6 +70,21 @@ class Config implements IConfig {
           default: null,
         },
       },
+      JWT: {
+        SECRET_KEY: {
+          doc: 'Secret key for token generation',
+          format: String,
+          env: 'SECRET_KEY',
+          default: null,
+        },
+      },
+    });
+  }
+
+  private get authConfig(): TConfig<AuthConfig> {
+    return convict<AuthConfig>({
+      ALGORITHM: 'HS256',
+      EXP_TIME: '24h',
     });
   }
 }
