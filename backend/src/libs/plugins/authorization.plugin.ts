@@ -9,13 +9,6 @@ import {
 import { type WhiteRoutes } from '~/libs/packages/server-application/server-application.js';
 import { token } from '~/libs/packages/token/token.js';
 import { userService } from '~/packages/users/users.js';
-import { type UserAuthResponse } from '~/packages/users/users.js';
-
-declare module 'fastify' {
-  interface FastifyRequest {
-    user: UserAuthResponse;
-  }
-}
 
 const authorization = fp(
   async (
