@@ -1,6 +1,8 @@
+import { type JWTPayload } from 'jose';
+
 interface IToken {
   create(payload: unknown): Promise<string>;
-  verify(): void;
-  decode(): void;
+  verify(token: string): Promise<JWTPayload>;
+  decode(token: string): unknown;
 }
 export { type IToken };

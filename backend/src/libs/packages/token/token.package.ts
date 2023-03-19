@@ -1,6 +1,7 @@
-import { SignJWT } from 'jose';
+import { type JWTPayload, jwtVerify, SignJWT } from 'jose';
 
 import { type IConfig } from '../config/config.js';
+import { HttpCode, HttpError } from '../http/http.js';
 import { type IToken } from './libs/token.interface.js';
 
 class Token implements IToken {
@@ -17,8 +18,17 @@ class Token implements IToken {
       .sign(this.createSecret());
   }
 
-  public verify(): Promise<void> {
-    return Promise.resolve();
+  public async verify(token: string): Promise<JWTPayload> {
+    try {
+      const { payload } = await jwtVerify(token, this.createSecret());
+
+      return payload;
+    } catch {
+      throw new HttpError({
+        message: 'Invalid token',
+        status: HttpCode.UNAUTHORIZED,
+      });
+    }
   }
 
   public decode(): Promise<void> {
