@@ -3,12 +3,10 @@ import { AppRoute } from '~/libs/enums/enums.js';
 import { useAppSelector } from '~/libs/hooks/hooks.js';
 
 type Properties = {
-  children: React.ReactNode,
+  children: React.ReactNode;
 };
 
-const ProtectedRoute: React.FC<Properties> = ({
-  children,
-}: Properties) => {
+const ProtectedRoute: React.FC<Properties> = ({ children }: Properties) => {
   const { user } = useAppSelector(({ auth }) => ({ user: auth.user }));
   const hasAuthenticatedUser = Boolean(user);
 
