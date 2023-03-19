@@ -4,18 +4,18 @@ import { useAppSelector } from '~/libs/hooks/hooks.js';
 
 type Properties = {
   children: React.ReactNode;
-  redirectPath?: string;
+  redirectPath?: keyof typeof AppRoute;
 };
 
 const ProtectedRoute: React.FC<Properties> = ({
   children,
-  redirectPath = AppRoute.SIGN_IN,
+  redirectPath = 'SIGN_IN',
 }: Properties) => {
   const { user } = useAppSelector(({ auth }) => ({ user: auth.user }));
   const hasAuthenticatedUser = Boolean(user);
 
   if (!hasAuthenticatedUser) {
-    return <Navigate to={redirectPath} replace />;
+    return <Navigate to={AppRoute[redirectPath]} replace />;
   }
 
   return <>{children}</>;
