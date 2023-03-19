@@ -71,7 +71,9 @@ const Stepper: React.FC<Properties> = ({
                 isFirstStep && styles.imgDisabled,
               )}
               onClick={toPreviousStep}
-            />
+            >
+              <span className="visually-hidden">Go to the previous step</span>
+            </Icon>
             <Icon
               iconPath={ArrowIcon}
               className={getValidClassNames(
@@ -80,7 +82,9 @@ const Stepper: React.FC<Properties> = ({
                 isLastStep && styles.imgDisabled,
               )}
               onClick={toNextStep}
-            />
+            >
+              <span className="visually-hidden">Go to the next step</span>
+            </Icon>
           </div>
 
           <div className={styles.text}>
@@ -97,7 +101,9 @@ const Stepper: React.FC<Properties> = ({
         size="small"
         onClick={isLastStep ? saveValues : toNextStep}
         className={styles.button}
-      />
+      >
+        <span className="visually-hidden">Go to the next step or save values</span>
+      </Button>
     </div>
   );
 };

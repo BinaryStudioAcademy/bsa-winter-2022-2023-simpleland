@@ -10,6 +10,7 @@ type Properties = {
   isDisabled?: boolean;
   className?: string;
   onClick?: () => void;
+  children?: React.ReactNode;
 };
 
 const Button: React.FC<Properties> = ({

@@ -4,6 +4,7 @@ type Properties = {
   iconPath: string;
   className?: string;
   onClick?: () => void;
+  children?: React.ReactNode;
 };
 
 const Icon: React.FC<Properties> = ({
