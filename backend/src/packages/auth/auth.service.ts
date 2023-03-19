@@ -1,19 +1,18 @@
 import { type Token } from '~/libs/packages/token/token.js';
 import {
-  type UserAuthResponse,
+  type UserService,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
-} from '~/packages/users/libs/types/types.js';
-import { type UserService } from '~/packages/users/users.js';
+} from '~/packages/users/users.js';
 
 class AuthService {
   private userService: UserService;
-  private tokenServise: Token;
+  private tokenService: Token;
   public constructor(userService: UserService, token: Token) {
     this.userService = userService;
-    this.tokenServise = token;
+    this.tokenService = token;
   }
 
   public async signIn(
@@ -24,11 +23,12 @@ class AuthService {
   }
 
   private async login(email: string): Promise<UserSignInResponseDto> {
-    const user: UserAuthResponse = (await this.userService.findByEmail(
-      email,
-    )) as UserAuthResponse;
+    const user = await this.userService.findByEmail(email);
+    if (!user) {
+      throw new Error('User Not Exist');
+    }
     return {
-      token: await this.createToken(user.id),
+      token: await this.tokenService.create(user.id),
       user,
     };
   }
@@ -38,14 +38,10 @@ class AuthService {
   ): Promise<UserSignUpResponseDto> {
     const user = await this.userService.create(userRequestDto);
     return {
-      token: await this.createToken(user.id),
+      token: await this.tokenService.create(user.id),
       user,
     };
   }
-
-  private createToken = async (data: number): Promise<string> => {
-    return await this.tokenServise.create(data);
-  };
 }
 
 export { AuthService };
