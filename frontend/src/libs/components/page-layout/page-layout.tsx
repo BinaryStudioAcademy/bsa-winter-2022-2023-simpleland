@@ -19,7 +19,7 @@ const PageLayout: React.FC<Properties> = ({
 
   return (
     <div className={getValidClassNames(styles.pageLayout, styles[style])}>
-      <Header user={user} />
+      {user && <Header user={user} />}
       {children}
     </div>
   );

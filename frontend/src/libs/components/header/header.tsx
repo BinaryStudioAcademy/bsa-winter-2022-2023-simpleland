@@ -5,7 +5,7 @@ import { type UserSignInResponseDto } from '~/packages/users/users.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-  user: UserSignInResponseDto | null;
+  user: UserSignInResponseDto;
 };
 
 const Header: React.FC<Properties> = ({ user }: Properties) => {
@@ -30,7 +30,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
             className={styles.profileIcon}
           />
           <span className={styles.profileCaption}>
-            {user?.firstName} {user?.lastName}
+            {user.firstName} {user.lastName}
           </span>
         </div>
       </div>
