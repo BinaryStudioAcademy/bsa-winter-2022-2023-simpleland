@@ -1,6 +1,6 @@
 import { Button } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useCallback, useMemo, useState } from '~/libs/hooks/hooks.js';
+import { useCallback, useMemo, useStepper } from '~/libs/hooks/hooks.js';
 
 import { ReactComponent as Arrow } from '../../../assets/img/arrow-left.svg';
 import styles from './styles.module.scss';
@@ -21,9 +21,9 @@ const Stepper: React.FC<Properties> = ({
   className,
 }: Properties) => {
   const stepsLength = children.length;
-  const [currentStep, setCurrentStep] = useState(step);
-  const isFirstStep = currentStep === step;
-  const isLastStep = currentStep === stepsLength;
+  const { currentStep, changeStep, isFirstStep, isLastStep } = useStepper({
+    stepsLength,
+  });
   const buttonLabel = isLastStep ? saveButtonText : nextButtonText;
   const barYellowWidth = Math.round(((currentStep - step) / stepsLength) * 100);
 
@@ -35,15 +35,15 @@ const Stepper: React.FC<Properties> = ({
     if (currentStep === stepsLength) {
       return;
     }
-    setCurrentStep(currentStep + step);
-  }, [currentStep, stepsLength]);
+    changeStep(currentStep + step);
+  }, [currentStep, changeStep, stepsLength]);
 
   const toPreviousStep = useCallback(() => {
     if (currentStep === step) {
       return;
     }
-    setCurrentStep(currentStep - step);
-  }, [currentStep]);
+    changeStep(currentStep - step);
+  }, [currentStep, changeStep]);
 
   const saveValues = useCallback(() => {
     if (saveData) {
