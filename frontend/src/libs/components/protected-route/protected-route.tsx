@@ -7,7 +7,10 @@ type Properties = {
   redirectPath?: string;
 };
 
-const ProtectedRoute: React.FC<Properties> = ({ children, redirectPath = AppRoute.SIGN_IN }: Properties) => {
+const ProtectedRoute: React.FC<Properties> = ({
+  children,
+  redirectPath = AppRoute.SIGN_IN,
+}: Properties) => {
   const { user } = useAppSelector(({ auth }) => ({ user: auth.user }));
   const hasAuthenticatedUser = Boolean(user);
 
@@ -15,7 +18,7 @@ const ProtectedRoute: React.FC<Properties> = ({ children, redirectPath = AppRout
     return <Navigate to={redirectPath} replace />;
   }
 
-  return <>{children }</>;
+  return <>{children}</>;
 };
 
 export { ProtectedRoute };
