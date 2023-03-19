@@ -1,8 +1,9 @@
 import { Button } from '~/libs/components/components.js';
+import { Icon } from '~/libs/components/icon/icon.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useCallback, useMemo, useStepper } from '~/libs/hooks/hooks.js';
 
-import { ReactComponent as Arrow } from '../../../assets/img/arrow-left.svg';
+import ArrowIcon from '../../../assets/img/arrow-left.svg';
 import styles from './styles.module.scss';
 
 const step = 1;
@@ -63,15 +64,16 @@ const Stepper: React.FC<Properties> = ({
 
         <div className={styles.stepperWrapper}>
           <div className={styles.imgWrapper}>
-            <Arrow
+            <Icon
+              iconPath={ArrowIcon}
               className={getValidClassNames(
                 styles.img,
                 isFirstStep && styles.imgDisabled,
               )}
               onClick={toPreviousStep}
             />
-
-            <Arrow
+            <Icon
+              iconPath={ArrowIcon}
               className={getValidClassNames(
                 styles.img,
                 styles.imgRight,
