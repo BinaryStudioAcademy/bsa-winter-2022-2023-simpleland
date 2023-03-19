@@ -1,8 +1,9 @@
+import { type ValueOf } from 'shared/build';
+
 import { Navigate } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import { useAppSelector } from '~/libs/hooks/hooks.js';
 
-type ValueOf<T> = T[keyof T];
 type Properties = {
   children: React.ReactNode;
   redirectPath?: ValueOf<typeof AppRoute>;
