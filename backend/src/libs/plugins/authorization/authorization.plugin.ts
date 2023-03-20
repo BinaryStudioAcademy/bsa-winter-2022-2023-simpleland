@@ -30,7 +30,23 @@ const authorization = fp(
         return;
       }
 
-      const [, requestToken] = request.headers.authorization?.split(' ') ?? [];
+      const authorizationHeader = request.headers.authorization;
+
+      if (!authorizationHeader) {
+        throw new HttpError({
+          message: 'You should provide Authorization header',
+          status: HttpCode.UNAUTHORIZED,
+        });
+      }
+
+      const [, requestToken] = authorizationHeader.split(' ');
+
+      if (!requestToken) {
+        throw new HttpError({
+          message: 'Authorization header should be in format: Bearer <token>',
+          status: HttpCode.UNAUTHORIZED,
+        });
+      }
 
       const { userId } = token.decode<{ userId: number }>(requestToken);
 
