@@ -1,7 +1,6 @@
 import { ReactComponent as ArrowLeft } from '~/assets/img/arrow-left.svg';
 import { ReactComponent as ArrowRight } from '~/assets/img/arrow-right.svg';
-
-type IconType = 'arrowRight' | 'arrowLeft';
+import { type IconType } from '~/libs/types/types.js';
 
 const iconNameToSvgIcon: Record<
   IconType,
@@ -11,4 +10,4 @@ const iconNameToSvgIcon: Record<
   'arrowLeft': ArrowLeft,
 };
 
-export { type IconType, iconNameToSvgIcon };
+export { iconNameToSvgIcon };

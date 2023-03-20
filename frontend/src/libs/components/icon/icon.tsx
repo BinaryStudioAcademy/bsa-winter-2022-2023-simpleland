@@ -1,4 +1,6 @@
-import { type IconType, iconNameToSvgIcon } from './common.js';
+import { type IconType } from '~/libs/types/types.js';
+
+import { iconNameToSvgIcon } from './common.js';
 
 type Properties = {
   iconName: IconType;
