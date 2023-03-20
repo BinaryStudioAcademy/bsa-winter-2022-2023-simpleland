@@ -1,0 +1,22 @@
+.modal {
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 940px;
+  height: 665px;
+  overflow-y: auto;
+  background-color: var(--white);
+}
+
+.modalPopUClose {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
