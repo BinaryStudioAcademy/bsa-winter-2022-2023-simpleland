@@ -1,4 +1,4 @@
-import { Button } from '~/libs/components/components.js';
+import { Button, IconButton } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useMemo, useStepper } from '~/libs/hooks/hooks.js';
 
@@ -40,18 +40,16 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
 
         <div className={styles.stepperWrapper}>
           <div className={styles.imgWrapper}>
-            <Button
+            <IconButton
               icon="arrowLeft"
               label="Go to the previous step"
-              style="plain"
               onClick={toPreviousStep}
               isDisabled={isFirstStep}
               isLabelVisuallyHidden
             />
-            <Button
+            <IconButton
               icon="arrowRight"
               label="Go to the next step"
-              style="plain"
               onClick={toNextStep}
               isDisabled={isLastStep}
               isLabelVisuallyHidden

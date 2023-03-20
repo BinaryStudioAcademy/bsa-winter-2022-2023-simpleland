@@ -1,0 +1,15 @@
+.button {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+.button[disabled] {
+  cursor: not-allowed;
+}
+
+.button[disabled] svg path {
+  fill: var(--gray-100);
+}
