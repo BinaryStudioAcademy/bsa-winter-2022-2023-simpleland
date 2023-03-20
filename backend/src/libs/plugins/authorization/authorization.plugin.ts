@@ -6,23 +6,25 @@ import {
   HttpCode,
   HttpError,
 } from '~/libs/packages/http/http.js';
-import { type WhiteRoutes } from '~/libs/packages/server-application/server-application.js';
-import { token } from '~/libs/packages/token/token.js';
-import { userService } from '~/packages/users/users.js';
+
+import { type AuthorizationPluginParameters } from './libs/types/authorization-plugin-parameters.type.js';
 
 const authorization = fp(
   async (
     fastify: FastifyInstance,
-    { whiteRoutesConfig }: { whiteRoutesConfig: WhiteRoutes },
+    { whiteRoutesConfig, userService, token }: AuthorizationPluginParameters,
   ) => {
     fastify.decorateRequest('user', null);
 
     fastify.addHook('onRequest', async (request: FastifyRequest) => {
-      const isWhiteRoute = whiteRoutesConfig.some(
-        (whiteRoute) =>
-          whiteRoute.routerPath === request.routerPath &&
-          whiteRoute.methods.includes(request.method as HttpMethod),
-      );
+      const isWhiteRoute = whiteRoutesConfig.some((whiteRoute) => {
+        const isWhitePath = whiteRoute.routerPath === request.routerPath;
+        const isAllowedMethod = whiteRoute.methods.includes(
+          request.method as HttpMethod,
+        );
+
+        return isWhitePath && isAllowedMethod;
+      });
 
       if (isWhiteRoute) {
         return;
@@ -30,9 +32,9 @@ const authorization = fp(
 
       const [, requestToken] = request.headers.authorization?.split(' ') ?? [];
 
-      const { id } = await token.verify(requestToken);
+      const { userId } = token.decode<{ userId: number }>(requestToken);
 
-      const user = await userService.find(id as number);
+      const user = await userService.find(userId);
 
       if (!user) {
         throw new HttpError({
