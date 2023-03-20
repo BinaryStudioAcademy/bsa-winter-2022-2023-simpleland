@@ -42,19 +42,19 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
           <div className={styles.imgWrapper}>
             <Button
               icon="arrowLeft"
+              label="Go to the previous step"
               style="plain"
-              size="fitContent"
               onClick={toPreviousStep}
               isDisabled={isFirstStep}
-              visuallyHiddenLabel="Go to the previous step"
+              isLabelVisuallyHidden
             />
             <Button
               icon="arrowRight"
+              label="Go to the next step"
               style="plain"
-              size="fitContent"
               onClick={toNextStep}
-              visuallyHiddenLabel="Go to the next step"
               isDisabled={isLastStep}
+              isLabelVisuallyHidden
             />
           </div>
 
@@ -76,7 +76,6 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
           styles.button,
           isLastStep && 'visually-hidden',
         )}
-        visuallyHiddenLabel="Go to the next step"
       />
     </div>
   );
