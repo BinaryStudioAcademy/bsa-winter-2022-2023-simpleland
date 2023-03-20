@@ -9,3 +9,4 @@ const authService = new AuthService(userService, token);
 const authController = new AuthController(logger, authService);
 
 export { authController, authService };
+export { AuthApiPath } from './libs/enums/enums.js';

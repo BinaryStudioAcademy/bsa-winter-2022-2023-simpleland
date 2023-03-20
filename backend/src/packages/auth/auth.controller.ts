@@ -95,6 +95,7 @@ class AuthController extends Controller {
       payload: await this.authService.signUp(options.body),
     };
   }
+
   /**
    * @swagger
    * /auth/sign-in:

@@ -11,7 +11,9 @@ import { ApplicationError } from './libs/exceptions/exceptions.js';
 
 class AuthService {
   private userService: UserService;
+
   private tokenService: Token;
+
   public constructor(userService: UserService, token: Token) {
     this.userService = userService;
     this.tokenService = token;
@@ -21,16 +23,19 @@ class AuthService {
     userRequestDto: UserSignInRequestDto,
   ): Promise<UserSignInResponseDto | null> {
     const { email } = userRequestDto;
+
     return await this.login(email);
   }
 
   private async login(email: string): Promise<UserSignInResponseDto> {
     const user = await this.userService.findByEmail(email);
+
     if (!user) {
       throw new ApplicationError({
         message: 'User Not Exist',
       });
     }
+
     return {
       token: await this.tokenService.create(user.id),
       user,
@@ -41,6 +46,7 @@ class AuthService {
     userRequestDto: UserSignUpRequestDto,
   ): Promise<UserSignUpResponseDto> {
     const user = await this.userService.create(userRequestDto);
+
     return {
       token: await this.tokenService.create(user.id),
       user,
