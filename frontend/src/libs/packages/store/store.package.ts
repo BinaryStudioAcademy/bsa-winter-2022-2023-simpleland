@@ -15,17 +15,12 @@ import { reducer as usersReducer } from '~/slices/users/users.js';
 
 import { notification } from '../notification/notification.js';
 import { handleError } from './middlewares/middlewares.js';
+import { type ExtraArguments } from './types/types.js';
 
 type RootReducer = {
   auth: ReturnType<typeof authReducer>;
   users: ReturnType<typeof usersReducer>;
   app: ReturnType<typeof appReducer>;
-};
-
-type ExtraArguments = {
-  authApi: typeof authApi;
-  userApi: typeof userApi;
-  notification: typeof notification;
 };
 
 class Store {
@@ -47,7 +42,7 @@ class Store {
       },
       middleware: (getDefaultMiddleware) => {
         return [
-          handleError,
+          handleError(this.extraArguments),
           ...getDefaultMiddleware({
             thunk: {
               extraArgument: this.extraArguments,

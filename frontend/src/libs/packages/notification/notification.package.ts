@@ -1,5 +1,6 @@
-import { type ToastOptions } from 'react-toastify';
 import { toast } from 'react-toastify';
+
+import { type NotificatinOptions } from './libs/types/notificatin-options.type.js';
 
 class Notification {
   public error(message: string): void {
@@ -22,13 +23,8 @@ class Notification {
       type: 'warning',
     });
   }
-  public default(message: string): void {
-    this.show(message, {
-      type: 'default',
-    });
-  }
 
-  private show(message: string, parameters: ToastOptions): void {
+  private show(message: string, parameters: NotificatinOptions): void {
     toast(message, parameters);
   }
 }
