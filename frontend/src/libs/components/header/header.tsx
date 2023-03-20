@@ -1,12 +1,13 @@
+import { type UserAuthResponse } from 'shared/build/packages/users/libs/types/types.js';
+
 import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
 import { Link } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
-import { type UserSignInResponseDto } from '~/packages/users/users.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-  user: UserSignInResponseDto;
+  user: UserAuthResponse;
 };
 
 const Header: React.FC<Properties> = ({ user }: Properties) => {
