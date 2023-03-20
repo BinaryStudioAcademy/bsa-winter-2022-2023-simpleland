@@ -3,9 +3,9 @@ import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserRepository } from '~/packages/users/user.repository.js';
 
 import {
+  type UserAuthResponse,
   type UserGetAllResponseDto,
   type UserSignUpRequestDto,
-  type UserSignUpResponseDto,
 } from './libs/types/types.js';
 
 class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
@@ -13,6 +13,22 @@ class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public constructor(userRepository: UserRepository) {
     this.userRepository = userRepository;
+  }
+
+  public async find(id: number): Promise<UserAuthResponse | null> {
+    const user = await this.userRepository.find(id);
+    if (!user) {
+      return null;
+    }
+    return user.toObject();
+  }
+
+  public async findByEmail(email: string): Promise<UserAuthResponse | null> {
+    const user = await this.userRepository.findByEmail(email);
+    if (!user) {
+      return null;
+    }
+    return user.toObject();
   }
 
   public async findAll(): Promise<UserGetAllResponseDto> {
@@ -25,7 +41,7 @@ class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async create(
     payload: UserSignUpRequestDto,
-  ): Promise<UserSignUpResponseDto> {
+  ): Promise<UserAuthResponse> {
     const user = await this.userRepository.create(
       UserEntity.initializeNew({
         email: payload.email,
@@ -35,7 +51,6 @@ class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
         lastName: payload.lastName,
       }),
     );
-
     return user.toObject();
   }
 }

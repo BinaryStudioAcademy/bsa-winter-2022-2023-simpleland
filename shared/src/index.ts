@@ -45,6 +45,7 @@ export {
   SitesApiPath,
 } from './packages/sites/sites.js';
 export {
+  type UserAuthResponse,
   type UserGetAllItemResponseDto,
   type UserGetAllResponseDto,
   type UserSignInRequestDto,
