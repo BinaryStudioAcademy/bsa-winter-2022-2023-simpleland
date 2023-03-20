@@ -14,7 +14,7 @@ const PageLayout: React.FC<Properties> = ({
   style = 'yellow',
 }: Properties) => {
   const { user } = useAppSelector(({ auth }) => ({
-    user: auth.user?.user,
+    user: auth.user,
   }));
 
   return (
