@@ -12,7 +12,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
   public async find(id: number): Promise<UserEntity | null> {
     const user = await this.userModel
       .query()
-      .where('id', id)
+      .where('users.id', id)
       .first()
       .withGraphJoined('userDetails');
 
