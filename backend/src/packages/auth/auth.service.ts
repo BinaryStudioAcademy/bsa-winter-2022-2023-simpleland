@@ -1,8 +1,3 @@
-import {
-  ApplicationError,
-  ApplicationErrorMessage,
-} from 'shared/build/index.js';
-
 import { type Token } from '~/libs/packages/token/token.js';
 import {
   type UserService,
@@ -11,6 +6,9 @@ import {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
 } from '~/packages/users/users.js';
+
+import { ExceptionMessages } from './libs/enums/enums.js';
+import { ApplicationError } from './libs/exceptions/exceptions.js';
 
 class AuthService {
   private userService: UserService;
@@ -31,7 +29,7 @@ class AuthService {
     const user = await this.userService.findByEmail(email);
     if (!user) {
       throw new ApplicationError({
-        message: ApplicationErrorMessage.userNotFound,
+        message: ExceptionMessages.userNotFound,
       });
     }
     return {
