@@ -12,7 +12,7 @@ type Properties = {
   type?: 'button' | 'submit';
   isDisabled?: boolean;
   className?: string;
-  onClick?: () => void;
+  onClick?: (() => void) | undefined;
   isLabelVisuallyHidden?: boolean;
 };
 
@@ -23,7 +23,7 @@ const Button: React.FC<Properties> = ({
   style = 'primary',
   type = 'button',
   isDisabled = false,
-  className = '',
+  className,
   icon,
   isLabelVisuallyHidden = false,
 }: Properties) => (

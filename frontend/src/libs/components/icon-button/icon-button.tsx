@@ -17,7 +17,7 @@ const IconButton: React.FC<Properties> = ({
   label,
   onClick,
   isDisabled = false,
-  className = '',
+  className,
 }: Properties) => (
   <Button
     icon={icon}
