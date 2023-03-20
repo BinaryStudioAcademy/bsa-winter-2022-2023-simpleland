@@ -1,5 +1,4 @@
 import { Button, Icon } from '~/libs/components/components.js';
-import { IconName } from '~/libs/enums/enums.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useMemo, useStepper } from '~/libs/hooks/hooks.js';
 
@@ -34,13 +33,13 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
           <div
             className={getValidClassNames(styles.bar, styles.barYellow)}
             style={{ width: `${barYellowWidth}%` }}
-          ></div>
+          />
         </div>
 
         <div className={styles.stepperWrapper}>
           <div className={styles.imgWrapper}>
             <Icon
-              iconName={IconName.ARROW}
+              iconName="arrowLeft"
               className={getValidClassNames(
                 styles.img,
                 isFirstStep && styles.imgDisabled,
@@ -50,10 +49,9 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
               <span className="visually-hidden">Go to the previous step</span>
             </Icon>
             <Icon
-              iconName={IconName.ARROW}
+              iconName="arrowRight"
               className={getValidClassNames(
                 styles.img,
-                styles.imgRight,
                 isLastStep && styles.imgDisabled,
               )}
               onClick={toNextStep}
@@ -80,9 +78,8 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
           styles.button,
           isLastStep && 'visually-hidden',
         )}
-      >
-        <span className="visually-hidden">Go to the next step</span>
-      </Button>
+        visuallyHiddenLabel="Go to the next step"
+      />
     </div>
   );
 };

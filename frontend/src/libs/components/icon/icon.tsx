@@ -1,7 +1,7 @@
-import { iconNameToSvgIcon } from './common.js';
+import { type IconType, iconNameToSvgIcon } from './common.js';
 
 type Properties = {
-  iconName: string;
+  iconName: IconType;
   className?: string;
   onClick?: () => void;
   children?: React.ReactNode;
