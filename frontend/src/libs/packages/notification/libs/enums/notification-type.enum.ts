@@ -5,4 +5,4 @@ const NotificationType = {
   WARNING: 'warning',
 } as const;
 
-export { type NotificationType };
+export { NotificationType };
