@@ -1,5 +1,6 @@
-import avatarImage from '~/assets/img/default-avatar-profile-icon.png';
+import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
 import { Link } from '~/libs/components/components.js';
+import { AppRoute } from '~/libs/enums/app-route.enum';
 import { type UserSignInResponseDto } from '~/packages/users/users.js';
 
 import styles from './styles.module.scss';
@@ -18,7 +19,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
       <div className={styles.headerSidebar}>
         <ul className={styles.headerNavList}>
           <li>
-            <Link to="/">
+            <Link to={AppRoute.ROOT}>
               <span className={styles.sectionTitle}>My sites</span>
             </Link>
           </li>
