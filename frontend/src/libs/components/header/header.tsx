@@ -24,11 +24,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
           </li>
         </ul>
         <div className={styles.profileDataWrapper}>
-          <img
-            alt="profile"
-            src={avatarImage}
-            className={styles.profileIcon}
-          />
+          <img alt="profile" src={avatarImage} className={styles.profileIcon} />
           <span className={styles.profileCaption}>
             {user.firstName} {user.lastName}
           </span>
