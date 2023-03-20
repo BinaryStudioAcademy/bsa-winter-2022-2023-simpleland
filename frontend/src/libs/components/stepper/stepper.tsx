@@ -45,14 +45,12 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
               label="Go to the previous step"
               onClick={handlePreviousStep}
               isDisabled={isFirstStep}
-              isLabelVisuallyHidden
             />
             <IconButton
               icon="arrowRight"
               label="Go to the next step"
               onClick={handleNextStep}
               isDisabled={isLastStep}
-              isLabelVisuallyHidden
             />
           </div>
 

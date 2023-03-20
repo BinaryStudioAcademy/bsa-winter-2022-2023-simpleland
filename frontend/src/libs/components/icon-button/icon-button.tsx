@@ -1,4 +1,4 @@
-import { Icon } from '~/libs/components/components.js';
+import { Button } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { type IconType } from '~/libs/types/types.js';
 
@@ -10,7 +10,6 @@ type Properties = {
   onClick?: () => void;
   isDisabled?: boolean;
   className?: string;
-  isLabelVisuallyHidden?: boolean;
 };
 
 const IconButton: React.FC<Properties> = ({
@@ -19,20 +18,16 @@ const IconButton: React.FC<Properties> = ({
   onClick,
   isDisabled = false,
   className = '',
-  isLabelVisuallyHidden = true,
 }: Properties) => (
-  <button
+  <Button
+    icon={icon}
+    label={label}
     onClick={onClick}
-    disabled={isDisabled}
-    className={getValidClassNames(styles.button, className)}
-  >
-    <Icon iconName={icon} />
-    <span
-      className={getValidClassNames(isLabelVisuallyHidden && 'visually-hidden')}
-    >
-      {label}
-    </span>
-  </button>
+    style="plain"
+    isDisabled={isDisabled}
+    className={getValidClassNames(styles.iconButton, className)}
+    isLabelVisuallyHidden
+  />
 );
 
 export { IconButton };
