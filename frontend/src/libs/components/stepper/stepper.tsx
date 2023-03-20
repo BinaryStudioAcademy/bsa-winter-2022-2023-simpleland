@@ -1,9 +1,8 @@
-import { Button } from '~/libs/components/components.js';
-import { Icon } from '~/libs/components/icon/icon.js';
+import { Button, Icon } from '~/libs/components/components.js';
+import { IconName } from '~/libs/enums/enums.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useMemo, useStepper } from '~/libs/hooks/hooks.js';
 
-import ArrowIcon from '../../../assets/img/arrow-left.svg';
 import styles from './styles.module.scss';
 
 const ONE_STEP_LENGTH = 1;
@@ -41,7 +40,7 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
         <div className={styles.stepperWrapper}>
           <div className={styles.imgWrapper}>
             <Icon
-              iconPath={ArrowIcon}
+              iconName={IconName.ARROW}
               className={getValidClassNames(
                 styles.img,
                 isFirstStep && styles.imgDisabled,
@@ -51,7 +50,7 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
               <span className="visually-hidden">Go to the previous step</span>
             </Icon>
             <Icon
-              iconPath={ArrowIcon}
+              iconName={IconName.ARROW}
               className={getValidClassNames(
                 styles.img,
                 styles.imgRight,

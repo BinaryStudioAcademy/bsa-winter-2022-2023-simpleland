@@ -1,23 +1,20 @@
-import { useSVGImport } from '~/libs/hooks/hooks.js';
+import { iconNameToSvgIcon } from './common.js';
 
 type Properties = {
-  iconPath: string;
+  iconName: string;
   className?: string;
   onClick?: () => void;
   children?: React.ReactNode;
 };
 
 const Icon: React.FC<Properties> = ({
-  iconPath,
+  iconName,
   className,
   onClick,
 }: Properties) => {
-  const { SvgIcon } = useSVGImport({ iconPath });
-  if (SvgIcon) {
-    return <SvgIcon className={className} onClick={onClick} />;
-  }
+  const SvgIcon = iconNameToSvgIcon[iconName];
 
-  return null;
+  return <SvgIcon className={className} onClick={onClick} />;
 };
 
 export { Icon };
