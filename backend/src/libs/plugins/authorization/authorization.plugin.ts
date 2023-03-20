@@ -6,8 +6,15 @@ import {
   HttpCode,
   HttpError,
 } from '~/libs/packages/http/http.js';
+import { type WhiteRoute } from '~/libs/packages/server-application/server-application.js';
+import { type Token } from '~/libs/packages/token/token.package';
+import { type UserService } from '~/packages/users/user.service';
 
-import { type AuthorizationPluginParameters } from './libs/types/authorization-plugin-parameters.type.js';
+type AuthorizationPluginParameters = {
+  whiteRoutesConfig: WhiteRoute[];
+  userService: UserService;
+  token: Token;
+};
 
 const authorization = fp(
   async (

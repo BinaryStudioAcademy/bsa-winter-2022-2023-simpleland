@@ -12,7 +12,7 @@ type ApiHandlerOptions<
   body: T['body'];
   query: T['query'];
   params: T['params'];
-  user: UserAuthResponse;
+  user: UserAuthResponse | null;
 };
 
 export { type ApiHandlerOptions };
