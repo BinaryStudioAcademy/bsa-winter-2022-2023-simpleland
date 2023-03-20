@@ -1,56 +1,32 @@
 import { Button } from '~/libs/components/components.js';
 import { Icon } from '~/libs/components/icon/icon.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useCallback, useMemo, useStepper } from '~/libs/hooks/hooks.js';
+import { useMemo, useStepper } from '~/libs/hooks/hooks.js';
 
 import ArrowIcon from '../../../assets/img/arrow-left.svg';
 import styles from './styles.module.scss';
 
-const step = 1;
-const saveButtonText = 'Save';
-const nextButtonText = 'Go next';
+const ONE_STEP_LENGTH = 1;
 
 type Properties = {
   children: React.ReactNode[];
-  saveData?: () => void;
   className?: string;
 };
 
-const Stepper: React.FC<Properties> = ({
-  children,
-  saveData,
-  className,
-}: Properties) => {
-  const stepsLength = children.length;
-  const { currentStep, changeStep, isFirstStep, isLastStep } = useStepper({
-    stepsLength,
-  });
-  const buttonLabel = isLastStep ? saveButtonText : nextButtonText;
-  const barYellowWidth = Math.round(((currentStep - step) / stepsLength) * 100);
+const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
+  const {
+    currentStep,
+    isFirstStep,
+    isLastStep,
+    buttonLabel,
+    barYellowWidth,
+    toNextStep,
+    toPreviousStep,
+  } = useStepper({ length: children.length });
 
   const stepBlock = useMemo(() => {
-    return children[currentStep - step];
+    return children[currentStep - ONE_STEP_LENGTH];
   }, [children, currentStep]);
-
-  const toNextStep = useCallback(() => {
-    if (currentStep === stepsLength) {
-      return;
-    }
-    changeStep(currentStep + step);
-  }, [currentStep, changeStep, stepsLength]);
-
-  const toPreviousStep = useCallback(() => {
-    if (currentStep === step) {
-      return;
-    }
-    changeStep(currentStep - step);
-  }, [currentStep, changeStep]);
-
-  const saveValues = useCallback(() => {
-    if (saveData) {
-      saveData();
-    }
-  }, [saveData]);
 
   return (
     <div className={getValidClassNames(styles.wrapper, className)}>
@@ -88,7 +64,8 @@ const Stepper: React.FC<Properties> = ({
           </div>
 
           <div className={styles.text}>
-            <span className={styles.yellow}>{currentStep}</span>/{stepsLength}
+            <span className={styles.yellow}>{currentStep}</span>/
+            {children.length}
           </div>
         </div>
       </div>
@@ -99,12 +76,13 @@ const Stepper: React.FC<Properties> = ({
         label={buttonLabel}
         style="secondary"
         size="small"
-        onClick={isLastStep ? saveValues : toNextStep}
-        className={styles.button}
+        onClick={toNextStep}
+        className={getValidClassNames(
+          styles.button,
+          isLastStep && 'visually-hidden',
+        )}
       >
-        <span className="visually-hidden">
-          Go to the next step or save values
-        </span>
+        <span className="visually-hidden">Go to the next step</span>
       </Button>
     </div>
   );
