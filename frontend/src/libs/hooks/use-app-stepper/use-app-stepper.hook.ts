@@ -7,8 +7,8 @@ type UseStepper = (parameters: { length: number }) => {
   isFirstStep: boolean;
   isLastStep: boolean;
   barYellowWidth: number;
-  toNextStep: () => void;
-  toPreviousStep: () => void;
+  handleNextStep: () => void;
+  handlePreviousStep: () => void;
 };
 
 const useStepper: UseStepper = ({ length }) => {
@@ -19,31 +19,31 @@ const useStepper: UseStepper = ({ length }) => {
     ((currentStep - ONE_STEP_LENGTH) / length) * 100,
   );
 
-  const onStepChange = useCallback((step: number): void => {
+  const handleStepChange = useCallback((step: number): void => {
     setCurrentStep(step);
   }, []);
 
-  const toNextStep = useCallback(() => {
+  const handleNextStep = useCallback(() => {
     if (currentStep === length) {
       return;
     }
-    onStepChange(currentStep + ONE_STEP_LENGTH);
-  }, [currentStep, onStepChange, length]);
+    handleStepChange(currentStep + ONE_STEP_LENGTH);
+  }, [currentStep, handleStepChange, length]);
 
-  const toPreviousStep = useCallback(() => {
+  const handlePreviousStep = useCallback(() => {
     if (currentStep === ONE_STEP_LENGTH) {
       return;
     }
-    onStepChange(currentStep - ONE_STEP_LENGTH);
-  }, [currentStep, onStepChange]);
+    handleStepChange(currentStep - ONE_STEP_LENGTH);
+  }, [currentStep, handleStepChange]);
 
   return {
     currentStep,
     isFirstStep,
     isLastStep,
     barYellowWidth,
-    toNextStep,
-    toPreviousStep,
+    handleNextStep,
+    handlePreviousStep,
   };
 };
 

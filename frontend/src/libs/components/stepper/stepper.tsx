@@ -19,8 +19,8 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
     isFirstStep,
     isLastStep,
     barYellowWidth,
-    toNextStep,
-    toPreviousStep,
+    handleNextStep,
+    handlePreviousStep,
   } = useStepper({ length: children.length });
   const buttonLabel = isLastStep ? SAVE_BUTTON_TEXT : NEXT_BUTTON_TEXT;
 
@@ -43,14 +43,14 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
             <IconButton
               icon="arrowLeft"
               label="Go to the previous step"
-              onClick={toPreviousStep}
+              onClick={handlePreviousStep}
               isDisabled={isFirstStep}
               isLabelVisuallyHidden
             />
             <IconButton
               icon="arrowRight"
               label="Go to the next step"
-              onClick={toNextStep}
+              onClick={handleNextStep}
               isDisabled={isLastStep}
               isLabelVisuallyHidden
             />
@@ -69,7 +69,7 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
         label={buttonLabel}
         style="secondary"
         size="small"
-        onClick={toNextStep}
+        onClick={handleNextStep}
         className={getValidClassNames(
           styles.button,
           isLastStep && 'visually-hidden',
