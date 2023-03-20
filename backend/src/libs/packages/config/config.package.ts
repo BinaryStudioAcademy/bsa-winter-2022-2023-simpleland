@@ -9,8 +9,11 @@ import { type AuthConfig, type EnvironmentSchema } from './libs/types/types.js';
 
 class Config implements IConfig {
   private logger: ILogger;
+
   public AUTH: AuthConfig;
+
   public ENV: EnvironmentSchema;
+
   public constructor(logger: ILogger) {
     this.logger = logger;
 
