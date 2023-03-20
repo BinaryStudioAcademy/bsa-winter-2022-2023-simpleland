@@ -41,6 +41,7 @@ const SelectStyles: StylesConfig<Options<string | number>> = {
   }),
   dropdownIndicator: (provided, state) => {
     const rotation = state.selectProps.menuIsOpen ? '180deg' : '0deg';
+
     return {
       ...provided,
       color: '#343434',
