@@ -1,3 +1,8 @@
+import {
+  ApplicationError,
+  ApplicationErrorMessage,
+} from 'shared/build/index.js';
+
 import { type Token } from '~/libs/packages/token/token.js';
 import {
   type UserService,
@@ -25,7 +30,9 @@ class AuthService {
   private async login(email: string): Promise<UserSignInResponseDto> {
     const user = await this.userService.findByEmail(email);
     if (!user) {
-      throw new Error('User Not Exist');
+      throw new ApplicationError({
+        message: ApplicationErrorMessage.userNotFound,
+      });
     }
     return {
       token: await this.tokenService.create(user.id),
