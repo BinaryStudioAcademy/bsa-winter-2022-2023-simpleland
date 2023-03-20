@@ -1,5 +1,7 @@
 .modal {
   position: fixed;
+  top: 50%;
+  left: 50%;
   z-index: 10;
   display: flex;
   justify-content: center;
@@ -8,6 +10,7 @@
   height: 665px;
   overflow-y: auto;
   background-color: var(--white);
+  transform: translate(-50%, -50%);
 }
 
 .modalPopUpClose {
