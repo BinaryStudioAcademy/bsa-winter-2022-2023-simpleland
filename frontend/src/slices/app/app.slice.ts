@@ -9,8 +9,8 @@ const { reducer, actions, name } = createSlice({
   name: 'app',
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(notify, (state, action) => {
-      notification[action.payload.type](action.payload.message);
+    builder.addCase(notify.fulfilled, (state) => {
+      notification;
     });
   },
 });
