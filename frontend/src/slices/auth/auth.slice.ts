@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/libs/enums/enums.js';
 import { type ValueOf } from '~/libs/types/types.js';
-import { type UserSignInResponseDto } from '~/packages/users/users.js';
+import { type UserAuthResponse } from '~/packages/users/users.js';
 
 import { signUp } from './actions.js';
 
 type State = {
   dataStatus: ValueOf<typeof DataStatus>;
-  user: UserSignInResponseDto | null;
+  user: UserAuthResponse | null;
 };
 
 const initialState: State = {

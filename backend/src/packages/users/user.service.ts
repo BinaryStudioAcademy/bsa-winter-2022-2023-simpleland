@@ -17,17 +17,21 @@ class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async find(id: number): Promise<UserAuthResponse | null> {
     const user = await this.userRepository.find(id);
+
     if (!user) {
       return null;
     }
+
     return user.toObject();
   }
 
   public async findByEmail(email: string): Promise<UserAuthResponse | null> {
     const user = await this.userRepository.findByEmail(email);
+
     if (!user) {
       return null;
     }
+
     return user.toObject();
   }
 
@@ -51,6 +55,7 @@ class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
         lastName: payload.lastName,
       }),
     );
+
     return user.toObject();
   }
 }
