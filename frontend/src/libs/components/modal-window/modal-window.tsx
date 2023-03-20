@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 const ModalWindow: React.FC = () => {
   return (
     <div className={styles.modal}>
-      <button className={styles.modalPopUClose}>
+      <button className={styles.modalPopUpClose}>
         <img alt="close" src={closePopUpIcon} />
       </button>
     </div>
