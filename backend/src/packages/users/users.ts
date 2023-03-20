@@ -13,6 +13,7 @@ export { userController, userService };
 export {
   type UserAuthResponse,
   type UserSignInRequestDto,
+  type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
 } from './libs/types/types.js';
