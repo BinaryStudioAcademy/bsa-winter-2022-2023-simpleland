@@ -1,15 +1,15 @@
+import { type Properties as ButtonProperties } from '~/libs/components/button/button.js';
 import { Button } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { type IconType } from '~/libs/types/types.js';
 
 import styles from './styles.module.scss';
 
-type Properties = {
+type Properties = Omit<
+  ButtonProperties,
+  'icon' | 'style' | 'size' | 'isLabelVisuallyHidden'
+> & {
   icon: IconType;
-  label: string;
-  onClick?: () => void;
-  isDisabled?: boolean;
-  className?: string;
 };
 
 const IconButton: React.FC<Properties> = ({

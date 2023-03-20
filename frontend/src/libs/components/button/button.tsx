@@ -5,7 +5,7 @@ import { type IconType } from '~/libs/types/types.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-  label?: string;
+  label: string;
   icon?: IconType;
   size?: 'big' | 'small';
   style?: 'primary' | 'secondary' | 'plain';
@@ -47,4 +47,4 @@ const Button: React.FC<Properties> = ({
   </button>
 );
 
-export { Button };
+export { type Properties, Button };
