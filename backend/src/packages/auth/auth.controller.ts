@@ -71,6 +71,8 @@ class AuthController extends Controller {
    *                  format: email
    *                password:
    *                  type: string
+   *                firstName: string;
+   *                lastName: string;
    *      responses:
    *        201:
    *          description: Successful operation
@@ -123,14 +125,14 @@ class AuthController extends Controller {
    *                    type: object
    *                    $ref: '#/components/schemas/User'
    */
-  private signIn(
+  private async signIn(
     options: ApiHandlerOptions<{
       body: UserSignInRequestDto;
     }>,
-  ): ApiHandlerResponse {
+  ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: this.authService.signIn(options.body),
+      payload: await this.authService.signIn(options.body),
     };
   }
 }
