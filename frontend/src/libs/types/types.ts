@@ -1,4 +1,5 @@
 export { type AsyncThunkConfig } from './async-thunk-config.type.js';
+export { type Options } from './select-options/select-options.js';
 export {
   type ServerErrorDetail,
   type ServerErrorResponse,
