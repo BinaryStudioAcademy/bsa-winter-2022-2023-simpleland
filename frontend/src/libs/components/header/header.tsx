@@ -1,4 +1,4 @@
-import profileImage from '~/assets/img/profile-image.png';
+import avatarImage from '~/assets/img/default-avatar-profile-icon.png';
 import { Link } from '~/libs/components/components.js';
 import { type UserSignInResponseDto } from '~/packages/users/users.js';
 
@@ -26,7 +26,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
         <div className={styles.profileDataWrapper}>
           <img
             alt="profile"
-            src={profileImage}
+            src={avatarImage}
             className={styles.profileIcon}
           />
           <span className={styles.profileCaption}>
