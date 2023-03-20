@@ -52,6 +52,8 @@ rules:
     - all
   unicorn/no-null:
     - off
+  '@typescript-eslint/lines-between-class-members':
+    - error
   '@typescript-eslint/padding-line-between-statements':
     - error
     - blankLine: never
@@ -62,6 +64,17 @@ rules:
         - const
         - class
       next: export
+    - blankLine: always
+      prev: '*'
+      next:
+        - switch
+        - class
+        - function
+        - if
+        - return
+        - try
+        - interface
+        - type
   simple-import-sort/imports:
     - error
   simple-import-sort/exports:
