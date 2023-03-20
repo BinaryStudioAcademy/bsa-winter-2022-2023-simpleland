@@ -6,7 +6,6 @@ import { type EnvironmentSchema } from './libs/types/types.js';
 
 class Config implements IConfig {
   public ENV: EnvironmentSchema;
-
   public constructor() {
     this.ENV = this.envSchema;
   }
