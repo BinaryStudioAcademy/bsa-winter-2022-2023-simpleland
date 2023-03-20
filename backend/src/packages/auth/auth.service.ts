@@ -7,7 +7,6 @@ import {
   type UserSignUpResponseDto,
 } from '~/packages/users/users.js';
 
-import { ExceptionMessages } from './libs/enums/enums.js';
 import { ApplicationError } from './libs/exceptions/exceptions.js';
 
 class AuthService {
@@ -29,7 +28,7 @@ class AuthService {
     const user = await this.userService.findByEmail(email);
     if (!user) {
       throw new ApplicationError({
-        message: ExceptionMessages.userNotFound,
+        message: 'User Not Exist',
       });
     }
     return {
