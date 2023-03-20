@@ -1,10 +1,12 @@
-import { Button, Icon } from '~/libs/components/components.js';
+import { Button } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useMemo, useStepper } from '~/libs/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
 const ONE_STEP_LENGTH = 1;
+const SAVE_BUTTON_TEXT = 'Save';
+const NEXT_BUTTON_TEXT = 'Go next';
 
 type Properties = {
   children: React.ReactNode[];
@@ -16,11 +18,11 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
     currentStep,
     isFirstStep,
     isLastStep,
-    buttonLabel,
     barYellowWidth,
     toNextStep,
     toPreviousStep,
   } = useStepper({ length: children.length });
+  const buttonLabel = isLastStep ? SAVE_BUTTON_TEXT : NEXT_BUTTON_TEXT;
 
   const stepBlock = useMemo(() => {
     return children[currentStep - ONE_STEP_LENGTH];
@@ -38,26 +40,22 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
 
         <div className={styles.stepperWrapper}>
           <div className={styles.imgWrapper}>
-            <Icon
-              iconName="arrowLeft"
-              className={getValidClassNames(
-                styles.img,
-                isFirstStep && styles.imgDisabled,
-              )}
+            <Button
+              icon="arrowLeft"
+              style="plain"
+              size="fitContent"
               onClick={toPreviousStep}
-            >
-              <span className="visually-hidden">Go to the previous step</span>
-            </Icon>
-            <Icon
-              iconName="arrowRight"
-              className={getValidClassNames(
-                styles.img,
-                isLastStep && styles.imgDisabled,
-              )}
+              isDisabled={isFirstStep}
+              visuallyHiddenLabel="Go to the previous step"
+            />
+            <Button
+              icon="arrowRight"
+              style="plain"
+              size="fitContent"
               onClick={toNextStep}
-            >
-              <span className="visually-hidden">Go to the next step</span>
-            </Icon>
+              visuallyHiddenLabel="Go to the next step"
+              isDisabled={isLastStep}
+            />
           </div>
 
           <div className={styles.text}>

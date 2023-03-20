@@ -12,6 +12,10 @@
   cursor: not-allowed;
 }
 
+.button[disabled] svg path {
+  fill: var(--gray-100);
+}
+
 .big {
   height: 54px;
   padding: 8px 24px;
@@ -24,6 +28,10 @@
   padding: 4px 16px;
   font-weight: 400;
   font-size: 16px;
+}
+
+.fitContent {
+  padding: 0;
 }
 
 .primary {
