@@ -73,6 +73,7 @@ class AuthController extends Controller {
    *                  type: string
    *                firstName: string;
    *                lastName: string;
+   *                accountName: string;
    *      responses:
    *        201:
    *          description: Successful operation

@@ -29,6 +29,9 @@ import { userUpdateValidationSchema } from './libs/validation-schemas/validation
  *          email:
  *            type: string
  *            format: email
+ *          firstName: string;
+ *          lastName: string;
+ *          accountName: string;
  */
 class UserController extends Controller {
   private userService: UserService;
@@ -102,17 +105,7 @@ class UserController extends Controller {
    *          content:
    *            application/json:
    *              schema:
-   *                type: object
-   *                properties:
-   *                  id:
-   *                    type: number;
-   *                    format: int64;
-   *                    minimum: 1;
-   *                  firstName: string;
-   *                  lastName: string;
-   *                  email:
-   *                    type: string;
-   *                    format: email;
+   *                $ref: '#/components/schemas/User'
    */
   private async update(
     options: ApiHandlerOptions<{
