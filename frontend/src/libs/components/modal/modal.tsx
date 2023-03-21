@@ -20,11 +20,10 @@ const Modal: React.FC<Properties> = ({
     if (!reference.current) {
       return;
     }
-    
+
     if (isOpen && !reference.current.hasAttribute('open')) {
       return reference.current.showModal();
-    }
-    else if (!isOpen && reference.current.hasAttribute('open')) {
+    } else if (!isOpen && reference.current.hasAttribute('open')) {
       return reference.current.close();
     }
   }, [isOpen, reference]);
