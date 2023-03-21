@@ -34,7 +34,7 @@ class UserApi extends HttpApi {
     return await response.json<UserGetAllResponseDto>();
   }
 
-  public async updateUserDetails(
+  public async updateUser(
     payload: UserUpdateRequestDto,
   ): Promise<UserAuthResponse> {
     const response = await this.load(

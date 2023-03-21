@@ -3,8 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { DataStatus } from '~/libs/enums/enums.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
+import { updateUser } from '~/slices/users/actions.js';
 
-import { signUp, updateUser } from './actions.js';
+import { signUp } from './actions.js';
 
 type State = {
   dataStatus: ValueOf<typeof DataStatus>;

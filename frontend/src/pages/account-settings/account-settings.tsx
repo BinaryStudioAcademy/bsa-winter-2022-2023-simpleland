@@ -10,7 +10,7 @@ import {
   type UserAuthResponse,
   type UserUpdateRequestDto,
 } from '~/packages/users/users.js';
-import { actions as authActions } from '~/slices/auth/auth.js';
+import { actions as usersActions } from '~/slices/users/users.js';
 
 import { Profile } from './components/components.js';
 import styles from './styles.module.scss';
@@ -21,7 +21,7 @@ const AccountSettings: React.FC = () => {
 
   const handleUpdateUser = useCallback(
     (payload: UserUpdateRequestDto): void => {
-      void dispatch(authActions.updateUser(payload));
+      void dispatch(usersActions.updateUser(payload));
     },
     [dispatch],
   );
