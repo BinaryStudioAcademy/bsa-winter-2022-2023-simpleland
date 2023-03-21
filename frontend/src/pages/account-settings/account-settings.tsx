@@ -8,7 +8,7 @@ import {
 } from '~/libs/hooks/hooks.js';
 import {
   type UserAuthResponse,
-  type UserUpdateDetailsRequestDto,
+  type UserUpdateRequestDto,
 } from '~/packages/users/users.js';
 import { actions as authActions } from '~/slices/auth/auth.js';
 
@@ -19,15 +19,15 @@ const AccountSettings: React.FC = () => {
   const user = useAppSelector((state) => state.auth.user) as UserAuthResponse;
   const dispatch = useAppDispatch();
 
-  const handleUpdateUserDetails = useCallback(
-    (payload: UserUpdateDetailsRequestDto): void => {
-      void dispatch(authActions.updateUserDetails(payload));
+  const handleUpdateUser = useCallback(
+    (payload: UserUpdateRequestDto): void => {
+      void dispatch(authActions.updateUser(payload));
     },
     [dispatch],
   );
 
-  const getScreen = (): React.ReactNode => (
-    <Profile user={user} onUpdateUserDetails={handleUpdateUserDetails} />
+  const handleScreenRender = (): React.ReactNode => (
+    <Profile user={user} onUpdateUser={handleUpdateUser} />
   );
 
   return (
@@ -45,7 +45,7 @@ const AccountSettings: React.FC = () => {
         <div
           className={getValidClassNames(styles['screen'], styles['container'])}
         >
-          {getScreen()}
+          {handleScreenRender()}
         </div>
       </div>
     </>

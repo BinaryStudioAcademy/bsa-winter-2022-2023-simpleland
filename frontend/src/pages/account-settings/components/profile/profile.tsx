@@ -3,36 +3,33 @@ import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type UserAuthResponse,
-  type UserUpdateDetailsRequestDto,
+  type UserUpdateRequestDto,
 } from '~/packages/users/users.js';
-import { userUpdateDetailsValidationSchema } from '~/packages/users/users.js';
+import { userUpdateValidationSchema } from '~/packages/users/users.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
   user: UserAuthResponse;
-  onUpdateUserDetails: (payload: UserUpdateDetailsRequestDto) => void;
+  onUpdateUser: (payload: UserUpdateRequestDto) => void;
 };
 
-const Profile: React.FC<Properties> = ({
-  user,
-  onUpdateUserDetails,
-}: Properties) => {
+const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
   const { control, errors, handleSubmit, reset } =
-    useAppForm<UserUpdateDetailsRequestDto>({
+    useAppForm<UserUpdateRequestDto>({
       defaultValues: {
         firstName: user.firstName,
         lastName: user.lastName,
         accountName: 'TODO',
       },
-      validationSchema: userUpdateDetailsValidationSchema,
+      validationSchema: userUpdateValidationSchema,
     });
 
   const handleUpdateUserDetails = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
-      void handleSubmit(onUpdateUserDetails)(event_);
+      void handleSubmit(onUpdateUser)(event_);
     },
-    [handleSubmit, onUpdateUserDetails],
+    [handleSubmit, onUpdateUser],
   );
 
   const handleReset = useCallback((): void => {

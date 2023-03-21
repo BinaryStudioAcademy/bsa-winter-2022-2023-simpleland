@@ -19,10 +19,10 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
-  type UserUpdateDetailsRequestDto,
+  type UserUpdateRequestDto,
 } from './libs/types/types.js';
 export {
   userSignInValidationSchema,
   userSignUpValidationSchema,
-  userUpdateDetailsValidationSchema,
+  userUpdateValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

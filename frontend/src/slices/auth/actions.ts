@@ -5,7 +5,7 @@ import { type AsyncThunkConfig } from '~/libs/types/types.js';
 import {
   type UserAuthResponse,
   type UserSignUpRequestDto,
-  type UserUpdateDetailsRequestDto,
+  type UserUpdateRequestDto,
 } from '~/packages/users/users.js';
 
 import { name as sliceName } from './auth.slice.js';
@@ -23,9 +23,9 @@ const signUp = createAsyncThunk<
   return user;
 });
 
-const updateUserDetails = createAsyncThunk<
+const updateUser = createAsyncThunk<
   UserAuthResponse,
-  UserUpdateDetailsRequestDto,
+  UserUpdateRequestDto,
   AsyncThunkConfig
 >(
   `${sliceName}/update-user-details`,
@@ -36,4 +36,4 @@ const updateUserDetails = createAsyncThunk<
   },
 );
 
-export { signUp, updateUserDetails };
+export { signUp, updateUser };

@@ -1,9 +1,12 @@
 import joi from 'joi';
 
-import { UserValidationMessage, UserValidationRule } from '../enums/enums.js';
-import { type UserUpdateDetailsRequestDto } from '../types/types.js';
+import {
+  UserValidationMessage,
+  UserValidationRule,
+} from '~/packages/users/libs/enums/enums.js';
+import { type UserUpdateRequestDto } from '~/packages/users/libs/types/types.js';
 
-const userUpdateDetails = joi.object<UserUpdateDetailsRequestDto, true>({
+const userUpdate = joi.object<UserUpdateRequestDto, true>({
   firstName: joi
     .string()
     .pattern(UserValidationRule.FIRST_NAME_REGEX)
@@ -18,4 +21,4 @@ const userUpdateDetails = joi.object<UserUpdateDetailsRequestDto, true>({
   accountName: joi.string(),
 });
 
-export { userUpdateDetails };
+export { userUpdate };

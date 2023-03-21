@@ -7,7 +7,7 @@ import { UsersApiPath } from './libs/enums/enums.js';
 import {
   type UserAuthResponse,
   type UserGetAllResponseDto,
-  type UserUpdateDetailsRequestDto,
+  type UserUpdateRequestDto,
 } from './libs/types/types.js';
 
 type Constructor = {
@@ -35,12 +35,12 @@ class UserApi extends HttpApi {
   }
 
   public async updateUserDetails(
-    payload: UserUpdateDetailsRequestDto,
+    payload: UserUpdateRequestDto,
   ): Promise<UserAuthResponse> {
     const response = await this.load(
-      this.getFullEndpoint(UsersApiPath.USER_DETAILS, {}),
+      this.getFullEndpoint(UsersApiPath.ROOT, {}),
       {
-        method: 'PUT',
+        method: 'POST',
         contentType: ContentType.JSON,
         hasAuth: true,
         payload: JSON.stringify(payload),

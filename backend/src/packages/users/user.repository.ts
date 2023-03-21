@@ -2,7 +2,7 @@ import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserModel } from '~/packages/users/user.model.js';
 
-class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
+class UserRepository implements Omit<IRepository, 'delete'> {
   private userModel: typeof UserModel;
 
   public constructor(userModel: typeof UserModel) {
@@ -101,7 +101,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
     });
   }
 
-  public async updateUserDetails(entity: UserEntity): Promise<UserEntity> {
+  public async update(entity: UserEntity): Promise<UserEntity> {
     const { id, firstName, lastName, accountName } = entity.toUserDetails();
 
     const user = await this.userModel.query().upsertGraphAndFetch({

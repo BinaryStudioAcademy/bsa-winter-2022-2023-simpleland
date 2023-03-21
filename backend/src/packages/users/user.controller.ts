@@ -9,8 +9,11 @@ import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type UserService } from '~/packages/users/user.service.js';
 
 import { UsersApiPath } from './libs/enums/enums.js';
-import { type UserUpdateDetailsRequestDto } from './libs/types/types.js';
-import { userUpdateDetailsValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+import {
+  type UserAuthResponse,
+  type UserUpdateRequestDto,
+} from './libs/types/types.js';
+import { userUpdateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -42,12 +45,15 @@ class UserController extends Controller {
     });
 
     this.addRoute({
-      path: UsersApiPath.USER_DETAILS,
-      method: 'PUT',
-      validation: { body: userUpdateDetailsValidationSchema },
+      path: UsersApiPath.ROOT,
+      method: 'POST',
+      validation: { body: userUpdateValidationSchema },
       handler: (options) =>
         this.updateUserDetails(
-          options as ApiHandlerOptions<{ body: UserUpdateDetailsRequestDto }>,
+          options as ApiHandlerOptions<{
+            body: UserUpdateRequestDto;
+            user: UserAuthResponse;
+          }>,
         ),
     });
   }
@@ -76,8 +82,8 @@ class UserController extends Controller {
 
   /**
    * @swagger
-   * /users/user-details:
-   *    put:
+   * /users:
+   *    post:
    *      description: Updating user details. Returning user
    *      requestBody:
    *        description: User details
@@ -110,15 +116,13 @@ class UserController extends Controller {
    */
   private async updateUserDetails(
     options: ApiHandlerOptions<{
-      body: UserUpdateDetailsRequestDto;
+      body: UserUpdateRequestDto;
+      user: UserAuthResponse;
     }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.userService.updateUserDetails(
-        options.user?.id as number,
-        options.body,
-      ),
+      payload: await this.userService.update(options.user.id, options.body),
     };
   }
 }
