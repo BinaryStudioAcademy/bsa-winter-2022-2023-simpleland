@@ -10,7 +10,7 @@ const Modal: React.FC = () => {
       <div className={styles.backdrop} />
       <div className={styles.modal}>
         <IconButton
-          icon="closePopUp"
+          icon="cross"
           label="Close modal"
           className={styles.modalPopUpClose as string}
         />
