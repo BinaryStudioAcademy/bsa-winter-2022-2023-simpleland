@@ -3,15 +3,17 @@ import { type IEntity } from '~/libs/interfaces/interfaces.js';
 class UserEntity implements IEntity {
   private 'id': number | null;
 
-  private 'email': string;
+  private 'email': string | null;
 
-  private 'passwordHash': string;
+  private 'passwordHash': string | null;
 
-  private 'passwordSalt': string;
+  private 'passwordSalt': string | null;
 
-  private 'firstName': string;
+  private 'firstName': string | null;
 
-  private 'lastName': string;
+  private 'lastName': string | null;
+
+  private 'accountName': string | null;
 
   private constructor({
     id,
@@ -20,13 +22,15 @@ class UserEntity implements IEntity {
     passwordSalt,
     firstName,
     lastName,
+    accountName,
   }: {
     id: number | null;
-    email: string;
-    passwordHash: string;
-    passwordSalt: string;
-    firstName: string;
-    lastName: string;
+    email: string | null;
+    passwordHash: string | null;
+    passwordSalt: string | null;
+    firstName: string | null;
+    lastName: string | null;
+    accountName: string | null;
   }) {
     this.id = id;
     this.email = email;
@@ -34,6 +38,7 @@ class UserEntity implements IEntity {
     this.passwordHash = passwordHash;
     this.firstName = firstName;
     this.lastName = lastName;
+    this.accountName = accountName;
   }
 
   public static initialize({
@@ -43,13 +48,15 @@ class UserEntity implements IEntity {
     passwordSalt,
     firstName,
     lastName,
+    accountName,
   }: {
-    id: number;
-    email: string;
-    passwordHash: string;
-    passwordSalt: string;
-    firstName: string;
-    lastName: string;
+    id: number | null;
+    email: string | null;
+    passwordHash: string | null;
+    passwordSalt: string | null;
+    firstName: string | null;
+    lastName: string | null;
+    accountName: string | null;
   }): UserEntity {
     return new UserEntity({
       id,
@@ -58,6 +65,7 @@ class UserEntity implements IEntity {
       passwordSalt,
       firstName,
       lastName,
+      accountName,
     });
   }
 
@@ -81,6 +89,7 @@ class UserEntity implements IEntity {
       passwordSalt,
       firstName,
       lastName,
+      accountName: null,
     });
   }
 
@@ -92,9 +101,9 @@ class UserEntity implements IEntity {
   } {
     return {
       id: this.id as number,
-      email: this.email,
-      firstName: this.firstName,
-      lastName: this.lastName,
+      email: this.email as string,
+      firstName: this.firstName as string,
+      lastName: this.lastName as string,
     };
   }
 
@@ -106,11 +115,25 @@ class UserEntity implements IEntity {
     lastName: string;
   } {
     return {
-      email: this.email,
-      passwordHash: this.passwordHash,
-      passwordSalt: this.passwordSalt,
-      firstName: this.firstName,
-      lastName: this.lastName,
+      email: this.email as string,
+      passwordHash: this.passwordHash as string,
+      passwordSalt: this.passwordSalt as string,
+      firstName: this.firstName as string,
+      lastName: this.lastName as string,
+    };
+  }
+
+  public toUserDetails(): {
+    id: number;
+    firstName: string;
+    lastName: string;
+    accountName: string;
+  } {
+    return {
+      id: this.id as number,
+      firstName: this.firstName as string,
+      lastName: this.lastName as string,
+      accountName: this.accountName as string,
     };
   }
 }

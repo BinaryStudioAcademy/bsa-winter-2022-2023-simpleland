@@ -1,13 +1,16 @@
 import { ApiPath } from '~/libs/enums/enums.js';
 import {
+  type ApiHandlerOptions,
   type ApiHandlerResponse,
-  Controller,
 } from '~/libs/packages/controller/controller.js';
+import { Controller } from '~/libs/packages/controller/controller.js';
 import { HttpCode } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type UserService } from '~/packages/users/user.service.js';
 
 import { UsersApiPath } from './libs/enums/enums.js';
+import { type UserUpdateDetailsRequestDto } from './libs/types/types.js';
+import { userUpdateDetailsValidationSchema } from './libs/validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -37,6 +40,16 @@ class UserController extends Controller {
       method: 'GET',
       handler: () => this.findAll(),
     });
+
+    this.addRoute({
+      path: UsersApiPath.USER_DETAILS,
+      method: 'PUT',
+      validation: { body: userUpdateDetailsValidationSchema },
+      handler: (options) =>
+        this.updateUserDetails(
+          options as ApiHandlerOptions<{ body: UserUpdateDetailsRequestDto }>,
+        ),
+    });
   }
 
   /**
@@ -58,6 +71,20 @@ class UserController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.userService.findAll(),
+    };
+  }
+
+  private async updateUserDetails(
+    options: ApiHandlerOptions<{
+      body: UserUpdateDetailsRequestDto;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.userService.updateUserDetails(
+        options.user?.id as number,
+        options.body,
+      ),
     };
   }
 }

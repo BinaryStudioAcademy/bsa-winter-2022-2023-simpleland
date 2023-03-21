@@ -27,6 +27,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
       passwordSalt: user.passwordSalt,
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
     });
   }
 
@@ -48,6 +49,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
       passwordSalt: user.passwordSalt,
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
     });
   }
 
@@ -65,6 +67,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
         passwordSalt: user.passwordSalt,
         firstName: user.userDetails.firstName,
         lastName: user.userDetails.lastName,
+        accountName: user.userDetails.accountName,
       });
     });
   }
@@ -94,6 +97,30 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
       passwordSalt: user.passwordSalt,
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
+    });
+  }
+
+  public async updateUserDetails(entity: UserEntity): Promise<UserEntity> {
+    const { id, firstName, lastName, accountName } = entity.toUserDetails();
+
+    const user = await this.userModel.query().upsertGraphAndFetch({
+      id,
+      userDetails: {
+        firstName,
+        lastName,
+        accountName,
+      },
+    });
+
+    return UserEntity.initialize({
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
+      firstName: user.userDetails.firstName,
+      lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
     });
   }
 }
