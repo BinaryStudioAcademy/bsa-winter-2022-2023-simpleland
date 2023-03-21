@@ -11,7 +11,7 @@ type Notification = {
   type: ValueOf<typeof NotificationType>;
 };
 
-const notify = createAsyncThunk<void, Notification, AsyncThunkConfig>(
+const notify = createAsyncThunk<unknown, Notification, AsyncThunkConfig>(
   `${sliceName}/notify`,
   ({ type, message }, { extra }) => {
     const { notification } = extra;
