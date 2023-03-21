@@ -52,7 +52,7 @@ class AuthController extends Controller {
         ),
     });
     this.addRoute({
-      path: AuthApiPath.AUTH_USER,
+      path: AuthApiPath.CURRENT,
       method: 'GET',
       handler: (options) => this.getCurrent(options),
     });
@@ -176,8 +176,7 @@ class AuthController extends Controller {
   private async getCurrent(
     options: ApiHandlerOptions,
   ): Promise<ApiHandlerResponse> {
-    const authHeader = options.headers.authorization;
-    const [, token] = authHeader?.split(' ') ?? [];
+    const [, token] = options.headers.authorization?.split(' ') ?? [];
 
     if (!token) {
       throw new HttpError({
@@ -186,7 +185,7 @@ class AuthController extends Controller {
         status: HttpCode.UNAUTHORIZED,
       });
     }
-    const user = await this.authService.findAuthUser(token);
+    const user = await this.authService.getCurrent(token);
 
     return {
       status: HttpCode.OK,
