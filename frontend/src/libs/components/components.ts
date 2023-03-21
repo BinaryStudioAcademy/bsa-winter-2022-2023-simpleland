@@ -9,7 +9,7 @@ export { Loader } from './loader/loader.js';
 export { PageLayout } from './page-layout/page-layout.js';
 export { ProtectedRoute } from './protected-route/protected-route.js';
 export { RouterProvider } from './router-provider/router-provider.jsx';
-export { SelectComponent as Select } from './select/select.js';
+export { Select } from './select/select.js';
 export { Stepper } from './stepper/stepper.js';
 export { Provider as StoreProvider } from 'react-redux';
 export { Navigate, Outlet as RouterOutlet } from 'react-router-dom';

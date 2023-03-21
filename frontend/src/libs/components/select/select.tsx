@@ -4,7 +4,7 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import Select from 'react-select';
+import ReactSelect  from 'react-select';
 
 import { useFormController } from '~/libs/hooks/hooks.js';
 import { type Options } from '~/libs/types/types.js';
@@ -27,7 +27,7 @@ function findOptionByValue<T extends string | number>(
   return options.find((option) => option.value === value);
 }
 
-const SelectComponent = <T extends FieldValues>({
+const Select = <T extends FieldValues>({
   control,
   name,
   options,
@@ -43,7 +43,7 @@ const SelectComponent = <T extends FieldValues>({
 
   return (
     <div>
-      <Select
+      <ReactSelect
         {...field}
         value={selectedOption}
         defaultValue={selectedOption}
@@ -60,4 +60,4 @@ const SelectComponent = <T extends FieldValues>({
   );
 };
 
-export { SelectComponent };
+export { Select };
