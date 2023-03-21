@@ -1,5 +1,6 @@
 import { type Token } from '~/libs/packages/token/token.js';
 import {
+  type UserAuthResponse,
   type UserService,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
@@ -51,6 +52,14 @@ class AuthService {
       token: await this.tokenService.create(user.id),
       user,
     };
+  }
+
+  public async findAuthUser(token: string): Promise<UserAuthResponse> {
+    const decodedToken = this.tokenService.decode(token);
+    const userId = decodedToken.userId as number;
+    const user = await this.userService.find(userId);
+
+    return user as UserAuthResponse;
   }
 }
 
