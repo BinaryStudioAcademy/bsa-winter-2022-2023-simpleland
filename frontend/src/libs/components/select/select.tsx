@@ -4,7 +4,7 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import ReactSelect  from 'react-select';
+import ReactSelect from 'react-select';
 
 import { useFormController } from '~/libs/hooks/hooks.js';
 import { type Options } from '~/libs/types/types.js';
