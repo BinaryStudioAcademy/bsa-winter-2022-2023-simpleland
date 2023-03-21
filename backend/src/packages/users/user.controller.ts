@@ -49,7 +49,7 @@ class UserController extends Controller {
       method: 'POST',
       validation: { body: userUpdateValidationSchema },
       handler: (options) =>
-        this.updateUserDetails(
+        this.update(
           options as ApiHandlerOptions<{
             body: UserUpdateRequestDto;
             user: UserAuthResponse;
@@ -114,7 +114,7 @@ class UserController extends Controller {
    *                    type: string;
    *                    format: email;
    */
-  private async updateUserDetails(
+  private async update(
     options: ApiHandlerOptions<{
       body: UserUpdateRequestDto;
       user: UserAuthResponse;

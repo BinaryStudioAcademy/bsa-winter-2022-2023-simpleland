@@ -54,6 +54,7 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         passwordHash: 'HASH', // TODO
         firstName: payload.firstName,
         lastName: payload.lastName,
+        accountName: payload.accountName,
       }),
     );
 

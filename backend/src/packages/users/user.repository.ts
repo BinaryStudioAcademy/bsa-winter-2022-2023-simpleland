@@ -73,8 +73,14 @@ class UserRepository implements Omit<IRepository, 'delete'> {
   }
 
   public async create(entity: UserEntity): Promise<UserEntity> {
-    const { email, passwordSalt, passwordHash, firstName, lastName } =
-      entity.toNewObject();
+    const {
+      email,
+      passwordSalt,
+      passwordHash,
+      firstName,
+      lastName,
+      accountName,
+    } = entity.toNewObject();
 
     const user = await this.userModel
       .query()
@@ -85,6 +91,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
         userDetails: {
           firstName,
           lastName,
+          accountName,
         },
       })
       .withGraphFetched('userDetails')

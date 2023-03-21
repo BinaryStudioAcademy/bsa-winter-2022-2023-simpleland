@@ -6,7 +6,7 @@ const COLUMN_NAME = 'account_name';
 
 function up(knex: Knex): Promise<void> {
   return knex.schema.alterTable(TABLE_NAME, (table) => {
-    table.string(COLUMN_NAME).nullable();
+    table.string(COLUMN_NAME).notNullable();
   });
 }
 
