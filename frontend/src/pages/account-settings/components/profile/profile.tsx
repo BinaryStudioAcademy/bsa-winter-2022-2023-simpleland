@@ -1,4 +1,5 @@
 import { Button, Input } from '~/libs/components/components.js';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type UserAuthResponse,
@@ -64,12 +65,22 @@ const Profile: React.FC<Properties> = ({
         />
       </div>
       <div className={styles['buttons']}>
-        <Button type="button" style="secondary" size="small" label="Cancel" />
+        <Button
+          type="button"
+          style="secondary"
+          size="small"
+          label="Cancel"
+          className={styles['button']}
+        />
         <Button
           type="submit"
           style="primary"
           size="small"
           label="Save Changes"
+          className={getValidClassNames(
+            styles['button'],
+            styles['submit-button'],
+          )}
         />
       </div>
     </form>
