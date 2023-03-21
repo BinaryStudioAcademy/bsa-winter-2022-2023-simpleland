@@ -29,7 +29,7 @@ const Auth: React.FC = () => {
   );
 
   useEffect(() => {
-    void dispatch(authActions.getAuthUser());
+    void dispatch(authActions.getCurrentUser());
   }, [dispatch]);
 
   const getScreen = (screen: string): React.ReactNode => {

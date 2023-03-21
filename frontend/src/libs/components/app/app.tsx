@@ -18,7 +18,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (isRoot) {
-      void dispatch(authActions.getAuthUser());
+      void dispatch(authActions.getCurrentUser());
     }
   }, [isRoot, dispatch]);
 
