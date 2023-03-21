@@ -4,5 +4,9 @@ export {
   type SiteCreateResponseDto,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
+  type SiteGetByProjectRequestDtoType,
 } from './libs/types/types.js';
-export { siteCreate as siteCreateValidationSchema } from './libs/validation-schemas/site-create.validation-schema.js';
+export {
+  siteCreate as siteCreateValidationSchema,
+  siteGetByProject as siteGetByProjectValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
