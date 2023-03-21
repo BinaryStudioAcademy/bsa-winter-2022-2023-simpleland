@@ -82,6 +82,7 @@ class ProjectController extends Controller {
       payload: await this.projectService.findAll(),
     };
   }
+
   /**
    * @swagger
    * /projects:

@@ -10,7 +10,7 @@ const Loader: React.FC<Properties> = ({ style }: Properties) => (
   <div className={styles.outWrapper}>
     <div className={styles.wrapper}>
       <div className={getValidClassNames(styles.loader, styles[style])}>
-        <span></span>
+        <span />
       </div>
     </div>
   </div>

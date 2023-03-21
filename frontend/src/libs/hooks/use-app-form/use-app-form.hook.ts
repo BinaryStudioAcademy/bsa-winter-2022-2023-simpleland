@@ -5,7 +5,6 @@ import {
   type FieldErrors,
   type FieldValues,
   type UseFormHandleSubmit,
-  type ValidationMode,
 } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
@@ -13,8 +12,7 @@ import { type ValidationSchema } from '~/libs/types/types.js';
 
 type Parameters<T extends FieldValues = FieldValues> = {
   defaultValues: DeepPartial<T>;
-  validationSchema?: ValidationSchema;
-  mode?: keyof ValidationMode;
+  validationSchema: ValidationSchema;
 };
 
 type ReturnValue<T extends FieldValues = FieldValues> = {
@@ -26,16 +24,14 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
 const useAppForm = <T extends FieldValues = FieldValues>({
   validationSchema,
   defaultValues,
-  mode,
 }: Parameters<T>): ReturnValue<T> => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<T>({
-    mode,
     defaultValues,
-    resolver: validationSchema ? joiResolver(validationSchema) : undefined,
+    resolver: joiResolver(validationSchema),
   });
 
   return {

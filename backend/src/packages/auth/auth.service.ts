@@ -1,25 +1,56 @@
+import { type Token } from '~/libs/packages/token/token.js';
 import {
+  type UserService,
   type UserSignInRequestDto,
+  type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
-} from '~/packages/users/libs/types/types.js';
-import { type UserService } from '~/packages/users/user.service.js';
+} from '~/packages/users/users.js';
+
+import { ApplicationError } from './libs/exceptions/exceptions.js';
 
 class AuthService {
   private userService: UserService;
 
-  public constructor(userService: UserService) {
+  private tokenService: Token;
+
+  public constructor(userService: UserService, token: Token) {
     this.userService = userService;
+    this.tokenService = token;
   }
 
-  public signIn(userRequestDto: UserSignInRequestDto): UserSignInRequestDto {
-    return userRequestDto;
+  public async signIn(
+    userRequestDto: UserSignInRequestDto,
+  ): Promise<UserSignInResponseDto | null> {
+    const { email } = userRequestDto;
+
+    return await this.login(email);
   }
 
-  public signUp(
+  private async login(email: string): Promise<UserSignInResponseDto> {
+    const user = await this.userService.findByEmail(email);
+
+    if (!user) {
+      throw new ApplicationError({
+        message: 'User Not Exist',
+      });
+    }
+
+    return {
+      token: await this.tokenService.create(user.id),
+      user,
+    };
+  }
+
+  public async signUp(
     userRequestDto: UserSignUpRequestDto,
   ): Promise<UserSignUpResponseDto> {
-    return this.userService.create(userRequestDto);
+    const user = await this.userService.create(userRequestDto);
+
+    return {
+      token: await this.tokenService.create(user.id),
+      user,
+    };
   }
 }
 

@@ -44,7 +44,7 @@ const Auth: React.FC = () => {
     <PageLayout>
       <div className={styles.pageContent}>
         <div className={styles.logoWrapper}>
-          <span className={styles.logoDot}></span>
+          <span className={styles.logoDot} />
           <div className={styles.logoText}>SimpleLand</div>
         </div>
         <div className={styles.formWrapper}>{getScreen(pathname)}</div>

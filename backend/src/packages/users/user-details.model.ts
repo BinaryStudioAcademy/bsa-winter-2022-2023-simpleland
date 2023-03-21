@@ -16,6 +16,7 @@ class UserDetailsModel extends AbstractModel {
   public static override get tableName(): string {
     return DatabaseTableName.USER_DETAILS;
   }
+
   public static override get relationMappings(): RelationMappings {
     return {
       user: {

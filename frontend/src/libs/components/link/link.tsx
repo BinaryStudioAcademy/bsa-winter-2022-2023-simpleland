@@ -11,7 +11,7 @@ type Properties = {
 };
 
 const Link: React.FC<Properties> = ({ children, to }: Properties) => (
-  <NavLink to={to} className={styles.link}>
+  <NavLink to={to} className={styles.link as string}>
     {children}
   </NavLink>
 );
