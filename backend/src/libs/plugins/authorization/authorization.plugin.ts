@@ -24,10 +24,11 @@ const authorization = fp(
     fastify.decorateRequest('user', null);
 
     fastify.addHook('onRequest', async (request: FastifyRequest) => {
+      const { headers, method, routerPath } = request;
       const isWhiteRoute = whiteRoutesConfig.some((whiteRoute) => {
-        const isWhitePath = whiteRoute.routerPath === request.routerPath;
+        const isWhitePath = whiteRoute.routerPath === routerPath;
         const isAllowedMethod = whiteRoute.methods.includes(
-          request.method as HttpMethod,
+          method as HttpMethod,
         );
 
         return isWhitePath && isAllowedMethod;
@@ -37,16 +38,7 @@ const authorization = fp(
         return;
       }
 
-      const authorizationHeader = request.headers.authorization;
-
-      if (!authorizationHeader) {
-        throw new HttpError({
-          message: 'You should provide Authorization header',
-          status: HttpCode.UNAUTHORIZED,
-        });
-      }
-
-      const [, requestToken] = authorizationHeader.split(' ');
+      const [, requestToken] = headers.authorization?.split(' ') ?? [];
 
       if (!requestToken) {
         throw new HttpError({
