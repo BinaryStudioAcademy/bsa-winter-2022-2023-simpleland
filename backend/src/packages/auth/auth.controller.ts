@@ -51,6 +51,11 @@ class AuthController extends Controller {
           }>,
         ),
     });
+    this.addRoute({
+      path: AuthApiPath.AUTH_USER,
+      method: 'GET',
+      handler: (options) => this.find(options),
+    });
   }
 
   /**
@@ -134,6 +139,48 @@ class AuthController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.authService.signIn(options.body),
+    };
+  }
+
+  /**
+   * @swagger
+   * /auth/user:
+   *    get:
+   *      description: Get authenticated user
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                id:
+   *                  type: number
+   *                  format: int64
+   *                  minimum: 1
+   *                email:
+   *                  type: string
+   *                  format: email
+   *                firstName: string;
+   *                lastName: string;
+   *      responses:
+   *        200:
+   *          description: Successful operation
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: object
+   *                properties:
+   *                  message:
+   *                    type: object
+   *                    $ref: '#/components/schemas/User'
+   */
+  private async find(options: ApiHandlerOptions): Promise<ApiHandlerResponse> {
+    const authHeader = options.headers.authorization;
+    const token = authHeader?.split(' ')[1];
+    const user = await this.authService.findAuthUser(token as string);
+
+    return {
+      status: HttpCode.OK,
+      payload: user,
     };
   }
 }
