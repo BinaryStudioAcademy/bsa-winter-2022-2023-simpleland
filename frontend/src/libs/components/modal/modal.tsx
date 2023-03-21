@@ -4,7 +4,7 @@ import { IconButton } from '~/libs/components/components.js';
 
 import styles from './styles.module.scss';
 
-const ModalWindow: React.FC = () => {
+const Modal: React.FC = () => {
   return createPortal(
     <>
       <div className={styles.backdrop} />
@@ -20,4 +20,4 @@ const ModalWindow: React.FC = () => {
   );
 };
 
-export { ModalWindow };
+export { Modal };
