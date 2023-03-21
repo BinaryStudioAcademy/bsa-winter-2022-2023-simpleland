@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { type ValueOf } from 'shared/build/index.js';
 
 import { type NotificationType } from '~/libs/packages/notification/notification.js';
 import { type AsyncThunkConfig } from '~/libs/types/async-thunk-config.type.js';
+import { type ValueOf } from '~/libs/types/types.js';
 
 import { name as sliceName } from './app.slice.js';
 
