@@ -18,7 +18,7 @@ const Profile: React.FC<Properties> = ({
   user,
   onUpdateUserDetails,
 }: Properties) => {
-  const { control, errors, handleSubmit } =
+  const { control, errors, handleSubmit, reset } =
     useAppForm<UserUpdateDetailsRequestDto>({
       defaultValues: {
         firstName: user.firstName,
@@ -34,6 +34,10 @@ const Profile: React.FC<Properties> = ({
     },
     [handleSubmit, onUpdateUserDetails],
   );
+
+  const handleReset = useCallback((): void => {
+    reset();
+  }, [reset]);
 
   return (
     <form className={styles['form-wrapper']} onSubmit={handleUpdateUserDetails}>
@@ -71,6 +75,7 @@ const Profile: React.FC<Properties> = ({
           size="small"
           label="Cancel"
           className={styles['button']}
+          onClick={handleReset}
         />
         <Button
           type="submit"
