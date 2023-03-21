@@ -54,8 +54,8 @@ class AuthService {
     };
   }
 
-  public async findAuthUser(token: string): Promise<UserAuthResponse> {
-    const decodedToken = this.tokenService.decode(token);
+  public async findAuthUser<T>(token: string): Promise<UserAuthResponse> {
+    const decodedToken = this.tokenService.decode<T>(token);
     const userId = decodedToken.userId as number;
     const user = await this.userService.find(userId);
 
