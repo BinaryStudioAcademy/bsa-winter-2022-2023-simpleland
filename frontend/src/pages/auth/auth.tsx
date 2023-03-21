@@ -8,7 +8,6 @@ import {
 } from '~/libs/hooks/hooks.js';
 import { type UserSignUpRequestDto } from '~/packages/users/users.js';
 import { actions as authActions } from '~/slices/auth/auth.js';
-import { actions as userAuthActions } from '~/slices/auth/auth.user.js';
 
 import { SignInForm, SignUpForm } from './components/components.js';
 import styles from './styles.module.scss';
@@ -30,7 +29,7 @@ const Auth: React.FC = () => {
   );
 
   useEffect(() => {
-    void dispatch(userAuthActions.getAuthUser());
+    void dispatch(authActions.getAuthUser());
   }, [dispatch]);
 
   const getScreen = (screen: string): React.ReactNode => {
