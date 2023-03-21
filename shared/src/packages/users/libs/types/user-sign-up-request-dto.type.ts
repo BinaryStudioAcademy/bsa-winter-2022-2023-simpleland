@@ -3,6 +3,7 @@ type UserSignUpRequestDto = {
   password: string;
   firstName: string;
   lastName: string;
+  accountName: string;
 };
 
 export { type UserSignUpRequestDto };
