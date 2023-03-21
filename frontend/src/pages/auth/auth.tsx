@@ -3,10 +3,12 @@ import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useCallback,
+  useEffect,
   useLocation,
 } from '~/libs/hooks/hooks.js';
 import { type UserSignUpRequestDto } from '~/packages/users/users.js';
 import { actions as authActions } from '~/slices/auth/auth.js';
+import { actions as userAuthActions } from '~/slices/auth/auth.user.js';
 
 import { SignInForm, SignUpForm } from './components/components.js';
 import styles from './styles.module.scss';
@@ -26,6 +28,10 @@ const Auth: React.FC = () => {
     },
     [dispatch],
   );
+
+  useEffect(() => {
+    void dispatch(userAuthActions.getAuthUser());
+  }, [dispatch]);
 
   const getScreen = (screen: string): React.ReactNode => {
     switch (screen) {
