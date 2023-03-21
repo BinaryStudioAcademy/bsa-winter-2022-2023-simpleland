@@ -35,7 +35,7 @@
   border-color: var(--gray-disable);
 }
 
-.inputLabel {
+.input-label {
   display: block;
   margin-bottom: 6px;
   color: var(--gray-600);
@@ -43,11 +43,11 @@
   line-height: 16px;
 }
 
-.hasError {
+.has-error {
   border-color: var(--red);
 }
 
-.errorMessage {
+.error-message {
   display: block;
   height: 20px;
 }
