@@ -9,8 +9,14 @@ import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type SiteService } from '~/packages/sites/site.service.js';
 
 import { SitesApiPath } from './libs/enums/enums.js';
-import { type SiteCreateRequestDto } from './libs/types/types.js';
-import { siteCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+import {
+  type SiteCreateRequestDto,
+  type SiteGetByProjectRequestDtoType,
+} from './libs/types/types.js';
+import {
+  siteCreateValidationSchema,
+  siteGetByProjectValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -43,6 +49,20 @@ class SiteController extends Controller {
       path: SitesApiPath.ROOT,
       method: 'GET',
       handler: () => this.findAll(),
+    });
+
+    this.addRoute({
+      path: SitesApiPath.BY_PROJECT,
+      method: 'GET',
+      validation: {
+        params: siteGetByProjectValidationSchema,
+      },
+      handler: (options) =>
+        this.findByProject(
+          options as ApiHandlerOptions<{
+            params: SiteGetByProjectRequestDtoType;
+          }>,
+        ),
     });
 
     this.addRoute({
@@ -81,6 +101,34 @@ class SiteController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.siteService.findAll(),
+    };
+  }
+
+  /**
+   * @swagger
+   * /sites/:projectId:
+   *   get:
+   *     description: Returns an object with items property. Items - array of sites by specific project.
+   *     responses:
+   *       200:
+   *         description: Successful operation
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 items:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/Site'
+   *                   minItems: 0
+   */
+  private async findByProject(
+    options: ApiHandlerOptions<{ params: SiteGetByProjectRequestDtoType }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.siteService.findByProject(options.params.projectId),
     };
   }
 

@@ -17,12 +17,21 @@ class SiteRepository
     return sites.map((site) => SiteEntity.initialize(site));
   }
 
+  public async findByProject(projectId: number): Promise<SiteEntity[]> {
+    const sites = await this.siteModel
+      .query()
+      .where('project_id', projectId)
+      .execute();
+
+    return sites.map((site) => SiteEntity.initialize(site));
+  }
+
   public async create(entity: SiteEntity): Promise<SiteEntity> {
-    const { name, publishedUrl } = entity.toNewObject();
+    const { name, publishedUrl, projectId } = entity.toNewObject();
 
     const site = await this.siteModel
       .query()
-      .insert({ name, publishedUrl })
+      .insert({ name, publishedUrl, projectId })
       .returning('*')
       .execute();
 

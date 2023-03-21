@@ -8,6 +8,8 @@ class SiteModel extends AbstractModel {
 
   public 'publishedUrl': string | null;
 
+  public 'projectId': number;
+
   public static override get tableName(): string {
     return DatabaseTableName.SITES;
   }
