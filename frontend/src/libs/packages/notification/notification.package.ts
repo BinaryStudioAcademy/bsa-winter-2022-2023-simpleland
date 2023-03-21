@@ -1,6 +1,11 @@
 import { toast } from 'react-toastify';
+import { type ValueOf } from 'shared/build';
 
-import { type NotificatinOptions } from './libs/types/notificatin-options.type.js';
+import { type NotificationType } from '../notification/libs/enums/enums.js';
+
+type NotificatinOptions = {
+  type: ValueOf<typeof NotificationType>;
+};
 
 class Notification {
   public error(message: string): void {
