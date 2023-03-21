@@ -1,9 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { type UserAuthResponse } from 'shared/build/index.js';
 
 import { StorageKey } from '~/libs/packages/storage/storage.js';
 import { type AsyncThunkConfig } from '~/libs/types/types.js';
-import { type UserSignUpRequestDto } from '~/packages/users/users.js';
+import {
+  type UserAuthResponse,
+  type UserSignUpRequestDto,
+  type UserUpdateDetailsRequestDto,
+} from '~/packages/users/users.js';
 
 import { name as sliceName } from './auth.slice.js';
 
@@ -20,4 +23,17 @@ const signUp = createAsyncThunk<
   return user;
 });
 
-export { signUp };
+const updateUserDetails = createAsyncThunk<
+  UserAuthResponse,
+  UserUpdateDetailsRequestDto,
+  AsyncThunkConfig
+>(
+  `${sliceName}/update-user-details`,
+  async (updateUserDetailsPayload, { extra }) => {
+    const { userApi } = extra;
+
+    return await userApi.updateUserDetails(updateUserDetailsPayload);
+  },
+);
+
+export { signUp, updateUserDetails };
