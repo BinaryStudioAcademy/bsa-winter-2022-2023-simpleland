@@ -74,6 +74,40 @@ class UserController extends Controller {
     };
   }
 
+  /**
+   * @swagger
+   * /users/user-details:
+   *    put:
+   *      description: Updating user details. Returning user
+   *      requestBody:
+   *        description: User details
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                firstName: string;
+   *                lastName: string;
+   *                accountName: string;
+   *      responses:
+   *        200:
+   *          description: Successful update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: object
+   *                properties:
+   *                  id:
+   *                    type: number;
+   *                    format: int64;
+   *                    minimum: 1;
+   *                  firstName: string;
+   *                  lastName: string;
+   *                  email:
+   *                    type: string;
+   *                    format: email;
+   */
   private async updateUserDetails(
     options: ApiHandlerOptions<{
       body: UserUpdateDetailsRequestDto;
