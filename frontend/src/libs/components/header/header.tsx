@@ -11,22 +11,26 @@ type Properties = {
 
 const Header: React.FC<Properties> = ({ user }: Properties) => {
   return (
-    <header className={styles.header}>
-      <div className={styles.logoWrapper}>
-        <div className={styles.logoIcon} />
-        <span className={styles.logoText}>logo</span>
+    <header className={styles['header']}>
+      <div className={styles['logo-wrapper']}>
+        <div className={styles['logo-icon']} />
+        <span className={styles['logo-text']}>logo</span>
       </div>
-      <div className={styles.headerSidebar}>
-        <ul className={styles.headerNavList}>
+      <div className={styles['header-sidebar']}>
+        <ul className={styles['header-nav-list']}>
           <li>
             <Link to={AppRoute.ROOT}>
-              <span className={styles.sectionTitle}>My sites</span>
+              <span className={styles['section-title']}>My sites</span>
             </Link>
           </li>
         </ul>
-        <div className={styles.profileDataWrapper}>
-          <img alt="profile" src={avatarImage} className={styles.profileIcon} />
-          <span className={styles.profileCaption}>
+        <div className={styles['profile-data-wrapper']}>
+          <img
+            alt="profile"
+            src={avatarImage}
+            className={styles['profile-icon']}
+          />
+          <span className={styles['profile-caption']}>
             {user.firstName} {user.lastName}
           </span>
         </div>

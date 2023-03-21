@@ -1,4 +1,4 @@
-.signUp {
+.sign-up {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.signUpTitle {
+.sign-up-title {
   margin: 0;
   color: var(--text-type-400);
   font-weight: 500;
@@ -20,7 +20,7 @@
   line-height: 20px;
 }
 
-.formWrapper {
+.form-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,7 +28,7 @@
   width: 100%;
 }
 
-.submitButton {
+.submit-button {
   align-self: center;
   width: 138px;
 }

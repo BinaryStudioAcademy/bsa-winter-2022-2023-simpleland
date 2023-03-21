@@ -29,17 +29,17 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
   }, [children, currentStep]);
 
   return (
-    <div className={getValidClassNames(styles.wrapper, className)}>
-      <div className={styles.barWrapper}>
-        <div className={styles.bar}>
+    <div className={getValidClassNames(styles['wrapper'], className)}>
+      <div className={styles['bar-wrapper']}>
+        <div className={styles['bar']}>
           <div
-            className={getValidClassNames(styles.bar, styles.barYellow)}
+            className={getValidClassNames(styles['bar'], styles['bar-yellow'])}
             style={{ width: `${barYellowWidth}%` }}
           />
         </div>
 
-        <div className={styles.stepperWrapper}>
-          <div className={styles.imgWrapper}>
+        <div className={styles['stepper-wrapper']}>
+          <div className={styles['img-wrapper']}>
             <IconButton
               icon="arrowLeft"
               label="Go to the previous step"
@@ -54,14 +54,14 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
             />
           </div>
 
-          <div className={styles.text}>
-            <span className={styles.yellow}>{currentStep}</span>/
+          <div className={styles['text']}>
+            <span className={styles['yellow']}>{currentStep}</span>/
             {children.length}
           </div>
         </div>
       </div>
 
-      <div className={styles.childrenWrapper}>{stepBlock}</div>
+      <div className={styles['children-wrapper']}>{stepBlock}</div>
 
       <Button
         label={buttonLabel}
@@ -69,7 +69,7 @@ const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
         size="small"
         onClick={handleNextStep}
         className={getValidClassNames(
-          styles.button,
+          styles['button'],
           isLastStep && 'visually-hidden',
         )}
       />

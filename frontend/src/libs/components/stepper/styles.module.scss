@@ -2,7 +2,7 @@
   margin: 0 auto;
 }
 
-.barWrapper {
+.bar-wrapper {
   margin-bottom: 24px;
 }
 
@@ -13,17 +13,17 @@
   border-radius: 100px;
 }
 
-.barYellow {
+.bar-yellow {
   width: 0;
   background-color: var(--yellow);
 }
 
-.stepperWrapper {
+.stepper-wrapper {
   display: flex;
   justify-content: space-between;
 }
 
-.imgWrapper {
+.img-wrapper {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -37,7 +37,7 @@
   line-height: 16px;
 }
 
-.childrenWrapper {
+.children-wrapper {
   margin-bottom: 52px;
 }
 
