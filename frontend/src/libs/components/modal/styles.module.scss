@@ -17,16 +17,20 @@
 }
 
 .modal-inner {
-  position: relative;
-  z-index: 10;
+  z-index: var(--z-index-modal);
+  display: flex;
+  flex-direction: column;
   width: 940px;
   height: 665px;
   background-color: var(--white);
   border: none;
 }
 
+.modal-inner-header {
+  display: flex;
+  padding: 25px 30px;
+}
+
 .modal-pop-up-close {
-  position: absolute;
-  top: 25px;
-  right: 30px;
+  margin-left: auto;
 }
