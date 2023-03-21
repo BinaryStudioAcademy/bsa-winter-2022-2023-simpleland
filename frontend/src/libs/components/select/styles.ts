@@ -3,7 +3,7 @@ import searchIcon from 'src/assets/img/icons/search.svg';
 
 import { type Options } from '~/libs/types/types.js';
 
-const SelectStyles: StylesConfig<Options<string | number>> = {
+const SelectStyles: StylesConfig<Options<string | number> | undefined> = {
   control: (provided) => ({
     ...provided,
     border: '2px solid #FFB61D',
