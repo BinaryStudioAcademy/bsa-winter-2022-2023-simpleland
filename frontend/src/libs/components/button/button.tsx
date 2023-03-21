@@ -32,7 +32,7 @@ const Button: React.FC<Properties> = ({
     type={type}
     disabled={isDisabled}
     className={getValidClassNames(
-      styles.button,
+      styles['button'],
       styles[style],
       styles[size],
       className,
