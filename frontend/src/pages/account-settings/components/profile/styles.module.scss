@@ -1,0 +1,30 @@
+.form-wrapper {
+  width: 321px;
+  padding: 48px 0;
+}
+
+.profile-image {
+  width: 151px;
+  height: 151px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  background-color: var(--gray-100);
+  border-radius: 50%;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 13px;
+}
+
+.submit-button {
+  color: var(--black);
+}
