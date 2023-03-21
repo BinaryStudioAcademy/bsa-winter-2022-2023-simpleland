@@ -1,10 +1,10 @@
-import { getAuthUser, signUp } from './actions.js';
+import { getCurrentUser, signUp } from './actions.js';
 import { actions } from './auth.slice.js';
 
 const allActions = {
   ...actions,
   signUp,
-  getAuthUser,
+  getCurrentUser,
 };
 
 export { allActions as actions };
