@@ -16,7 +16,7 @@
   background: color(srgb 0 0 0 / 60%);
 }
 
-.modalInner {
+.modal-inner {
   position: relative;
   z-index: 10;
   width: 940px;
@@ -25,7 +25,7 @@
   border: none;
 }
 
-.modalPopUpClose {
+.modal-pop-up-close {
   position: absolute;
   top: 25px;
   right: 30px;
