@@ -1,3 +1,3 @@
-type IconType = 'arrowRight' | 'arrowLeft';
+type IconType = 'arrowRight' | 'arrowLeft' | 'closePopUp';
 
 export { type IconType };
