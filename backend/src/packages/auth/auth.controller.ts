@@ -4,7 +4,7 @@ import {
   type ApiHandlerResponse,
   Controller,
 } from '~/libs/packages/controller/controller.js';
-import { HttpCode } from '~/libs/packages/http/http.js';
+import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 import {
   type UserSignInRequestDto,
@@ -54,7 +54,7 @@ class AuthController extends Controller {
     this.addRoute({
       path: AuthApiPath.AUTH_USER,
       method: 'GET',
-      handler: (options) => this.find(options),
+      handler: (options) => this.getCurrent(options),
     });
   }
 
@@ -144,7 +144,7 @@ class AuthController extends Controller {
 
   /**
    * @swagger
-   * /auth/user:
+   * /auth/current:
    *    get:
    *      description: Get authenticated user
    *        content:
@@ -173,10 +173,20 @@ class AuthController extends Controller {
    *                    type: object
    *                    $ref: '#/components/schemas/User'
    */
-  private async find(options: ApiHandlerOptions): Promise<ApiHandlerResponse> {
+  private async getCurrent(
+    options: ApiHandlerOptions,
+  ): Promise<ApiHandlerResponse> {
     const authHeader = options.headers.authorization;
-    const token = authHeader?.split(' ')[1];
-    const user = await this.authService.findAuthUser(token as string);
+    const [, token] = authHeader?.split(' ') ?? [];
+
+    if (!token) {
+      throw new HttpError({
+        message:
+          'You should provide Authorization header in format: Bearer <token>',
+        status: HttpCode.UNAUTHORIZED,
+      });
+    }
+    const user = await this.authService.findAuthUser(token);
 
     return {
       status: HttpCode.OK,
