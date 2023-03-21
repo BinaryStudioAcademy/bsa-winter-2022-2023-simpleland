@@ -70,7 +70,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           style="primary"
           size="small"
           label="Sign up"
-          className={styles.submitButton}
+          className={styles.submitButton as string}
         />
       </form>
     </div>

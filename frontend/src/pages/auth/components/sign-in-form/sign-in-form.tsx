@@ -54,7 +54,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           style="primary"
           size="small"
           label="Log In"
-          className={styles.submitButton}
+          className={styles.submitButton as string}
         />
       </form>
     </div>
