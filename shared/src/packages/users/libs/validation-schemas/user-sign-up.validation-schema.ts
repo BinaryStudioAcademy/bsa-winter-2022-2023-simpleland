@@ -37,7 +37,9 @@ const userSignUp = joi.object<UserSignUpRequestDto, true>({
     'string.pattern.base': UserValidationMessage.LAST_NAME_IS_INVALID,
     'string.empty': UserValidationMessage.LAST_NAME_REQUIRE,
   }),
-  accountName: joi.string().required(),
+  accountName: joi.string().required().messages({
+    'string.empty': UserValidationMessage.ACCOUNT_NAME_REQUIRE,
+  }),
 });
 
 export { userSignUp };
