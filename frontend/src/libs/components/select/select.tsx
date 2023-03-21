@@ -53,7 +53,7 @@ const Select = <T extends FieldValues>({
         name={name}
         styles={SelectStyles}
       />
-      <span className={styles.errorMessage}>
+      <span className={styles['errorMessage']}>
         {hasError && (error as string)}
       </span>
     </div>
