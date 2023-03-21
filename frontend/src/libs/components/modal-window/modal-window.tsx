@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 
-import closePopUpIcon from '~/assets/img/close-pop-up-icon.svg';
+import { IconButton } from '~/libs/components/components.js';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 
 import styles from './styles.module.scss';
 
@@ -9,9 +10,11 @@ const ModalWindow: React.FC = () => {
     <>
       <div className={styles.backdrop} />
       <div className={styles.modal}>
-        <button className={styles.modalPopUpClose}>
-          <img alt="close" src={closePopUpIcon} />
-        </button>
+        <IconButton
+          icon="closePopUp"
+          label="Close modal"
+          className={getValidClassNames('', styles.modalPopUpClose)}
+        />
       </div>
     </>,
     document.body,
