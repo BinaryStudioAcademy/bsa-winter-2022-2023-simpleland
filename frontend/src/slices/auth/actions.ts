@@ -24,10 +24,10 @@ const getAuthUser = createAsyncThunk<
   UserAuthResponse,
   undefined,
   AsyncThunkConfig
->(`${sliceName}/sign-up`, async (_, { extra }) => {
+>(`${sliceName}/current`, async (_, { extra }) => {
   const { authApi } = extra;
 
-  return await authApi.getUser();
+  return await authApi.getCurrent();
 });
 
 export { getAuthUser, signUp };
