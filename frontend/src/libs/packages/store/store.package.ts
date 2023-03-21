@@ -49,7 +49,7 @@ class Store {
       },
       middleware: (getDefaultMiddleware) => {
         return [
-          handleError(this.extraArguments),
+          handleError,
           ...getDefaultMiddleware({
             thunk: {
               extraArgument: this.extraArguments,

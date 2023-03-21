@@ -1,23 +1,26 @@
-import { type AnyAction, type Dispatch } from '@reduxjs/toolkit';
+import { type AnyAction } from '@reduxjs/toolkit';
 import { isRejected } from '@reduxjs/toolkit';
 
-import { type ExtraArguments } from '../store.package.js';
+import { actions as appActions } from '~/slices/app/app.js';
 
-const handleError =
-  ({ notification }: ExtraArguments) =>
-  () => {
-    return (next: Dispatch): ((action: AnyAction) => unknown) =>
-      (action: AnyAction) => {
-        const result: unknown = next(action);
+import { NotificationType } from '../../notification/notification.js';
+import { type store } from '../store.js';
 
-        if (isRejected(result) && !result.meta.rejectedWithValue) {
-          const error = result.error.message ?? 'Try again later';
+const handleError = () => {
+  return (next: typeof store.instance.dispatch) =>
+    (action: AnyAction): unknown => {
+      const result: unknown = next(action);
 
-          return notification.error(error);
-        }
+      if (isRejected(result) && !result.meta.rejectedWithValue) {
+        const message = result.error.message ?? 'Try again later';
 
-        return result;
-      };
-  };
+        return next(
+          appActions.notify({ type: NotificationType.ERROR, message }),
+        );
+      }
+
+      return result;
+    };
+};
 
 export { handleError };
