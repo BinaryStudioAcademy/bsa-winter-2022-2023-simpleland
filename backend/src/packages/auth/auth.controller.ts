@@ -147,20 +147,20 @@ class AuthController extends Controller {
    * /auth/current:
    *    get:
    *      description: Get authenticated user
-   *        content:
-   *          application/json:
-   *            schema:
-   *              type: object
-   *              properties:
-   *                id:
-   *                  type: number
-   *                  format: int64
-   *                  minimum: 1
-   *                email:
-   *                  type: string
-   *                  format: email
-   *                firstName: string;
-   *                lastName: string;
+   *      content:
+   *        application/json:
+   *          schema:
+   *            type: object
+   *            properties:
+   *              id:
+   *                type: number
+   *                format: int64
+   *                minimum: 1
+   *              email:
+   *                type: string
+   *                format: email
+   *              firstName: string;
+   *              lastName: string;
    *      responses:
    *        200:
    *          description: Successful operation
