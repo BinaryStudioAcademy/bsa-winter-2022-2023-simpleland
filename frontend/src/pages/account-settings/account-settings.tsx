@@ -16,7 +16,9 @@ import { Profile } from './components/components.js';
 import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
-  const user = useAppSelector((state) => state.auth.user) as UserAuthResponse;
+  const user = useAppSelector(({ auth }) => {
+    return auth.user as UserAuthResponse;
+  });
   const dispatch = useAppDispatch();
 
   const handleUpdateUser = useCallback(
