@@ -4,6 +4,7 @@ import {
   type UserAuthResponse,
   type UserUpdateDetailsRequestDto,
 } from '~/packages/users/users.js';
+import { userUpdateDetailsValidationSchema } from '~/packages/users/users.js';
 
 import styles from './styles.module.scss';
 
@@ -21,8 +22,9 @@ const Profile: React.FC<Properties> = ({
       defaultValues: {
         firstName: user.firstName,
         lastName: user.lastName,
-        accountName: '',
+        accountName: 'TODO',
       },
+      validationSchema: userUpdateDetailsValidationSchema,
     });
 
   const handleUpdateUserDetails = useCallback(
@@ -68,7 +70,6 @@ const Profile: React.FC<Properties> = ({
           style="primary"
           size="small"
           label="Save Changes"
-          className={styles['submit-button']}
         />
       </div>
     </form>

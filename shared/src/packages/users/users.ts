@@ -12,4 +12,5 @@ export {
 export {
   userSignIn as userSignInValidationSchema,
   userSignUp as userSignUpValidationSchema,
+  userUpdateDetails as userUpdateDetailsValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
