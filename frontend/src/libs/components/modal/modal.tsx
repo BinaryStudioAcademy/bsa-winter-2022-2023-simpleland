@@ -33,12 +33,12 @@ const Modal: React.FC<Properties> = ({
   }
 
   return createPortal(
-    <dialog ref={reference} className={styles.modal}>
-      <div className={styles.modalInner}>
+    <dialog ref={reference} className={styles['modal']}>
+      <div className={styles['modalInner']}>
         <IconButton
           icon="cross"
           label="Close modal"
-          className={styles.modalPopUpClose as string}
+          className={styles['modalPopUpClose'] as string}
           onClick={onClose}
         />
         {children}
