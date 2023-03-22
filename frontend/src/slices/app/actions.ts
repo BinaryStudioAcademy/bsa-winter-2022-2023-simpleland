@@ -16,7 +16,6 @@ const notify = createAsyncThunk<unknown, Notification, AsyncThunkConfig>(
   ({ type, message }, { extra }) => {
     const { notification } = extra;
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     notification[type](message);
   },
 );
