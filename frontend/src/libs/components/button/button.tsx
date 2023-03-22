@@ -11,7 +11,7 @@ type Properties = {
   style?: 'primary' | 'secondary' | 'plain';
   type?: 'button' | 'submit';
   isDisabled?: boolean;
-  className?: string;
+  className?: string | undefined;
   onClick?: (() => void) | undefined;
   isLabelVisuallyHidden?: boolean;
 };
