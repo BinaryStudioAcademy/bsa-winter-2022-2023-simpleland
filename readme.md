@@ -62,7 +62,7 @@ erDiagram
     int user_id FK
     varchar first_name
     varchar last_name
-    varchar account_name
+    varchar account_name "may be null if user didn't provide account name"
     int subscription_id FK
   }
 
