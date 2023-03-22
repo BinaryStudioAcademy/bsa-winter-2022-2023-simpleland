@@ -15,6 +15,8 @@ import { store } from '~/libs/packages/store/store.js';
 import { Auth } from '~/pages/auth/auth.js';
 import { NotFound } from '~/pages/not-found/not-found.js';
 
+import { MyProjects } from './pages/my-projects/my-projects.js';
+
 createRoot(document.querySelector('#root') as HTMLElement).render(
   <StrictMode>
     <StoreProvider store={store.instance}>
@@ -39,6 +41,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
               {
                 path: AppRoute.SIGN_UP,
                 element: <Auth />,
+              },
+              {
+                path: AppRoute.MY_PROJECTS,
+                element: <MyProjects />,
               },
             ],
           },
