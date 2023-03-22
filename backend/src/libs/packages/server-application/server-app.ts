@@ -197,6 +197,7 @@ class ServerApp implements IServerApp {
     await this.app
       .listen({
         port: this.config.ENV.APP.PORT,
+        host: '0.0.0.0'
       })
       .catch((error: Error) => {
         this.logger.error(error.message, {
