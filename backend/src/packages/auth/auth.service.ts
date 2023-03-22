@@ -1,5 +1,7 @@
+import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
 import { type Token } from '~/libs/packages/token/token.js';
 import {
+  type UserAuthResponse,
   type UserService,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
@@ -51,6 +53,20 @@ class AuthService {
       token: await this.tokenService.create(user.id),
       user,
     };
+  }
+
+  public async getCurrent(token: string): Promise<UserAuthResponse> {
+    const { userId } = this.tokenService.decode<{ userId: number }>(token);
+    const user = await this.userService.find(userId);
+
+    if (!user) {
+      throw new HttpError({
+        message: 'User not found',
+        status: HttpCode.NOT_FOUND,
+      });
+    }
+
+    return user;
   }
 }
 
