@@ -20,7 +20,7 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
       defaultValues: {
         firstName: user.firstName,
         lastName: user.lastName,
-        accountName: user.accountName || '',
+        accountName: user.accountName ?? '',
       },
       validationSchema: userUpdateValidationSchema,
     });
