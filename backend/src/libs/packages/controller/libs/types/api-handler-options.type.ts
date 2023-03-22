@@ -6,6 +6,7 @@ type DefaultApiHandlerOptions = {
   body?: unknown;
   query?: unknown;
   params?: unknown;
+  user?: UserAuthResponse | null;
 };
 
 type ApiHandlerOptions<
@@ -15,7 +16,7 @@ type ApiHandlerOptions<
   query: T['query'];
   params: T['params'];
   headers: Parameters<ServerAppRouteParameters['handler']>[0]['headers'];
-  user: UserAuthResponse | null;
+  user: T['user'];
 };
 
 export { type ApiHandlerOptions };
