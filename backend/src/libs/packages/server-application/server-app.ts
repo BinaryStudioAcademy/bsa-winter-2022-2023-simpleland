@@ -109,10 +109,10 @@ class ServerApp implements IServerApp {
 
   private initValidationCompiler(): void {
     this.app.setValidatorCompiler<ValidationSchema>(({ schema }) => {
-      return <T>(data: T): ReturnType<ValidationSchema['validate']> => {
+      return <T, R = ReturnType<ValidationSchema['validate']>>(data: T): R => {
         return schema.validate(data, {
           abortEarly: false,
-        });
+        }) as R;
       };
     });
   }

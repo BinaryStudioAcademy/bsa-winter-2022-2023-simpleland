@@ -1,4 +1,4 @@
-.pageLayout {
+.page-layout {
   position: relative;
   display: flex;
   justify-content: center;
@@ -9,7 +9,7 @@
     left / auto repeat url("../../../assets/img/background-pattern.png");
 }
 
-.pageLayout::after {
+.page-layout::after {
   content: "SimpleLand";
   position: absolute;
   bottom: 0;

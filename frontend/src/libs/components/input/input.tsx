@@ -35,19 +35,19 @@ const Input = <T extends FieldValues>({
   const hasError = Boolean(error);
 
   return (
-    <label className={styles.label}>
-      <span className={styles.inputLabel}>{label}</span>
+    <label className={styles['label']}>
+      <span className={styles['input-label']}>{label}</span>
       <input
         {...field}
         className={getValidClassNames(
-          styles.input,
-          hasError && styles.hasError,
+          styles['input'],
+          hasError && styles['has-error'],
         )}
         type={type}
         placeholder={placeholder}
         disabled={isDisabled}
       />
-      <span className={styles.errorMessage}>
+      <span className={styles['error-message']}>
         {hasError && (error as string)}
       </span>
     </label>

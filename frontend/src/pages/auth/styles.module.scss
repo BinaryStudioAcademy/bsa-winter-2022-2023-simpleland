@@ -1,8 +1,8 @@
-.pageContent {
+.page-content {
   background-color: var(--white);
 }
 
-.logoWrapper {
+.logo-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +14,7 @@
     var(--black);
 }
 
-.logoDot {
+.logo-dot {
   display: block;
   width: 32px;
   height: 32px;
@@ -22,7 +22,7 @@
   border-radius: 50%;
 }
 
-.formWrapper {
+.form-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
