@@ -12,7 +12,7 @@ import { type SelectOption } from '~/libs/types/types.js';
 import style from './select.module.scss';
 import { styles } from './styles.js';
 
-type SelectProperties<T extends FieldValues> = {
+type Properties<T extends FieldValues> = {
   control: Control<T, null>;
   name: FieldPath<T>;
   options: SelectOption<string | number>[];
@@ -26,7 +26,7 @@ const Select = <T extends FieldValues>({
   options,
   placeholder = '',
   errors,
-}: SelectProperties<T>): JSX.Element => {
+}: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
   const selectedOption = options.find((option) => option.value === field.value);
