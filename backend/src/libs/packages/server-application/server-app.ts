@@ -1,3 +1,7 @@
+import { dirname,join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import fastifyStatic from '@fastify/static';
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import Fastify, { type FastifyError } from 'fastify';
@@ -178,6 +182,17 @@ class ServerApp implements IServerApp {
     this.initRoutes();
 
     this.database.connect();
+
+    const staticPath = join(dirname(fileURLToPath(import.meta.url)), '../../../../public');
+
+    await this.app.register(fastifyStatic, {
+      root: staticPath,
+      prefix: '/',
+    });
+
+    this.app.setNotFoundHandler(async (_request, response) => {
+      await response.sendFile('index.html', staticPath);
+    });
 
     await this.app
       .listen({
