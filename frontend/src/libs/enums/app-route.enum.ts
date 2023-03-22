@@ -1,10 +1,16 @@
+const ProjectsDetailsRoute = {
+  root: '/my-projects',
+  $id: '/:projectId',
+  sites: '/sites',
+};
+
 const AppRoute = {
   ROOT: '/',
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',
-  MY_PROJECTS: '/my-projects',
-  SITES: '/sites',
+  MY_PROJECTS: ProjectsDetailsRoute.root,
+  SITES: `${ProjectsDetailsRoute.root}${ProjectsDetailsRoute.$id}${ProjectsDetailsRoute.sites}`,
   ANY: '*',
 } as const;
 
-export { AppRoute };
+export { AppRoute, ProjectsDetailsRoute };

@@ -35,7 +35,7 @@ const MyProjects: React.FC = () => {
       <Header user={mockUser} />
       <div className={styles['cards-wrapper']}>
         {projects?.map((card) => (
-          <ProjectCard key={card.id} siteName={card.name} />
+          <ProjectCard key={card.id} siteName={card.name} id={card.id} />
         ))}
       </div>
     </PageLayout>
