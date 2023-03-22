@@ -3,7 +3,6 @@ import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useCallback,
-  useEffect,
   useLocation,
 } from '~/libs/hooks/hooks.js';
 import { type UserSignUpRequestDto } from '~/packages/users/users.js';
@@ -27,10 +26,6 @@ const Auth: React.FC = () => {
     },
     [dispatch],
   );
-
-  useEffect(() => {
-    void dispatch(authActions.getCurrentUser());
-  }, [dispatch]);
 
   const getScreen = (screen: string): React.ReactNode => {
     switch (screen) {
