@@ -18,7 +18,7 @@ const Image: React.FC<Properties> = ({
   height,
 }: Properties) => (
   <img
-    className={getValidClassNames(styles.image, className)}
+    className={getValidClassNames(styles['image'], className)}
     width={width}
     height={height}
     src={src}
