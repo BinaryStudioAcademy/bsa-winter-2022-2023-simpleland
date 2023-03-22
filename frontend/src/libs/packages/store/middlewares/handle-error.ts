@@ -1,5 +1,4 @@
-import { type AnyAction } from '@reduxjs/toolkit';
-import { isRejected } from '@reduxjs/toolkit';
+import { type AnyAction, isRejected } from '@reduxjs/toolkit';
 
 import { actions as appActions } from '~/slices/app/app.js';
 
