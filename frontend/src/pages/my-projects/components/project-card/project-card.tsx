@@ -2,19 +2,15 @@ import styles from './styles.module.scss';
 
 type Properties = {
   key: number;
-  imgLink: string;
   siteName: string;
 };
 
-const ProjectCard: React.FC<Properties> = ({
-  imgLink,
-  siteName,
-}: Properties) => {
+const ProjectCard: React.FC<Properties> = ({ siteName }: Properties) => {
   return (
     <div className={styles.card}>
-      <img className={styles.cardImage} src={imgLink} alt="" />
+      <img className={styles.cardImage} src="imgLink" alt="" />
       <div className={styles.cardDescription}>
-        <h1>{siteName}</h1>
+        <h3>{siteName}</h3>
       </div>
     </div>
   );

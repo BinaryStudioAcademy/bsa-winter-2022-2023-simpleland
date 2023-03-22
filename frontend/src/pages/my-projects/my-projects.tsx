@@ -1,76 +1,41 @@
-// import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-
 import { type UserAuthResponse } from 'shared/build/index.js';
 
 import { Header, PageLayout } from '~/libs/components/components.js';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+} from '~/libs/hooks/hooks.js';
+import { actions as projectActions } from '~/slices/projects/projects.js';
 
-// import { projectsApi } from '~/packages/projects/projects';
-// import { actions as projectActions } from '~/slices/projects/projects.js';
 import { ProjectCard } from './components/project-card/project-card.js';
 import styles from './styles.module.scss';
 
-type ProjectCardType = {
-  id: number;
-  siteName: string;
-  imgLink: string;
-};
-
 const MyProjects: React.FC = () => {
   const mockUser: UserAuthResponse = {
-    id: 54,
+    // replace with user fromn store
+    id: 35,
     email: 'Adenium@fk.ua',
     firstName: 'Vlad',
     lastName: 'Bazhynov',
   };
 
-  const cardsMock: ProjectCardType[] = [
-    {
-      id: 1,
-      siteName: 'Big Data',
-      imgLink: '',
-    },
-    {
-      id: 2,
-      siteName: 'Behemoth',
-      imgLink: '',
-    },
-    {
-      id: 3,
-      siteName: 'Lean On',
-      imgLink: '',
-    },
-    {
-      id: 1,
-      siteName: 'Big Data',
-      imgLink: '',
-    },
-    {
-      id: 2,
-      siteName: 'Behemoth',
-      imgLink: '',
-    },
-    {
-      id: 3,
-      siteName: 'Lean On',
-      imgLink: '',
-    },
-  ];
+  const dispatch = useAppDispatch();
 
-  // const dispatch = useDispatch();
+  useEffect((): void => {
+    void dispatch(projectActions.getProjects());
+  });
 
-  // useEffect((): void => void dispatch(projectActions.getProjects() ));
+  const { projects } = useAppSelector((state) => ({
+    projects: state.projects.projects?.items,
+  }));
 
   return (
     <PageLayout>
       <Header user={mockUser} />
       <div className={styles.cardsWrapper}>
-        {cardsMock.map((card) => (
-          <ProjectCard
-            key={card.id}
-            siteName={card.siteName}
-            imgLink={card.imgLink}
-          />
+        {projects?.map((card) => (
+          <ProjectCard key={card.id} siteName={card.name} />
         ))}
       </div>
     </PageLayout>
