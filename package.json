@@ -8,7 +8,8 @@
   "workspaces": [
     "shared",
     "backend",
-    "frontend"
+    "frontend",
+    "build"
   ],
   "scripts": {
     "postinstall": "npm run build:shared",
