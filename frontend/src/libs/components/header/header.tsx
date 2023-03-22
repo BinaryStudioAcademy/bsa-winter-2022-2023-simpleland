@@ -20,7 +20,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
         <ul className={styles.headerNavList}>
           <li>
             <Link to={AppRoute.ROOT}>
-              <span className={styles.sectionTitle}>My sites</span>
+              <span className={styles.sectionTitle}>My Projects</span>
             </Link>
           </li>
         </ul>
