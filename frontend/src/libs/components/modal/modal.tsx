@@ -8,7 +8,8 @@ import styles from './styles.module.scss';
 type Properties = {
   isOpen: boolean;
   onClose: () => void;
-} & React.PropsWithChildren;
+  children: React.ReactNode;
+};
 
 const Modal: React.FC<Properties> = ({
   children,
