@@ -31,7 +31,9 @@ import { userUpdateValidationSchema } from './libs/validation-schemas/validation
  *            format: email
  *          firstName: string;
  *          lastName: string;
- *          accountName: string;
+ *          accountName:
+ *            type: string;
+ *            nullable: true;
  */
 class UserController extends Controller {
   private userService: UserService;
