@@ -9,18 +9,22 @@ import { AppEnvironment } from '~/libs/enums/enums.js';
 import { type IConfig } from '~/libs/packages/config/config.js';
 import { storage } from '~/libs/packages/storage/storage.js';
 import { authApi } from '~/packages/auth/auth.js';
+import { projectsApi } from '~/packages/projects/projects.js';
 import { userApi } from '~/packages/users/users.js';
 import { reducer as authReducer } from '~/slices/auth/auth.js';
+import { reducer as projectsReducer } from '~/slices/projects/projects.js';
 import { reducer as usersReducer } from '~/slices/users/users.js';
 
 type RootReducer = {
   auth: ReturnType<typeof authReducer>;
   users: ReturnType<typeof usersReducer>;
+  projects: ReturnType<typeof projectsReducer>;
 };
 
 type ExtraArguments = {
   authApi: typeof authApi;
   userApi: typeof userApi;
+  projectsApi: typeof projectsApi;
   storage: typeof storage;
 };
 
@@ -39,6 +43,7 @@ class Store {
       reducer: {
         auth: authReducer,
         users: usersReducer,
+        projects: projectsReducer,
       },
       middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware({
@@ -54,6 +59,7 @@ class Store {
     return {
       authApi,
       userApi,
+      projectsApi,
       storage,
     };
   }
