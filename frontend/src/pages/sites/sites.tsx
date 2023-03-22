@@ -3,6 +3,7 @@ import { AppRoute } from '~/libs/enums/app-route.enum';
 import { useAppSelector, useEffect } from '~/libs/hooks/hooks.js';
 import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook';
 import { type UserAuthResponse } from '~/packages/users/users.js';
+import { SiteCard } from '~/pages/sites/components/components.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
 import styles from './styles.module.scss';
@@ -33,14 +34,16 @@ const Sites: React.FC = () => {
   }
 
   return (
-    <div>
+    <>
       <Header user={mockUser} />
-      <div className={styles.cardsWrapper}>
-        {sites?.map((site) => (
-          <div key={site.id}>{site.name}</div>
-        ))}
+      <div className={styles.pageWrapper}>
+        <div className={styles.cardsWrapper}>
+          {sites?.map((site) => (
+            <SiteCard key={site.id} siteName={site.name} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

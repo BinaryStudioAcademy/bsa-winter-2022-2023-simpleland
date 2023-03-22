@@ -1,5 +1,16 @@
+.pageWrapper {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  margin-top: 62px;
+  background-color: var(--gray-100);
+}
+
 .cardsWrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
+  width: calc(var(--card-widh) * 3 + var(--card-gap) * 2);
+  height: max-content;
+  margin-top: 18px;
 }
