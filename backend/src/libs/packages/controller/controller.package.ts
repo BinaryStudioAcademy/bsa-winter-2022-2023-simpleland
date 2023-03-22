@@ -48,13 +48,14 @@ class Controller implements IController {
   private mapRequest(
     request: Parameters<ServerAppRouteParameters['handler']>[0],
   ): ApiHandlerOptions {
-    const { body, query, params, user } = request;
+    const { body, query, params, user, headers } = request;
 
     return {
       body,
       query,
       params,
       user,
+      headers,
     };
   }
 }
