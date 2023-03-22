@@ -1,8 +1,10 @@
+import { type UserAuthResponse } from '~/packages/users/users.js';
+
 type DefaultApiHandlerOptions = {
   body?: unknown;
   query?: unknown;
   params?: unknown;
-  user?: unknown;
+  user?: UserAuthResponse | null;
 };
 
 type ApiHandlerOptions<

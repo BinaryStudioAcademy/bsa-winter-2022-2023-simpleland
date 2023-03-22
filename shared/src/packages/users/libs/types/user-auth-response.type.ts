@@ -3,7 +3,7 @@ type UserAuthResponse = {
   email: string;
   firstName: string;
   lastName: string;
-  accountName: string;
+  accountName: string | null;
 };
 
 export { type UserAuthResponse };
