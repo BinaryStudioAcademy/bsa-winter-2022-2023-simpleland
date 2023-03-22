@@ -1,7 +1,7 @@
 type UserUpdateRequestDto = {
   firstName: string;
   lastName: string;
-  accountName: string | null;
+  accountName: string;
 };
 
 export { type UserUpdateRequestDto };
