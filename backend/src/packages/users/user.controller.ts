@@ -51,7 +51,7 @@ class UserController extends Controller {
 
     this.addRoute({
       path: UsersApiPath.ROOT,
-      method: 'POST',
+      method: 'PUT',
       validation: { body: userUpdateValidationSchema },
       handler: (options) =>
         this.update(
@@ -88,7 +88,7 @@ class UserController extends Controller {
   /**
    * @swagger
    * /users:
-   *    post:
+   *    put:
    *      description: Updating user details. Returning user
    *      requestBody:
    *        description: User details

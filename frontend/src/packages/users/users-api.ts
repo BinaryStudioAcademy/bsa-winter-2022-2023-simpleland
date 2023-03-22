@@ -40,7 +40,7 @@ class UserApi extends HttpApi {
     const response = await this.load(
       this.getFullEndpoint(UsersApiPath.ROOT, {}),
       {
-        method: 'POST',
+        method: 'PUT',
         contentType: ContentType.JSON,
         hasAuth: true,
         payload: JSON.stringify(payload),
