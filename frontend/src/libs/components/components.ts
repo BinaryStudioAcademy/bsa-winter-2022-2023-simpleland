@@ -10,5 +10,6 @@ export { PageLayout } from './page-layout/page-layout.js';
 export { ProtectedRoute } from './protected-route/protected-route.js';
 export { RouterProvider } from './router-provider/router-provider.jsx';
 export { Stepper } from './stepper/stepper.js';
+export { Notification } from './toastr/notification.js';
 export { Provider as StoreProvider } from 'react-redux';
 export { Navigate, Outlet as RouterOutlet } from 'react-router-dom';
