@@ -20,4 +20,14 @@ const signUp = createAsyncThunk<
   return user;
 });
 
-export { signUp };
+const getCurrentUser = createAsyncThunk<
+  UserAuthResponse,
+  undefined,
+  AsyncThunkConfig
+>(`${sliceName}/current`, async (_, { extra }) => {
+  const { authApi } = extra;
+
+  return await authApi.getCurrent();
+});
+
+export { getCurrentUser, signUp };
