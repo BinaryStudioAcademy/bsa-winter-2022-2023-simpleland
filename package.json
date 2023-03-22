@@ -24,7 +24,7 @@
     "lint": "npm run lint:editor && npm run lint:fs && npm run lint:prettify && npm run lint:type && npm run lint:js && npm run lint:css",
     "prettify": "prettier --write \"**/*.{ts,tsx,json,md,scss,html}\"",
     "build": "npm run build:backend && npm run build:frontend && sh ./prepare-build.sh",
-    "start": "cd backend && npm run start"
+    "start": "cd ./build/backend && npm run start"
   },
   "devDependencies": {
     "@commitlint/cli": "17.4.4",
