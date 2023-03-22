@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 
 import {
   App,
+  Notification,
   PageLayout,
   ProtectedRoute,
   RouterProvider,
@@ -58,5 +59,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
         ]}
       />
     </StoreProvider>
+    <Notification />
   </StrictMode>,
 );
