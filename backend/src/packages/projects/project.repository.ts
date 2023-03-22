@@ -17,6 +17,14 @@ class ProjectRepository
     return projects.map((project) => ProjectEntity.initialize(project));
   }
 
+  public async findByUserId(userId: string): Promise<ProjectEntity[] | null> {
+    const projects = await this.projectModel
+      .query()
+      .where('userId', Number(userId));
+
+    return projects.map((project) => ProjectEntity.initialize(project));
+  }
+
   public async create(entity: ProjectEntity): Promise<ProjectEntity> {
     const { name, userId } = entity.toNewObject();
 
