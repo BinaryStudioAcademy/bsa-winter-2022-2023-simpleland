@@ -1,6 +1,6 @@
 export { type AsyncThunkConfig } from './async-thunk-config.type.js';
 export { type IconType } from './icon.type.js';
-export { type Options } from './select-options/select-options.js';
+export { type SelectOption } from './select-options/select-options.type.js';
 export {
   type ServerErrorDetail,
   type ServerErrorResponse,

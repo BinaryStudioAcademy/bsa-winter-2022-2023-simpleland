@@ -1,9 +1,9 @@
 import { type StylesConfig } from 'react-select';
 import searchIcon from 'src/assets/img/icons/search.svg';
 
-import { type Options } from '~/libs/types/types.js';
+import { type SelectOption } from '~/libs/types/types.js';
 
-const SelectStyles: StylesConfig<Options<string | number> | undefined> = {
+const styles: StylesConfig<SelectOption<string | number> | undefined> = {
   control: (provided) => ({
     ...provided,
     border: '2px solid #FFB61D',
@@ -75,4 +75,4 @@ const SelectStyles: StylesConfig<Options<string | number> | undefined> = {
   }),
 };
 
-export { SelectStyles };
+export { styles };
