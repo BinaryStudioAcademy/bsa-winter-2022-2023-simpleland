@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { DataStatus } from '~/libs/enums/enums.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
-import { actions as usersActions } from '~/slices/users/users.js';
 
 import { signUp } from './actions.js';
 
@@ -30,9 +29,6 @@ const { reducer, actions, name } = createSlice({
     });
     builder.addCase(signUp.rejected, (state) => {
       state.dataStatus = DataStatus.REJECTED;
-    });
-    builder.addCase(usersActions.updateUser.fulfilled, (state, action) => {
-      state.user = action.payload;
     });
   },
 });
