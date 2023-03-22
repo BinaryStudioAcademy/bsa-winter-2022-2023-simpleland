@@ -24,7 +24,7 @@ const MyProjects: React.FC = () => {
 
   useEffect((): void => {
     void dispatch(projectActions.getProjects());
-  });
+  }, [dispatch]);
 
   const { projects } = useAppSelector((state) => ({
     projects: state.projects.projects?.items,
