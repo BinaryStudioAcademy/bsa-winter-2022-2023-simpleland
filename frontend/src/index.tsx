@@ -14,6 +14,7 @@ import { AppRoute } from '~/libs/enums/enums.js';
 import { store } from '~/libs/packages/store/store.js';
 import { Auth } from '~/pages/auth/auth.js';
 import { NotFound } from '~/pages/not-found/not-found.js';
+import { Sites } from '~/pages/sites/sites.js';
 
 import { MyProjects } from './pages/my-projects/my-projects.js';
 
@@ -31,6 +32,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 element: (
                   <ProtectedRoute>
                     <PageLayout style="black">Root</PageLayout>
+                  </ProtectedRoute>
+                ),
+              },
+              {
+                path: AppRoute.SITES,
+                element: (
+                  <ProtectedRoute>
+                    <Sites />
                   </ProtectedRoute>
                 ),
               },
