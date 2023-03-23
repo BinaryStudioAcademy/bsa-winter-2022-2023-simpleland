@@ -9,11 +9,14 @@ const SAVE_BUTTON_TEXT = 'Save';
 const NEXT_BUTTON_TEXT = 'Go next';
 
 type Properties = {
-  children: React.ReactNode[];
-  className?: string;
+  children?: React.ReactNode[];
+  className?: string | undefined;
 };
 
-const Stepper: React.FC<Properties> = ({ children, className }: Properties) => {
+const Stepper: React.FC<Properties> = ({
+  children = [],
+  className,
+}: Properties) => {
   const {
     currentStep,
     isFirstStep,
