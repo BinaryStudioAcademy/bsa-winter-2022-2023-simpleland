@@ -14,7 +14,7 @@ const Sites: React.FC = () => {
 
   useEffect((): void => {
     if (projectId) {
-      void dispatch(sitesActions.getSites({ projectId: +projectId }));
+      void dispatch(sitesActions.getSitesByProject({ projectId: +projectId }));
     }
   }, [dispatch, projectId]);
 

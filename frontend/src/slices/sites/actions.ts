@@ -8,7 +8,7 @@ import {
 
 import { name as sliceName } from './sites.slice.js';
 
-const getSites = createAsyncThunk<
+const getSitesByProject = createAsyncThunk<
   SiteGetAllResponseDto,
   SiteGetByProjectRequestDtoType,
   AsyncThunkConfig
@@ -18,4 +18,4 @@ const getSites = createAsyncThunk<
   return await sitesApi.getProjectSites(payload.projectId);
 });
 
-export { getSites };
+export { getSitesByProject };

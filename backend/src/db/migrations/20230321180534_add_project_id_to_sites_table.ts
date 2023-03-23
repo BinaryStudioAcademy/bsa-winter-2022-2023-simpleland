@@ -7,7 +7,7 @@ const ColumnName = {
 };
 
 function up(knex: Knex): Promise<void> {
-  return knex.schema.table(TABLE_NAME, (table) => {
+  return knex.schema.alterTable(TABLE_NAME, (table) => {
     table
       .integer(ColumnName.PROJECT_ID)
       .notNullable()
@@ -18,7 +18,7 @@ function up(knex: Knex): Promise<void> {
 }
 
 function down(knex: Knex): Promise<void> {
-  return knex.schema.table(TABLE_NAME, (table) => {
+  return knex.schema.alterTable(TABLE_NAME, (table) => {
     table.dropColumn(ColumnName.PROJECT_ID);
   });
 }
