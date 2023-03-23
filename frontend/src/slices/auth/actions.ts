@@ -37,13 +37,20 @@ const signUp = createAsyncThunk<
 });
 
 const getCurrentUser = createAsyncThunk<
-  UserAuthResponse,
+  UserAuthResponse | null,
   undefined,
   AsyncThunkConfig
 >(`${sliceName}/current`, async (_, { extra }) => {
-  const { authApi } = extra;
+  const { authApi, storage } = extra;
 
-  return await authApi.getCurrent();
+  const token = await storage.get(StorageKey.TOKEN);
+  const hasToken = Boolean(token);
+
+  if (hasToken) {
+    return await authApi.getCurrent();
+  }
+
+  return null;
 });
 
 export { getCurrentUser, signIn, signUp };
