@@ -5,14 +5,14 @@ import { type AsyncThunkConfig } from '~/libs/types/async-thunk-config.type.js';
 
 import { name as sliceName } from './projects.slice.js';
 
-const getProjects = createAsyncThunk<
+const getUserProjects = createAsyncThunk<
   ProjectGetAllResponseDto,
   undefined,
   AsyncThunkConfig
->(`${sliceName}/get-projects`, (_, { extra }) => {
+>(`${sliceName}/get-user-projects`, (_, { extra }) => {
   const { projectsApi } = extra;
 
   return projectsApi.getUserProjects();
 });
 
-export { getProjects };
+export { getUserProjects };
