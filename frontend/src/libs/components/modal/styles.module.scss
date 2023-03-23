@@ -1,0 +1,36 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+}
+
+.modal::-webkit-scrollbar {
+  width: 0;
+}
+
+.modal::backdrop {
+  background: color(srgb 0 0 0 / 60%);
+}
+
+.modal-inner {
+  z-index: var(--z-index-level-one);
+  display: flex;
+  flex-direction: column;
+  width: 940px;
+  height: 665px;
+  background-color: var(--white);
+  border: none;
+}
+
+.modal-inner-header {
+  display: flex;
+  padding: 25px 30px;
+}
+
+.modal-pop-up-close {
+  margin-left: auto;
+}

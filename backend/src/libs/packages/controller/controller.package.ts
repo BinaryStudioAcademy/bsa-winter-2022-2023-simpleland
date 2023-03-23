@@ -37,7 +37,7 @@ class Controller implements IController {
     request: Parameters<ServerAppRouteParameters['handler']>[0],
     reply: Parameters<ServerAppRouteParameters['handler']>[1],
   ): Promise<void> {
-    this.logger.info(`${request.method.toUpperCase()} on ${request.url}`);
+    this.logger.info(`${request.method} on ${request.url}`);
 
     const handlerOptions = this.mapRequest(request);
     const { status, payload } = await handler(handlerOptions);
@@ -48,12 +48,14 @@ class Controller implements IController {
   private mapRequest(
     request: Parameters<ServerAppRouteParameters['handler']>[0],
   ): ApiHandlerOptions {
-    const { body, query, params } = request;
+    const { body, query, params, user, headers } = request;
 
     return {
       body,
       query,
       params,
+      user,
+      headers,
     };
   }
 }

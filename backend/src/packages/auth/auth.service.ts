@@ -1,7 +1,8 @@
-import bcrypt  from 'bcrypt';
-
+import { ApplicationError } from '~/libs/exceptions/exceptions.js';
+import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
 import { type Token } from '~/libs/packages/token/token.js';
 import {
+  type UserAuthResponse,
   type UserService,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
@@ -9,11 +10,11 @@ import {
   type UserSignUpResponseDto,
 } from '~/packages/users/users.js';
 
-import { ApplicationError } from './libs/exceptions/exceptions.js';
-
 class AuthService {
   private userService: UserService;
+
   private tokenService: Token;
+
   public constructor(userService: UserService, token: Token) {
     this.userService = userService;
     this.tokenService = token;
@@ -22,31 +23,20 @@ class AuthService {
   public async signIn(
     userRequestDto: UserSignInRequestDto,
   ): Promise<UserSignInResponseDto | null> {
-    const { email, password } = userRequestDto;
-    return await this.login(email, password);
+    const { email } = userRequestDto;
+
+    return await this.login(email);
   }
- 
-  private async login(email: string, password: string): Promise<UserSignInResponseDto> {
+
+  private async login(email: string): Promise<UserSignInResponseDto> {
     const user = await this.userService.findByEmail(email);
+
     if (!user) {
       throw new ApplicationError({
         message: 'User Not Exist',
       });
     }
-    const passwordHash = user.passwordHash;
-    if (passwordHash === undefined || passwordHash === null) {
-      throw new ApplicationError({
-        message: 'User password not set',
-      });
-    }
-    const isPasswordValid = await bcrypt.compare(password, passwordHash);
-  
-    if (!isPasswordValid) {
-      throw new ApplicationError({
-        message: 'Invalid Password',
-      });
-    }
-  
+
     return {
       token: await this.tokenService.create(user.id),
       user,
@@ -57,10 +47,25 @@ class AuthService {
     userRequestDto: UserSignUpRequestDto,
   ): Promise<UserSignUpResponseDto> {
     const user = await this.userService.create(userRequestDto);
+
     return {
       token: await this.tokenService.create(user.id),
       user,
     };
+  }
+
+  public async getCurrent(token: string): Promise<UserAuthResponse> {
+    const { userId } = this.tokenService.decode<{ userId: number }>(token);
+    const user = await this.userService.find(userId);
+
+    if (!user) {
+      throw new HttpError({
+        message: 'User not found',
+        status: HttpCode.NOT_FOUND,
+      });
+    }
+
+    return user;
   }
 }
 

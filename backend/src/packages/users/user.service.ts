@@ -1,25 +1,17 @@
-import bcrypt  from 'bcrypt';
+import bcrypt from 'bcrypt';
 
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserRepository } from '~/packages/users/user.repository.js';
 
 import {
+  type UserAuthResponse,
   type UserGetAllResponseDto,
   type UserSignUpRequestDto,
+  type UserUpdateRequestDto,
 } from './libs/types/types.js';
 
-interface UserAuthResponse {
-  id: number;
-  email: string;
-  firstName: string;
-  lastName: string;
-  passwordHash: string;
-}
-
-const SALT_ROUNDS = 5;
-
-class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
+class UserService implements Omit<IService, 'find' | 'delete'> {
   private userRepository: UserRepository;
 
   public constructor(userRepository: UserRepository) {
@@ -28,19 +20,23 @@ class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async find(id: number): Promise<UserAuthResponse | null> {
     const user = await this.userRepository.find(id);
+
     if (!user) {
       return null;
     }
+
     return user.toObject();
   }
 
   public async findByEmail(email: string): Promise<UserAuthResponse | null> {
     const user = await this.userRepository.findByEmail(email);
+
     if (!user) {
       return null;
     }
+
     return user.toObject();
-}
+  }
 
   public async findAll(): Promise<UserGetAllResponseDto> {
     const items = await this.userRepository.findAll();
@@ -60,17 +56,35 @@ class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
   public async create(
     payload: UserSignUpRequestDto,
   ): Promise<UserAuthResponse> {
-    const salt = await bcrypt.genSalt(SALT_ROUNDS);
-    const hashedPassword = await bcrypt.hash(payload.password, salt);
     const user = await this.userRepository.create(
       UserEntity.initializeNew({
         email: payload.email,
-        passwordSalt: salt,
-        passwordHash: hashedPassword,
+        passwordSalt: 'SALT', // TODO
+        passwordHash: 'HASH', // TODO
         firstName: payload.firstName,
         lastName: payload.lastName,
       }),
     );
+
+    return user.toObject();
+  }
+
+  public async update(
+    id: number,
+    payload: UserUpdateRequestDto,
+  ): Promise<UserAuthResponse> {
+    const user = await this.userRepository.update(
+      UserEntity.initialize({
+        id,
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        accountName: payload.accountName,
+        email: null,
+        passwordHash: null,
+        passwordSalt: null,
+      }),
+    );
+
     return user.toObject();
   }
 }

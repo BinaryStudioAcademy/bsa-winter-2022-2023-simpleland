@@ -1,0 +1,70 @@
+.header {
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: var(--white);
+  background: var(--gray-600);
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 15px 40px;
+}
+
+.logo-icon {
+  width: 32.14px;
+  height: 32.14px;
+  background-color: var(--yellow);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.logo-text {
+  font-size: 24px;
+  line-height: 25px;
+  cursor: pointer;
+}
+
+.header-sidebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-right: 55px;
+  padding-left: 95px;
+}
+
+.header-nav-list {
+  display: flex;
+  padding: 0;
+  list-style-type: none;
+}
+
+.section-title {
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.profile-data-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.profile-caption {
+  font-size: 16px;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.profile-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+}

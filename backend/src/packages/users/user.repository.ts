@@ -2,7 +2,7 @@ import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserModel } from '~/packages/users/user.model.js';
 
-class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
+class UserRepository implements Omit<IRepository, 'delete'> {
   private userModel: typeof UserModel;
 
   public constructor(userModel: typeof UserModel) {
@@ -12,7 +12,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
   public async find(id: number): Promise<UserEntity | null> {
     const user = await this.userModel
       .query()
-      .where('id', id)
+      .where('users.id', id)
       .first()
       .withGraphJoined('userDetails');
 
@@ -27,6 +27,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
       passwordSalt: user.passwordSalt,
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
     });
   }
 
@@ -48,6 +49,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
       passwordSalt: user.passwordSalt,
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
     });
   }
 
@@ -65,6 +67,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
         passwordSalt: user.passwordSalt,
         firstName: user.userDetails.firstName,
         lastName: user.userDetails.lastName,
+        accountName: user.userDetails.accountName,
       });
     });
   }
@@ -94,6 +97,30 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
       passwordSalt: user.passwordSalt,
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
+    });
+  }
+
+  public async update(entity: UserEntity): Promise<UserEntity> {
+    const { id, firstName, lastName, accountName } = entity.toUserDetails();
+
+    const user = await this.userModel.query().upsertGraphAndFetch({
+      id,
+      userDetails: {
+        firstName,
+        lastName,
+        accountName,
+      },
+    });
+
+    return UserEntity.initialize({
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
+      firstName: user.userDetails.firstName,
+      lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
     });
   }
 }

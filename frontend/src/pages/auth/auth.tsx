@@ -42,12 +42,12 @@ const Auth: React.FC = () => {
 
   return (
     <PageLayout>
-      <div className={styles.pageContent}>
-        <div className={styles.logoWrapper}>
-          <span className={styles.logoDot}></span>
-          <div className={styles.logoText}>SimpleLand</div>
+      <div className={styles['page-content']}>
+        <div className={styles['logo-wrapper']}>
+          <span className={styles['logo-dot']} />
+          <div className={styles['logo-text']}>SimpleLand</div>
         </div>
-        <div className={styles.formWrapper}>{getScreen(pathname)}</div>
+        <div className={styles['form-wrapper']}>{getScreen(pathname)}</div>
       </div>
     </PageLayout>
   );
