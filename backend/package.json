@@ -17,6 +17,7 @@
     "build": "tsc && tsc-alias"
   },
   "devDependencies": {
+    "@types/bcrypt": "5.0.0",
     "@types/convict": "6.1.1",
     "@types/swagger-jsdoc": "6.0.1",
     "nodemon": "2.0.21",
