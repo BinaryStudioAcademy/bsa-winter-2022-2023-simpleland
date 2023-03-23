@@ -18,6 +18,7 @@ const MyProjects: React.FC = () => {
     email: 'Adenium@fk.ua',
     firstName: 'Vlad',
     lastName: 'Bazhynov',
+    accountName: 'Bazhynov',
   };
 
   const dispatch = useAppDispatch();

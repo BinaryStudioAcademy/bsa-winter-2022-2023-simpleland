@@ -15,6 +15,7 @@ const Sites: React.FC = () => {
     email: 'pisotska.o@gmail.com',
     firstName: 'Alyona',
     lastName: 'Pisotska',
+    accountName: 'Pisotska',
   };
   const { projectId } = useParams();
   const dispatch = useAppDispatch();
