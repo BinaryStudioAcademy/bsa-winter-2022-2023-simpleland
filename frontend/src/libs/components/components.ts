@@ -14,4 +14,4 @@ export { Select } from './select/select.js';
 export { Stepper } from './stepper/stepper.js';
 export { Notification } from './toastr/notification.js';
 export { Provider as StoreProvider } from 'react-redux';
-export { Navigate, Outlet as RouterOutlet } from 'react-router-dom';
+export { Navigate as Redirect, Outlet as RouterOutlet } from 'react-router-dom';

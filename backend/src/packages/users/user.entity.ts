@@ -41,6 +41,16 @@ class UserEntity implements IEntity {
     this.accountName = accountName;
   }
 
+  public get privateData(): {
+    passwordHash: string;
+    passwordSalt: string;
+  } {
+    return {
+      passwordSalt: this.passwordSalt as string,
+      passwordHash: this.passwordHash as string,
+    };
+  }
+
   public static initialize({
     id,
     email,

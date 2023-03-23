@@ -1,33 +1,31 @@
-import { RouterOutlet } from '~/libs/components/components.js';
-import { AppRoute } from '~/libs/enums/enums.js';
+import { Loader, RouterOutlet } from '~/libs/components/components.js';
+import { DataStatus } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
-  useLocation,
 } from '~/libs/hooks/hooks.js';
 import { actions as authActions } from '~/slices/auth/auth.js';
-import { actions as userActions } from '~/slices/users/users.js';
 
 const App: React.FC = () => {
-  const { pathname } = useLocation();
+  const { user, currentUserDataStatus } = useAppSelector(({ auth }) => ({
+    user: auth.user,
+    currentUserDataStatus: auth.currentUserDataStatus,
+  }));
+
   const dispatch = useAppDispatch();
 
-  const isRoot = pathname === AppRoute.ROOT;
-
-  const user = useAppSelector((state) => state.auth.user);
+  const hasUser = Boolean(user);
 
   useEffect(() => {
-    if (isRoot) {
-      void dispatch(userActions.loadAll());
-    }
-  }, [isRoot, dispatch]);
-
-  useEffect(() => {
-    if (!user) {
+    if (!hasUser) {
       void dispatch(authActions.getCurrentUser());
     }
-  }, [user, dispatch]);
+  }, [hasUser, dispatch]);
+
+  if (currentUserDataStatus !== DataStatus.FULFILLED) {
+    return <Loader style="yellow" />;
+  }
 
   return <RouterOutlet />;
 };

@@ -4,10 +4,24 @@ import { StorageKey } from '~/libs/packages/storage/storage.js';
 import { type AsyncThunkConfig } from '~/libs/types/types.js';
 import {
   type UserAuthResponse,
+  type UserSignInRequestDto,
   type UserSignUpRequestDto,
 } from '~/packages/users/users.js';
 
 import { name as sliceName } from './auth.slice.js';
+
+const signIn = createAsyncThunk<
+  UserAuthResponse,
+  UserSignInRequestDto,
+  AsyncThunkConfig
+>(`${sliceName}/sign-in`, async (signInPayload, { extra }) => {
+  const { authApi, storage } = extra;
+  const { user, token } = await authApi.signIn(signInPayload);
+
+  void storage.set(StorageKey.TOKEN, token);
+
+  return user;
+});
 
 const signUp = createAsyncThunk<
   UserAuthResponse,
@@ -23,13 +37,20 @@ const signUp = createAsyncThunk<
 });
 
 const getCurrentUser = createAsyncThunk<
-  UserAuthResponse,
+  UserAuthResponse | null,
   undefined,
   AsyncThunkConfig
 >(`${sliceName}/current`, async (_, { extra }) => {
-  const { authApi } = extra;
+  const { authApi, storage } = extra;
 
-  return await authApi.getCurrent();
+  const token = await storage.get(StorageKey.TOKEN);
+  const hasToken = Boolean(token);
+
+  if (hasToken) {
+    return await authApi.getCurrent();
+  }
+
+  return null;
 });
 
-export { getCurrentUser, signUp };
+export { getCurrentUser, signIn, signUp };
