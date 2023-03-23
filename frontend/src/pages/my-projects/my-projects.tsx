@@ -13,17 +13,18 @@ import styles from './styles.module.scss';
 
 const MyProjects: React.FC = () => {
   const mockUser: UserAuthResponse = {
-    // replace with user fromn store
+    // replace with user from store
     id: 35,
     email: 'Adenium@fk.ua',
     firstName: 'Vlad',
     lastName: 'Bazhynov',
+    accountName: 'Bazhynov',
   };
 
   const dispatch = useAppDispatch();
 
   useEffect((): void => {
-    void dispatch(projectActions.getProjects());
+    void dispatch(projectActions.getUserProjects());
   }, [dispatch]);
 
   const { projects } = useAppSelector((state) => ({
