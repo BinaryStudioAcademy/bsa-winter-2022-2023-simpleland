@@ -5,7 +5,11 @@ import { AppEnvironment } from '~/libs/enums/enums.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 
 import { type IConfig } from './libs/interfaces/interfaces.js';
-import { type AuthConfig, type EnvironmentSchema } from './libs/types/types.js';
+import {
+  type AuthConfig,
+  type EncryptConfig,
+  type EnvironmentSchema,
+} from './libs/types/types.js';
 
 class Config implements IConfig {
   private logger: ILogger;
@@ -13,6 +17,8 @@ class Config implements IConfig {
   public AUTH: AuthConfig;
 
   public ENV: EnvironmentSchema;
+
+  public ENCRYPTION: EncryptConfig;
 
   public constructor(logger: ILogger) {
     this.logger = logger;
@@ -24,10 +30,12 @@ class Config implements IConfig {
       allowed: 'strict',
       output: (message) => this.logger.info(message),
     });
-    this.AUTH = this.authConfig;
     this.ENV = this.envSchema.getProperties();
 
     this.logger.info('.env file found and successfully parsed!');
+
+    this.AUTH = this.authConfig;
+    this.ENCRYPTION = this.encryptionConfig;
   }
 
   private get envSchema(): TConfig<EnvironmentSchema> {
@@ -93,6 +101,12 @@ class Config implements IConfig {
     return {
       ALGORITHM: 'HS256',
       EXP_TIME: '24h',
+    };
+  }
+
+  private get encryptionConfig(): EncryptConfig {
+    return {
+      USER_PASSWORD_SALT_ROUNDS: 10,
     };
   }
 }

@@ -1,4 +1,5 @@
-'*.{ts,tsx,json,md,scss,html}': prettier --write
+'*.{ts,tsx,json,md,scss,html}':
+  - npm run lint:prettify
 '*':
   - npm run lint:editor
   - npm run lint:fs

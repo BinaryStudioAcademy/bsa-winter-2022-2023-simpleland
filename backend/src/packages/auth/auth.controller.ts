@@ -4,7 +4,7 @@ import {
   type ApiHandlerResponse,
   Controller,
 } from '~/libs/packages/controller/controller.js';
-import { HttpCode } from '~/libs/packages/http/http.js';
+import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 import {
   type UserSignInRequestDto,
@@ -50,6 +50,11 @@ class AuthController extends Controller {
             body: UserSignInRequestDto;
           }>,
         ),
+    });
+    this.addRoute({
+      path: AuthApiPath.CURRENT,
+      method: 'GET',
+      handler: (options) => this.getCurrent(options),
     });
   }
 
@@ -134,6 +139,57 @@ class AuthController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.authService.signIn(options.body),
+    };
+  }
+
+  /**
+   * @swagger
+   * /auth/current:
+   *    get:
+   *      description: Get authenticated user
+   *      content:
+   *        application/json:
+   *          schema:
+   *            type: object
+   *            properties:
+   *              id:
+   *                type: number
+   *                format: int64
+   *                minimum: 1
+   *              email:
+   *                type: string
+   *                format: email
+   *              firstName: string;
+   *              lastName: string;
+   *      responses:
+   *        200:
+   *          description: Successful operation
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: object
+   *                properties:
+   *                  message:
+   *                    type: object
+   *                    $ref: '#/components/schemas/User'
+   */
+  private async getCurrent(
+    options: ApiHandlerOptions,
+  ): Promise<ApiHandlerResponse> {
+    const [, token] = options.headers.authorization?.split(' ') ?? [];
+
+    if (!token) {
+      throw new HttpError({
+        message:
+          'You should provide Authorization header in format: Bearer <token>',
+        status: HttpCode.UNAUTHORIZED,
+      });
+    }
+    const user = await this.authService.getCurrent(token);
+
+    return {
+      status: HttpCode.OK,
+      payload: user,
     };
   }
 }

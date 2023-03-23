@@ -1,13 +1,19 @@
 import { ApiPath } from '~/libs/enums/enums.js';
 import {
+  type ApiHandlerOptions,
   type ApiHandlerResponse,
-  Controller,
 } from '~/libs/packages/controller/controller.js';
+import { Controller } from '~/libs/packages/controller/controller.js';
 import { HttpCode } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type UserService } from '~/packages/users/user.service.js';
 
 import { UsersApiPath } from './libs/enums/enums.js';
+import {
+  type UserAuthResponse,
+  type UserUpdateRequestDto,
+} from './libs/types/types.js';
+import { userUpdateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -23,6 +29,11 @@ import { UsersApiPath } from './libs/enums/enums.js';
  *          email:
  *            type: string
  *            format: email
+ *          firstName: string;
+ *          lastName: string;
+ *          accountName:
+ *            type: string;
+ *            nullable: true;
  */
 class UserController extends Controller {
   private userService: UserService;
@@ -36,6 +47,19 @@ class UserController extends Controller {
       path: UsersApiPath.ROOT,
       method: 'GET',
       handler: () => this.findAll(),
+    });
+
+    this.addRoute({
+      path: UsersApiPath.ROOT,
+      method: 'PUT',
+      validation: { body: userUpdateValidationSchema },
+      handler: (options) =>
+        this.update(
+          options as ApiHandlerOptions<{
+            body: UserUpdateRequestDto;
+            user: UserAuthResponse;
+          }>,
+        ),
     });
   }
 
@@ -58,6 +82,42 @@ class UserController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.userService.findAll(),
+    };
+  }
+
+  /**
+   * @swagger
+   * /users:
+   *    put:
+   *      description: Updating user details. Returning user
+   *      requestBody:
+   *        description: User details
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                firstName: string;
+   *                lastName: string;
+   *                accountName: string;
+   *      responses:
+   *        200:
+   *          description: Successful update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/User'
+   */
+  private async update(
+    options: ApiHandlerOptions<{
+      body: UserUpdateRequestDto;
+      user: UserAuthResponse;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.userService.update(options.user.id, options.body),
     };
   }
 }
