@@ -29,6 +29,17 @@ import { siteCreateValidationSchema } from './libs/validation-schemas/validation
  *           type: string
  *           format: uri
  *           nullable: true
+ *     Section
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           format: int64
+ *           minimum: 1
+ *         name:
+ *           type: string
+ *         content:
+ *           type: string
  */
 
 class SiteController extends Controller {
@@ -130,6 +141,32 @@ class SiteController extends Controller {
     };
   }
 
+  /**
+   * @swagger
+   * /sites/{siteId}/sections:
+   *   get:
+   *     description: Returns object with items property. Items - array of sections related to site
+   *     parameters:
+   *       - in: path
+   *         name: siteId
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: Numeric Site ID
+   *     responses:
+   *       200:
+   *         description: Successful operation
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 items:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/Section'
+   *                   minItems: 0
+   */
   private async findSectionsBySiteId(
     options: ApiHandlerOptions<{ params: { siteId: string } }>,
   ): Promise<ApiHandlerResponse> {
