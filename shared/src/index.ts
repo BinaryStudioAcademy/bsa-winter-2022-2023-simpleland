@@ -39,8 +39,7 @@ export {
 export {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
-  type SectionName,
-  SECTION_NAMES,
+  SectionType,
 } from './packages/sections/sections.js';
 export {
   type SiteCreateRequestDto,
