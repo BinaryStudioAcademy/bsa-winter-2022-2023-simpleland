@@ -29,6 +29,11 @@ import { siteCreateValidationSchema } from './libs/validation-schemas/validation
  *           type: string
  *           format: uri
  *           nullable: true
+ *     SectionName
+ *       type: string
+ *       enum:
+ *         - header
+ *         - footer
  *     Section
  *       type: object
  *       properties:
@@ -37,9 +42,10 @@ import { siteCreateValidationSchema } from './libs/validation-schemas/validation
  *           format: int64
  *           minimum: 1
  *         name:
- *           type: string
+ *           schema:
+ *             $ref: '#/components/schemas/SectionName'
  *         content:
- *           type: string
+ *           type: object
  */
 
 class SiteController extends Controller {
