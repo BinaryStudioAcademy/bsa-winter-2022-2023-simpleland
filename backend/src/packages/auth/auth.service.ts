@@ -1,3 +1,4 @@
+import { ApplicationError } from '~/libs/exceptions/exceptions.js';
 import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
 import { type Token } from '~/libs/packages/token/token.js';
 import {
@@ -8,8 +9,6 @@ import {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
 } from '~/packages/users/users.js';
-
-import { ApplicationError } from './libs/exceptions/exceptions.js';
 
 class AuthService {
   private userService: UserService;
