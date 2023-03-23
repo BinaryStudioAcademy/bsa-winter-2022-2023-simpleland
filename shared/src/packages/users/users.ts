@@ -7,6 +7,7 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserTokenPayload,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
 export {
