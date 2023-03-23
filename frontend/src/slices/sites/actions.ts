@@ -12,10 +12,10 @@ const getSites = createAsyncThunk<
   SiteGetAllResponseDto,
   SiteGetByProjectRequestDtoType,
   AsyncThunkConfig
->(`${sliceName}/sites`, (payload, { extra }) => {
+>(`${sliceName}/sites`, async (payload, { extra }) => {
   const { sitesApi } = extra;
 
-  return sitesApi.getProjectSites(payload.projectId);
+  return await sitesApi.getProjectSites(payload.projectId);
 });
 
 export { getSites };

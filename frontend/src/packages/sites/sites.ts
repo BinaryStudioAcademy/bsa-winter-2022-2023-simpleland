@@ -12,6 +12,7 @@ const sitesApi = new SitesApi({
 
 export { sitesApi };
 export {
+  type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectRequestDtoType,
 } from './libs/types/types.js';

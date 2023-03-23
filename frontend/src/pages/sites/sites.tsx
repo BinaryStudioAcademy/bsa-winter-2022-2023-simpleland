@@ -27,7 +27,7 @@ const Sites: React.FC = () => {
   }, [dispatch, projectId]);
 
   const { sites } = useAppSelector((state) => ({
-    sites: state.sites.sites?.items,
+    sites: state.sites.sites,
   }));
 
   if (projectId === undefined) {
@@ -39,7 +39,7 @@ const Sites: React.FC = () => {
       <Header user={mockUser} />
       <div className={styles['page-wrapper']}>
         <div className={styles['cards-wrapper']}>
-          {sites?.map((site) => (
+          {sites.map((site) => (
             <SiteCard key={site.id} siteName={site.name} />
           ))}
         </div>
