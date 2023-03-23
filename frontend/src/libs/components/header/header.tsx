@@ -1,5 +1,5 @@
 import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
-import { Link } from '~/libs/components/components.js';
+import { Link, Logo } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 
@@ -12,10 +12,7 @@ type Properties = {
 const Header: React.FC<Properties> = ({ user }: Properties) => {
   return (
     <header className={styles['header']}>
-      <div className={styles['logo-wrapper']}>
-        <div className={styles['logo-icon']} />
-        <span className={styles['logo-text']}>logo</span>
-      </div>
+      <Logo />
       <div className={styles['header-sidebar']}>
         <ul className={styles['header-nav-list']}>
           <li>

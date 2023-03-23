@@ -16,7 +16,7 @@ import { store } from '~/libs/packages/store/store.js';
 import { AccountSettings } from '~/pages/account-settings/account-settings.js';
 import { Auth } from '~/pages/auth/auth.js';
 import { NotFound } from '~/pages/not-found/not-found.js';
-import { StartPage } from '~/pages/start/start.js';
+import { Start } from '~/pages/start/start.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
   <StrictMode>
@@ -39,7 +39,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 path: AppRoute.START,
                 element: (
                   <ProtectedRoute>
-                    <StartPage />
+                    <Start />
                   </ProtectedRoute>
                 ),
               },
