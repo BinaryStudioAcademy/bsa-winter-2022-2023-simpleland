@@ -24,11 +24,11 @@ const MyProjects: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect((): void => {
-    void dispatch(projectActions.getUserProjects());
+    void dispatch(projectActions.getProjects());
   }, [dispatch]);
 
   const { projects } = useAppSelector((state) => ({
-    projects: state.projects.projects.items,
+    projects: state.projects.projects,
   }));
 
   return (
