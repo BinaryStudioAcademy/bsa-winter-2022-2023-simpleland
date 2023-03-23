@@ -1,11 +1,13 @@
 import { type IEntity } from '~/libs/interfaces/interfaces.js';
 
+import { type SectionName } from './libs/types/types.js';
+
 class SectionEntity implements Omit<IEntity, 'toNewObject'> {
   private 'id': number | null;
 
-  private 'name': string;
+  private 'name': SectionName;
 
-  private 'content': string;
+  private 'content': unknown;
 
   private constructor({
     id,
@@ -13,8 +15,8 @@ class SectionEntity implements Omit<IEntity, 'toNewObject'> {
     content,
   }: {
     id: number | null;
-    name: string;
-    content: string;
+    name: SectionName;
+    content: unknown;
   }) {
     this.id = id;
     this.name = name;
@@ -27,13 +29,13 @@ class SectionEntity implements Omit<IEntity, 'toNewObject'> {
     content,
   }: {
     id: number;
-    name: string;
-    content: string;
+    name: SectionName;
+    content: unknown;
   }): SectionEntity {
     return new SectionEntity({ id, name, content });
   }
 
-  public toObject(): { id: number; name: string; content: string } {
+  public toObject(): { id: number; name: SectionName; content: unknown } {
     return {
       id: this.id as number,
       name: this.name,

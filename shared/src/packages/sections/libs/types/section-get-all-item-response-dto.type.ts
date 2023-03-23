@@ -1,7 +1,9 @@
-type SectionGetAllItemResponseDto = {
+import { type SectionName } from './section-name.type.js';
+
+type SectionGetAllItemResponseDto<T = unknown> = {
   id: number;
-  name: string;
-  content: string;
+  name: SectionName;
+  content: T;
 };
 
 export { type SectionGetAllItemResponseDto };

@@ -13,7 +13,7 @@ class SectionRepository
     this.siteModel = siteModel;
   }
 
-  public async findSectionsBySiteId(siteId: number): Promise<SectionEntity[]> {
+  public async findBySiteId(siteId: number): Promise<SectionEntity[]> {
     const sections = await this.siteModel.relatedQuery('sections').for(siteId);
 
     return sections.map((section) => SectionEntity.initialize(section));

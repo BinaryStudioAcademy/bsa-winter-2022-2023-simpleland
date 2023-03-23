@@ -1,5 +1,7 @@
 import { type Knex } from 'knex';
 
+import { SECTION_NAMES } from '~/packages/sections/sections.js';
+
 const TABLE_NAME = 'sections';
 
 const ColumnName = {
@@ -13,7 +15,7 @@ const ColumnName = {
 function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(TABLE_NAME, (table) => {
     table.increments(ColumnName.ID).primary();
-    table.string(ColumnName.NAME).notNullable();
+    table.enu(ColumnName.NAME, SECTION_NAMES).notNullable();
     table.jsonb(ColumnName.CONTENT).notNullable();
     table
       .dateTime(ColumnName.CREATED_AT)

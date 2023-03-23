@@ -40,7 +40,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   public async findSectionsBySiteId(
     siteId: number,
   ): Promise<SectionGetAllResponseDto> {
-    return await sectionService.findSectionsBySiteId(siteId);
+    return await sectionService.findBySiteId(siteId);
   }
 }
 

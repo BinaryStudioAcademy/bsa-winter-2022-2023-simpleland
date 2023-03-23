@@ -3,10 +3,12 @@ import {
   DatabaseTableName,
 } from '~/libs/packages/database/database.js';
 
-class SectionModel extends AbstractModel {
-  public 'name': string;
+import { type SectionName } from './libs/types/types.js';
 
-  public 'content': string;
+class SectionModel extends AbstractModel {
+  public 'name': SectionName;
+
+  public 'content': unknown;
 
   public static override get tableName(): string {
     return DatabaseTableName.SECTIONS;

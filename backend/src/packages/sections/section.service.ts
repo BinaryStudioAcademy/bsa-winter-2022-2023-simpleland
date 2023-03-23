@@ -13,10 +13,8 @@ class SectionService
     this.sectionRepository = sectionRepository;
   }
 
-  public async findSectionsBySiteId(
-    siteId: number,
-  ): Promise<SectionGetAllResponseDto> {
-    const sections = await this.sectionRepository.findSectionsBySiteId(siteId);
+  public async findBySiteId(siteId: number): Promise<SectionGetAllResponseDto> {
+    const sections = await this.sectionRepository.findBySiteId(siteId);
 
     return { items: sections.map((section) => section.toObject()) };
   }
