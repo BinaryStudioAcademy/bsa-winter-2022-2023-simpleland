@@ -28,6 +28,7 @@
     "@commitlint/cli": "17.4.4",
     "@commitlint/config-conventional": "17.4.4",
     "@ls-lint/ls-lint": "1.11.2",
+    "@types/bcrypt": "5.0.0",
     "@typescript-eslint/eslint-plugin": "5.48.1",
     "danger": "11.2.4",
     "editorconfig-checker": "5.0.1",
@@ -48,5 +49,8 @@
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged",
     "commit-msg": "npx commitlint --edit $1"
+  },
+  "dependencies": {
+    "bcrypt": "5.1.0"
   }
 }

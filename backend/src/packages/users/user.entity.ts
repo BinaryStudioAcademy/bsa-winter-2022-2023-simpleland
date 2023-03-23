@@ -87,6 +87,8 @@ class UserEntity implements IEntity {
   public toObject(): {
     id: number;
     email: string;
+    passwordHash: string;
+    passwordSalt: string;
     firstName: string;
     lastName: string;
   } {
@@ -95,6 +97,8 @@ class UserEntity implements IEntity {
       email: this.email,
       firstName: this.firstName,
       lastName: this.lastName,
+      passwordHash: this.passwordHash,
+      passwordSalt: this.passwordSalt,
     };
   }
 

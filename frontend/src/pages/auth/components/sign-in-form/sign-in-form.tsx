@@ -25,7 +25,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
     },
     [handleSubmit, onSubmit],
   );
-
+  
   return (
     <div className={styles.signIn}>
       <h2 className={styles.signInTitle}>Log In</h2>

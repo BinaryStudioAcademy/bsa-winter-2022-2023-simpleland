@@ -1,12 +1,23 @@
+import bcrypt  from 'bcrypt';
+
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserRepository } from '~/packages/users/user.repository.js';
 
 import {
-  type UserAuthResponse,
   type UserGetAllResponseDto,
   type UserSignUpRequestDto,
 } from './libs/types/types.js';
+
+interface UserAuthResponse {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  passwordHash: string;
+}
+
+const SALT_ROUNDS = 5;
 
 class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
   private userRepository: UserRepository;
@@ -29,7 +40,7 @@ class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
       return null;
     }
     return user.toObject();
-  }
+}
 
   public async findAll(): Promise<UserGetAllResponseDto> {
     const items = await this.userRepository.findAll();
@@ -39,14 +50,23 @@ class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
     };
   }
 
+  public async comparePassword(
+    password: string,
+    hash: string,
+  ): Promise<boolean> {
+    return await bcrypt.compare(password, hash);
+  }
+
   public async create(
     payload: UserSignUpRequestDto,
   ): Promise<UserAuthResponse> {
+    const salt = await bcrypt.genSalt(SALT_ROUNDS);
+    const hashedPassword = await bcrypt.hash(payload.password, salt);
     const user = await this.userRepository.create(
       UserEntity.initializeNew({
         email: payload.email,
-        passwordSalt: 'SALT', // TODO
-        passwordHash: 'HASH', // TODO
+        passwordSalt: salt,
+        passwordHash: hashedPassword,
         firstName: payload.firstName,
         lastName: payload.lastName,
       }),
