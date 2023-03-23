@@ -32,6 +32,7 @@ import { ProjectsApiPath } from './libs/enums/enums.js';
  *            format: int64
  *            minimum: 1
  */
+
 class ProjectController extends Controller {
   private projectService: ProjectService;
 
@@ -43,7 +44,7 @@ class ProjectController extends Controller {
     this.addRoute({
       path: ProjectsApiPath.ROOT,
       method: 'GET',
-      handler: () => this.findAll(),
+      handler: (options) => this.findAll(options),
     });
 
     this.addRoute({
@@ -76,10 +77,12 @@ class ProjectController extends Controller {
    *                items:
    *                  $ref: '#/components/schemas/Project'
    */
-  private async findAll(): Promise<ApiHandlerResponse> {
+  private async findAll(
+    options: ApiHandlerOptions,
+  ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.projectService.findAll(),
+      payload: await this.projectService.findAll(options.user),
     };
   }
 

@@ -11,8 +11,16 @@ class ProjectRepository
     this.projectModel = projectModel;
   }
 
-  public async findAll(): Promise<ProjectEntity[]> {
-    const projects = await this.projectModel.query().execute();
+  public async findAll(id: number): Promise<ProjectEntity[]> {
+    const projects = await this.projectModel.query().where('id', id).execute();
+
+    return projects.map((project) => ProjectEntity.initialize(project));
+  }
+
+  public async findByUserId(userId: string): Promise<ProjectEntity[] | null> {
+    const projects = await this.projectModel
+      .query()
+      .where('userId', Number(userId));
 
     return projects.map((project) => ProjectEntity.initialize(project));
   }
