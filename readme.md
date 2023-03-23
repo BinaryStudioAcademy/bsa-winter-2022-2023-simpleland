@@ -79,7 +79,8 @@ erDiagram
     dateTime created_at
     dateTime updated_at
     varchar name
-    text content "or would be jsonb map of content applied to section"
+    enum type  "Value of SectionType enum"
+    jsonb content
   }
 
   sites_to_sections }|--|| sections : section_id
