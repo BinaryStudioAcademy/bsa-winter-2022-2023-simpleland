@@ -14,7 +14,7 @@ function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(TABLE_NAME, (table) => {
     table.increments(ColumnName.ID).primary();
     table.string(ColumnName.NAME).notNullable();
-    table.text(ColumnName.CONTENT).notNullable();
+    table.jsonb(ColumnName.CONTENT).notNullable();
     table
       .dateTime(ColumnName.CREATED_AT)
       .notNullable()
