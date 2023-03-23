@@ -74,9 +74,9 @@ class Store {
     return {
       authApi,
       userApi,
+      notification,
       projectsApi,
       sitesApi,
-      notification,
       storage,
     };
   }

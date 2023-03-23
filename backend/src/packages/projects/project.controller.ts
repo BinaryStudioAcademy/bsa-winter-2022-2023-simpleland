@@ -13,7 +13,6 @@ import {
 } from '~/packages/projects/projects.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
-import { type FindProjectByUserIdRequest } from './libs/types/types.js';
 
 /**
  * @swagger
@@ -46,15 +45,6 @@ class ProjectController extends Controller {
       path: ProjectsApiPath.ROOT,
       method: 'GET',
       handler: () => this.findAll(),
-    });
-
-    this.addRoute({
-      path: ProjectsApiPath.USER_ID,
-      method: 'GET',
-      handler: (options) =>
-        this.findByUserId(
-          options as ApiHandlerOptions<{ params: FindProjectByUserIdRequest }>,
-        ),
     });
 
     this.addRoute({
@@ -91,30 +81,6 @@ class ProjectController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.projectService.findAll(),
-    };
-  }
-
-  /**
-   * @swagger
-   * /projects:
-   *    get:
-   *      description: Returns an array of projects
-   *      responses:
-   *        200:
-   *          description: Successful operation
-   *          content:
-   *            application/json:
-   *              schema:
-   *                type: array
-   *                items:
-   *                  $ref: '#/components/schemas/Project'
-   */
-  private async findByUserId(
-    options: ApiHandlerOptions<{ params: FindProjectByUserIdRequest }>,
-  ): Promise<ApiHandlerResponse> {
-    return {
-      status: HttpCode.OK,
-      payload: await this.projectService.findByUserId(options.params),
     };
   }
 

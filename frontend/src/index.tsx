@@ -62,7 +62,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 element: <Auth />,
               },
               {
-                path: AppRoute.MY_PROJECTS,
+                path: AppRoute.PROJECTS,
                 element: <MyProjects />,
               },
             ],

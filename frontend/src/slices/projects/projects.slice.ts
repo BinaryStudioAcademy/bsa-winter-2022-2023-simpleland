@@ -8,12 +8,12 @@ import { getProjects } from './actions.js';
 
 type State = {
   dataStatus: ValueOf<typeof DataStatus>;
-  projects: ProjectGetAllResponseDto | null;
+  projects: ProjectGetAllResponseDto;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  projects: null,
+  projects: { items: [] },
 };
 
 const { reducer, actions, name } = createSlice({
