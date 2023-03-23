@@ -1,6 +1,7 @@
+import img from 'src/assets/img/test.jpg';
+
 import { Divider, IconButton } from '~/libs/components/components.js';
 
-import img from '../../../../assets/img/test.jpg';
 import styles from './styles.module.scss';
 
 type Properties = {

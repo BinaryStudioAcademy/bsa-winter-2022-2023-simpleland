@@ -1,6 +1,6 @@
-import { Header, Navigate, useParams } from '~/libs/components/components.js';
+import { Header, Navigate } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
-import { useAppSelector, useEffect } from '~/libs/hooks/hooks.js';
+import { useAppSelector, useEffect, useParams } from '~/libs/hooks/hooks.js';
 import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 import { SiteCard } from '~/pages/sites/components/components.js';
@@ -8,15 +8,15 @@ import { actions as sitesActions } from '~/slices/sites/sites.js';
 
 import styles from './styles.module.scss';
 
+const mockUser: UserAuthResponse = {
+  id: 1,
+  email: 'pisotska.o@gmail.com',
+  firstName: 'Alyona',
+  lastName: 'Pisotska',
+  accountName: 'Pisotska',
+};
+
 const Sites: React.FC = () => {
-  const mockUser: UserAuthResponse = {
-    // replace with user from store
-    id: 1,
-    email: 'pisotska.o@gmail.com',
-    firstName: 'Alyona',
-    lastName: 'Pisotska',
-    accountName: 'Pisotska',
-  };
   const { projectId } = useParams();
   const dispatch = useAppDispatch();
 
