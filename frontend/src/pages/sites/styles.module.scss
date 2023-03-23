@@ -1,4 +1,4 @@
-.pageWrapper {
+.page-wrapper {
   display: flex;
   flex-grow: 1;
   justify-content: center;
@@ -6,7 +6,7 @@
   background-color: var(--gray-100);
 }
 
-.cardsWrapper {
+.cards-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;

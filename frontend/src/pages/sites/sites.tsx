@@ -36,8 +36,8 @@ const Sites: React.FC = () => {
   return (
     <>
       <Header user={mockUser} />
-      <div className={styles.pageWrapper}>
-        <div className={styles.cardsWrapper}>
+      <div className={styles['page-wrapper']}>
+        <div className={styles['cards-wrapper']}>
           {sites?.map((site) => (
             <SiteCard key={site.id} siteName={site.name} />
           ))}
