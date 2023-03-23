@@ -31,7 +31,7 @@ const Sites: React.FC = () => {
   }));
 
   if (projectId === undefined) {
-    return <Navigate to={AppRoute.MY_PROJECTS} replace />;
+    return <Navigate to={AppRoute.PROJECTS} replace />;
   }
 
   return (
