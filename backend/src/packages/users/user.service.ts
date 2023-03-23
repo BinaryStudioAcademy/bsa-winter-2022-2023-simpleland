@@ -1,8 +1,6 @@
-import bcrypt from 'bcrypt';
-
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type IConfig } from '~/libs/packages/config/config.js';
-import { type Encrypt } from '~/libs/packages/encrypt/encrypt.js';
+import { type IEncrypt } from '~/libs/packages/encrypt/encrypt.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserRepository } from '~/packages/users/user.repository.js';
 
@@ -17,14 +15,14 @@ import {
 class UserService implements Omit<IService, 'find' | 'delete'> {
   private userRepository: UserRepository;
 
-  private encrypt: Encrypt;
+  private encrypt: IEncrypt;
 
   private config: IConfig;
 
   public constructor(
     userRepository: UserRepository,
     config: IConfig,
-    encrypt: Encrypt,
+    encrypt: IEncrypt,
   ) {
     this.userRepository = userRepository;
     this.encrypt = encrypt;
@@ -57,13 +55,6 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
     return {
       items: items.map((it) => it.toObject()),
     };
-  }
-
-  public async comparePassword(
-    password: string,
-    hash: string,
-  ): Promise<boolean> {
-    return await bcrypt.compare(password, hash);
   }
 
   public async create(

@@ -1,7 +1,7 @@
 import { ApplicationError } from '~/libs/exceptions/exceptions.js';
-import { type Encrypt } from '~/libs/packages/encrypt/encrypt.js';
+import { type IEncrypt } from '~/libs/packages/encrypt/encrypt.js';
 import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
-import { type Token } from '~/libs/packages/token/token.js';
+import { type IToken } from '~/libs/packages/token/token.js';
 import {
   type UserAuthResponse,
   type UserPrivateData,
@@ -16,11 +16,15 @@ import {
 class AuthService {
   private userService: UserService;
 
-  private token: Token;
+  private token: IToken;
 
-  private encrypt: Encrypt;
+  private encrypt: IEncrypt;
 
-  public constructor(userService: UserService, token: Token, encrypt: Encrypt) {
+  public constructor(
+    userService: UserService,
+    token: IToken,
+    encrypt: IEncrypt,
+  ) {
     this.userService = userService;
     this.token = token;
     this.encrypt = encrypt;

@@ -7,7 +7,7 @@ import {
   HttpError,
 } from '~/libs/packages/http/http.js';
 import { type WhiteRoute } from '~/libs/packages/server-application/server-application.js';
-import { type Token } from '~/libs/packages/token/token.js';
+import { type IToken } from '~/libs/packages/token/token.js';
 import {
   type UserService,
   type UserTokenPayload,
@@ -16,7 +16,7 @@ import {
 type AuthorizationPluginParameters = {
   whiteRoutesConfig: WhiteRoute[];
   userService: UserService;
-  token: Token;
+  token: IToken;
 };
 
 const authorization = fp(
