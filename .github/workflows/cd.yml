@@ -1,0 +1,50 @@
+name: Continuous Delivery
+
+env:
+  HEROKU_APP_NAME: simpleland
+
+on:
+  push:
+    branches:
+      - development
+      - production
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Up Variables
+        uses: kanga333/variable-mapper@master
+        with:
+          key: ${{ github.ref_name }}
+          map: |
+            {
+              "development": {
+                "HEROKU_APP_NAME": "simpleland-development"
+              },
+              "production": {
+                "HEROKU_APP_NAME": "simpleland-production"
+              }
+            }
+
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Deployment
+        uses: akhileshns/heroku-deploy@v3.12.13
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ env.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_OWNER_EMAIL }}
+
+      - name: Slack Notification
+        if: always()
+        uses: rtCamp/action-slack-notify@v2.2.0
+        env:
+          SLACK_ICON_EMOJI: ':bell:'
+          SLACK_USERNAME: Deployment
+          SLACK_TITLE: Status
+          SLACK_MESSAGE: ${{ job.status == 'success' && 'Success 🟢' || job.status == 'cancelled' && 'Cancelled 🟡' || 'Error 🔴' }}
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
