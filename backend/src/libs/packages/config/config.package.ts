@@ -45,6 +45,12 @@ class Config implements IConfig {
           env: 'PORT',
           default: null,
         },
+        HOST: {
+          doc: 'Host for server app',
+          format: String,
+          env: 'HOST',
+          default: null,
+        },
       },
       DB: {
         CONNECTION_STRING: {

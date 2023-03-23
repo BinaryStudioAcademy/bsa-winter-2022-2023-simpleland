@@ -25,6 +25,13 @@ const authorization = fp(
 
     fastify.addHook('onRequest', async (request: FastifyRequest) => {
       const { headers, method, routerPath } = request;
+
+      const isStaticPagePath = routerPath === '/*';
+
+      if (isStaticPagePath) {
+        return;
+      }
+
       const isWhiteRoute = whiteRoutesConfig.some((whiteRoute) => {
         const isWhitePath = whiteRoute.routerPath === routerPath;
         const isAllowedMethod = whiteRoute.methods.includes(

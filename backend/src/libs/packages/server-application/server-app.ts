@@ -1,4 +1,4 @@
-import { dirname,join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import fastifyStatic from '@fastify/static';
@@ -183,7 +183,10 @@ class ServerApp implements IServerApp {
 
     this.database.connect();
 
-    const staticPath = join(dirname(fileURLToPath(import.meta.url)), '../../../../public');
+    const staticPath = join(
+      dirname(fileURLToPath(import.meta.url)),
+      '../../../../public',
+    );
 
     await this.app.register(fastifyStatic, {
       root: staticPath,
@@ -197,7 +200,7 @@ class ServerApp implements IServerApp {
     await this.app
       .listen({
         port: this.config.ENV.APP.PORT,
-        host: '0.0.0.0'
+        host: this.config.ENV.APP.HOST,
       })
       .catch((error: Error) => {
         this.logger.error(error.message, {
