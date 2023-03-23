@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 
 import {
   App,
+  Notification,
   PageLayout,
   ProtectedRoute,
   RouterProvider,
@@ -12,6 +13,7 @@ import {
 } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import { store } from '~/libs/packages/store/store.js';
+import { AccountSettings } from '~/pages/account-settings/account-settings.js';
 import { Auth } from '~/pages/auth/auth.js';
 import { NotFound } from '~/pages/not-found/not-found.js';
 import { Sites } from '~/pages/sites/sites.js';
@@ -44,6 +46,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 ),
               },
               {
+                path: AppRoute.PROFILE,
+                element: (
+                  <ProtectedRoute>
+                    <AccountSettings />
+                  </ProtectedRoute>
+                ),
+              },
+              {
                 path: AppRoute.SIGN_IN,
                 element: <Auth />,
               },
@@ -64,5 +74,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
         ]}
       />
     </StoreProvider>
+    <Notification />
   </StrictMode>,
 );

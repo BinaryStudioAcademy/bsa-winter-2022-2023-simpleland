@@ -1,1 +1,2 @@
-'src/**/*.ts': npm run lint:js
+'src/**/*.ts':
+  - npm run lint:js

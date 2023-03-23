@@ -6,9 +6,10 @@ import {
   type UserAuthResponse,
   type UserGetAllResponseDto,
   type UserSignUpRequestDto,
+  type UserUpdateRequestDto,
 } from './libs/types/types.js';
 
-class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
+class UserService implements Omit<IService, 'find' | 'delete'> {
   private userRepository: UserRepository;
 
   public constructor(userRepository: UserRepository) {
@@ -53,6 +54,25 @@ class UserService implements Omit<IService, 'find' | 'update' | 'delete'> {
         passwordHash: 'HASH', // TODO
         firstName: payload.firstName,
         lastName: payload.lastName,
+      }),
+    );
+
+    return user.toObject();
+  }
+
+  public async update(
+    id: number,
+    payload: UserUpdateRequestDto,
+  ): Promise<UserAuthResponse> {
+    const user = await this.userRepository.update(
+      UserEntity.initialize({
+        id,
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        accountName: payload.accountName,
+        email: null,
+        passwordHash: null,
+        passwordSalt: null,
       }),
     );
 

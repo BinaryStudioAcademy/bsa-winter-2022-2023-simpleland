@@ -10,6 +10,7 @@ const AppRoute = {
   SIGN_UP: '/sign-up',
   MY_PROJECTS: ProjectsDetailsRoute.root,
   SITES: `${ProjectsDetailsRoute.root}${ProjectsDetailsRoute.$id}${ProjectsDetailsRoute.sites}`,
+  PROFILE: '/profile',
   ANY: '*',
 } as const;
 
