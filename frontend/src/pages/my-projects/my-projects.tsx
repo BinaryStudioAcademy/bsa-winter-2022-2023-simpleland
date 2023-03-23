@@ -1,6 +1,6 @@
 import { type UserAuthResponse } from 'shared/build/index.js';
 
-import { Header, PageLayout } from '~/libs/components/components.js';
+import { Button, Header, PageLayout } from '~/libs/components/components.js';
 import {
   useAppDispatch,
   useAppSelector,
@@ -32,13 +32,26 @@ const MyProjects: React.FC = () => {
   }));
 
   return (
-    <PageLayout>
+    <PageLayout style="black">
       <Header user={mockUser} />
-      <div className={styles['cards-wrapper']}>
-        {projects.map((card) => (
-          <ProjectCard key={card.id} siteName={card.name} />
-        ))}
-      </div>
+      {projects.length === 0 && (
+        <div className={styles['placeholder']}>
+          <div className={styles['placeholder-caption']}>
+            <span className={styles['placeholder-sub-caption']}>Hello!</span>
+            <span className={styles['placeholder-main-caption']}>
+              There are no businesses
+            </span>
+          </div>
+          <Button className={styles['placeholder-button']} label="Create new business" />
+        </div>
+      )}
+      {projects.length > 0 && (
+        <div className={styles['cards-wrapper']}>
+          {projects.map((card) => (
+            <ProjectCard key={card.id} siteName={card.name} />
+          ))}
+        </div>
+      )}
     </PageLayout>
   );
 };
