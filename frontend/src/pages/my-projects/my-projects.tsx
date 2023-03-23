@@ -27,14 +27,14 @@ const MyProjects: React.FC = () => {
   }, [dispatch]);
 
   const { projects } = useAppSelector((state) => ({
-    projects: state.projects.projects?.items,
+    projects: state.projects.projects.items,
   }));
 
   return (
     <PageLayout>
       <Header user={mockUser} />
       <div className={styles['cards-wrapper']}>
-        {projects?.map((card) => (
+        {projects.map((card) => (
           <ProjectCard key={card.id} siteName={card.name} />
         ))}
       </div>

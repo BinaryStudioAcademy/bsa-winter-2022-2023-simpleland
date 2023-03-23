@@ -2,9 +2,7 @@ import { type IService } from '~/libs/interfaces/interfaces.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectRepository } from '~/packages/projects/project.repository.js';
 
-import { ApplicationError } from '../auth/libs/exceptions/exceptions.js';
 import {
-  type FindProjectByUserIdRequest,
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllResponseDto,
@@ -19,24 +17,6 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async findAll(): Promise<ProjectGetAllResponseDto> {
     const items = await this.projectRepository.findAll();
-
-    return {
-      items: items.map((project) => project.toObject()),
-    };
-  }
-
-  public async findByUserId({
-    userId,
-  }: FindProjectByUserIdRequest): Promise<ProjectGetAllResponseDto> {
-    // const items = await this.projectRepository.findByUserId(id);
-
-    const items = await this.projectRepository.findByUserId(userId);
-
-    if (!items) {
-      throw new ApplicationError({
-        message: 'This User Has No Projects',
-      });
-    }
 
     return {
       items: items.map((project) => project.toObject()),

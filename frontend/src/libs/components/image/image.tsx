@@ -15,7 +15,7 @@ const Image: React.FC<Properties> = ({
   alt,
   className = '',
   width,
-  height,
+  height = '100%',
 }: Properties) => (
   <img
     className={getValidClassNames(styles['image'], className)}
