@@ -2,7 +2,7 @@ const AppRoute = {
   ROOT: '/',
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',
-  PROJECTS: '/projects',
+  MY_PROJECTS: '/my-projects',
   PROFILE: '/profile',
   ANY: '*',
 } as const;
