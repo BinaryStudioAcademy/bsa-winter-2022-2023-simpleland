@@ -1,4 +1,4 @@
-import { type ProjectGetAllResponseDto } from 'shared/build/index.js';
+import { type GetProjectsResponseDto } from 'shared/build/index.js';
 import { ProjectsApiPath } from 'shared/build/index.js';
 
 import { ApiPath, ContentType } from '~/libs/enums/enums.js';
@@ -17,7 +17,7 @@ class ProjectsApi extends HttpApi {
     super({ path: ApiPath.PROJECTS, baseUrl, http, storage });
   }
 
-  public async getUserProjects(): Promise<ProjectGetAllResponseDto> {
+  public async getProjects(): Promise<GetProjectsResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(ProjectsApiPath.ROOT, {}),
       {
@@ -27,7 +27,7 @@ class ProjectsApi extends HttpApi {
       },
     );
 
-    return await response.json<ProjectGetAllResponseDto>();
+    return await response.json<GetProjectsResponseDto>();
   }
 }
 
