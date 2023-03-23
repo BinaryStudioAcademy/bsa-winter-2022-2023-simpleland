@@ -2,9 +2,8 @@ import { type IService } from '~/libs/interfaces/interfaces.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectRepository } from '~/packages/projects/project.repository.js';
 
-import { ApplicationError } from '../auth/libs/exceptions/exceptions.js';
-import { type UserAuthResponse } from '../users/users.js';
 import {
+  type GetProjectsResponseDto,
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllResponseDto,
@@ -17,14 +16,16 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
     this.projectRepository = projectRepository;
   }
 
-  public async findAll(
-    user: UserAuthResponse | undefined | null,
-  ): Promise<ProjectGetAllResponseDto> {
-    if (!user) {
-      throw new ApplicationError({ message: 'Unauthorized' });
-    }
+  public async findAll(): Promise<ProjectGetAllResponseDto> {
+    const items = await this.projectRepository.findAll();
 
-    const items = await this.projectRepository.findAll(user.id);
+    return {
+      items: items.map((project) => project.toObject()),
+    };
+  }
+
+  public async findByUserId(id: number): Promise<GetProjectsResponseDto> {
+    const items = await this.projectRepository.findByUserId(id);
 
     return {
       items: items.map((project) => project.toObject()),

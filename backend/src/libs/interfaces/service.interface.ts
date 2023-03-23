@@ -1,6 +1,6 @@
 interface IService<T = unknown> {
   find(id: unknown): Promise<T>;
-  findAll(user: unknown): Promise<{
+  findAll(): Promise<{
     items: T[];
   }>;
   create(payload: unknown): Promise<T>;
