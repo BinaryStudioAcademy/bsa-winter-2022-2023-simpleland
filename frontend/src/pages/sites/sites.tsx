@@ -8,14 +8,6 @@ import { actions as sitesActions } from '~/slices/sites/sites.js';
 
 import styles from './styles.module.scss';
 
-const mockUser: UserAuthResponse = {
-  id: 1,
-  email: 'pisotska.o@gmail.com',
-  firstName: 'Alyona',
-  lastName: 'Pisotska',
-  accountName: 'Pisotska',
-};
-
 const Sites: React.FC = () => {
   const { projectId } = useParams();
   const dispatch = useAppDispatch();
@@ -25,6 +17,10 @@ const Sites: React.FC = () => {
       void dispatch(sitesActions.getSites({ projectId: +projectId }));
     }
   }, [dispatch, projectId]);
+
+  const user = useAppSelector(({ auth }) => {
+    return auth.user as UserAuthResponse;
+  });
 
   const { sites } = useAppSelector((state) => ({
     sites: state.sites.sites,
@@ -36,7 +32,7 @@ const Sites: React.FC = () => {
 
   return (
     <>
-      <Header user={mockUser} />
+      <Header user={user} />
       <div className={styles['page-wrapper']}>
         <div className={styles['cards-wrapper']}>
           {sites.map((site) => (
