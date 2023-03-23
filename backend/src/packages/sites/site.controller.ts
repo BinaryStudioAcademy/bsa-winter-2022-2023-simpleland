@@ -56,6 +56,15 @@ class SiteController extends Controller {
           options as ApiHandlerOptions<{ body: SiteCreateRequestDto }>,
         ),
     });
+
+    this.addRoute({
+      path: SitesApiPath.SECTIONS_BY_SITE,
+      method: 'GET',
+      handler: (options) =>
+        this.findSectionsBySiteId(
+          options as ApiHandlerOptions<{ params: { siteId: string } }>,
+        ),
+    });
   }
 
   /**
@@ -118,6 +127,17 @@ class SiteController extends Controller {
     return {
       status: HttpCode.CREATED,
       payload: await this.siteService.create(options.body),
+    };
+  }
+
+  private async findSectionsBySiteId(
+    options: ApiHandlerOptions<{ params: { siteId: string } }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.siteService.findSectionsBySiteId(
+        Number(options.params.siteId),
+      ),
     };
   }
 }
