@@ -1,3 +1,5 @@
+import { config } from '~/libs/packages/config/config.js';
+import { encrypt } from '~/libs/packages/encrypt/encrypt.js';
 import { logger } from '~/libs/packages/logger/logger.js';
 
 import { UserController } from './user.controller.js';
@@ -6,16 +8,18 @@ import { UserRepository } from './user.repository.js';
 import { UserService } from './user.service.js';
 
 const userRepository = new UserRepository(UserModel);
-const userService = new UserService(userRepository);
+const userService = new UserService(userRepository, config, encrypt);
 const userController = new UserController(logger, userService);
 
 export { userController, userService };
 export {
   type UserAuthResponse,
+  type UserPrivateData,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserTokenPayload,
 } from './libs/types/types.js';
 export {
   userSignInValidationSchema,

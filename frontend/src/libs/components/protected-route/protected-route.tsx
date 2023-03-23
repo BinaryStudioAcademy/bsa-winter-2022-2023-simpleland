@@ -1,4 +1,4 @@
-import { Navigate } from '~/libs/components/components.js';
+import { Redirect } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import { useAppSelector } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
@@ -16,7 +16,7 @@ const ProtectedRoute: React.FC<Properties> = ({
   const hasAuthenticatedUser = Boolean(user);
 
   if (!hasAuthenticatedUser) {
-    return <Navigate to={redirectPath} replace />;
+    return <Redirect to={redirectPath} replace />;
   }
 
   return <>{children}</>;
