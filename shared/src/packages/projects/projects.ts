@@ -3,6 +3,8 @@ export {
   ProjectValidationMessage,
 } from './libs/enums/enums.js';
 export {
+  type GetProjectsItemResponseDto,
+  type GetProjectsResponseDto,
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllItemResponseDto,
