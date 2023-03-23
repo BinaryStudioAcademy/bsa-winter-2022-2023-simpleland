@@ -41,6 +41,16 @@ class UserEntity implements IEntity {
     this.accountName = accountName;
   }
 
+  public get privateData(): {
+    passwordHash: string;
+    passwordSalt: string;
+  } {
+    return {
+      passwordSalt: this.passwordSalt as string,
+      passwordHash: this.passwordHash as string,
+    };
+  }
+
   public static initialize({
     id,
     email,
@@ -96,8 +106,6 @@ class UserEntity implements IEntity {
   public toObject(): {
     id: number;
     email: string;
-    passwordHash: string;
-    passwordSalt: string;
     firstName: string;
     lastName: string;
     accountName: string | null;

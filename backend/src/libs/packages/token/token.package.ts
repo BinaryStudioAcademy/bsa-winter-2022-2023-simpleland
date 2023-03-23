@@ -10,8 +10,10 @@ class Token implements IToken {
     this.appConfig = config;
   }
 
-  public async create(userId: number): Promise<string> {
-    return await new SignJWT({ userId })
+  public async create<T extends Record<string, unknown>>(
+    payload: T,
+  ): Promise<string> {
+    return await new SignJWT(payload)
       .setProtectedHeader({ alg: this.appConfig.AUTH.ALGORITHM })
       .setExpirationTime(this.appConfig.AUTH.EXP_TIME)
       .sign(this.createSecret());
