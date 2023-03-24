@@ -1,12 +1,15 @@
-import { type UserAuthResponse } from 'shared/build/index.js';
-
-import { Button, Header, Link, PageLayout } from '~/libs/components/components.js';
+import {
+  Button,
+  Header,
+  Link,
+  PageLayout,
+} from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
-  useMemo
+  useMemo,
 } from '~/libs/hooks/hooks.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
@@ -14,23 +17,15 @@ import { ProjectCard } from './components/project-card/project-card.js';
 import styles from './styles.module.scss';
 
 const MyProjects: React.FC = () => {
-  const mockUser: UserAuthResponse = {
-    // replace with user from store
-    id: 35,
-    email: 'Adenium@fk.ua',
-    firstName: 'Vlad',
-    lastName: 'Bazhynov',
-    accountName: 'Bazhynov',
-  };
-
   const dispatch = useAppDispatch();
 
   useEffect((): void => {
-    void dispatch(projectActions.getUserProjects());
+    void dispatch(projectActions.getProjects());
   }, [dispatch]);
 
-  const { projects } = useAppSelector((state) => ({
-    projects: state.projects.projects.items,
+  const { projects, currentUser } = useAppSelector((state) => ({
+    projects: state.projects.projects,
+    currentUser: state.auth.user,
   }));
 
   const handleProjectsDisplay = useMemo(() => {
@@ -63,8 +58,8 @@ const MyProjects: React.FC = () => {
   }, [projects]);
 
   return (
-    <PageLayout style="black">
-      <Header user={mockUser} />
+    <PageLayout>
+      <Header user={currentUser} />
       {handleProjectsDisplay}
     </PageLayout>
   );

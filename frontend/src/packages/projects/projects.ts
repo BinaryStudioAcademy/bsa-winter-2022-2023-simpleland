@@ -11,4 +11,9 @@ const projectsApi = new ProjectsApi({
 });
 
 export { projectsApi };
-export { type ProjectGetAllResponseDto } from './libs/types/types.js';
+export {
+  type GetProjectsItemResponseDto,
+  type GetProjectsResponseDto,
+  type ProjectGetAllItemResponseDto,
+  type ProjectGetAllResponseDto,
+} from './libs/types/types.js';

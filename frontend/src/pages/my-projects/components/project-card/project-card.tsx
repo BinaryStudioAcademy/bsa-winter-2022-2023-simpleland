@@ -1,8 +1,9 @@
 import styles from './styles.module.scss';
 
 type Properties = {
-  key: number;
+  id?: number;
   siteName: string;
+  userId?: number;
 };
 
 const ProjectCard: React.FC<Properties> = ({ siteName }: Properties) => {
