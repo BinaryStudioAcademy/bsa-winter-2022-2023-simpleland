@@ -35,6 +35,7 @@ jobs:
 
       - name: Create Deployment
         uses: chrnorm/deployment-action@v2
+        id: deployment
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: ${{ env.APP_URL }}
