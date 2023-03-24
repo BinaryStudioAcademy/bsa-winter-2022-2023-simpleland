@@ -18,7 +18,10 @@ class ProjectRepository
   }
 
   public async findByUserId(id: number): Promise<ProjectEntity[]> {
-    const projects = await this.projectModel.query().where('id', id).execute();
+    const projects = await this.projectModel
+      .query()
+      .where('userId', id)
+      .execute();
 
     return projects.map((project) => ProjectEntity.initialize(project));
   }
