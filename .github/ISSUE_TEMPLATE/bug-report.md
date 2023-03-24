@@ -27,8 +27,7 @@ Version
 **Visual Proof (screenshots, videos, text):**
 
 **Severity:**
-Blocker (S1)
-Critical (S2)
-Major (S3)
-Minor (S4)
-Low/Trivial (S5)
+Critical (S1)
+Major (S2)
+Minor (S3)
+Trivial (S4)
