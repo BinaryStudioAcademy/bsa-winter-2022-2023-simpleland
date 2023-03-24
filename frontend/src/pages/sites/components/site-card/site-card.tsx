@@ -1,4 +1,4 @@
-import img from 'src/assets/img/test.jpg';
+import img from 'src/assets/img/site-mock-image.jpg';
 
 import { Divider, IconButton } from '~/libs/components/components.js';
 
