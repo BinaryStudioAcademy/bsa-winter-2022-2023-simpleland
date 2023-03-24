@@ -1,5 +1,4 @@
 import { Header } from '~/libs/components/components.js';
-import { PageName } from '~/libs/enums/page-name.enum';
 import { useAppSelector, useEffect, useParams } from '~/libs/hooks/hooks.js';
 import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook';
 import { type UserAuthResponse } from '~/packages/users/users.js';
@@ -28,7 +27,7 @@ const Sites: React.FC = () => {
 
   return (
     <>
-      <Header user={user} pageName={PageName.MY_SITES} />
+      <Header user={user} />
       <div className={styles['page-wrapper']}>
         <div className={styles['cards-wrapper']}>
           {sites.map((site) => (
