@@ -1,8 +1,5 @@
 name: Continuous Delivery
 
-env:
-  HEROKU_APP_NAME: simpleland
-
 on:
   push:
     branches:

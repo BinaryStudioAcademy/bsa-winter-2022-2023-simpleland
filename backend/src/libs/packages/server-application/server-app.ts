@@ -111,6 +111,22 @@ class ServerApp implements IServerApp {
     );
   }
 
+  private async initServe(): Promise<void> {
+    const staticPath = join(
+      dirname(fileURLToPath(import.meta.url)),
+      '../../../../public',
+    );
+
+    await this.app.register(fastifyStatic, {
+      root: staticPath,
+      prefix: '/',
+    });
+
+    this.app.setNotFoundHandler(async (_request, response) => {
+      await response.sendFile('index.html', staticPath);
+    });
+  }
+
   private initValidationCompiler(): void {
     this.app.setValidatorCompiler<ValidationSchema>(({ schema }) => {
       return <T, R = ReturnType<ValidationSchema['validate']>>(data: T): R => {
@@ -171,6 +187,8 @@ class ServerApp implements IServerApp {
   public async init(): Promise<void> {
     this.logger.info('Application initialization…');
 
+    await this.initServe();
+
     await this.initPlugins();
 
     await this.initMiddlewares();
@@ -182,20 +200,6 @@ class ServerApp implements IServerApp {
     this.initRoutes();
 
     this.database.connect();
-
-    const staticPath = join(
-      dirname(fileURLToPath(import.meta.url)),
-      '../../../../public',
-    );
-
-    await this.app.register(fastifyStatic, {
-      root: staticPath,
-      prefix: '/',
-    });
-
-    this.app.setNotFoundHandler(async (_request, response) => {
-      await response.sendFile('index.html', staticPath);
-    });
 
     await this.app
       .listen({
