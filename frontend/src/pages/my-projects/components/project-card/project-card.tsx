@@ -1,5 +1,7 @@
 import { Link } from '~/libs/components/link/link.js';
-import { ProjectsDetailsRoute } from '~/libs/enums/app-route.enum.js';
+import { AppRoute } from '~/libs/enums/app-route.enum.js';
+import { configureString } from '~/libs/helpers/helpers.js';
+import { type ValueOf } from '~/libs/types/types.js';
 
 import styles from './styles.module.scss';
 
@@ -15,7 +17,11 @@ const ProjectCard: React.FC<Properties> = ({ siteName, id }: Properties) => {
       <img className={styles['card-image']} src="imgLink" alt="" />
       <div className={styles['card-description']}>
         <Link
-          to={`${ProjectsDetailsRoute.root}/${id}${ProjectsDetailsRoute.sites}`}
+          to={
+            configureString(AppRoute.PROJECTS_$PROJECT_ID_SITES, {
+              projectId: id.toString(),
+            }) as ValueOf<typeof AppRoute>
+          }
         >
           <h3>{siteName}</h3>
         </Link>

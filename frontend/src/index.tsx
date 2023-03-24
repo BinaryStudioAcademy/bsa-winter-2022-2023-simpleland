@@ -37,7 +37,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 ),
               },
               {
-                path: AppRoute.SITES,
+                path: AppRoute.PROJECTS_$PROJECT_ID_SITES,
                 element: (
                   <ProtectedRoute>
                     <Sites />
