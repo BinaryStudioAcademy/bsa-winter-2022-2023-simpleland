@@ -36,6 +36,15 @@ const signUp = createAsyncThunk<
   return user;
 });
 
+const logout = createAsyncThunk<unknown, undefined, AsyncThunkConfig>(
+  `${sliceName}/logout`,
+  async (_, { extra }) => {
+    const { storage } = extra;
+
+    await storage.drop(StorageKey.TOKEN);
+  },
+);
+
 const getCurrentUser = createAsyncThunk<
   UserAuthResponse | null,
   undefined,
