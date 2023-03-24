@@ -1,5 +1,4 @@
-import { Header, Navigate } from '~/libs/components/components.js';
-import { AppRoute } from '~/libs/enums/app-route.enum';
+import { Header } from '~/libs/components/components.js';
 import { useAppSelector, useEffect, useParams } from '~/libs/hooks/hooks.js';
 import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook';
 import { type UserAuthResponse } from '~/packages/users/users.js';
@@ -25,10 +24,6 @@ const Sites: React.FC = () => {
   const { sites } = useAppSelector((state) => ({
     sites: state.sites.sites,
   }));
-
-  if (projectId === undefined) {
-    return <Navigate to={AppRoute.PROJECTS} replace />;
-  }
 
   return (
     <>
