@@ -1,8 +1,9 @@
 import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
 import { Link, Logout, Popover } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
-import { useCallback } from '~/libs/hooks/hooks.js';
+import { useAppDispatch, useCallback } from '~/libs/hooks/hooks.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
+import { logout } from '~/slices/auth/actions.js';
 
 import styles from './styles.module.scss';
 
@@ -11,9 +12,13 @@ type Properties = {
 };
 
 const Header: React.FC<Properties> = ({ user }: Properties) => {
+  const dispatch = useAppDispatch();
+
   const handleLogout = useCallback((): void => {
-    // todo
-  }, []);
+    void (async (): Promise<void> => {
+      await dispatch(logout());
+    })();
+  }, [dispatch]);
 
   return (
     <header className={styles['header']}>
