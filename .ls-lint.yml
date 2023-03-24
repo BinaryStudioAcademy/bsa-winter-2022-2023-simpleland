@@ -26,3 +26,4 @@ ignore:
   - backend/build
   - backend/node_modules
   - .idea
+  - .github/ISSUE_TEMPLATE
