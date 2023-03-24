@@ -1,5 +1,3 @@
-import { type UserAuthResponse } from 'shared/build/index.js';
-
 import { Header, PageLayout } from '~/libs/components/components.js';
 import {
   useAppDispatch,
@@ -12,28 +10,20 @@ import { ProjectCard } from './components/project-card/project-card.js';
 import styles from './styles.module.scss';
 
 const MyProjects: React.FC = () => {
-  const mockUser: UserAuthResponse = {
-    // replace with user from store
-    id: 35,
-    email: 'Adenium@fk.ua',
-    firstName: 'Vlad',
-    lastName: 'Bazhynov',
-    accountName: 'Bazhynov',
-  };
-
   const dispatch = useAppDispatch();
 
   useEffect((): void => {
     void dispatch(projectActions.getProjects());
   }, [dispatch]);
 
-  const { projects } = useAppSelector((state) => ({
+  const { projects, currentUser } = useAppSelector((state) => ({
     projects: state.projects.projects,
+    currentUser: state.auth.user,
   }));
 
   return (
     <PageLayout>
-      <Header user={mockUser} />
+      <Header user={currentUser} />
       <div className={styles['cards-wrapper']}>
         {projects.map((card) => (
           <ProjectCard key={card.id} siteName={card.name} />
