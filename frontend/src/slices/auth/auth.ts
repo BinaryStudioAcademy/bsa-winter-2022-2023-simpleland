@@ -1,9 +1,10 @@
-import { getCurrentUser, signIn, signUp } from './actions.js';
+import { getCurrentUser, logout, signIn, signUp } from './actions.js';
 
 const allActions = {
   signUp,
   signIn,
   getCurrentUser,
+  logout
 };
 
 export { allActions as actions };

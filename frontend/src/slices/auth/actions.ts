@@ -62,4 +62,4 @@ const getCurrentUser = createAsyncThunk<
   return null;
 });
 
-export { getCurrentUser, signIn, signUp };
+export { getCurrentUser, logout,signIn, signUp };
