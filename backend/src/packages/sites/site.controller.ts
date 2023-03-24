@@ -29,12 +29,12 @@ import { siteCreateValidationSchema } from './libs/validation-schemas/validation
  *           type: string
  *           format: uri
  *           nullable: true
- *     SectionType
+ *     SectionType:
  *       type: string
  *       enum:
  *         - header
  *         - footer
- *     Section
+ *     Section:
  *       type: object
  *       properties:
  *         id:
@@ -44,8 +44,7 @@ import { siteCreateValidationSchema } from './libs/validation-schemas/validation
  *         name:
  *           type: string
  *         type:
- *           schema:
- *             $ref: '#/components/schemas/SectionType'
+ *           $ref: '#/components/schemas/SectionType'
  *         content:
  *           type: object
  */
