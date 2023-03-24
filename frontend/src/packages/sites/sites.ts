@@ -14,5 +14,5 @@ export { sitesApi };
 export {
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
-  type SiteGetByProjectRequestDtoType,
+  type SiteGetByProjectParametersDto,
 } from './libs/types/types.js';

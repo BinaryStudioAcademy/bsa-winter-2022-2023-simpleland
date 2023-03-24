@@ -43,7 +43,7 @@ export {
   type SiteCreateResponseDto,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
-  type SiteGetByProjectRequestDtoType,
+  type SiteGetByProjectParametersDto,
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
   SitesApiPath,

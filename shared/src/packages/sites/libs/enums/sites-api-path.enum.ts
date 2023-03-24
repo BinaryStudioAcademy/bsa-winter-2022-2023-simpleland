@@ -1,6 +1,6 @@
 const SitesApiPath = {
   ROOT: '/',
-  BY_PROJECT: '/:projectId',
+  $PROJECT_ID: '/:projectId',
 } as const;
 
 export { SitesApiPath };

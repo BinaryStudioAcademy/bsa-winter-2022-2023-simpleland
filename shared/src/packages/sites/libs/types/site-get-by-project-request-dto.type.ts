@@ -1,5 +1,5 @@
-type SiteGetByProjectRequestDtoType = {
+type SiteGetByProjectParametersDto = {
   projectId: number;
 };
 
-export { type SiteGetByProjectRequestDtoType };
+export { type SiteGetByProjectParametersDto };

@@ -16,7 +16,7 @@ class SitesApi extends HttpApi {
     super({ path: ApiPath.SITES, baseUrl, http, storage });
   }
 
-  public async getProjectSites(
+  public async getByProjectId(
     projectId: number,
   ): Promise<SiteGetAllResponseDto> {
     const response = await this.load(

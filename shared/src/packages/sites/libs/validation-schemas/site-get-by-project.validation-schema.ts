@@ -1,9 +1,12 @@
 import joi from 'joi';
 
-import { type SiteGetByProjectRequestDtoType } from '../types/types.js';
+import { type SiteGetByProjectParametersDto } from '../types/types.js';
 
-const siteGetByProject = joi.object<SiteGetByProjectRequestDtoType, true>({
+const siteGetByProjectParameters = joi.object<
+  SiteGetByProjectParametersDto,
+  true
+>({
   projectId: joi.number().required(),
 });
 
-export { siteGetByProject };
+export { siteGetByProjectParameters };

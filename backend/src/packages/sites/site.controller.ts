@@ -11,7 +11,7 @@ import { type SiteService } from '~/packages/sites/site.service.js';
 import { SitesApiPath } from './libs/enums/enums.js';
 import {
   type SiteCreateRequestDto,
-  type SiteGetByProjectRequestDtoType,
+  type SiteGetByProjectParametersDto,
 } from './libs/types/types.js';
 import {
   siteCreateValidationSchema,
@@ -52,15 +52,15 @@ class SiteController extends Controller {
     });
 
     this.addRoute({
-      path: SitesApiPath.BY_PROJECT,
+      path: SitesApiPath.$PROJECT_ID,
       method: 'GET',
       validation: {
         params: siteGetByProjectValidationSchema,
       },
       handler: (options) =>
-        this.findByProject(
+        this.findByProjectId(
           options as ApiHandlerOptions<{
-            params: SiteGetByProjectRequestDtoType;
+            params: SiteGetByProjectParametersDto;
           }>,
         ),
     });
@@ -123,12 +123,12 @@ class SiteController extends Controller {
    *                     $ref: '#/components/schemas/Site'
    *                   minItems: 0
    */
-  private async findByProject(
-    options: ApiHandlerOptions<{ params: SiteGetByProjectRequestDtoType }>,
+  private async findByProjectId(
+    options: ApiHandlerOptions<{ params: SiteGetByProjectParametersDto }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.siteService.findByProject(options.params.projectId),
+      payload: await this.siteService.findByProjectId(options.params.projectId),
     };
   }
 

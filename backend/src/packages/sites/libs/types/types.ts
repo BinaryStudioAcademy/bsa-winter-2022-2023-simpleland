@@ -3,5 +3,5 @@ export {
   type SiteCreateResponseDto,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
-  type SiteGetByProjectRequestDtoType,
+  type SiteGetByProjectParametersDto,
 } from 'shared/build/index.js';

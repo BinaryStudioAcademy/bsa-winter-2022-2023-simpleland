@@ -23,10 +23,10 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     };
   }
 
-  public async findByProject(
+  public async findByProjectId(
     projectId: number,
   ): Promise<SiteGetAllResponseDto> {
-    const sites = await this.siteRepository.findByProject(projectId);
+    const sites = await this.siteRepository.findByProjectId(projectId);
 
     return {
       items: sites.map((site) => site.toObject()),
