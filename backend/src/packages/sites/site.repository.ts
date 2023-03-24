@@ -27,11 +27,11 @@ class SiteRepository
   }
 
   public async create(entity: SiteEntity): Promise<SiteEntity> {
-    const { name, publishedUrl, projectId } = entity.toNewObject();
+    const { name, publishedUrl } = entity.toNewObject();
 
     const site = await this.siteModel
       .query()
-      .insert({ name, publishedUrl, projectId })
+      .insert({ name, publishedUrl })
       .returning('*')
       .execute();
 
