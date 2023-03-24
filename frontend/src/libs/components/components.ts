@@ -6,7 +6,6 @@ export { IconButton } from './icon-button/icon-button.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
-export { Logo } from './logo/logo.js';
 export { Modal } from './modal/modal.js';
 export { PageLayout } from './page-layout/page-layout.js';
 export { ProtectedRoute } from './protected-route/protected-route.js';
