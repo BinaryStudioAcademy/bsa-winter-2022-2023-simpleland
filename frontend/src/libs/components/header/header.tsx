@@ -6,10 +6,11 @@ import { type UserAuthResponse } from '~/packages/users/users.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-  user: UserAuthResponse;
+  user: UserAuthResponse | null;
+  pageName?: string;
 };
 
-const Header: React.FC<Properties> = ({ user }: Properties) => {
+const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
   return (
     <header className={styles['header']}>
       <div className={styles['logo-wrapper']}>
@@ -20,7 +21,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
         <ul className={styles['header-nav-list']}>
           <li>
             <Link to={AppRoute.ROOT}>
-              <span className={styles['section-title']}>My sites</span>
+              <span className={styles['section-title']}>{pageName}</span>
             </Link>
           </li>
         </ul>
@@ -31,7 +32,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
             className={styles['profile-icon']}
           />
           <span className={styles['profile-caption']}>
-            {user.firstName} {user.lastName}
+            {user?.firstName} {user?.lastName}
           </span>
         </div>
       </div>

@@ -2,18 +2,18 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/libs/enums/enums.js';
 import { type ValueOf } from '~/libs/types/types.js';
-import { type ProjectGetAllResponseDto } from '~/packages/projects/projects.js';
+import { type GetProjectsItemResponseDto } from '~/packages/projects/projects.js';
 
 import { getProjects } from './actions.js';
 
 type State = {
   dataStatus: ValueOf<typeof DataStatus>;
-  projects: ProjectGetAllResponseDto;
+  projects: GetProjectsItemResponseDto[];
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  projects: { items: [] },
+  projects: [],
 };
 
 const { reducer, actions, name } = createSlice({
@@ -26,7 +26,7 @@ const { reducer, actions, name } = createSlice({
     });
     builder.addCase(getProjects.fulfilled, (state, action) => {
       state.dataStatus = DataStatus.FULFILLED;
-      state.projects = action.payload;
+      state.projects = action.payload.items;
     });
     builder.addCase(getProjects.rejected, (state) => {
       state.dataStatus = DataStatus.REJECTED;

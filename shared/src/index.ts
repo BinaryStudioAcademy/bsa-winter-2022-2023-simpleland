@@ -29,6 +29,8 @@ export {
 } from './libs/types/types.js';
 export { AuthApiPath } from './packages/auth/auth.js';
 export {
+  type GetProjectsItemResponseDto,
+  type GetProjectsResponseDto,
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllItemResponseDto,
@@ -54,6 +56,7 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserTokenPayload,
   type UserUpdateRequestDto,
   UsersApiPath,
   userSignInValidationSchema,

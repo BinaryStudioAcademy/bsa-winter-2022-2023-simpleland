@@ -3,6 +3,7 @@ import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectRepository } from '~/packages/projects/project.repository.js';
 
 import {
+  type GetProjectsResponseDto,
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllResponseDto,
@@ -17,6 +18,14 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async findAll(): Promise<ProjectGetAllResponseDto> {
     const items = await this.projectRepository.findAll();
+
+    return {
+      items: items.map((project) => project.toObject()),
+    };
+  }
+
+  public async findByUserId(id: number): Promise<GetProjectsResponseDto> {
+    const items = await this.projectRepository.findByUserId(id);
 
     return {
       items: items.map((project) => project.toObject()),

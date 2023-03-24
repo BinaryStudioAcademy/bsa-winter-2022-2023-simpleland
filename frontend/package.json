@@ -11,7 +11,7 @@
     "lint:js": "npx eslint \"src/**/*.{ts,tsx}\"",
     "lint:type": "npx tsc --noEmit",
     "start:dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc --build --clean && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -23,8 +23,8 @@
     "react-hook-form": "7.43.5",
     "react-redux": "8.0.5",
     "react-router-dom": "6.8.2",
-    "react-toastify": "9.1.1",
-    "react-select": "5.7.0"
+    "react-select": "5.7.0",
+    "react-toastify": "9.1.1"
   },
   "devDependencies": {
     "@types/react": "18.0.26",

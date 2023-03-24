@@ -1,5 +1,6 @@
 import { Header, Link } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum.js';
+import { PageName } from '~/libs/enums/page-name.enum.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useAppDispatch,
@@ -34,7 +35,7 @@ const AccountSettings: React.FC = () => {
 
   return (
     <>
-      <Header user={user} />
+      <Header user={user} pageName={PageName.ACCOUNT_SETTINGS} />
       <div className={styles['page']}>
         <div className={styles['page-heading']}>
           <div className={styles['container']}>

@@ -13,6 +13,7 @@ import {
 } from '~/packages/projects/projects.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
+import { type UserAuthResponse } from './libs/types/types.js';
 
 /**
  * @swagger
@@ -44,7 +45,10 @@ class ProjectController extends Controller {
     this.addRoute({
       path: ProjectsApiPath.ROOT,
       method: 'GET',
-      handler: () => this.findAll(),
+      handler: (options) =>
+        this.findByUserId(
+          options as ApiHandlerOptions<{ user: UserAuthResponse }>,
+        ),
     });
 
     this.addRoute({
@@ -77,10 +81,14 @@ class ProjectController extends Controller {
    *                items:
    *                  $ref: '#/components/schemas/Project'
    */
-  private async findAll(): Promise<ApiHandlerResponse> {
+  private async findByUserId(
+    options: ApiHandlerOptions<{
+      user: UserAuthResponse;
+    }>,
+  ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.projectService.findAll(),
+      payload: await this.projectService.findByUserId(options.user.id),
     };
   }
 

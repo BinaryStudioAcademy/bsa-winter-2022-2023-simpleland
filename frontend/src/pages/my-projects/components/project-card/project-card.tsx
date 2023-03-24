@@ -4,8 +4,8 @@ import { ProjectsDetailsRoute } from '~/libs/enums/app-route.enum.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-  key: number;
   siteName: string;
+  userId?: number;
   id: number;
 };
 
