@@ -1,9 +1,4 @@
-import {
-  Button,
-  Header,
-  Link,
-  PageLayout,
-} from '~/libs/components/components.js';
+import { Button, Header, PageLayout } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
@@ -28,7 +23,7 @@ const MyProjects: React.FC = () => {
     currentUser: state.auth.user,
   }));
 
-  const handleProjectsDisplay = useMemo(() => {
+  const projectsToDisplay = useMemo(() => {
     if (projects.length === 0) {
       return (
         <div className={styles['placeholder']}>
@@ -38,12 +33,11 @@ const MyProjects: React.FC = () => {
               There are no businesses
             </span>
           </div>
-          <Link to={AppRoute.ROOT}>
-            <Button
-              className={styles['placeholder-button']}
-              label="Create new business"
-            />
-          </Link>
+          <Button
+            className={styles['placeholder-button']}
+            label="Create new business"
+            to={AppRoute.ROOT}
+          />
         </div>
       );
     }
@@ -58,9 +52,9 @@ const MyProjects: React.FC = () => {
   }, [projects]);
 
   return (
-    <PageLayout>
+    <PageLayout style="black">
       <Header user={currentUser} />
-      {handleProjectsDisplay}
+      {projectsToDisplay}
     </PageLayout>
   );
 };
