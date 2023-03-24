@@ -44,16 +44,20 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 ),
               },
               {
+                path: AppRoute.MY_PROJECTS,
+                element: (
+                  <ProtectedRoute>
+                    <MyProjects />,
+                  </ProtectedRoute>
+                ),
+              },
+              {
                 path: AppRoute.SIGN_IN,
                 element: <Auth />,
               },
               {
                 path: AppRoute.SIGN_UP,
                 element: <Auth />,
-              },
-              {
-                path: AppRoute.MY_PROJECTS,
-                element: <MyProjects />,
               },
             ],
           },
