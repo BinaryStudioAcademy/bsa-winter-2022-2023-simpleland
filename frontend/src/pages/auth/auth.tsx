@@ -1,24 +1,35 @@
-import { PageLayout } from '~/libs/components/components.js';
+import { PageLayout, Redirect } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
+  useAppSelector,
   useCallback,
   useLocation,
 } from '~/libs/hooks/hooks.js';
-import { type UserSignUpRequestDto } from '~/packages/users/users.js';
+import {
+  type UserSignInRequestDto,
+  type UserSignUpRequestDto,
+} from '~/packages/users/users.js';
 import { actions as authActions } from '~/slices/auth/auth.js';
 
 import { SignInForm, SignUpForm } from './components/components.js';
 import styles from './styles.module.scss';
 
 const Auth: React.FC = () => {
+  const { user } = useAppSelector(({ auth }) => ({
+    user: auth.user,
+  }));
   const dispatch = useAppDispatch();
 
   const { pathname } = useLocation();
+  const hasUser = Boolean(user);
 
-  const handleSignInSubmit = useCallback((): void => {
-    // handle sign in
-  }, []);
+  const handleSignInSubmit = useCallback(
+    (payload: UserSignInRequestDto): void => {
+      void dispatch(authActions.signIn(payload));
+    },
+    [dispatch],
+  );
 
   const handleSignUpSubmit = useCallback(
     (payload: UserSignUpRequestDto): void => {
@@ -39,6 +50,10 @@ const Auth: React.FC = () => {
 
     return null;
   };
+
+  if (hasUser) {
+    return <Redirect to={AppRoute.ROOT} />;
+  }
 
   return (
     <PageLayout>
