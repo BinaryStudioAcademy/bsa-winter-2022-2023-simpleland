@@ -25,7 +25,7 @@ jobs:
                 "APP_URL": "https://simpleland-development.herokuapp.com/"
               },
               "production": {
-                "HEROKU_APP_NAME": "simpleland-production"
+                "HEROKU_APP_NAME": "simpleland-production",
                 "APP_URL": "https://simpleland-production.herokuapp.com/"
               }
             }
