@@ -14,6 +14,8 @@ ls:
   .woff2: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
   backend/src/db/migrations:
     .ts: snake_case
+  .github/ISSUE_TEMPLATE:
+    .dir: SCREAMING_SNAKE_CASE
 
 ignore:
   - .git
@@ -26,4 +28,3 @@ ignore:
   - backend/build
   - backend/node_modules
   - .idea
-  - .github/ISSUE_TEMPLATE
