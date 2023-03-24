@@ -10,6 +10,9 @@ jobs:
   cd:
     runs-on: ubuntu-latest
 
+    permissions:
+      deployments: write
+
     steps:
       - name: Set Up Variables
         uses: kanga333/variable-mapper@master
@@ -18,15 +21,24 @@ jobs:
           map: |
             {
               "development": {
-                "HEROKU_APP_NAME": "simpleland-development"
+                "HEROKU_APP_NAME": "simpleland-development",
+                "APP_URL": "https://simpleland-development.herokuapp.com/"
               },
               "production": {
                 "HEROKU_APP_NAME": "simpleland-production"
+                "APP_URL": "https://simpleland-production.herokuapp.com/"
               }
             }
 
       - name: Checkout Source Code
         uses: actions/checkout@v3
+
+      - name: Create Deployment
+        uses: chrnorm/deployment-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment-url: ${{ env.APP_URL }}
+          environment: ${{ github.ref_name }}
 
       - name: Deployment
         uses: akhileshns/heroku-deploy@v3.12.13
@@ -35,13 +47,11 @@ jobs:
           heroku_app_name: ${{ env.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_OWNER_EMAIL }}
 
-      - name: Slack Notification
-        if: always()
-        uses: rtCamp/action-slack-notify@v2.2.0
-        env:
-          SLACK_ICON_EMOJI: ':bell:'
-          SLACK_USERNAME: Deployment
-          SLACK_TITLE: Status
-          SLACK_MESSAGE: ${{ job.status == 'success' && 'Success 🟢' || job.status == 'cancelled' && 'Cancelled 🟡' || 'Error 🔴' }}
-          SLACK_COLOR: ${{ job.status }}
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      - name: Update Deployment Status
+        if: ${{ always() }}
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ secrets.GITHUB_TOKEN }}'
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: ${{ job.status }}
