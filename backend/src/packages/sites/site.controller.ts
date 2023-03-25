@@ -41,18 +41,12 @@ class SiteController extends Controller {
   private siteService: SiteService;
 
   public constructor(logger: ILogger, siteService: SiteService) {
-    super(logger, ApiPath.SITES);
+    super(logger, ApiPath.PROJECTS_$PROJECT_ID_SITES);
 
     this.siteService = siteService;
 
     this.addRoute({
       path: SitesApiPath.ROOT,
-      method: 'GET',
-      handler: () => this.findAll(),
-    });
-
-    this.addRoute({
-      path: SitesApiPath.$PROJECT_ID,
       method: 'GET',
       validation: {
         params: siteGetByProjectValidationSchema,
@@ -80,33 +74,7 @@ class SiteController extends Controller {
 
   /**
    * @swagger
-   * /sites:
-   *   get:
-   *     description: Returns an object with items property. Items - array of sites.
-   *     responses:
-   *       200:
-   *         description: Successful operation
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 items:
-   *                   type: array
-   *                   items:
-   *                     $ref: '#/components/schemas/Site'
-   *                   minItems: 0
-   */
-  private async findAll(): Promise<ApiHandlerResponse> {
-    return {
-      status: HttpCode.OK,
-      payload: await this.siteService.findAll(),
-    };
-  }
-
-  /**
-   * @swagger
-   * /sites/:projectId:
+   * /projects/:projectId/sites:
    *   get:
    *     description: Returns an object with items property. Items - array of sites by specific project.
    *     responses:
@@ -134,7 +102,7 @@ class SiteController extends Controller {
 
   /**
    * @swagger
-   * /sites:
+   * /projects/:projectId/sites:
    *   post:
    *     description: Create a site. Returns object with site info
    *     requestBody:
