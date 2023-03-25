@@ -1,4 +1,5 @@
-import { Header, PageLayout } from '~/libs/components/components.js';
+import { Button, Header, PageLayout } from '~/libs/components/components.js';
+import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
@@ -22,14 +23,32 @@ const MyProjects: React.FC = () => {
     currentUser: state.auth.user as ProjectUserEssence,
   }));
 
+  const hasProjects = projects.length > 0;
+
   return (
     <PageLayout>
       <Header user={currentUser} pageName="My Projects" />
-      <div className={styles['cards-wrapper']}>
-        {projects.map((card) => (
-          <ProjectCard key={card.id} project={card} />
-        ))}
-      </div>
+      {hasProjects ? (
+        <div className={styles['cards-wrapper']}>
+          {projects.map((card) => (
+            <ProjectCard key={card.id} project={card} />
+          ))}
+        </div>
+      ) : (
+        <div className={styles['placeholder']}>
+          <div className={styles['placeholder-caption']}>
+            <span className={styles['placeholder-sub-caption']}>Hello!</span>
+            <span className={styles['placeholder-main-caption']}>
+              There are no businesses
+            </span>
+          </div>
+          <Button
+            className={styles['placeholder-button']}
+            label="Create new business"
+            to={AppRoute.ROOT}
+          />
+        </div>
+      )}
     </PageLayout>
   );
 };

@@ -4,3 +4,37 @@
   gap: 19px;
   width: 917px;
 }
+
+.placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: var(--white);
+  font-weight: 500;
+  transform: translate(-50%, -50%);
+}
+
+.placeholder-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.placeholder-main-caption {
+  font-size: 50px;
+  line-height: 64px;
+}
+
+.placeholder-sub-caption {
+  font-size: 30px;
+  line-height: 48px;
+}
+
+.placeholder-button {
+  padding: 20px 60px;
+}
