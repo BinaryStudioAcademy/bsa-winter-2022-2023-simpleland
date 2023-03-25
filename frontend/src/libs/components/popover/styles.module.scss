@@ -6,7 +6,7 @@
   position: absolute;
   top: 100%;
   right: 0;
-  z-index: 1;
+  z-index: var(--z-index-level-one);
   padding: 10px;
   background-color: var(--white);
 }
