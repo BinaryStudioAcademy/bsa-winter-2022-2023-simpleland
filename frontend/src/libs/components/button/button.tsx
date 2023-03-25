@@ -30,18 +30,8 @@ const Button: React.FC<Properties> = ({
   isLabelVisuallyHidden = false,
   to,
 }: Properties) => {
-  const renderButton = (): JSX.Element => (
-    <button
-      onClick={onClick}
-      type={type}
-      disabled={isDisabled}
-      className={getValidClassNames(
-        styles['button'],
-        styles[style],
-        styles[size],
-        className,
-      )}
-    >
+  const content = (
+    <>
       {icon && <Icon iconName={icon} />}
       <span
         className={getValidClassNames(
@@ -50,10 +40,28 @@ const Button: React.FC<Properties> = ({
       >
         {label}
       </span>
-    </button>
+    </>
   );
 
-  return to ? <Link to={to}>{renderButton()}</Link> : renderButton();
+  const buttonProperties = {
+    onClick,
+    type,
+    disabled: isDisabled,
+    className: getValidClassNames(
+      styles['button'],
+      styles[style],
+      styles[size],
+      className,
+    ),
+  };
+
+  return to ? (
+    <Link to={to} className={buttonProperties.className}>
+      {content}
+    </Link>
+  ) : (
+    <button {...buttonProperties}>{content}</button>
+  );
 };
 
 export { type Properties, Button };
