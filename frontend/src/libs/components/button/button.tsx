@@ -43,24 +43,26 @@ const Button: React.FC<Properties> = ({
     </>
   );
 
-  const buttonProperties = {
-    onClick,
-    type,
-    disabled: isDisabled,
-    className: getValidClassNames(
-      styles['button'],
-      styles[style],
-      styles[size],
-      className,
-    ),
-  };
+  const validClassNames = getValidClassNames(
+    styles['button'],
+    styles[style],
+    styles[size],
+    className,
+  );
 
   return to ? (
-    <Link to={to} className={buttonProperties.className}>
+    <Link to={to} className={validClassNames}>
       {content}
     </Link>
   ) : (
-    <button {...buttonProperties}>{content}</button>
+    <button
+      onClick={onClick}
+      type={type}
+      disabled={isDisabled}
+      className={validClassNames}
+    >
+      {content}
+    </button>
   );
 };
 
