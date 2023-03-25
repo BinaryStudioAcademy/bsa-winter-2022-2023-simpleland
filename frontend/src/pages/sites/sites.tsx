@@ -1,8 +1,7 @@
-import { Header } from '~/libs/components/components.js';
+import { PageLayout } from '~/libs/components/components.js';
 import { PageName } from '~/libs/enums/page-name.enum';
 import { useAppSelector, useEffect, useParams } from '~/libs/hooks/hooks.js';
 import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook';
-import { type UserAuthResponse } from '~/packages/users/users.js';
 import { SiteCard } from '~/pages/sites/components/components.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
@@ -18,17 +17,16 @@ const Sites: React.FC = () => {
     }
   }, [dispatch, projectId]);
 
-  const user = useAppSelector(({ auth }) => {
-    return auth.user as UserAuthResponse;
-  });
-
   const { sites } = useAppSelector((state) => ({
     sites: state.sites.sites,
   }));
 
   return (
-    <>
-      <Header user={user} pageName={PageName.MY_SITES} />
+    <PageLayout
+      style="white"
+      pageName={PageName.MY_SITES}
+      className={styles['page-layout']}
+    >
       <div className={styles['page-wrapper']}>
         <div className={styles['cards-wrapper']}>
           {sites.map((site) => (
@@ -36,7 +34,7 @@ const Sites: React.FC = () => {
           ))}
         </div>
       </div>
-    </>
+    </PageLayout>
   );
 };
 
