@@ -44,11 +44,11 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
                   <span className={styles['profile-title']}>Profile</span>
                 </Link>
                 <Button
-                  type="submit"
+                  type="button"
                   style="primary"
                   size="small"
                   label="Log Out"
-                  className={styles['submit-button'] as string}
+                  className={styles['logout-button'] as string}
                   onClick={handleLogout}
                 />
               </div>
