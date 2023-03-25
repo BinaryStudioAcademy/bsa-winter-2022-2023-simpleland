@@ -13,12 +13,14 @@ const Sites: React.FC = () => {
 
   useEffect((): void => {
     if (projectId) {
-      void dispatch(sitesActions.getSitesByProject({ projectId: +projectId }));
+      void dispatch(
+        sitesActions.getSitesByProject({ projectId: Number(projectId) }),
+      );
     }
   }, [dispatch, projectId]);
 
-  const { sites } = useAppSelector((state) => ({
-    sites: state.sites.sites,
+  const { sites } = useAppSelector(({ sites }) => ({
+    sites: sites.sites,
   }));
 
   return (
