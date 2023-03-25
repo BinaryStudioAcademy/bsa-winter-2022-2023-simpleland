@@ -1,10 +1,10 @@
-import { type GetProjectsResponseDto } from 'shared/build/index.js';
-import { ProjectsApiPath } from 'shared/build/index.js';
-
 import { ApiPath, ContentType } from '~/libs/enums/enums.js';
 import { HttpApi } from '~/libs/packages/api/api.js';
 import { type IHttp } from '~/libs/packages/http/http.js';
 import { type IStorage } from '~/libs/packages/storage/storage.js';
+
+import { ProjectsApiPath } from './libs/enums/enums.js';
+import { type GetProjectsResponseDto } from './libs/types/types.js';
 
 type Constructor = {
   baseUrl: string;

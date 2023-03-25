@@ -1,5 +1,4 @@
 import { Header, PageLayout } from '~/libs/components/components.js';
-import { PageName } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
@@ -24,10 +23,10 @@ const MyProjects: React.FC = () => {
 
   return (
     <PageLayout>
-      <Header user={currentUser} pageName={PageName.MY_PROJECTS} />
+      <Header user={currentUser} pageName="My Projects" />
       <div className={styles['cards-wrapper']}>
         {projects.map((card) => (
-          <ProjectCard key={card.id} siteName={card.name} />
+          <ProjectCard key={card.id} project={card} />
         ))}
       </div>
     </PageLayout>

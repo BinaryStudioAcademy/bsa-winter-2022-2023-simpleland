@@ -1,12 +1,12 @@
 import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
 import { Link } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
-import { type UserAuthResponse } from '~/packages/users/users.js';
+import { type ProjectUserEssence } from '~/packages/projects/projects.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-  user: UserAuthResponse | null;
+  user: ProjectUserEssence | null;
   pageName?: string;
 };
 

@@ -1,17 +1,17 @@
+import { type ProjectGetAllItemResponseDto } from 'shared/build';
+
 import styles from './styles.module.scss';
 
 type Properties = {
-  id?: number;
-  siteName: string;
-  userId?: number;
+  project: ProjectGetAllItemResponseDto;
 };
 
-const ProjectCard: React.FC<Properties> = ({ siteName }: Properties) => {
+const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
   return (
     <div className={styles['card']}>
       <img className={styles['card-image']} src="imgLink" alt="" />
       <div className={styles['card-description']}>
-        <h3>{siteName}</h3>
+        <h3>{project.name}</h3>
       </div>
     </div>
   );
