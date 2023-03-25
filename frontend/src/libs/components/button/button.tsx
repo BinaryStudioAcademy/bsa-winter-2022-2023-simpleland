@@ -1,5 +1,5 @@
 import { Icon, Link } from '~/libs/components/components.js';
-import { type AppRoute } from '~/libs/enums/app-route.enum';
+import { type AppRoute } from '~/libs/enums/enums.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { type IconType, type ValueOf } from '~/libs/types/types.js';
 
