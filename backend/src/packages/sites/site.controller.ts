@@ -29,6 +29,24 @@ import { siteCreateValidationSchema } from './libs/validation-schemas/validation
  *           type: string
  *           format: uri
  *           nullable: true
+ *     SectionType:
+ *       type: string
+ *       enum:
+ *         - header
+ *         - footer
+ *     Section:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           format: int64
+ *           minimum: 1
+ *         name:
+ *           type: string
+ *         type:
+ *           $ref: '#/components/schemas/SectionType'
+ *         content:
+ *           type: object
  */
 
 class SiteController extends Controller {
@@ -54,6 +72,15 @@ class SiteController extends Controller {
       handler: (options) =>
         this.create(
           options as ApiHandlerOptions<{ body: SiteCreateRequestDto }>,
+        ),
+    });
+
+    this.addRoute({
+      path: SitesApiPath.SECTIONS_BY_SITE,
+      method: 'GET',
+      handler: (options) =>
+        this.findSectionsBySiteId(
+          options as ApiHandlerOptions<{ params: { siteId: string } }>,
         ),
     });
   }
@@ -118,6 +145,43 @@ class SiteController extends Controller {
     return {
       status: HttpCode.CREATED,
       payload: await this.siteService.create(options.body),
+    };
+  }
+
+  /**
+   * @swagger
+   * /sites/{siteId}/sections:
+   *   get:
+   *     description: Returns object with items property. Items - array of sections related to site
+   *     parameters:
+   *       - in: path
+   *         name: siteId
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: Numeric Site ID
+   *     responses:
+   *       200:
+   *         description: Successful operation
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 items:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/Section'
+   *                   minItems: 0
+   */
+  private async findSectionsBySiteId(
+    options: ApiHandlerOptions<{ params: { siteId: string } }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.siteService.findSectionsBySiteId(
+        Number(options.params.siteId),
+      ),
     };
   }
 }

@@ -13,6 +13,8 @@ import {
   type UserTokenPayload,
 } from '~/packages/users/users.js';
 
+import { SERVED_PAGE_PATH } from './libs/constants/constants.js';
+
 type AuthorizationPluginParameters = {
   whiteRoutesConfig: WhiteRoute[];
   userService: UserService;
@@ -28,6 +30,13 @@ const authorization = fp(
 
     fastify.addHook('onRequest', async (request: FastifyRequest) => {
       const { headers, method, routerPath } = request;
+
+      const isServedPagePath = routerPath === SERVED_PAGE_PATH;
+
+      if (isServedPagePath) {
+        return;
+      }
+
       const isWhiteRoute = whiteRoutesConfig.some((whiteRoute) => {
         const isWhitePath = whiteRoute.routerPath === routerPath;
         const isAllowedMethod = whiteRoute.methods.includes(

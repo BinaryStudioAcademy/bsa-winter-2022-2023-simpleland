@@ -5,6 +5,7 @@ import {
   useAppSelector,
   useEffect,
 } from '~/libs/hooks/hooks.js';
+import { type ProjectUserEssence } from '~/packages/projects/projects.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
 import { ProjectCard } from './components/project-card/project-card.js';
@@ -19,16 +20,16 @@ const MyProjects: React.FC = () => {
 
   const { projects, currentUser } = useAppSelector((state) => ({
     projects: state.projects.projects,
-    currentUser: state.auth.user,
+    currentUser: state.auth.user as ProjectUserEssence,
   }));
 
   return (
-    <PageLayout style="black">
-      <Header user={currentUser} />
+    <PageLayout>
+      <Header user={currentUser} pageName="My Projects" />
       {projects.length > 0 ? (
         <div className={styles['cards-wrapper']}>
           {projects.map((card) => (
-            <ProjectCard key={card.id} siteName={card.name} />
+            <ProjectCard key={card.id} project={card} />
           ))}
         </div>
       ) : (
