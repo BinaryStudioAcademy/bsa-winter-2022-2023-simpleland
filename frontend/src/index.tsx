@@ -18,6 +18,7 @@ import { Auth } from '~/pages/auth/auth.js';
 import { MyProjects } from '~/pages/my-projects/my-projects.js';
 import { NotFound } from '~/pages/not-found/not-found.js';
 import { Sites } from '~/pages/sites/sites.js';
+import { Start } from '~/pages/start/start.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
   <StrictMode>
@@ -33,6 +34,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 element: (
                   <ProtectedRoute>
                     <PageLayout style="black">Root</PageLayout>
+                  </ProtectedRoute>
+                ),
+              },
+              {
+                path: AppRoute.START,
+                element: (
+                  <ProtectedRoute>
+                    <Start />
                   </ProtectedRoute>
                 ),
               },

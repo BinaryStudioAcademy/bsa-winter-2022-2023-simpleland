@@ -1,0 +1,33 @@
+.layout {
+  display: block;
+}
+
+.page-wrapper {
+  margin-top: 124px;
+  padding: 0 66px;
+}
+
+.content {
+  display: flex;
+  gap: 78px;
+}
+
+.content-text {
+  width: 362px;
+  color: var(--white);
+  font-weight: 400;
+  font-size: 64px;
+  font-style: normal;
+  line-height: 66px;
+}
+
+.content-info {
+  flex-grow: 1;
+  height: 460px;
+  padding: 44px 0 68px;
+  background-color: var(--white);
+}
+
+.stepper-wrapper {
+  width: 340px;
+}

@@ -1,4 +1,8 @@
 import { type IService } from '~/libs/interfaces/interfaces.js';
+import {
+  type SectionGetAllResponseDto,
+  sectionService,
+} from '~/packages/sections/sections.js';
 import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteRepository } from '~/packages/sites/site.repository.js';
 
@@ -41,6 +45,12 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     );
 
     return site.toObject();
+  }
+
+  public async findSectionsBySiteId(
+    siteId: number,
+  ): Promise<SectionGetAllResponseDto> {
+    return await sectionService.findBySiteId(siteId);
   }
 }
 
