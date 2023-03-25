@@ -37,11 +37,6 @@ export {
   ProjectsApiPath,
 } from './packages/projects/projects.js';
 export {
-  type SectionGetAllItemResponseDto,
-  type SectionGetAllResponseDto,
-  SectionType,
-} from './packages/sections/sections.js';
-export {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteGetAllItemResponseDto,

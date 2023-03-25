@@ -79,8 +79,7 @@ erDiagram
     dateTime created_at
     dateTime updated_at
     varchar name
-    enum type "'header' | 'footer'"
-    jsonb content
+    text content "or would be jsonb map of content applied to section"
   }
 
   sites_to_sections }|--|| sections : section_id

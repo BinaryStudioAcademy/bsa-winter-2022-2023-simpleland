@@ -1,7 +1,6 @@
 import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
-import { Button, Link, Popover } from '~/libs/components/components.js';
+import { Link } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
-import { useCallback } from '~/libs/hooks/hooks.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 
 import styles from './styles.module.scss';
@@ -11,10 +10,6 @@ type Properties = {
 };
 
 const Header: React.FC<Properties> = ({ user }: Properties) => {
-  const handleLogout = useCallback((): void => {
-    // todo
-  }, []);
-
   return (
     <header className={styles['header']}>
       <div className={styles['logo-wrapper']}>
@@ -30,29 +25,10 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
           </li>
         </ul>
         <div className={styles['profile-data-wrapper']}>
-          <Popover
-            trigger={
-              <img
-                alt="profile"
-                src={avatarImage}
-                className={styles['profile-icon']}
-              />
-            }
-            content={
-              <div className={styles['profile-popover-content']}>
-                <Link to={AppRoute.PROFILE}>
-                  <span className={styles['profile-title']}>Profile</span>
-                </Link>
-                <Button
-                  type="button"
-                  style="primary"
-                  size="small"
-                  label="Log Out"
-                  className={styles['logout-button'] as string}
-                  onClick={handleLogout}
-                />
-              </div>
-            }
+          <img
+            alt="profile"
+            src={avatarImage}
+            className={styles['profile-icon']}
           />
           <span className={styles['profile-caption']}>
             {user.firstName} {user.lastName}
