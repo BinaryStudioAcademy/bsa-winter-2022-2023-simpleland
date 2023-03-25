@@ -26,8 +26,8 @@ const MyProjects: React.FC = () => {
     <PageLayout>
       <Header user={currentUser} pageName={PageName.MY_PROJECTS} />
       <div className={styles['cards-wrapper']}>
-        {projects.map((card) => (
-          <ProjectCard key={card.id} siteName={card.name} id={card.id} />
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
     </PageLayout>

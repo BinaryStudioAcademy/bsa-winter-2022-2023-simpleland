@@ -32,7 +32,7 @@ const Sites: React.FC = () => {
       <div className={styles['page-wrapper']}>
         <div className={styles['cards-wrapper']}>
           {sites.map((site) => (
-            <SiteCard key={site.id} siteName={site.name} />
+            <SiteCard key={site.id} site={site} />
           ))}
         </div>
       </div>

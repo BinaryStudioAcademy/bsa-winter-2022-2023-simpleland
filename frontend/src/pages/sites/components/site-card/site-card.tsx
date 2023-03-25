@@ -1,21 +1,23 @@
 import img from 'src/assets/img/site-mock-image.jpg';
 
 import { Divider, IconButton } from '~/libs/components/components.js';
+import { type SiteGetAllItemResponseDto } from '~/packages/sites/sites.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-  key: number;
-  siteName: string;
+  site: SiteGetAllItemResponseDto;
 };
 
-const SiteCard: React.FC<Properties> = ({ siteName }: Properties) => {
+const SiteCard: React.FC<Properties> = ({ site }: Properties) => {
+  const { name } = site;
+
   return (
     <div className={styles['card']}>
       <img className={styles['image']} src={img} alt="site theme" />
 
       <div className={styles['content-wrapper']}>
-        <h2 className={styles['title']}>{siteName}</h2>
+        <h2 className={styles['title']}>{name}</h2>
 
         <div className={styles['content']}>
           <div className={styles['text-wrapper']}>

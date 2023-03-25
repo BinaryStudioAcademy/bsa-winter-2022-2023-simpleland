@@ -2,16 +2,17 @@ import { Link } from '~/libs/components/link/link.js';
 import { AppRoute } from '~/libs/enums/app-route.enum.js';
 import { configureString } from '~/libs/helpers/helpers.js';
 import { type ValueOf } from '~/libs/types/types.js';
+import { type GetProjectsItemResponseDto } from '~/packages/projects/projects.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-  siteName: string;
-  userId?: number;
-  id: number;
+  project: GetProjectsItemResponseDto;
 };
 
-const ProjectCard: React.FC<Properties> = ({ siteName, id }: Properties) => {
+const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
+  const { id, name } = project;
+
   return (
     <div className={styles['card']}>
       <img className={styles['card-image']} src="imgLink" alt="" />
@@ -23,7 +24,7 @@ const ProjectCard: React.FC<Properties> = ({ siteName, id }: Properties) => {
             }) as ValueOf<typeof AppRoute>
           }
         >
-          <h3>{siteName}</h3>
+          <h3>{name}</h3>
         </Link>
       </div>
     </div>
