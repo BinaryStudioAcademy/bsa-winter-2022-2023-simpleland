@@ -5,7 +5,7 @@ import { type ValueOf } from '~/libs/types/types.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 import { actions as usersActions } from '~/slices/users/users.js';
 
-import { getCurrentUser, signIn, signUp } from './actions.js';
+import { getCurrentUser, logout, signIn, signUp } from './actions.js';
 
 type State = {
   currentUserDataStatus: ValueOf<typeof DataStatus>;
@@ -27,6 +27,10 @@ const { reducer, actions, name } = createSlice({
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
       state.user = action.payload;
+    });
+    builder.addCase(logout.fulfilled, (state) => {
+      state.currentUserDataStatus = DataStatus.IDLE;
+      state.user = null;
     });
     builder.addCase(getCurrentUser.fulfilled, (state, action) => {
       state.user = action.payload;
