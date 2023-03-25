@@ -1,5 +1,5 @@
 import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
-import { Link, Logout, Popover } from '~/libs/components/components.js';
+import { Button, Link, Popover } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
 import { useCallback } from '~/libs/hooks/hooks.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
@@ -43,7 +43,14 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
                 <Link to={AppRoute.PROFILE}>
                   <span className={styles['profile-title']}>Profile</span>
                 </Link>
-                <Logout onLogout={handleLogout} />
+                <Button
+                  type="submit"
+                  style="primary"
+                  size="small"
+                  label="Log Out"
+                  className={styles['submit-button'] as string}
+                  onClick={handleLogout}
+                />
               </div>
             }
           />
