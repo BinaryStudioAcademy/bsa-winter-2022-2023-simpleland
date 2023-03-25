@@ -23,10 +23,12 @@ const MyProjects: React.FC = () => {
     currentUser: state.auth.user as ProjectUserEssence,
   }));
 
+  const hasProjects = projects.length > 0;
+
   return (
     <PageLayout>
       <Header user={currentUser} pageName="My Projects" />
-      {projects.length > 0 ? (
+      {hasProjects ? (
         <div className={styles['cards-wrapper']}>
           {projects.map((card) => (
             <ProjectCard key={card.id} project={card} />
