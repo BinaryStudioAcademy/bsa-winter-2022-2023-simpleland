@@ -3,7 +3,7 @@ import { Link, Logout, Popover } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
 import { useAppDispatch, useCallback } from '~/libs/hooks/hooks.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
-import { logout } from '~/slices/auth/actions.js';
+import { actions as authActions } from '~/slices/auth/auth.js';
 
 import styles from './styles.module.scss';
 
@@ -15,9 +15,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
   const dispatch = useAppDispatch();
 
   const handleLogout = useCallback((): void => {
-    void (async (): Promise<void> => {
-      await dispatch(logout());
-    })();
+    void dispatch(authActions.logout());
   }, [dispatch]);
 
   return (
