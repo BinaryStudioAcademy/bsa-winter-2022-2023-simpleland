@@ -69,3 +69,21 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
+.profile-title {
+  color: var(--gray-600);
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.profile-popover-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logout-button {
+  align-self: center;
+  width: 138px;
+  margin-top: 10px;
+}
