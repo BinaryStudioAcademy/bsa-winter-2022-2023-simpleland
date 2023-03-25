@@ -35,7 +35,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
       <form
         className={styles['form-wrapper']}
         onSubmit={handleFormSubmit}
-        noValidate
+        inputMode="email"
       >
         <Input
           type="text"
@@ -54,7 +54,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           errors={errors}
         />
         <Input
-          type="email"
+          type="text"
           label="Email"
           placeholder="Enter your email"
           name="email"
