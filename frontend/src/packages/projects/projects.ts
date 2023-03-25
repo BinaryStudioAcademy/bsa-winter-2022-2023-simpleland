@@ -16,5 +16,4 @@ export {
   type GetProjectsResponseDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
-  type ProjectUserEssence,
 } from './libs/types/types.js';

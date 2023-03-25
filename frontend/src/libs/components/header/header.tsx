@@ -2,12 +2,12 @@ import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
 import { Button, Link, Popover } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
 import { useCallback } from '~/libs/hooks/hooks.js';
-import { type ProjectUserEssence } from '~/packages/projects/projects.js';
+import { type UserAuthResponse } from '~/packages/users/users.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-  user: ProjectUserEssence | null;
+  user: UserAuthResponse;
   pageName?: string;
 };
 
@@ -56,7 +56,7 @@ const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
             }
           />
           <span className={styles['profile-caption']}>
-            {user?.firstName} {user?.lastName}
+            {user.firstName} {user.lastName}
           </span>
         </div>
       </div>

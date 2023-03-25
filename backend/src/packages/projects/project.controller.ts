@@ -11,9 +11,9 @@ import {
   type ProjectCreateRequestDto,
   projectCreateValidationSchema,
 } from '~/packages/projects/projects.js';
+import { type UserAuthResponse } from '~/packages/users/users.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
-import { type UserAuthResponse } from './libs/types/types.js';
 
 /**
  * @swagger
