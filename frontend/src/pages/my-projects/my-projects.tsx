@@ -4,7 +4,6 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
-  useMemo,
 } from '~/libs/hooks/hooks.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
@@ -23,9 +22,16 @@ const MyProjects: React.FC = () => {
     currentUser: state.auth.user,
   }));
 
-  const projectsToDisplay = useMemo(() => {
-    if (projects.length === 0) {
-      return (
+  return (
+    <PageLayout style="black">
+      <Header user={currentUser} />
+      {projects.length > 0 ? (
+        <div className={styles['cards-wrapper']}>
+          {projects.map((card) => (
+            <ProjectCard key={card.id} siteName={card.name} />
+          ))}
+        </div>
+      ) : (
         <div className={styles['placeholder']}>
           <div className={styles['placeholder-caption']}>
             <span className={styles['placeholder-sub-caption']}>Hello!</span>
@@ -39,22 +45,7 @@ const MyProjects: React.FC = () => {
             to={AppRoute.ROOT}
           />
         </div>
-      );
-    }
-
-    return (
-      <div className={styles['cards-wrapper']}>
-        {projects.map((card) => (
-          <ProjectCard key={card.id} siteName={card.name} />
-        ))}
-      </div>
-    );
-  }, [projects]);
-
-  return (
-    <PageLayout style="black">
-      <Header user={currentUser} />
-      {projectsToDisplay}
+      )}
     </PageLayout>
   );
 };
