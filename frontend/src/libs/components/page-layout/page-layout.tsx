@@ -7,18 +7,26 @@ import styles from './styles.module.scss';
 type Properties = {
   children: React.ReactNode;
   style?: 'yellow' | 'black';
+  className?: string | undefined;
 };
 
 const PageLayout: React.FC<Properties> = ({
   children,
   style = 'yellow',
+  className,
 }: Properties) => {
   const { user } = useAppSelector(({ auth }) => ({
     user: auth.user,
   }));
 
   return (
-    <div className={getValidClassNames(styles['page-layout'], styles[style])}>
+    <div
+      className={getValidClassNames(
+        styles['page-layout'],
+        styles[style],
+        className,
+      )}
+    >
       {user && <Header user={user} />}
       {children}
     </div>
