@@ -4,7 +4,7 @@ import { type IHttp } from '~/libs/packages/http/http.js';
 import { type IStorage } from '~/libs/packages/storage/storage.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
-import { type GetProjectsResponseDto } from './libs/types/types.js';
+import { type ProjectGetAllResponseDto } from './libs/types/types.js';
 
 type Constructor = {
   baseUrl: string;
@@ -17,7 +17,7 @@ class ProjectsApi extends HttpApi {
     super({ path: ApiPath.PROJECTS, baseUrl, http, storage });
   }
 
-  public async getProjects(): Promise<GetProjectsResponseDto> {
+  public async getProjects(): Promise<ProjectGetAllResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(ProjectsApiPath.ROOT, {}),
       {
@@ -27,7 +27,7 @@ class ProjectsApi extends HttpApi {
       },
     );
 
-    return await response.json<GetProjectsResponseDto>();
+    return await response.json<ProjectGetAllResponseDto>();
   }
 }
 

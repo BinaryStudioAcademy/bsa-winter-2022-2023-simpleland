@@ -1,9 +1,9 @@
-import { getProjects } from './actions.js';
+import { getUserProjects } from './actions.js';
 import { actions } from './projects.slice.js';
 
 const allActions = {
   ...actions,
-  getProjects,
+  getUserProjects,
 };
 
 export { allActions as actions };

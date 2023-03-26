@@ -15,7 +15,7 @@ const MyProjects: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect((): void => {
-    void dispatch(projectActions.getProjects());
+    void dispatch(projectActions.getUserProjects());
   }, [dispatch]);
 
   const { projects, currentUser } = useAppSelector((state) => ({

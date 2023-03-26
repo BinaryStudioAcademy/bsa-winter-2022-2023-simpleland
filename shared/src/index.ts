@@ -29,8 +29,6 @@ export {
 } from './libs/types/types.js';
 export { AuthApiPath } from './packages/auth/auth.js';
 export {
-  type GetProjectsItemResponseDto,
-  type GetProjectsResponseDto,
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllItemResponseDto,
