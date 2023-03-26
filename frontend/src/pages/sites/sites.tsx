@@ -1,5 +1,4 @@
 import { PageLayout } from '~/libs/components/components.js';
-import { PageName } from '~/libs/enums/page-name.enum';
 import { useAppSelector, useEffect, useParams } from '~/libs/hooks/hooks.js';
 import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook';
 import { SiteCard } from '~/pages/sites/components/components.js';
@@ -26,7 +25,7 @@ const Sites: React.FC = () => {
   return (
     <PageLayout
       style="white"
-      pageName={PageName.MY_SITES}
+      pageName="My Sites"
       className={styles['page-layout']}
     >
       <div className={styles['page-wrapper']}>
