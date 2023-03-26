@@ -1,4 +1,5 @@
-import { Icon, PageLayout, Redirect } from '~/libs/components/components.js';
+import logo from '~/../public/logo.svg';
+import { PageLayout, Redirect } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
@@ -59,7 +60,7 @@ const Auth: React.FC = () => {
     <PageLayout>
       <div className={styles['page-content']}>
         <div className={styles['logo-wrapper']}>
-          <Icon iconName="logo" />
+          <img alt='logo' src={logo} />
           <div className={styles['logo-text']}>SimpleLand</div>
         </div>
         <div className={styles['form-wrapper']}>{getScreen(pathname)}</div>
