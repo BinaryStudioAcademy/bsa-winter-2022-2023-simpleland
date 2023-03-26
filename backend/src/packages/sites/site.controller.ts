@@ -9,8 +9,14 @@ import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type SiteService } from '~/packages/sites/site.service.js';
 
 import { SitesApiPath } from './libs/enums/enums.js';
-import { type SiteCreateRequestDto } from './libs/types/types.js';
-import { siteCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+import {
+  type SiteCreateRequestDto,
+  type SiteGetByProjectParametersDto,
+} from './libs/types/types.js';
+import {
+  siteCreateValidationSchema,
+  siteGetByProjectValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -53,14 +59,22 @@ class SiteController extends Controller {
   private siteService: SiteService;
 
   public constructor(logger: ILogger, siteService: SiteService) {
-    super(logger, ApiPath.SITES);
+    super(logger, ApiPath.PROJECTS_$PROJECT_ID_SITES);
 
     this.siteService = siteService;
 
     this.addRoute({
       path: SitesApiPath.ROOT,
       method: 'GET',
-      handler: () => this.findAll(),
+      validation: {
+        params: siteGetByProjectValidationSchema,
+      },
+      handler: (options) =>
+        this.findByProjectId(
+          options as ApiHandlerOptions<{
+            params: SiteGetByProjectParametersDto;
+          }>,
+        ),
     });
 
     this.addRoute({
@@ -87,9 +101,9 @@ class SiteController extends Controller {
 
   /**
    * @swagger
-   * /sites:
+   * /projects/:projectId/sites:
    *   get:
-   *     description: Returns an object with items property. Items - array of sites.
+   *     description: Returns an object with items property. Items - array of sites by specific project.
    *     responses:
    *       200:
    *         description: Successful operation
@@ -104,16 +118,18 @@ class SiteController extends Controller {
    *                     $ref: '#/components/schemas/Site'
    *                   minItems: 0
    */
-  private async findAll(): Promise<ApiHandlerResponse> {
+  private async findByProjectId(
+    options: ApiHandlerOptions<{ params: SiteGetByProjectParametersDto }>,
+  ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.siteService.findAll(),
+      payload: await this.siteService.findByProjectId(options.params.projectId),
     };
   }
 
   /**
    * @swagger
-   * /sites:
+   * /projects/:projectId/sites:
    *   post:
    *     description: Create a site. Returns object with site info
    *     requestBody:

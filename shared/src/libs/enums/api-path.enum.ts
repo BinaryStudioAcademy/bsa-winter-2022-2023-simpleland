@@ -1,7 +1,7 @@
 const ApiPath = {
   USERS: '/users',
   AUTH: '/auth',
-  SITES: '/sites',
+  PROJECTS_$PROJECT_ID_SITES: '/projects/:projectId/sites',
   PROJECTS: '/projects',
 } as const;
 
