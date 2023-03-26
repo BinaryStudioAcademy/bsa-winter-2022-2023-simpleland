@@ -34,6 +34,7 @@ import { siteCreateValidationSchema } from './libs/validation-schemas/validation
  *       enum:
  *         - header
  *         - footer
+ *         - main
  *     Section:
  *       type: object
  *       properties:
