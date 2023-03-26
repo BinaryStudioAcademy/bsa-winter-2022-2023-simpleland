@@ -124,10 +124,8 @@ class SiteController extends Controller {
    *           schema:
    *             name:
    *               type: string
-   *             publishedUrl:
+   *             industry:
    *               type: string
-   *               format: uri
-   *               nullable: true
    *     responses:
    *       201:
    *         description: Successful creation

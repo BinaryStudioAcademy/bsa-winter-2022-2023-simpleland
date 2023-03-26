@@ -31,7 +31,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     payload: SiteCreateRequestDto,
   ): Promise<SiteCreateResponseDto> {
     const site = await this.siteRepository.create(
-      SiteEntity.initializeNew(payload),
+      SiteEntity.initializeNew({ name: payload.name }),
     );
 
     return site.toObject();

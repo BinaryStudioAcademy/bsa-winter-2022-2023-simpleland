@@ -33,17 +33,11 @@ class SiteEntity implements IEntity {
     return new SiteEntity({ id, name, publishedUrl });
   }
 
-  public static initializeNew({
-    name,
-    publishedUrl,
-  }: {
-    name: string;
-    publishedUrl: string | null;
-  }): SiteEntity {
+  public static initializeNew({ name }: { name: string }): SiteEntity {
     return new SiteEntity({
       id: null,
+      publishedUrl: null,
       name,
-      publishedUrl,
     });
   }
 
@@ -55,10 +49,9 @@ class SiteEntity implements IEntity {
     };
   }
 
-  public toNewObject(): { name: string; publishedUrl: string | null } {
+  public toNewObject(): { name: string } {
     return {
       name: this.name,
-      publishedUrl: this.publishedUrl,
     };
   }
 }
