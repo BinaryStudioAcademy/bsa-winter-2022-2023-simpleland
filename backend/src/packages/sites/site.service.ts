@@ -2,6 +2,7 @@ import { type IService } from '~/libs/interfaces/interfaces.js';
 import {
   type SectionGetAllResponseDto,
   sectionService,
+  SectionType,
 } from '~/packages/sections/sections.js';
 import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteRepository } from '~/packages/sites/site.repository.js';
@@ -30,11 +31,22 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   public async create(
     payload: SiteCreateRequestDto,
   ): Promise<SiteCreateResponseDto> {
-    const site = await this.siteRepository.create(
-      SiteEntity.initializeNew({ name: payload.name }),
-    );
+    const site = await this.siteRepository
+      .create(SiteEntity.initializeNew({ name: payload.name }))
+      .then((site) => site.toObject());
 
-    return site.toObject();
+    const sectionPayload = {
+      siteId: site.id,
+      contentInfo: payload,
+    };
+
+    await Promise.all([
+      sectionService.create({ ...sectionPayload, type: SectionType.HEADER }),
+      sectionService.create({ ...sectionPayload, type: SectionType.MAIN }),
+      sectionService.create({ ...sectionPayload, type: SectionType.FOOTER }),
+    ]);
+
+    return site;
   }
 
   public async findSectionsBySiteId(
