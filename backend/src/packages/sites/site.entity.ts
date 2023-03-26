@@ -29,6 +29,7 @@ class SiteEntity implements IEntity {
     id: number;
     name: string;
     publishedUrl: string | null;
+    projectId: number;
   }): SiteEntity {
     return new SiteEntity({ id, name, publishedUrl });
   }
@@ -47,7 +48,11 @@ class SiteEntity implements IEntity {
     });
   }
 
-  public toObject(): { id: number; name: string; publishedUrl: string | null } {
+  public toObject(): {
+    id: number;
+    name: string;
+    publishedUrl: string | null;
+  } {
     return {
       id: this.id as number,
       name: this.name,
@@ -55,7 +60,10 @@ class SiteEntity implements IEntity {
     };
   }
 
-  public toNewObject(): { name: string; publishedUrl: string | null } {
+  public toNewObject(): {
+    name: string;
+    publishedUrl: string | null;
+  } {
     return {
       name: this.name,
       publishedUrl: this.publishedUrl,

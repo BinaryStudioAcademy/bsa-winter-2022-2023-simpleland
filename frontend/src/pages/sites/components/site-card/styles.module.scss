@@ -1,0 +1,49 @@
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+  background-color: var(--white);
+}
+
+.image {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+}
+
+.content-wrapper {
+  padding: 20px;
+}
+
+.title {
+  margin: 0 0 14px;
+  color: var(--gray-600);
+  font-weight: 500;
+  font-size: 18px;
+  font-style: normal;
+  line-height: 24px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  margin: 0;
+  color: var(--gray-600);
+  font-weight: 400;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 24px;
+}
+
+.yellow svg path {
+  fill: var(--yellow);
+}
