@@ -1,5 +1,5 @@
 import { type StylesConfig } from 'react-select';
-import ceckIcon from 'src/assets/img/icons/Check.svg';
+import ceckIcon from 'src/assets/img/icons/check.svg';
 
 import { type SelectOption } from '~/libs/types/types.js';
 

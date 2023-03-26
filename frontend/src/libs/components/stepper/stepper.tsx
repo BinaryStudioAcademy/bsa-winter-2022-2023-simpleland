@@ -62,7 +62,7 @@ const Stepper: React.FC<Properties> = ({
             </div>
 
             <div className={styles['text']}>
-              <span className={styles['yellow']}>{currentStep}</span>/
+              <span className={styles['yellow']}>{currentStep}</span>
               {children.length}
             </div>
           </div>
