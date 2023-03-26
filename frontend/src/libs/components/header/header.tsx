@@ -12,6 +12,11 @@ type Properties = {
 };
 
 const Header: React.FC<Properties> = ({ user }: Properties) => {
+  const { firstName, lastName, accountName } = user;
+  const profileName = accountName?.length
+    ? accountName
+    : `${firstName} ${lastName}`;
+
   const dispatch = useAppDispatch();
 
   const handleLogout = useCallback((): void => {
@@ -57,9 +62,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
               </div>
             }
           />
-          <span className={styles['profile-caption']}>
-            {user.firstName} {user.lastName}
-          </span>
+          <span className={styles['profile-caption']}>{profileName}</span>
         </div>
       </div>
     </header>
