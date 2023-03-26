@@ -1,11 +1,10 @@
-import { Button, Header, PageLayout } from '~/libs/components/components.js';
+import { Button, PageLayout } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
 } from '~/libs/hooks/hooks.js';
-import { type UserAuthResponse } from '~/packages/users/users.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
 import { ProjectCard } from './components/project-card/project-card.js';
@@ -18,9 +17,8 @@ const MyProjects: React.FC = () => {
     void dispatch(projectActions.getUserProjects());
   }, [dispatch]);
 
-  const { projects, currentUser } = useAppSelector((state) => ({
+  const { projects } = useAppSelector((state) => ({
     projects: state.projects.projects,
-    currentUser: state.auth.user as UserAuthResponse,
   }));
 
   const hasProjects = projects.length > 0;
