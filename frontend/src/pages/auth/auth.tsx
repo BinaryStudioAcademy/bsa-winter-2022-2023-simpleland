@@ -59,7 +59,7 @@ const Auth: React.FC = () => {
     <PageLayout>
       <div className={styles['page-content']}>
         <div className={styles['logo-wrapper']}>
-          <Icon iconName='logo'/>
+          <Icon iconName="logo" />
           <div className={styles['logo-text']}>SimpleLand</div>
         </div>
         <div className={styles['form-wrapper']}>{getScreen(pathname)}</div>
