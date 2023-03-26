@@ -3,8 +3,9 @@ import { configureString } from '~/libs/helpers/helpers.js';
 import { HttpApi } from '~/libs/packages/api/api.js';
 import { type IHttp } from '~/libs/packages/http/http.js';
 import { type IStorage } from '~/libs/packages/storage/storage.js';
-import { SitesApiPath } from '~/packages/sites/libs/enums/enums.js';
 import { type SiteGetAllResponseDto } from '~/packages/sites/sites.js';
+
+import { ProjectsApiPath } from '../projects/libs/enums/enums.js';
 
 type Constructor = {
   baseUrl: string;
@@ -22,7 +23,7 @@ class SitesApi extends HttpApi {
   ): Promise<SiteGetAllResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(
-        configureString(ApiPath.PROJECTS_$PROJECT_ID_SITES, SitesApiPath.ROOT, {
+        configureString(ApiPath.SITES, ProjectsApiPath.PROJECT_PROJECT_ID, {
           projectId: projectId.toString(),
         }),
         {},

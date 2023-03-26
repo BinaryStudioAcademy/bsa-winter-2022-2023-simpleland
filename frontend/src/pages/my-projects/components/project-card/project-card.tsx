@@ -19,7 +19,7 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
       <div className={styles['card-description']}>
         <Link
           to={
-            configureString(AppRoute.PROJECTS_$PROJECT_ID_SITES, {
+            configureString(AppRoute.SITES_PROJECTS_$PROJECT_ID, {
               projectId: id.toString(),
             }) as ValueOf<typeof AppRoute>
           }

@@ -8,6 +8,7 @@ import { HttpCode } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type SiteService } from '~/packages/sites/site.service.js';
 
+import { ProjectsApiPath } from '../projects/libs/enums/enums.js';
 import { SitesApiPath } from './libs/enums/enums.js';
 import {
   type SiteCreateRequestDto,
@@ -59,12 +60,12 @@ class SiteController extends Controller {
   private siteService: SiteService;
 
   public constructor(logger: ILogger, siteService: SiteService) {
-    super(logger, ApiPath.PROJECTS_$PROJECT_ID_SITES);
+    super(logger, ApiPath.SITES);
 
     this.siteService = siteService;
 
     this.addRoute({
-      path: SitesApiPath.ROOT,
+      path: ProjectsApiPath.PROJECT_PROJECT_ID,
       method: 'GET',
       validation: {
         params: siteGetByProjectValidationSchema,
