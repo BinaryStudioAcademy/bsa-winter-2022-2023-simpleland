@@ -94,6 +94,14 @@ class Config implements IConfig {
           default: null,
         },
       },
+      OPEN_AI: {
+        API_KEY: {
+          doc: 'OpenAI secret API key',
+          format: String,
+          env: 'API_KEY',
+          default: null,
+        },
+      },
     });
   }
 
