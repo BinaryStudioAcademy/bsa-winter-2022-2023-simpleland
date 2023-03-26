@@ -4,7 +4,7 @@ const allActions = {
   signUp,
   signIn,
   getCurrentUser,
-  logout
+  logout,
 };
 
 export { allActions as actions };
