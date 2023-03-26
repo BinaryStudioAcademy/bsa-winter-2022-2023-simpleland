@@ -14,12 +14,9 @@
     var(--black);
 }
 
-.logo-dot {
-  display: block;
-  width: 32px;
-  height: 32px;
-  background-color: var(--yellow);
-  border-radius: 50%;
+.logo-text {
+  font-size: 20px;
+  line-height: 21px;
 }
 
 .form-wrapper {
