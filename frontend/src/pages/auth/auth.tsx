@@ -1,4 +1,4 @@
-import logo from '~/../public/logo.svg';
+import logo from '~/assets/img/logo.svg';
 import { PageLayout, Redirect } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import {

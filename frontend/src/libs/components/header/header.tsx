@@ -1,5 +1,5 @@
-import logo from '~/../public/logo.svg';
 import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
+import logo from '~/assets/img/logo.svg';
 import { Button, Link, Popover } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
 import { useAppDispatch, useCallback } from '~/libs/hooks/hooks.js';
