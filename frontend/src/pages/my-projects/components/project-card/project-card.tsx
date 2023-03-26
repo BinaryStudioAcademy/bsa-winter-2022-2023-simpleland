@@ -2,12 +2,12 @@ import { Link } from '~/libs/components/link/link.js';
 import { AppRoute } from '~/libs/enums/app-route.enum.js';
 import { configureString } from '~/libs/helpers/helpers.js';
 import { type ValueOf } from '~/libs/types/types.js';
-import { type GetProjectsItemResponseDto } from '~/packages/projects/projects.js';
+import { type ProjectGetAllItemResponseDto } from '~/packages/projects/projects.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-  project: GetProjectsItemResponseDto;
+  project: ProjectGetAllItemResponseDto;
 };
 
 const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {

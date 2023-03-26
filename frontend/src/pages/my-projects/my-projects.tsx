@@ -26,8 +26,7 @@ const MyProjects: React.FC = () => {
   const hasProjects = projects.length > 0;
 
   return (
-    <PageLayout>
-      <Header user={currentUser} pageName="My Projects" />
+    <PageLayout pageName="My Projects">
       {hasProjects ? (
         <div className={styles['cards-wrapper']}>
           {projects.map((card) => (
