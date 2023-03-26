@@ -25,9 +25,7 @@ const TargetAudience: React.FC<Properties> = ({ className }: Properties) => {
       <h1 className={getValidClassNames(style['step-question'])}>
         What is your Target audience?
       </h1>
-      <p className={getValidClassNames(style['chose-age'])}>
-        Choose the age
-      </p>
+      <p className={getValidClassNames(style['chose-age'])}>Choose the age</p>
       <SelectTarget
         control={control}
         name="ageGroup"

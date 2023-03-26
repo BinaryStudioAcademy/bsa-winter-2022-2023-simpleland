@@ -28,14 +28,13 @@ const styles: StylesConfig<SelectOption<string | number> | undefined> = {
       margin: '0px 9px 0 0',
       display: 'inline-block',
     },
-    '&:before':{
+    '&:before': {
       content: '""',
       display: 'inline-block',
       backgroundImage: state.isSelected ? `url(${ceckIcon})` : 'none',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
       backgroundSize: 'contain',
-
     },
     '&:hover': {
       backgroundColor: '#C4C4C4',
