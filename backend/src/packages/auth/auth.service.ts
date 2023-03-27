@@ -91,6 +91,14 @@ class AuthService {
 
   public async getCurrent(token: string): Promise<UserAuthResponse> {
     const { userId } = this.token.decode<UserTokenPayload>(token);
+
+    if (!userId) {
+      throw new HttpError({
+        message: 'Invalid token',
+        status: HttpCode.UNAUTHORIZED,
+      });
+    }
+
     const user = await this.userService.find(userId);
 
     if (!user) {

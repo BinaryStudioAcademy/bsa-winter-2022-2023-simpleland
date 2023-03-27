@@ -9,8 +9,14 @@ import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type SiteService } from '~/packages/sites/site.service.js';
 
 import { SitesApiPath } from './libs/enums/enums.js';
-import { type SiteCreateRequestDto } from './libs/types/types.js';
-import { siteCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+import {
+  type SiteCreateRequestDto,
+  type SiteGetByProjectParametersDto,
+} from './libs/types/types.js';
+import {
+  siteCreateValidationSchema,
+  siteGetByProjectValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -29,6 +35,24 @@ import { siteCreateValidationSchema } from './libs/validation-schemas/validation
  *           type: string
  *           format: uri
  *           nullable: true
+ *     SectionType:
+ *       type: string
+ *       enum:
+ *         - header
+ *         - footer
+ *     Section:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           format: int64
+ *           minimum: 1
+ *         name:
+ *           type: string
+ *         type:
+ *           $ref: '#/components/schemas/SectionType'
+ *         content:
+ *           type: object
  */
 
 class SiteController extends Controller {
@@ -40,9 +64,17 @@ class SiteController extends Controller {
     this.siteService = siteService;
 
     this.addRoute({
-      path: SitesApiPath.ROOT,
+      path: SitesApiPath.PROJECT_$PROJECT_ID,
       method: 'GET',
-      handler: () => this.findAll(),
+      validation: {
+        params: siteGetByProjectValidationSchema,
+      },
+      handler: (options) =>
+        this.findAllByProjectId(
+          options as ApiHandlerOptions<{
+            params: SiteGetByProjectParametersDto;
+          }>,
+        ),
     });
 
     this.addRoute({
@@ -56,13 +88,22 @@ class SiteController extends Controller {
           options as ApiHandlerOptions<{ body: SiteCreateRequestDto }>,
         ),
     });
+
+    this.addRoute({
+      path: SitesApiPath.SECTIONS_BY_SITE,
+      method: 'GET',
+      handler: (options) =>
+        this.findSectionsBySiteId(
+          options as ApiHandlerOptions<{ params: { siteId: string } }>,
+        ),
+    });
   }
 
   /**
    * @swagger
-   * /sites:
+   * /project/:projectId/sites:
    *   get:
-   *     description: Returns an object with items property. Items - array of sites.
+   *     description: Returns an object with items property. Items - array of sites by specific project.
    *     responses:
    *       200:
    *         description: Successful operation
@@ -77,16 +118,20 @@ class SiteController extends Controller {
    *                     $ref: '#/components/schemas/Site'
    *                   minItems: 0
    */
-  private async findAll(): Promise<ApiHandlerResponse> {
+  private async findAllByProjectId(
+    options: ApiHandlerOptions<{ params: SiteGetByProjectParametersDto }>,
+  ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.siteService.findAll(),
+      payload: await this.siteService.findAllByProjectId(
+        options.params.projectId,
+      ),
     };
   }
 
   /**
    * @swagger
-   * /sites:
+   * /project/:projectId/sites:
    *   post:
    *     description: Create a site. Returns object with site info
    *     requestBody:
@@ -118,6 +163,43 @@ class SiteController extends Controller {
     return {
       status: HttpCode.CREATED,
       payload: await this.siteService.create(options.body),
+    };
+  }
+
+  /**
+   * @swagger
+   * /sites/{siteId}/sections:
+   *   get:
+   *     description: Returns object with items property. Items - array of sections related to site
+   *     parameters:
+   *       - in: path
+   *         name: siteId
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: Numeric Site ID
+   *     responses:
+   *       200:
+   *         description: Successful operation
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 items:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/Section'
+   *                   minItems: 0
+   */
+  private async findSectionsBySiteId(
+    options: ApiHandlerOptions<{ params: { siteId: string } }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.siteService.findSectionsBySiteId(
+        Number(options.params.siteId),
+      ),
     };
   }
 }

@@ -1,13 +1,16 @@
 export { App } from './app/app.js';
 export { Button } from './button/button.js';
+export { Divider } from './divider/divider.js';
 export { Header } from './header/header.js';
 export { Icon } from './icon/icon.js';
 export { IconButton } from './icon-button/icon-button.js';
+export { Image } from './image/image.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
 export { Modal } from './modal/modal.js';
 export { PageLayout } from './page-layout/page-layout.js';
+export { Popover } from './popover/popover.js';
 export { ProtectedRoute } from './protected-route/protected-route.js';
 export { RouterProvider } from './router-provider/router-provider.jsx';
 export { Select } from './select/select.js';

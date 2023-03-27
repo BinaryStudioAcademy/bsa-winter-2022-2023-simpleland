@@ -36,6 +36,15 @@ const signUp = createAsyncThunk<
   return user;
 });
 
+const logout = createAsyncThunk<unknown, undefined, AsyncThunkConfig>(
+  `${sliceName}/logout`,
+  async (_, { extra }) => {
+    const { storage } = extra;
+
+    await storage.drop(StorageKey.TOKEN);
+  },
+);
+
 const getCurrentUser = createAsyncThunk<
   UserAuthResponse | null,
   undefined,
@@ -46,11 +55,17 @@ const getCurrentUser = createAsyncThunk<
   const token = await storage.get(StorageKey.TOKEN);
   const hasToken = Boolean(token);
 
-  if (hasToken) {
-    return await authApi.getCurrent();
+  if (!hasToken) {
+    return null;
   }
 
-  return null;
+  try {
+    return await authApi.getCurrent();
+  } catch {
+    await storage.drop(StorageKey.TOKEN);
+
+    return null;
+  }
 });
 
-export { getCurrentUser, signIn, signUp };
+export { getCurrentUser, logout, signIn, signUp };
