@@ -17,7 +17,7 @@ class SiteRepository
     return sites.map((site) => SiteEntity.initialize(site));
   }
 
-  public async findByProjectId(projectId: number): Promise<SiteEntity[]> {
+  public async findAllByProjectId(projectId: number): Promise<SiteEntity[]> {
     const sites = await this.siteModel.query().where({ projectId }).execute();
 
     return sites.map((site) => SiteEntity.initialize(site));

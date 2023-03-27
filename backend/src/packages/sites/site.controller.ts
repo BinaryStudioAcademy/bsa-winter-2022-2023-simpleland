@@ -59,18 +59,18 @@ class SiteController extends Controller {
   private siteService: SiteService;
 
   public constructor(logger: ILogger, siteService: SiteService) {
-    super(logger, ApiPath.PROJECTS_$PROJECT_ID_SITES);
+    super(logger, ApiPath.SITES);
 
     this.siteService = siteService;
 
     this.addRoute({
-      path: SitesApiPath.ROOT,
+      path: SitesApiPath.PROJECT_$PROJECT_ID,
       method: 'GET',
       validation: {
         params: siteGetByProjectValidationSchema,
       },
       handler: (options) =>
-        this.findByProjectId(
+        this.findAllByProjectId(
           options as ApiHandlerOptions<{
             params: SiteGetByProjectParametersDto;
           }>,
@@ -101,7 +101,7 @@ class SiteController extends Controller {
 
   /**
    * @swagger
-   * /projects/:projectId/sites:
+   * /project/:projectId/sites:
    *   get:
    *     description: Returns an object with items property. Items - array of sites by specific project.
    *     responses:
@@ -118,18 +118,20 @@ class SiteController extends Controller {
    *                     $ref: '#/components/schemas/Site'
    *                   minItems: 0
    */
-  private async findByProjectId(
+  private async findAllByProjectId(
     options: ApiHandlerOptions<{ params: SiteGetByProjectParametersDto }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.siteService.findByProjectId(options.params.projectId),
+      payload: await this.siteService.findAllByProjectId(
+        options.params.projectId,
+      ),
     };
   }
 
   /**
    * @swagger
-   * /projects/:projectId/sites:
+   * /project/:projectId/sites:
    *   post:
    *     description: Create a site. Returns object with site info
    *     requestBody:
