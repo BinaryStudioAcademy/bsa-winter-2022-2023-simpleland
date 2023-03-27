@@ -4,6 +4,7 @@ export { Divider } from './divider/divider.js';
 export { Header } from './header/header.js';
 export { Icon } from './icon/icon.js';
 export { IconButton } from './icon-button/icon-button.js';
+export { Image } from './image/image.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
