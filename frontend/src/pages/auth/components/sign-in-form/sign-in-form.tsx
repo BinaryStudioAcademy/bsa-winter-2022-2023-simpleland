@@ -57,7 +57,6 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           className={styles['submit-button'] as string}
         />
       </form>
-
     </div>
   );
 };

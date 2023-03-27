@@ -28,7 +28,7 @@ const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
   return (
     <header className={styles['header']}>
       <div className={styles['logo-wrapper']}>
-        <Image alt='logo' src={logo} />
+        <Image alt="logo" src={logo} />
         <span className={styles['logo-text']}>SimpleLand</span>
       </div>
       <div className={styles['header-sidebar']}>
