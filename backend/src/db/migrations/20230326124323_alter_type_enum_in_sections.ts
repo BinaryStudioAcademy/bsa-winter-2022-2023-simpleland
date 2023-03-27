@@ -4,7 +4,7 @@ const TABLE_NAME = 'sections';
 
 const COLUMN_NAME = 'type';
 
-const ENUM_NAME = 'section_type';
+const ENUM_NAME = 'enum_sections_type';
 
 const SECTION_TYPES = ['header', 'footer'];
 
