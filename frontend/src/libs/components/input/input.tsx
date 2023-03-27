@@ -18,6 +18,7 @@ type Properties<T extends FieldValues> = {
   placeholder?: string;
   type?: 'text' | 'email' | 'password';
   isDisabled?: boolean;
+  inputMode?: 'email' | 'text';
 };
 
 const Input = <T extends FieldValues>({
@@ -28,6 +29,7 @@ const Input = <T extends FieldValues>({
   placeholder = '',
   type = 'text',
   isDisabled = false,
+  inputMode = 'text',
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -46,6 +48,7 @@ const Input = <T extends FieldValues>({
         type={type}
         placeholder={placeholder}
         disabled={isDisabled}
+        inputMode={inputMode}
       />
       <span className={styles['error-message']}>
         {hasError && (error as string)}

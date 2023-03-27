@@ -6,14 +6,16 @@ import styles from './styles.module.scss';
 
 type Properties = {
   children: React.ReactNode;
-  style?: 'yellow' | 'black';
+  style?: 'yellow' | 'black' | 'white';
   className?: string | undefined;
+  pageName?: string;
 };
 
 const PageLayout: React.FC<Properties> = ({
   children,
   style = 'yellow',
-  className,
+  className = '',
+  pageName = '',
 }: Properties) => {
   const { user } = useAppSelector(({ auth }) => ({
     user: auth.user,
@@ -27,7 +29,7 @@ const PageLayout: React.FC<Properties> = ({
         className,
       )}
     >
-      {user && <Header user={user} />}
+      {user && <Header user={user} pageName={pageName} />}
       {children}
     </div>
   );

@@ -1,0 +1,23 @@
+.page-layout {
+  display: block;
+}
+
+.page-wrapper {
+  --card-width: 294px;
+  --card-height: 296px;
+  --card-gap: 20px;
+
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  margin-top: 62px;
+}
+
+.cards-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  width: calc(var(--card-width) * 3 + var(--card-gap) * 2);
+  height: max-content;
+  margin-top: 18px;
+}
