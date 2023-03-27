@@ -7,6 +7,7 @@ import {
   stepIndustryValidationSchema,
 } from '~/packages/stepper/validation-schemas/validation-schema.js';
 
+import { DEFAULT_STEP_INDUSTRY_VALUE } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -14,7 +15,7 @@ type Properties = {
 };
 const StepIndustry: React.FC<Properties> = ({ onSubmit }: Properties) => {
   const { control, errors, handleSubmit } = useAppForm<StepIndustryDto>({
-    defaultValues: '',
+    defaultValues: DEFAULT_STEP_INDUSTRY_VALUE,
     validationSchema: stepIndustryValidationSchema,
   });
 
