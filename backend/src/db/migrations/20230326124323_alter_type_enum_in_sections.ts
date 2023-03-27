@@ -4,36 +4,35 @@ const TABLE_NAME = 'sections';
 
 const COLUMN_NAME = 'type';
 
+const ENUM_NAME = 'section_type';
+
 const SECTION_TYPES = ['header', 'footer'];
 
 const UPDATED_SECTION_TYPES = [...SECTION_TYPES, 'main'];
 
-function up(knex: Knex): Promise<void> {
-  return knex.schema.raw(
-    alterEnum(TABLE_NAME, COLUMN_NAME, UPDATED_SECTION_TYPES),
-  );
+async function up(knex: Knex): Promise<void> {
+  await knex.schema.alterTable(TABLE_NAME, (table) => {
+    table.dropColumn(COLUMN_NAME);
+  });
+
+  return await knex.schema.alterTable(TABLE_NAME, (table) => {
+    table.enum(COLUMN_NAME, UPDATED_SECTION_TYPES, {
+      useNative: true,
+      enumName: ENUM_NAME,
+    });
+  });
 }
 
-function down(knex: Knex): Promise<void> {
-  return knex.schema.raw(alterEnum(TABLE_NAME, COLUMN_NAME, SECTION_TYPES));
-}
+async function down(knex: Knex): Promise<void> {
+  await knex.schema.alterTable(TABLE_NAME, (table) => {
+    table.dropColumn(COLUMN_NAME);
+  });
 
-function alterEnum(
-  tableName: string,
-  columnName: string,
-  enu: string[],
-): string {
-  const constraintName = `${tableName}_${columnName}_check`;
-  const constraint = enu
-    .map((value) => {
-      return `'${value}'::text`;
-    })
-    .join(', ');
+  await knex.schema.alterTable(TABLE_NAME, (table) => {
+    table.enum(COLUMN_NAME, SECTION_TYPES).notNullable();
+  });
 
-  return `
-    ALTER TABLE "${tableName}" DROP CONSTRAINT IF EXISTS "${constraintName}";
-    ALTER TABLE "${tableName}" ADD CONSTRAINT "${constraintName}" CHECK ("${columnName}" = ANY (ARRAY[${constraint}]));
-  `;
+  return await knex.schema.raw(`DROP TYPE IF EXISTS ${ENUM_NAME} CASCADE;`);
 }
 
 export { down, up };
