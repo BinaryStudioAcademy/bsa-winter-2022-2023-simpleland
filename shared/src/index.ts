@@ -30,6 +30,7 @@ export {
 export { AuthApiPath } from './packages/auth/auth.js';
 export {
   type ProjectNameDto,
+  ProjectNameValidationMessage,
   ProjectNameValidationSchema,
 } from './packages/new-project-create/new-project-create.js';
 export {
