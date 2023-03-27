@@ -24,28 +24,42 @@ const MyProjects: React.FC = () => {
   const hasProjects = projects.length > 0;
 
   return (
-    <PageLayout pageName="My Projects">
-      {hasProjects ? (
-        <div className={styles['cards-wrapper']}>
-          {projects.map((card) => (
-            <ProjectCard key={card.id} project={card} />
-          ))}
-        </div>
-      ) : (
-        <div className={styles['placeholder']}>
-          <div className={styles['placeholder-caption']}>
-            <span className={styles['placeholder-sub-caption']}>Hello!</span>
-            <span className={styles['placeholder-main-caption']}>
-              There are no businesses
-            </span>
-          </div>
+    <PageLayout
+      pageName="My Projects"
+      style="white"
+      className={styles['page-layout']}
+    >
+      <div className={styles['page-wrapper']}>
+        <div className={styles['search-wrapper']}>
           <Button
-            className={styles['placeholder-button']}
-            label="Create new business"
-            to={AppRoute.ROOT}
+            label="Add Business"
+            icon="plus"
+            className={styles['create-button']}
+            size="small"
           />
         </div>
-      )}
+        {hasProjects ? (
+          <div className={styles['cards-wrapper']}>
+            {projects.map((card) => (
+              <ProjectCard key={card.id} project={card} />
+            ))}
+          </div>
+        ) : (
+          <div className={styles['placeholder']}>
+            <div className={styles['placeholder-caption']}>
+              <span className={styles['placeholder-sub-caption']}>Hello!</span>
+              <span className={styles['placeholder-main-caption']}>
+                There are no businesses
+              </span>
+            </div>
+            <Button
+              className={styles['placeholder-button']}
+              label="Create new business"
+              to={AppRoute.ROOT}
+            />
+          </div>
+        )}
+      </div>
     </PageLayout>
   );
 };

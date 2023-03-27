@@ -41,6 +41,11 @@
   background: var(--black);
 }
 
+.primary:hover svg path {
+  fill: var(--white);
+  stroke: var(--white);
+}
+
 .primary:disabled {
   color: var(--white);
   background: var(--gray-disable);
