@@ -1,5 +1,6 @@
 export { App } from './app/app.js';
 export { Button } from './button/button.js';
+export { Divider } from './divider/divider.js';
 export { Header } from './header/header.js';
 export { Icon } from './icon/icon.js';
 export { IconButton } from './icon-button/icon-button.js';

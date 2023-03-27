@@ -15,7 +15,9 @@ import { AppRoute } from '~/libs/enums/enums.js';
 import { store } from '~/libs/packages/store/store.js';
 import { AccountSettings } from '~/pages/account-settings/account-settings.js';
 import { Auth } from '~/pages/auth/auth.js';
+import { MyProjects } from '~/pages/my-projects/my-projects.js';
 import { NotFound } from '~/pages/not-found/not-found.js';
+import { Sites } from '~/pages/sites/sites.js';
 import { Start } from '~/pages/start/start.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -44,10 +46,26 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 ),
               },
               {
+                path: AppRoute.PROJECTS_$PROJECT_ID_SITES,
+                element: (
+                  <ProtectedRoute>
+                    <Sites />
+                  </ProtectedRoute>
+                ),
+              },
+              {
                 path: AppRoute.PROFILE,
                 element: (
                   <ProtectedRoute>
                     <AccountSettings />
+                  </ProtectedRoute>
+                ),
+              },
+              {
+                path: AppRoute.MY_PROJECTS,
+                element: (
+                  <ProtectedRoute>
+                    <MyProjects />,
                   </ProtectedRoute>
                 ),
               },
