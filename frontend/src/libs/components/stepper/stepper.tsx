@@ -76,10 +76,7 @@ const Stepper: React.FC<Properties> = ({
         style="secondary"
         size="small"
         onClick={handleNextStep}
-        className={getValidClassNames(
-          styles['button'],
-          isLastStep && 'visually-hidden',
-        )}
+        className={getValidClassNames(styles['button'])}
       />
     </div>
   );

@@ -16,7 +16,9 @@ const useStepper: UseStepper = ({ length }) => {
   const isFirstStep = currentStep === ONE_STEP_LENGTH;
   const isLastStep = currentStep === length;
   const barYellowWidth = Math.round(
-    ((currentStep - ONE_STEP_LENGTH) / length) * 100,
+    currentStep === length
+      ? 100
+      : ((currentStep - ONE_STEP_LENGTH) / (length - ONE_STEP_LENGTH)) * 100,
   );
 
   const handleStepChange = useCallback((step: number): void => {
