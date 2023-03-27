@@ -7,6 +7,8 @@ import {
 } from '~/libs/packages/database/database.js';
 import { SectionModel } from '~/packages/sections/section.model.js';
 
+import { SiteModelRelation } from './libs/enums/enums.js';
+
 class SiteModel extends AbstractModel {
   public 'name': string;
 
@@ -19,7 +21,7 @@ class SiteModel extends AbstractModel {
   }
 
   public static override relationMappings = (): RelationMappings => ({
-    'sections': {
+    [SiteModelRelation.SECTIONS]: {
       relation: Model.ManyToManyRelation,
       modelClass: SectionModel,
       join: {
