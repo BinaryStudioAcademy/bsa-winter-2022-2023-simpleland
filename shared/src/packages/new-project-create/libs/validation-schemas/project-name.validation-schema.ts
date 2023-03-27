@@ -13,8 +13,7 @@ const ProjectNameValidationSchema = joi.object({
       'string.empty': ProjectNameValidationMessage.PROJECT_NAME_REQUIRE,
       'string.min': ProjectNameValidationMessage.PROJECT_NAME_MIN,
       'string.max': ProjectNameValidationMessage.PROJECT_NAME_MAX,
-      'string.pattern.base':
-        ProjectNameValidationMessage.PROJECT_NAME_PATTERN,
+      'string.pattern.base': ProjectNameValidationMessage.PROJECT_NAME_PATTERN,
     }),
 });
 

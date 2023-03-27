@@ -28,7 +28,10 @@ export {
   type ValueOf,
 } from './libs/types/types.js';
 export { AuthApiPath } from './packages/auth/auth.js';
-export { type ProjectNameDto, ProjectNameValidationSchema } from './packages/new-project-create/new-project-create.js';
+export {
+  type ProjectNameDto,
+  ProjectNameValidationSchema,
+} from './packages/new-project-create/new-project-create.js';
 export {
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
