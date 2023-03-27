@@ -9,10 +9,10 @@ const getUserProjects = createAsyncThunk<
   ProjectGetAllResponseDto,
   undefined,
   AsyncThunkConfig
->(`${sliceName}/get-projects`, (_, { extra }) => {
+>(`${sliceName}/get-projects`, async (_, { extra }) => {
   const { projectsApi } = extra;
 
-  return projectsApi.getProjects();
+  return await projectsApi.getProjects();
 });
 
 export { getUserProjects };
