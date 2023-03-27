@@ -38,3 +38,14 @@
 .placeholder-button {
   padding: 20px 60px;
 }
+
+.wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+}
+
+.search-input-wrapper {
+  width: 292px;
+  margin-top: 50px;
+}
