@@ -13,12 +13,12 @@ import styles from './styles.module.scss';
 type Properties<T extends FieldValues> = {
   control: Control<T, null>;
   errors: FieldErrors<T>;
-  label: string;
+  label?: string;
   name: FieldPath<T>;
   placeholder?: string;
-  type?: 'text' | 'email' | 'password';
+  type?: 'text' | 'email' | 'password' | 'search';
   isDisabled?: boolean;
-  inputMode?: 'email' | 'text';
+  inputMode?: 'email' | 'text' | 'search';
 };
 
 const Input = <T extends FieldValues>({
