@@ -8,7 +8,6 @@ import { HttpCode } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type SiteService } from '~/packages/sites/site.service.js';
 
-import { ProjectsApiPath } from '../projects/libs/enums/enums.js';
 import { SitesApiPath } from './libs/enums/enums.js';
 import {
   type SiteCreateRequestDto,
@@ -65,13 +64,13 @@ class SiteController extends Controller {
     this.siteService = siteService;
 
     this.addRoute({
-      path: ProjectsApiPath.PROJECT_PROJECT_ID,
+      path: SitesApiPath.PROJECT_PROJECT_ID,
       method: 'GET',
       validation: {
         params: siteGetByProjectValidationSchema,
       },
       handler: (options) =>
-        this.findByProjectId(
+        this.findAllByProjectId(
           options as ApiHandlerOptions<{
             params: SiteGetByProjectParametersDto;
           }>,
@@ -102,7 +101,7 @@ class SiteController extends Controller {
 
   /**
    * @swagger
-   * /projects/:projectId/sites:
+   * /project/:projectId/sites:
    *   get:
    *     description: Returns an object with items property. Items - array of sites by specific project.
    *     responses:
@@ -119,18 +118,20 @@ class SiteController extends Controller {
    *                     $ref: '#/components/schemas/Site'
    *                   minItems: 0
    */
-  private async findByProjectId(
+  private async findAllByProjectId(
     options: ApiHandlerOptions<{ params: SiteGetByProjectParametersDto }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.siteService.findByProjectId(options.params.projectId),
+      payload: await this.siteService.findAllByProjectId(
+        options.params.projectId,
+      ),
     };
   }
 
   /**
    * @swagger
-   * /projects/:projectId/sites:
+   * /project/:projectId/sites:
    *   post:
    *     description: Create a site. Returns object with site info
    *     requestBody:
