@@ -10,9 +10,10 @@ import styles from './styles.module.scss';
 
 type Properties = {
   user: UserAuthResponse;
+  pageName?: string;
 };
 
-const Header: React.FC<Properties> = ({ user }: Properties) => {
+const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
   const { firstName, lastName, accountName } = user;
   const profileName = accountName?.length
     ? accountName
@@ -34,7 +35,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
         <ul className={styles['header-nav-list']}>
           <li>
             <Link to={AppRoute.ROOT}>
-              <span className={styles['section-title']}>My sites</span>
+              <span className={styles['section-title']}>{pageName}</span>
             </Link>
           </li>
         </ul>

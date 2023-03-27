@@ -27,6 +27,16 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     };
   }
 
+  public async findAllByProjectId(
+    projectId: number,
+  ): Promise<SiteGetAllResponseDto> {
+    const sites = await this.siteRepository.findAllByProjectId(projectId);
+
+    return {
+      items: sites.map((site) => site.toObject()),
+    };
+  }
+
   public async create(
     payload: SiteCreateRequestDto,
   ): Promise<SiteCreateResponseDto> {
