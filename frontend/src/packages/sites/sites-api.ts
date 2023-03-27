@@ -23,7 +23,7 @@ class SitesApi extends HttpApi {
   ): Promise<SiteGetAllResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(
-        configureString(ApiPath.SITES, SitesApiPath.PROJECT_PROJECT_ID, {
+        configureString(ApiPath.SITES, SitesApiPath.PROJECT_$PROJECT_ID, {
           projectId: projectId.toString(),
         }),
         {},

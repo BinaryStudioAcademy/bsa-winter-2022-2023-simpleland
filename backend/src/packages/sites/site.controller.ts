@@ -64,7 +64,7 @@ class SiteController extends Controller {
     this.siteService = siteService;
 
     this.addRoute({
-      path: SitesApiPath.PROJECT_PROJECT_ID,
+      path: SitesApiPath.PROJECT_$PROJECT_ID,
       method: 'GET',
       validation: {
         params: siteGetByProjectValidationSchema,
