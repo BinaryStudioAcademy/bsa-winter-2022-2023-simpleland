@@ -45,6 +45,10 @@ export {
   SitesApiPath,
 } from './packages/sites/sites.js';
 export {
+  type StepIndustryDto,
+  stepIndustryValidationSchema,
+} from './packages/stepper/stepper.js';
+export {
   type UserAuthResponse,
   type UserGetAllItemResponseDto,
   type UserGetAllResponseDto,

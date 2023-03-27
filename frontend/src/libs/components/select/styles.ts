@@ -12,7 +12,7 @@ const styles: StylesConfig<SelectOption<string | number> | undefined> = {
     },
     borderRadius: '0',
     boxShadow: 'none',
-    width: '324px',
+    width: '100%',
     cursor: 'pointer',
   }),
   option: (provided, state) => ({

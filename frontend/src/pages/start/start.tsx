@@ -1,8 +1,16 @@
+import { useCallback } from 'react';
+
 import { PageLayout, Stepper } from '~/libs/components/components.js';
 
+import { StepIndustry } from './components/step-industry/step-industry.js';
 import styles from './styles.module.scss';
 
 const Start: React.FC = () => {
+  const idleFunction = useCallback((): void => {
+    ('');
+  }, []);
+  const steps = [<StepIndustry key="secondStep" onSubmit={idleFunction} />];
+
   return (
     <PageLayout style="black" className={styles['layout']}>
       <div className={styles['page-wrapper']}>
@@ -11,7 +19,7 @@ const Start: React.FC = () => {
             First, tell us about your project
           </div>
           <div className={styles['content-info']}>
-            <Stepper className={styles['stepper-wrapper']} />
+            <Stepper className={styles['stepper-wrapper']}>{steps}</Stepper>
           </div>
         </div>
       </div>
