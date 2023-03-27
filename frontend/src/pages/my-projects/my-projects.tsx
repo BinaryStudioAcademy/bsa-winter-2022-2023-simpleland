@@ -1,16 +1,28 @@
-import { Button, PageLayout } from '~/libs/components/components.js';
-import { AppRoute } from '~/libs/enums/enums.js';
+import { Button, Modal, PageLayout } from '~/libs/components/components.js';
 import {
   useAppDispatch,
   useAppSelector,
+  useCallback,
   useEffect,
+  useState,
 } from '~/libs/hooks/hooks.js';
+import { type ProjectCreateRequestDto } from '~/packages/projects/projects.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
-import { ProjectCard } from './components/project-card/project-card.js';
+import { CreateProjectForm, ProjectCard } from './components/components.js';
 import styles from './styles.module.scss';
 
 const MyProjects: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = useCallback(() => {
+    setIsOpen(true);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   const dispatch = useAppDispatch();
 
   useEffect((): void => {
@@ -22,6 +34,22 @@ const MyProjects: React.FC = () => {
   }));
 
   const hasProjects = projects.length > 0;
+
+  const handleProjectSubmit = useCallback(
+    (payload: ProjectCreateRequestDto): void => {
+      void dispatch(projectActions.createProject(payload));
+      closeModal();
+    },
+    [dispatch, closeModal],
+  );
+
+  if (isOpen) {
+    return (
+      <Modal isOpen={isOpen} onClose={closeModal}>
+        <CreateProjectForm onSubmit={handleProjectSubmit} />
+      </Modal>
+    );
+  }
 
   return (
     <PageLayout
@@ -36,6 +64,7 @@ const MyProjects: React.FC = () => {
             icon="plus"
             className={styles['create-button']}
             size="small"
+            onClick={openModal}
           />
         </div>
         {hasProjects ? (
@@ -55,7 +84,7 @@ const MyProjects: React.FC = () => {
             <Button
               className={styles['placeholder-button']}
               label="Create new business"
-              to={AppRoute.ROOT}
+              onClick={openModal}
             />
           </div>
         )}
