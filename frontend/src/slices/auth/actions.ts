@@ -55,11 +55,17 @@ const getCurrentUser = createAsyncThunk<
   const token = await storage.get(StorageKey.TOKEN);
   const hasToken = Boolean(token);
 
-  if (hasToken) {
-    return await authApi.getCurrent();
+  if (!hasToken) {
+    return null;
   }
 
-  return null;
+  try {
+    return await authApi.getCurrent();
+  } catch {
+    await storage.drop(StorageKey.TOKEN);
+
+    return null;
+  }
 });
 
 export { getCurrentUser, logout, signIn, signUp };
