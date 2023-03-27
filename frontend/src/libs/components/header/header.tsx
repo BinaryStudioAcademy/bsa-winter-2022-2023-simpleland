@@ -1,6 +1,6 @@
 import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
 import logo from '~/assets/img/logo.svg';
-import { Button, Link, Popover } from '~/libs/components/components.js';
+import { Button, Image, Link, Popover } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
 import { useAppDispatch, useCallback } from '~/libs/hooks/hooks.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
@@ -28,7 +28,7 @@ const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
   return (
     <header className={styles['header']}>
       <div className={styles['logo-wrapper']}>
-        <img alt="logo" src={logo} />
+        <Image alt='logo' src={logo} />
         <span className={styles['logo-text']}>SimpleLand</span>
       </div>
       <div className={styles['header-sidebar']}>
