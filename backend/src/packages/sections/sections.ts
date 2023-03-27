@@ -10,6 +10,10 @@ export { SectionModel } from './section.model.js';
 export { sectionService };
 export { SectionType } from './libs/enums/enums.js';
 export {
+  type Footer,
+  type Header,
+  type Main,
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SectionTypeToContentMap,
 } from './libs/types/types.js';

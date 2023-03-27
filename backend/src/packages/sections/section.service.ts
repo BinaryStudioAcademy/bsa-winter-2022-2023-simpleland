@@ -31,8 +31,10 @@ class SectionService
     type: ValueOf<typeof SectionType>;
     contentInfo: SiteCreateRequestDto;
   }): Promise<SectionGetAllItemResponseDto> {
-    // TODO: Content generation with openAI api
-    const content = {};
+    const content = await openAI.generateSectionContent(
+      payload.type,
+      payload.contentInfo,
+    );
 
     const section = await this.sectionRepository.create({
       siteId: payload.siteId,
