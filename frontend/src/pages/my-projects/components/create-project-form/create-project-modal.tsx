@@ -1,4 +1,4 @@
-import { Button, Input } from '~/libs/components/components.js';
+import { Button, Input, Modal } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useAppSelector, useCallback } from '~/libs/hooks/hooks.js';
 import {
@@ -10,11 +10,15 @@ import { type UserAuthResponse } from '~/packages/users/users.js';
 import styles from './styles.module.scss';
 
 type Properties = {
+  isOpen: boolean;
+  closeModal: () => void;
   onSubmit: (payload: ProjectCreateRequestDto) => void;
-  className?: string | undefined;
+  className?: string;
 };
 
-const CreateProjectForm: React.FC<Properties> = ({
+const CreateProjectModal: React.FC<Properties> = ({
+  isOpen = false,
+  closeModal,
   onSubmit,
   className = '',
 }: Properties) => {
@@ -40,21 +44,29 @@ const CreateProjectForm: React.FC<Properties> = ({
   );
 
   return (
-    <div className={getValidClassNames(styles['form-wrapper'], className)}>
-      <h2>What is your business’s name?</h2>
-      <form className={styles['form-wrapper']} onSubmit={handleFormSubmit}>
-        <Input control={control} errors={errors} label="" name="name" />
+    <Modal isOpen={isOpen} onClose={closeModal}>
+      <div className={getValidClassNames(styles['form-wrapper'], className)}>
+        <h2>Create a new business</h2>
+        <form className={styles['form-wrapper']} onSubmit={handleFormSubmit}>
+          <Input
+            control={control}
+            errors={errors}
+            label="Create a new business"
+            name="name"
+            isLabelVisuallyHidden={true}
+          />
 
-        <Button
-          type="submit"
-          style="primary"
-          size="small"
-          label="Create Business"
-          className={styles['submit-button']}
-        />
-      </form>
-    </div>
+          <Button
+            type="submit"
+            style="primary"
+            size="small"
+            label="Create Business"
+            className={styles['submit-button']}
+          />
+        </form>
+      </div>
+    </Modal>
   );
 };
 
-export { CreateProjectForm };
+export { CreateProjectModal };
