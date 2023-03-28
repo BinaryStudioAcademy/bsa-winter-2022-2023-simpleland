@@ -29,6 +29,21 @@ class ProjectsApi extends HttpApi {
 
     return await response.json<ProjectGetAllResponseDto>();
   }
+
+  public async searchProjects(
+    query: string,
+  ): Promise<ProjectGetAllResponseDto> {
+    const response = await this.load(
+      this.getFullEndpoint(ProjectsApiPath.SEARCH, `?query=${query}`, {}),
+      {
+        method: 'GET',
+        contentType: ContentType.JSON,
+        hasAuth: true,
+      },
+    );
+
+    return await response.json<ProjectGetAllResponseDto>();
+  }
 }
 
 export { ProjectsApi };

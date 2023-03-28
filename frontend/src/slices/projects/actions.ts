@@ -15,4 +15,14 @@ const getUserProjects = createAsyncThunk<
   return await projectsApi.getProjects();
 });
 
-export { getUserProjects };
+const searchUserProjects = createAsyncThunk<
+  ProjectGetAllResponseDto,
+  string,
+  AsyncThunkConfig
+>(`${sliceName}/search-projects`, async (query: string, { extra }) => {
+  const { projectsApi } = extra;
+
+  return await projectsApi.searchProjects(query);
+});
+
+export { getUserProjects, searchUserProjects };
