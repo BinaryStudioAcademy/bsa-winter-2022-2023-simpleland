@@ -33,6 +33,7 @@ export {
   type ProjectCreateResponseDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectSearchRequestDto,
   projectCreateValidationSchema,
   ProjectsApiPath,
 } from './packages/projects/projects.js';

@@ -14,4 +14,5 @@ export { projectsApi };
 export {
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectSearchRequestDto,
 } from './libs/types/types.js';
