@@ -62,6 +62,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 ),
               },
               {
+                path: AppRoute.LOGIN,
+                element: (
+                  <ProtectedRoute>
+                    <AccountSettings />
+                  </ProtectedRoute>
+                ),
+              },
+              {
                 path: AppRoute.MY_PROJECTS,
                 element: (
                   <ProtectedRoute>
