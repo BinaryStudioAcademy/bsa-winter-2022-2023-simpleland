@@ -1,7 +1,5 @@
-import React, { useCallback } from 'react';
-
 import { Input, Select } from '~/libs/components/components.js';
-import { useAppForm } from '~/libs/hooks/hooks.js';
+import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type StepIndustryDto,
   stepIndustryValidationSchema,

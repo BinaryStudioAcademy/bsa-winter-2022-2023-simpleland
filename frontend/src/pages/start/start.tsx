@@ -1,6 +1,5 @@
-import { useCallback } from 'react';
-
 import { PageLayout, Stepper } from '~/libs/components/components.js';
+import { useCallback } from '~/libs/hooks/hooks.js';
 
 import { StepIndustry } from './components/step-industry/step-industry.js';
 import styles from './styles.module.scss';
