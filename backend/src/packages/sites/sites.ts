@@ -10,7 +10,6 @@ const siteService = new SiteService(siteRepository);
 const siteController = new SiteController(logger, siteService);
 
 export { siteController, siteService };
-export { SiteModelRelation } from './libs/enums/enums.js';
 export {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,

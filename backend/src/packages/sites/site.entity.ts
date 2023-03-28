@@ -56,11 +56,9 @@ class SiteEntity implements IEntity {
 
   public toNewObject(): {
     name: string;
-    publishedUrl: string | null;
   } {
     return {
       name: this.name,
-      publishedUrl: this.publishedUrl,
     };
   }
 }
