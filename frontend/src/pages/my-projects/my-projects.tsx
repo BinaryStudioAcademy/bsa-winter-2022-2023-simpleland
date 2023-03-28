@@ -1,16 +1,15 @@
-import { type FieldValues, type SubmitHandler } from 'react-hook-form';
-
 import { Button, Input, PageLayout } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import {
+  useAppDebounce,
   useAppDispatch,
+  useAppForm,
   useAppSelector,
   useCallback,
   useEffect,
-  useForm,
-  useMemo,
-  useState,
+  useRef,
 } from '~/libs/hooks/hooks.js';
+import { type ProjectSearchRequestDto } from '~/packages/projects/projects.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
 import { ProjectCard } from './components/project-card/project-card.js';
@@ -27,37 +26,34 @@ const MyProjects: React.FC = () => {
     projects: state.projects.projects,
   }));
 
-  const [searchQuery, setSearchQuery] = useState<string>('');
-
-  const filteredProjects = useMemo(() => {
-    return projects.filter((project) =>
-      project.name.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
-  }, [projects, searchQuery]);
-
-  const handleChange: SubmitHandler<FieldValues> = useCallback(
-    (data: FieldValues) => {
-      setSearchQuery(data['search'] as string);
+  const { control, errors, handleSubmit } = useAppForm<ProjectSearchRequestDto>(
+    {
+      defaultValues: { search: '' },
+      mode: 'onChange',
     },
-    [setSearchQuery],
   );
 
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({
-    mode: 'onChange',
-  });
+  const previousQueryReference = useRef('');
+
+  const handleSearch = (data: ProjectSearchRequestDto): void => {
+    const query = data.search;
+
+    if (query !== previousQueryReference.current) {
+      void dispatch(projectActions.searchUserProjects(query));
+      previousQueryReference.current = query;
+    }
+  };
+
+  const debouncedHandleSubmit = useAppDebounce(handleSubmit(handleSearch), 500);
 
   const handleFormChange = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
-      void handleSubmit((data) => handleChange(data))(event_);
+      void debouncedHandleSubmit(event_);
     },
-    [handleSubmit, handleChange],
+    [debouncedHandleSubmit],
   );
 
-  const hasProjects = filteredProjects.length > 0;
+  const hasProjects = projects.length > 0;
 
   return (
     <PageLayout pageName="My Projects">
@@ -65,7 +61,7 @@ const MyProjects: React.FC = () => {
         <>
           <div className={styles['wrapper']}>
             <div className={styles['cards-wrapper']}>
-              {filteredProjects.map((card) => (
+              {projects.map((card) => (
                 <ProjectCard key={card.id} project={card} />
               ))}
             </div>
