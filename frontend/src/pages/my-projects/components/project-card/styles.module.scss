@@ -1,0 +1,15 @@
+.card {
+  width: 294px;
+  height: 296px;
+  background-color: var(--white);
+}
+
+.card-image {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+}
+
+.card-description {
+  padding: 10px;
+}

@@ -11,6 +11,7 @@ import {
   type ProjectCreateRequestDto,
   projectCreateValidationSchema,
 } from '~/packages/projects/projects.js';
+import { type UserAuthResponse } from '~/packages/users/users.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
 
@@ -32,6 +33,7 @@ import { ProjectsApiPath } from './libs/enums/enums.js';
  *            format: int64
  *            minimum: 1
  */
+
 class ProjectController extends Controller {
   private projectService: ProjectService;
 
@@ -43,7 +45,10 @@ class ProjectController extends Controller {
     this.addRoute({
       path: ProjectsApiPath.ROOT,
       method: 'GET',
-      handler: () => this.findAll(),
+      handler: (options) =>
+        this.findByUserId(
+          options as ApiHandlerOptions<{ user: UserAuthResponse }>,
+        ),
     });
 
     this.addRoute({
@@ -76,10 +81,14 @@ class ProjectController extends Controller {
    *                items:
    *                  $ref: '#/components/schemas/Project'
    */
-  private async findAll(): Promise<ApiHandlerResponse> {
+  private async findByUserId(
+    options: ApiHandlerOptions<{
+      user: UserAuthResponse;
+    }>,
+  ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.projectService.findAll(),
+      payload: await this.projectService.findByUserId(options.user.id),
     };
   }
 

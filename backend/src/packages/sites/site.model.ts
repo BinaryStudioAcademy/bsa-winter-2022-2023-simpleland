@@ -16,6 +16,8 @@ class SiteModel extends AbstractModel {
 
   public 'sections': SectionModel[];
 
+  public 'projectId': number;
+
   public static override get tableName(): string {
     return DatabaseTableName.SITES;
   }

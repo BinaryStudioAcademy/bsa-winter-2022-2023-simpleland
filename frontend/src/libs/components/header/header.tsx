@@ -1,5 +1,6 @@
 import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
-import { Button, Link, Popover } from '~/libs/components/components.js';
+import logo from '~/assets/img/logo.svg';
+import { Button, Image, Link, Popover } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
 import { useAppDispatch, useCallback } from '~/libs/hooks/hooks.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
@@ -9,9 +10,10 @@ import styles from './styles.module.scss';
 
 type Properties = {
   user: UserAuthResponse;
+  pageName?: string;
 };
 
-const Header: React.FC<Properties> = ({ user }: Properties) => {
+const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
   const { firstName, lastName, accountName } = user;
   const profileName = accountName?.length
     ? accountName
@@ -26,14 +28,14 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
   return (
     <header className={styles['header']}>
       <div className={styles['logo-wrapper']}>
-        <div className={styles['logo-icon']} />
-        <span className={styles['logo-text']}>logo</span>
+        <Image alt="logo" src={logo} />
+        <span className={styles['logo-text']}>SimpleLand</span>
       </div>
       <div className={styles['header-sidebar']}>
         <ul className={styles['header-nav-list']}>
           <li>
             <Link to={AppRoute.ROOT}>
-              <span className={styles['section-title']}>My sites</span>
+              <span className={styles['section-title']}>{pageName}</span>
             </Link>
           </li>
         </ul>

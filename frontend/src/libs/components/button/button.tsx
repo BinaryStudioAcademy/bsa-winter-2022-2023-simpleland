@@ -1,6 +1,7 @@
-import { Icon } from '~/libs/components/components.js';
+import { Icon, Link } from '~/libs/components/components.js';
+import { type AppRoute } from '~/libs/enums/enums.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { type IconType } from '~/libs/types/types.js';
+import { type IconType, type ValueOf } from '~/libs/types/types.js';
 
 import styles from './styles.module.scss';
 
@@ -14,6 +15,7 @@ type Properties = {
   className?: string | undefined;
   onClick?: (() => void) | undefined;
   isLabelVisuallyHidden?: boolean;
+  to?: ValueOf<typeof AppRoute>;
 };
 
 const Button: React.FC<Properties> = ({
@@ -26,25 +28,42 @@ const Button: React.FC<Properties> = ({
   className,
   icon,
   isLabelVisuallyHidden = false,
-}: Properties) => (
-  <button
-    onClick={onClick}
-    type={type}
-    disabled={isDisabled}
-    className={getValidClassNames(
-      styles['button'],
-      styles[style],
-      styles[size],
-      className,
-    )}
-  >
-    {icon && <Icon iconName={icon} />}
-    <span
-      className={getValidClassNames(isLabelVisuallyHidden && 'visually-hidden')}
+  to,
+}: Properties) => {
+  const content = (
+    <>
+      {icon && <Icon iconName={icon} />}
+      <span
+        className={getValidClassNames(
+          isLabelVisuallyHidden && 'visually-hidden',
+        )}
+      >
+        {label}
+      </span>
+    </>
+  );
+
+  const validClassNames = getValidClassNames(
+    styles['button'],
+    styles[style],
+    styles[size],
+    className,
+  );
+
+  return to ? (
+    <Link to={to} className={validClassNames}>
+      {content}
+    </Link>
+  ) : (
+    <button
+      onClick={onClick}
+      type={type}
+      disabled={isDisabled}
+      className={validClassNames}
     >
-      {label}
-    </span>
-  </button>
-);
+      {content}
+    </button>
+  );
+};
 
 export { type Properties, Button };

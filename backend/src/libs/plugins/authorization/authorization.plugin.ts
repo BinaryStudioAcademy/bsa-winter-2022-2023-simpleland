@@ -61,6 +61,13 @@ const authorization = fp(
 
       const { userId } = token.decode<UserTokenPayload>(requestToken);
 
+      if (!userId) {
+        throw new HttpError({
+          message: 'Invalid token',
+          status: HttpCode.UNAUTHORIZED,
+        });
+      }
+
       const user = await userService.find(userId);
 
       if (!user) {
