@@ -42,7 +42,7 @@ const Modal: React.FC<Properties> = ({
             onClick={onClose}
           />
         </div>
-        {children}
+        <div className={styles['modal-inner-content']}>{children}</div>
       </div>
     </dialog>,
     document.body,
