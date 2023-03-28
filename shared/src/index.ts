@@ -39,6 +39,9 @@ export {
 export {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SiteFooterContent,
+  type SiteHeaderContent,
+  type SiteMainContent,
   SectionType,
 } from './packages/sections/sections.js';
 export {

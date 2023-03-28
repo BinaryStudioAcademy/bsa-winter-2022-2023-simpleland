@@ -1,4 +1,5 @@
 import { type IService } from '~/libs/interfaces/interfaces.js';
+import { type ValueOf } from '~/libs/types/types.js';
 import {
   type SectionGetAllResponseDto,
   sectionService,
@@ -7,6 +8,8 @@ import {
 import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteRepository } from '~/packages/sites/site.repository.js';
 
+import { PROMPT_HEADING, PROMPT_REQUEST } from './libs/constants/constants.js';
+import { PromptExample, PromptRequest } from './libs/enums/enums.js';
 import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
@@ -45,15 +48,22 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
       .create(SiteEntity.initializeNew({ name: payload.name }))
       .then((site) => site.toObject());
 
-    const sectionPayload = {
-      siteId: site.id,
-      contentInfo: payload,
-    };
-
     await Promise.all([
-      sectionService.create({ ...sectionPayload, type: SectionType.HEADER }),
-      sectionService.create({ ...sectionPayload, type: SectionType.MAIN }),
-      sectionService.create({ ...sectionPayload, type: SectionType.FOOTER }),
+      sectionService.create({
+        siteId: site.id,
+        prompt: this.createPrompt(SectionType.HEADER, payload),
+        type: SectionType.HEADER,
+      }),
+      sectionService.create({
+        siteId: site.id,
+        prompt: this.createPrompt(SectionType.MAIN, payload),
+        type: SectionType.MAIN,
+      }),
+      sectionService.create({
+        siteId: site.id,
+        prompt: this.createPrompt(SectionType.FOOTER, payload),
+        type: SectionType.FOOTER,
+      }),
     ]);
 
     return site;
@@ -63,6 +73,36 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     siteId: number,
   ): Promise<SectionGetAllResponseDto> {
     return await sectionService.findBySiteId(siteId);
+  }
+
+  private createPrompt(
+    type: ValueOf<typeof SectionType>,
+    siteInfo: SiteCreateRequestDto,
+  ): string {
+    const EXAMPLE_COMPANY_NAME = 'id Studio';
+    const EXAMPLE_INDUSTRY = 'interior design';
+
+    const exampleRequest = PROMPT_REQUEST.replace(
+      '<name>',
+      EXAMPLE_COMPANY_NAME,
+    ).replace('<industry>', EXAMPLE_INDUSTRY);
+
+    const request = PROMPT_REQUEST.replace('<name>', siteInfo.name).replace(
+      '<industry>',
+      siteInfo.industry,
+    );
+
+    const prompt = [
+      PROMPT_HEADING,
+      'Example:',
+      exampleRequest,
+      PromptRequest[type],
+      PromptExample[type],
+      request,
+      PromptRequest[type],
+    ];
+
+    return prompt.join('\n');
   }
 }
 
