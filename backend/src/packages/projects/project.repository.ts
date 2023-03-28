@@ -44,6 +44,16 @@ class ProjectRepository
       userId: project.userId,
     });
   }
+
+  public async search(query: string, id: number): Promise<ProjectEntity[]> {
+    const projects = await this.projectModel
+      .query()
+      .whereRaw('LOWER(name) LIKE ?', [`%${query.toLowerCase()}%`])
+      .where('userId', id)
+      .execute();
+
+    return projects.map((project) => ProjectEntity.initialize(project));
+  }
 }
 
 export { ProjectRepository };
