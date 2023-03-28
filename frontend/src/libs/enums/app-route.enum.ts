@@ -6,6 +6,7 @@ const AppRoute = {
   PROJECTS_$PROJECT_ID_SITES: '/projects/:projectId/sites',
   START: '/start',
   PROFILE: '/profile',
+  LOGIN: '/login',
   ANY: '*',
 } as const;
 
