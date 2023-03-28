@@ -14,19 +14,17 @@ const userUpdate = joi.object<UserUpdateRequestDto, true>({
       'string.pattern.base': UserValidationMessage.FIRST_NAME_IS_INVALID,
       'string.empty': UserValidationMessage.FIRST_NAME_REQUIRE,
     }),
-  lastName: joi.string()
-  .pattern(UserValidationRule.LAST_NAME_REGEX)
-  .messages({
+  lastName: joi.string().pattern(UserValidationRule.LAST_NAME_REGEX).messages({
     'string.pattern.base': UserValidationMessage.LAST_NAME_IS_INVALID,
     'string.empty': UserValidationMessage.LAST_NAME_REQUIRE,
   }),
   accountName: joi
-  .string()
-  .allow('', null)
-  .pattern(UserValidationRule.ACCOUNT_NAME_REGEX)
-  .messages({
-    'string.pattern.base': UserValidationMessage.ACCOUNT_NAME_IS_INVALID,
-  }),
+    .string()
+    .allow('', null)
+    .pattern(UserValidationRule.ACCOUNT_NAME_REGEX)
+    .messages({
+      'string.pattern.base': UserValidationMessage.ACCOUNT_NAME_IS_INVALID,
+    }),
 });
 
 export { userUpdate };
