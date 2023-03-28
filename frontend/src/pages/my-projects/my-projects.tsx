@@ -15,11 +15,11 @@ import styles from './styles.module.scss';
 const MyProjects: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpenModal = useCallback(() => {
+  const handleModalOpen = useCallback(() => {
     setIsOpen(true);
   }, []);
 
-  const handleCloseModal = useCallback(() => {
+  const handleModalClose = useCallback(() => {
     setIsOpen(false);
   }, []);
 
@@ -40,10 +40,10 @@ const MyProjects: React.FC = () => {
       void dispatch(projectActions.createProject(payload))
         .unwrap()
         .then(() => {
-          handleCloseModal();
+          handleModalClose();
         });
     },
-    [dispatch, handleCloseModal],
+    [dispatch, handleModalClose],
   );
 
   return (
@@ -56,7 +56,7 @@ const MyProjects: React.FC = () => {
         <CreateProjectModal
           onSubmit={handleProjectSubmit}
           isOpen={isOpen}
-          closeModal={handleCloseModal}
+          onCloseModal={handleModalClose}
         />
       ) : (
         <div className={styles['page-wrapper']}>
@@ -66,7 +66,7 @@ const MyProjects: React.FC = () => {
               icon="plus"
               className={styles['create-button']}
               size="small"
-              onClick={handleOpenModal}
+              onClick={handleModalOpen}
             />
           </div>
           {hasProjects ? (
@@ -88,7 +88,7 @@ const MyProjects: React.FC = () => {
               <Button
                 className={styles['placeholder-button']}
                 label="Create new business"
-                onClick={handleOpenModal}
+                onClick={handleModalOpen}
               />
             </div>
           )}
