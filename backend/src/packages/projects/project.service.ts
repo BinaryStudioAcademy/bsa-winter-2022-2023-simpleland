@@ -3,14 +3,12 @@ import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectRepository } from '~/packages/projects/project.repository.js';
 
 import {
-  type ProjectCreateRequestDto,
+  type ProjectCreateDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllResponseDto,
 } from './libs/types/types.js';
 
-class ProjectService
-  implements Omit<IService, 'find' | 'create' | 'update' | 'delete'>
-{
+class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
   private projectRepository: ProjectRepository;
 
   public constructor(projectRepository: ProjectRepository) {
@@ -34,13 +32,12 @@ class ProjectService
   }
 
   public async create(
-    userId: number,
-    payload: ProjectCreateRequestDto,
+    payload: ProjectCreateDto,
   ): Promise<ProjectCreateResponseDto> {
     const project = await this.projectRepository.create(
       ProjectEntity.initializeNew({
         name: payload.name,
-        userId: userId,
+        userId: payload.userId,
       }),
     );
 

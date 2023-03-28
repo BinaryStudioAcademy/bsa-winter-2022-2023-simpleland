@@ -128,7 +128,10 @@ class ProjectController extends Controller {
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.CREATED,
-      payload: await this.projectService.create(options.user.id, options.body),
+      payload: await this.projectService.create({
+        name: options.body.name,
+        userId: options.user.id,
+      }),
     };
   }
 }
