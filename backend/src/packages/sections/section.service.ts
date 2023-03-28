@@ -5,7 +5,10 @@ import { type SectionGetAllResponseDto } from './libs/types/types.js';
 
 class SectionService
   implements
-    Omit<IService, 'find' | 'findAll' | 'create' | 'update' | 'delete'>
+    Omit<
+      IService,
+      'find' | 'findAll' | 'create' | 'update' | 'delete' | 'search'
+    >
 {
   private sectionRepository: SectionRepository;
 
