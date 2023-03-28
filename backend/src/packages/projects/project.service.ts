@@ -33,7 +33,7 @@ class ProjectService
     };
   }
 
-  public async createByUserId(
+  public async create(
     userId: number,
     payload: ProjectCreateRequestDto,
   ): Promise<ProjectCreateResponseDto> {
