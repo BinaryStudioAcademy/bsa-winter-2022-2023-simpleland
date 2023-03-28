@@ -60,6 +60,7 @@ class ProjectController extends Controller {
       handler: (options) =>
         this.create(
           options as ApiHandlerOptions<{
+            user: UserAuthResponse;
             body: ProjectCreateRequestDto;
           }>,
         ),
@@ -107,10 +108,6 @@ class ProjectController extends Controller {
    *              properties:
    *                name:
    *                  type: string
-   *                userId:
-   *                  type: number
-   *                  format: int64
-   *                  minimum: 1
    *      responses:
    *        201:
    *          description: Successful operation
@@ -125,12 +122,16 @@ class ProjectController extends Controller {
    */
   private async create(
     options: ApiHandlerOptions<{
+      user: UserAuthResponse;
       body: ProjectCreateRequestDto;
     }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.CREATED,
-      payload: await this.projectService.create(options.body),
+      payload: await this.projectService.createByUserId(
+        options.user.id,
+        options.body,
+      ),
     };
   }
 }

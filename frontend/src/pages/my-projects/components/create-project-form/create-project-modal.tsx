@@ -1,11 +1,10 @@
 import { Button, Input, Modal } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useAppForm, useAppSelector, useCallback } from '~/libs/hooks/hooks.js';
+import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type ProjectCreateRequestDto,
   projectCreateValidationSchema,
 } from '~/packages/projects/projects.js';
-import { type UserAuthResponse } from '~/packages/users/users.js';
 
 import styles from './styles.module.scss';
 
@@ -22,15 +21,10 @@ const CreateProjectModal: React.FC<Properties> = ({
   onSubmit,
   className = '',
 }: Properties) => {
-  const user = useAppSelector(({ auth }) => {
-    return auth.user as UserAuthResponse;
-  });
-
   const { control, errors, handleSubmit } = useAppForm<ProjectCreateRequestDto>(
     {
       defaultValues: {
         name: '',
-        userId: user.id,
       },
       validationSchema: projectCreateValidationSchema,
     },

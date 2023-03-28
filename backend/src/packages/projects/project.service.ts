@@ -8,7 +8,9 @@ import {
   type ProjectGetAllResponseDto,
 } from './libs/types/types.js';
 
-class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
+class ProjectService
+  implements Omit<IService, 'find' | 'create' | 'update' | 'delete'>
+{
   private projectRepository: ProjectRepository;
 
   public constructor(projectRepository: ProjectRepository) {
@@ -31,13 +33,14 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
     };
   }
 
-  public async create(
+  public async createByUserId(
+    userId: number,
     payload: ProjectCreateRequestDto,
   ): Promise<ProjectCreateResponseDto> {
     const project = await this.projectRepository.create(
       ProjectEntity.initializeNew({
         name: payload.name,
-        userId: payload.userId,
+        userId: userId,
       }),
     );
 
