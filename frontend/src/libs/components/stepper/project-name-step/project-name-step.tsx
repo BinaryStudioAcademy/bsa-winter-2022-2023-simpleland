@@ -1,33 +1,38 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
 
-import { Input } from '~/libs/components/components.js';
-import { type ProjectNameDto } from '~/packages/new-project-create/new-project-create.js';
+import { Input } from '~/libs/components/input/input.js';
+import { useCallback } from '~/libs/hooks/hooks.js';
 import { ProjectNameValidationSchema } from '~/packages/new-project-create/new-project-create.js';
 
+import { DEFAULT_PROJECT_NAME } from './libs/constants.js';
 import styles from './styles.module.scss';
 
-const DEFAULT_PROJECT_NAME: ProjectNameDto = {
-  projectName: '',
-};
-
 type Properties = {
-  className?: string | undefined;
+  onSubmit: (data: FormValues) => void;
 };
 
 type FormValues = {
   projectName: string;
 };
 
-const ProjectName: React.FC<Properties> = () => {
+const ProjectName: React.FC<Properties> = ({ onSubmit }: Properties) => {
   const {
     control,
     formState: { errors },
+    handleSubmit,
   } = useForm<FormValues>({
     defaultValues: DEFAULT_PROJECT_NAME,
     mode: 'onChange',
     resolver: joiResolver(ProjectNameValidationSchema),
   });
+
+  const handleFormSubmit = useCallback(
+    (event_: React.BaseSyntheticEvent): void => {
+      void handleSubmit(onSubmit)(event_);
+    },
+    [handleSubmit, onSubmit],
+  );
 
   return (
     <div className={styles['project-name']}>
@@ -37,7 +42,7 @@ const ProjectName: React.FC<Properties> = () => {
       <div className={styles['project-name-subtitle']}>
         Don&apos;t have one? Just enter your name.
       </div>
-      <form className={styles['form-wrapper']}>
+      <form className={styles['form-wrapper']} onSubmit={handleFormSubmit}>
         <Input
           type="text"
           label=""
