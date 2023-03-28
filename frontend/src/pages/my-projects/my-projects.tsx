@@ -49,7 +49,7 @@ const MyProjects: React.FC = () => {
   return (
     <PageLayout
       pageName="My Projects"
-      style="white"
+      style={hasProjects ? 'yellow' : 'black'}
       className={styles['page-layout']}
     >
       {isOpen ? (
