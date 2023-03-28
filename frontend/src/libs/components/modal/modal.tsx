@@ -38,7 +38,6 @@ const Modal: React.FC<Properties> = ({
           <IconButton
             icon="cross"
             label="Close modal"
-            className={styles['modal-pop-up-close'] as string}
             onClick={onClose}
           />
         </div>

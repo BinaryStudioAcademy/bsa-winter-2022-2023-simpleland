@@ -51,9 +51,8 @@ const CreateProjectModal: React.FC<Properties> = ({
           <Input
             control={control}
             errors={errors}
-            label="Create a new business"
+            label="Enter your project name"
             name="name"
-            isLabelVisuallyHidden={true}
           />
 
           <Button
