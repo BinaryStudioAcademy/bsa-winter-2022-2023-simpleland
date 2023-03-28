@@ -37,7 +37,7 @@ const AccountSettings: React.FC = () => {
         return <Profile user={user} onUpdateUser={handleUpdateUser} />;
       }
       case AppRoute.LOGIN: {
-        return <Login />;
+        return <Login user={user} />;
       }
     }
   };
