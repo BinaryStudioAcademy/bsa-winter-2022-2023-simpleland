@@ -52,6 +52,18 @@ class ProjectController extends Controller {
     });
 
     this.addRoute({
+      path: ProjectsApiPath.SEARCH,
+      method: 'GET',
+      handler: (options) =>
+        this.search(
+          options as ApiHandlerOptions<{
+            query: { query: string };
+            user: UserAuthResponse;
+          }>,
+        ),
+    });
+
+    this.addRoute({
       path: ProjectsApiPath.ROOT,
       method: 'POST',
       validation: {
@@ -131,6 +143,43 @@ class ProjectController extends Controller {
     return {
       status: HttpCode.CREATED,
       payload: await this.projectService.create(options.body),
+    };
+  }
+
+  /**
+   * @swagger
+   * /projects/search:
+   *    get:
+   *      description: Searches for projects by name
+   *      parameters:
+   *        - name: query
+   *          description: The search query
+   *          in: query
+   *          required: true
+   *          schema:
+   *            type: string
+   *      responses:
+   *        200:
+   *          description: Successful operation
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: array
+   *                items:
+   *                  $ref: '#/components/schemas/Project'
+   */
+
+  private async search(
+    options: ApiHandlerOptions<{
+      query: { query: string };
+      user: UserAuthResponse;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    const { query } = options.query;
+
+    return {
+      status: HttpCode.OK,
+      payload: await this.projectService.search(query, options.user.id),
     };
   }
 }
