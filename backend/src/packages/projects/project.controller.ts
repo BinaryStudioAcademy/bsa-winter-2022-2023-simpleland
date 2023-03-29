@@ -47,15 +47,6 @@ class ProjectController extends Controller {
       method: 'GET',
       handler: (options) =>
         this.findByUserId(
-          options as ApiHandlerOptions<{ user: UserAuthResponse }>,
-        ),
-    });
-
-    this.addRoute({
-      path: ProjectsApiPath.SEARCH,
-      method: 'GET',
-      handler: (options) =>
-        this.search(
           options as ApiHandlerOptions<{
             query: { query: string };
             user: UserAuthResponse;
@@ -83,6 +74,13 @@ class ProjectController extends Controller {
    * /projects:
    *    get:
    *      description: Returns an array of projects
+   *      parameters:
+   *        - name: query
+   *          description: The search query
+   *          in: query
+   *          required: true
+   *          schema:
+   *            type: string
    *      responses:
    *        200:
    *          description: Successful operation
@@ -95,12 +93,15 @@ class ProjectController extends Controller {
    */
   private async findByUserId(
     options: ApiHandlerOptions<{
+      query: { query: string };
       user: UserAuthResponse;
     }>,
   ): Promise<ApiHandlerResponse> {
+    const { query } = options.query;
+
     return {
       status: HttpCode.OK,
-      payload: await this.projectService.findByUserId(options.user.id),
+      payload: await this.projectService.findByUserId(query, options.user.id),
     };
   }
 
@@ -143,43 +144,6 @@ class ProjectController extends Controller {
     return {
       status: HttpCode.CREATED,
       payload: await this.projectService.create(options.body),
-    };
-  }
-
-  /**
-   * @swagger
-   * /projects/search:
-   *    get:
-   *      description: Searches for projects by name
-   *      parameters:
-   *        - name: query
-   *          description: The search query
-   *          in: query
-   *          required: true
-   *          schema:
-   *            type: string
-   *      responses:
-   *        200:
-   *          description: Successful operation
-   *          content:
-   *            application/json:
-   *              schema:
-   *                type: array
-   *                items:
-   *                  $ref: '#/components/schemas/Project'
-   */
-
-  private async search(
-    options: ApiHandlerOptions<{
-      query: { query: string };
-      user: UserAuthResponse;
-    }>,
-  ): Promise<ApiHandlerResponse> {
-    const { query } = options.query;
-
-    return {
-      status: HttpCode.OK,
-      payload: await this.projectService.search(query, options.user.id),
     };
   }
 }
