@@ -15,4 +15,6 @@ export {
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
+  type SiteNameDto,
 } from './libs/types/types.js';
+export { siteNameValidationSchema } from './libs/validation-schemas/validation-schemas.js';

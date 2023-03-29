@@ -14,6 +14,7 @@ import { type ValidationSchema } from '~/libs/types/types.js';
 type Parameters<T extends FieldValues = FieldValues> = {
   defaultValues: DeepPartial<T>;
   validationSchema: ValidationSchema;
+  mode?: 'onChange' | 'onSubmit';
 };
 
 type ReturnValue<T extends FieldValues = FieldValues> = {
@@ -26,6 +27,7 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
 const useAppForm = <T extends FieldValues = FieldValues>({
   validationSchema,
   defaultValues,
+  mode = 'onSubmit',
 }: Parameters<T>): ReturnValue<T> => {
   const {
     control,
@@ -35,6 +37,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
   } = useForm<T>({
     defaultValues,
     resolver: joiResolver(validationSchema),
+    mode,
   });
 
   return {

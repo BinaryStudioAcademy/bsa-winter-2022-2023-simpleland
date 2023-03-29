@@ -1,7 +1,7 @@
-import { type ProjectNameDto } from '~/packages/new-project-create/new-project-create.js';
+import { type SiteNameDto } from '~/packages/sites/sites.js';
 
-const DEFAULT_PROJECT_NAME: ProjectNameDto = {
-  projectName: '',
+const DEFAULT_PROJECT_NAME: SiteNameDto = {
+  siteName: '',
 };
 
 export { DEFAULT_PROJECT_NAME };

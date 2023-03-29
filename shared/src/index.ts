@@ -29,11 +29,6 @@ export {
 } from './libs/types/types.js';
 export { AuthApiPath } from './packages/auth/auth.js';
 export {
-  type ProjectNameDto,
-  ProjectNameValidationMessage,
-  ProjectNameValidationSchema,
-} from './packages/new-project-create/new-project-create.js';
-export {
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllItemResponseDto,
@@ -52,8 +47,10 @@ export {
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
+  type SiteNameDto,
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
+  siteNameValidationSchema,
   SitesApiPath,
 } from './packages/sites/sites.js';
 export {

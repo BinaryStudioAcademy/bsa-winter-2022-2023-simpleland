@@ -1,30 +1,20 @@
-import { joiResolver } from '@hookform/resolvers/joi';
-import { useForm } from 'react-hook-form';
-
 import { Input } from '~/libs/components/input/input.js';
-import { useCallback } from '~/libs/hooks/hooks.js';
-import { ProjectNameValidationSchema } from '~/packages/new-project-create/new-project-create.js';
+import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
+import { siteNameValidationSchema } from '~/packages/sites/sites.js';
+import { type SiteNameDto } from '~/packages/sites/sites.js';
 
 import { DEFAULT_PROJECT_NAME } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-  onSubmit: (data: FormValues) => void;
-};
-
-type FormValues = {
-  projectName: string;
+  onSubmit: (payload: SiteNameDto) => void;
 };
 
 const ProjectName: React.FC<Properties> = ({ onSubmit }: Properties) => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<FormValues>({
+  const { control, errors, handleSubmit } = useAppForm<SiteNameDto>({
     defaultValues: DEFAULT_PROJECT_NAME,
     mode: 'onChange',
-    resolver: joiResolver(ProjectNameValidationSchema),
+    validationSchema: siteNameValidationSchema,
   });
 
   const handleFormSubmit = useCallback(
@@ -47,7 +37,7 @@ const ProjectName: React.FC<Properties> = ({ onSubmit }: Properties) => {
           type="text"
           label=""
           placeholder="Enter your project name"
-          name="projectName"
+          name="siteName"
           control={control}
           errors={errors}
         />
