@@ -12,6 +12,8 @@ const projectsApi = new ProjectsApi({
 
 export { projectsApi };
 export {
+  type ProjectCreateRequestDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
 } from './libs/types/types.js';
+export { projectCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
