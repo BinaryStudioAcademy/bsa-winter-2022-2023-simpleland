@@ -17,24 +17,11 @@ class ProjectsApi extends HttpApi {
     super({ path: ApiPath.PROJECTS, baseUrl, http, storage });
   }
 
-  public async getProjects(): Promise<ProjectGetAllResponseDto> {
+  public async getProjects(query?: string): Promise<ProjectGetAllResponseDto> {
     const response = await this.load(
-      this.getFullEndpoint(ProjectsApiPath.ROOT, {}),
-      {
-        method: 'GET',
-        contentType: ContentType.JSON,
-        hasAuth: true,
-      },
-    );
-
-    return await response.json<ProjectGetAllResponseDto>();
-  }
-
-  public async searchProjects(
-    query: string,
-  ): Promise<ProjectGetAllResponseDto> {
-    const response = await this.load(
-      this.getFullEndpoint(ProjectsApiPath.SEARCH, `?query=${query}`, {}),
+      query
+        ? this.getFullEndpoint(ProjectsApiPath.ROOT, `?query=${query}`, {})
+        : this.getFullEndpoint(ProjectsApiPath.ROOT, {}),
       {
         method: 'GET',
         contentType: ContentType.JSON,
