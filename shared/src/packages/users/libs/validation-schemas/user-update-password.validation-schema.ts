@@ -23,6 +23,16 @@ const userUpdatePassword = joi.object<UserUpdatePasswordRequestDto, true>({
       'string.pattern.base': UserValidationMessage.PASSWORD_IS_INVALID,
       'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
     }),
+  repeatNewPassword: joi
+    .string()
+    .pattern(UserValidationRule.PASSWORD_REGEX)
+    .required()
+    .valid(joi.ref('newPassword'))
+    .messages({
+      'string.pattern.base': UserValidationMessage.PASSWORD_IS_INVALID,
+      'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
+      'any.only': UserValidationMessage.NEW_PASSWORD_IS_INVALID,
+    }),
 });
 
 export { userUpdatePassword };
