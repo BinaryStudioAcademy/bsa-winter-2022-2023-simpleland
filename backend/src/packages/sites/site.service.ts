@@ -8,8 +8,8 @@ import {
 import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteRepository } from '~/packages/sites/site.repository.js';
 
-import { PROMPT_HEADING, PROMPT_REQUEST } from './libs/constants/constants.js';
-import { PromptExample, PromptRequest } from './libs/enums/enums.js';
+import { PROMPT_HEADING } from './libs/constants/constants.js';
+import { SectionTypeToPrompt } from './libs/enums/enums.js';
 import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
@@ -44,9 +44,10 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   public async create(
     payload: SiteCreateRequestDto,
   ): Promise<SiteCreateResponseDto> {
-    const site = await this.siteRepository
-      .create(SiteEntity.initializeNew({ name: payload.name }))
-      .then((site) => site.toObject());
+    const entity = await this.siteRepository.create(
+      SiteEntity.initializeNew({ name: payload.name }),
+    );
+    const site = entity.toObject();
 
     await Promise.all([
       sectionService.create({
@@ -82,28 +83,34 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     const EXAMPLE_COMPANY_NAME = 'id Studio';
     const EXAMPLE_INDUSTRY = 'interior design';
 
-    const exampleRequest = PROMPT_REQUEST.replace(
-      '<name>',
-      EXAMPLE_COMPANY_NAME,
-    ).replace('<industry>', EXAMPLE_INDUSTRY);
+    const exampleSiteDescription = this.createSiteDescription({
+      name: EXAMPLE_COMPANY_NAME,
+      industry: EXAMPLE_INDUSTRY,
+    });
 
-    const request = PROMPT_REQUEST.replace('<name>', siteInfo.name).replace(
-      '<industry>',
-      siteInfo.industry,
-    );
+    const siteDescription = this.createSiteDescription(siteInfo);
+
+    const { example, request } = SectionTypeToPrompt[type];
 
     const prompt = [
       PROMPT_HEADING,
       'Example:',
-      exampleRequest,
-      PromptRequest[type],
-      PromptExample[type],
+      exampleSiteDescription,
       request,
-      PromptRequest[type],
+      example,
+      siteDescription,
+      request,
     ];
 
     return prompt.join('\n');
   }
+
+  private createSiteDescription = ({
+    name,
+    industry,
+  }: SiteCreateRequestDto): string => {
+    return `Generate content for website with name ${name}. It is site for ${industry} company.`;
+  };
 }
 
 export { SiteService };
