@@ -5,10 +5,7 @@ import { SectionEntity } from './section.entity.js';
 
 class SectionRepository
   implements
-    Omit<
-      IRepository,
-      'find' | 'findAll' | 'create' | 'update' | 'delete' | 'search'
-    >
+    Omit<IRepository, 'find' | 'findAll' | 'create' | 'update' | 'delete'>
 {
   private siteModel: typeof SiteModel;
 

@@ -12,7 +12,7 @@ import {
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
 
-class UserService implements Omit<IService, 'find' | 'delete' | 'search'> {
+class UserService implements Omit<IService, 'find' | 'delete'> {
   private userRepository: UserRepository;
 
   private encrypt: IEncrypt;
