@@ -1,5 +1,5 @@
 type UserUpdateCredentialsRequestDto = {
-  login?: string;
+  email?: string;
 };
 
-export { type UserUpdateCredentialsRequestDto } ;
+export { type UserUpdateCredentialsRequestDto };
