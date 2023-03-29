@@ -35,12 +35,7 @@ const Modal: React.FC<Properties> = ({
     <dialog ref={reference} className={styles['modal']}>
       <div className={styles['modal-inner']}>
         <div className={styles['modal-inner-header']}>
-          <IconButton
-            icon="cross"
-            label="Close modal"
-            className={styles['modal-pop-up-close'] as string}
-            onClick={onClose}
-          />
+          <IconButton icon="cross" label="Close modal" onClick={onClose} />
         </div>
         <div className={styles['modal-inner-content']}>{children}</div>
       </div>
