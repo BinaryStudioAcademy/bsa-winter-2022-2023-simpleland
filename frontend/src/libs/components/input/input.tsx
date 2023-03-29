@@ -19,6 +19,7 @@ type Properties<T extends FieldValues> = {
   type?: 'text' | 'email' | 'password';
   isDisabled?: boolean;
   inputMode?: 'email' | 'text';
+  isLabelVisuallyHidden?: boolean;
 };
 
 const Input = <T extends FieldValues>({
@@ -30,6 +31,7 @@ const Input = <T extends FieldValues>({
   type = 'text',
   isDisabled = false,
   inputMode = 'text',
+  isLabelVisuallyHidden = false,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -38,7 +40,14 @@ const Input = <T extends FieldValues>({
 
   return (
     <label className={styles['label']}>
-      <span className={styles['input-label']}>{label}</span>
+      <span
+        className={getValidClassNames(
+          styles['input-label'],
+          isLabelVisuallyHidden && 'visually-hidden',
+        )}
+      >
+        {label}
+      </span>
       <input
         {...field}
         className={getValidClassNames(

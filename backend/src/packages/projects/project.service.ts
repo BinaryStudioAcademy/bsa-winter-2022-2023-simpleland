@@ -3,7 +3,7 @@ import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectRepository } from '~/packages/projects/project.repository.js';
 
 import {
-  type ProjectCreateRequestDto,
+  type ProjectCreateDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllResponseDto,
 } from './libs/types/types.js';
@@ -32,7 +32,7 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
   }
 
   public async create(
-    payload: ProjectCreateRequestDto,
+    payload: ProjectCreateDto,
   ): Promise<ProjectCreateResponseDto> {
     const project = await this.projectRepository.create(
       ProjectEntity.initializeNew({

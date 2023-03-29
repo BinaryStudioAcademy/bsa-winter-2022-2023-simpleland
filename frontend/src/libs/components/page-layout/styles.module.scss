@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background: center / cover no-repeat
       url("../../../assets/img/background-image.svg"),
     left / auto repeat url("../../../assets/img/background-pattern.png");
