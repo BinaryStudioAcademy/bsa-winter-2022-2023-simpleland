@@ -4,7 +4,7 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import ReactSelect from 'react-select';
+import ReactSelect, { components } from 'react-select';
 
 import { useFormController } from '~/libs/hooks/hooks.js';
 import { type SelectOption } from '~/libs/types/types.js';
@@ -18,6 +18,8 @@ type Properties<T extends FieldValues> = {
   options: SelectOption<string | number>[];
   placeholder?: string;
   errors: FieldErrors<T>;
+  isMulti?: boolean;
+  customComponents?: object;
 };
 
 const Select = <T extends FieldValues>({
@@ -26,6 +28,7 @@ const Select = <T extends FieldValues>({
   options,
   placeholder = '',
   errors,
+  customComponents,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -33,6 +36,10 @@ const Select = <T extends FieldValues>({
 
   const error = errors[name]?.message;
   const hasError = Boolean(error);
+
+  const componentsToUse = customComponents
+    ? { ...components, ...customComponents }
+    : components;
 
   return (
     <div>
@@ -45,6 +52,7 @@ const Select = <T extends FieldValues>({
         placeholder={placeholder}
         name={name}
         styles={styles}
+        components={componentsToUse}
       />
       <span className={style['error-message']}>
         {hasError && (error as string)}

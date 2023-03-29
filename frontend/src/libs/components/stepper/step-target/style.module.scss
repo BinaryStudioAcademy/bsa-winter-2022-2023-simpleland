@@ -2,7 +2,6 @@
   margin: 23px 0 8px;
   font-weight: 600;
   font-size: 24px;
-  font-family: Roboto, sans-serif;
   line-height: 32px;
   letter-spacing: 0;
   text-align: left;
@@ -12,8 +11,25 @@
   margin: 0 0 44px;
   font-weight: 400;
   font-size: 14px;
-  font-family: Roboto, sans-serif;
   line-height: 16px;
   letter-spacing: 0;
   text-align: left;
+}
+
+input[type="checkbox"]::before {
+  margin:-4px 9px 0 0;
+}
+
+input[type="checkbox"]:checked::before {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  color: #FFB61D;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #343434;
+  content: "\2714";
+  border-color: #343434;
+  border-radius: 2px;
 }

@@ -1,20 +1,26 @@
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import { type OptionProps, components } from 'react-select';
 
+import { Select } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 
-import { SelectTarget } from '../../select-target/select.js';
 import style from './style.module.scss';
 
+type OptionType = {
+  value: string;
+  label: string;
+};
+
 type Properties = {
-  children?: React.ReactNode[];
-  className?: string | undefined;
+  className?: string;
 };
 
 type FormValues = {
   ageGroup: string;
 };
 
-const TargetAudience: React.FC<Properties> = ({ className }: Properties) => {
+const TargetAudience: React.FC<Properties> = ({ className }: Properties): JSX.Element => {
   const {
     control,
     formState: { errors },
@@ -26,7 +32,7 @@ const TargetAudience: React.FC<Properties> = ({ className }: Properties) => {
         What is your Target audience?
       </h1>
       <p className={getValidClassNames(style['chose-age'])}>Choose the age</p>
-      <SelectTarget
+      <Select
         control={control}
         name="ageGroup"
         options={[
@@ -38,9 +44,31 @@ const TargetAudience: React.FC<Properties> = ({ className }: Properties) => {
         ]}
         placeholder="Please select your industry"
         errors={errors}
+        isMulti={true}
+        customComponents={{
+          Option: (properties: OptionProps<OptionType, true>): JSX.Element => (
+            <components.Option {...properties}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <input
+                  type="checkbox"
+                  checked={!!properties.isSelected}
+                  style={{
+                    marginRight: '9px',
+                  }}
+                />
+                <div>{properties.label}</div>
+              </div>
+            </components.Option>
+          ),
+        }}
       />
     </div>
   );
 };
 
+TargetAudience.propTypes = {
+  className: PropTypes.string,
+};
+
 export { TargetAudience };
+
