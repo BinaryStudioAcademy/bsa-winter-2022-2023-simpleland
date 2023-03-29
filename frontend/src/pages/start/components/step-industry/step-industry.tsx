@@ -46,7 +46,8 @@ const StepIndustry: React.FC<Properties> = ({ onSubmit }: Properties) => {
         />
         <Input
           type="text"
-          label=""
+          label="Your industry"
+          isLabelVisuallyHidden={true}
           placeholder="Please enter your industry"
           name="industryInput"
           control={control}
