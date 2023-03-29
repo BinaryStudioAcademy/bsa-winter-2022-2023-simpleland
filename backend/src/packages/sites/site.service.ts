@@ -1,3 +1,4 @@
+import { initAsyncItemsQueue } from '~/libs/helpers/init-async-items-queue.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
@@ -49,23 +50,28 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     );
     const site = entity.toObject();
 
-    await Promise.all([
-      sectionService.create({
-        siteId: site.id,
-        prompt: this.createPrompt(SectionType.HEADER, payload),
-        type: SectionType.HEADER,
-      }),
-      sectionService.create({
-        siteId: site.id,
-        prompt: this.createPrompt(SectionType.MAIN, payload),
-        type: SectionType.MAIN,
-      }),
-      sectionService.create({
-        siteId: site.id,
-        prompt: this.createPrompt(SectionType.FOOTER, payload),
-        type: SectionType.FOOTER,
-      }),
-    ]);
+    await initAsyncItemsQueue(
+      [
+        {
+          siteId: site.id,
+          prompt: this.createPrompt(SectionType.HEADER, payload),
+          type: SectionType.HEADER,
+        },
+        {
+          siteId: site.id,
+          prompt: this.createPrompt(SectionType.MAIN, payload),
+          type: SectionType.MAIN,
+        },
+        {
+          siteId: site.id,
+          prompt: this.createPrompt(SectionType.FOOTER, payload),
+          type: SectionType.FOOTER,
+        },
+      ],
+      async (section) => {
+        await sectionService.create(section);
+      },
+    );
 
     return site;
   }
