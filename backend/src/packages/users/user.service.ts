@@ -9,6 +9,7 @@ import {
   type UserGetAllResponseDto,
   type UserPrivateData,
   type UserSignUpRequestDto,
+  type UserUpdateCredentialsRequestDto,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
 
@@ -96,6 +97,19 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         passwordSalt: null,
       }),
     );
+
+    return user.toObject();
+  }
+
+  public async patch(
+    id: number,
+    payload: UserUpdateCredentialsRequestDto,
+  ): Promise<UserAuthResponse | null> {
+    const user = await this.userRepository.patch(id, payload);
+
+    if (!user) {
+      return null;
+    }
 
     return user.toObject();
   }

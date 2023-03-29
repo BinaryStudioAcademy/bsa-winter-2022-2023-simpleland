@@ -123,6 +123,18 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       accountName: user.userDetails.accountName,
     });
   }
+
+  public async patch(
+    id: number,
+    payload: Record<string, string>,
+  ): Promise<UserEntity | null> {
+    await this.userModel
+      .query()
+      .findById(id)
+      .patch({ ...payload });
+
+    return await this.find(id);
+  }
 }
 
 export { UserRepository };

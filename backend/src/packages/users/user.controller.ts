@@ -11,9 +11,11 @@ import { type UserService } from '~/packages/users/user.service.js';
 import { UsersApiPath } from './libs/enums/enums.js';
 import {
   type UserAuthResponse,
-  type UserUpdateRequestDto,
-} from './libs/types/types.js';
-import { userUpdateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+  type UserUpdateCredentialsRequestDto,  type UserUpdateRequestDto } from './libs/types/types.js';
+import {
+  userUpdateCredentialsValidationSchema,
+  userUpdateValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -57,6 +59,19 @@ class UserController extends Controller {
         this.update(
           options as ApiHandlerOptions<{
             body: UserUpdateRequestDto;
+            user: UserAuthResponse;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: UsersApiPath.ROOT,
+      method: 'PATCH',
+      validation: { body: userUpdateCredentialsValidationSchema },
+      handler: (options) =>
+        this.patch(
+          options as ApiHandlerOptions<{
+            body: UserUpdateCredentialsRequestDto;
             user: UserAuthResponse;
           }>,
         ),
@@ -118,6 +133,18 @@ class UserController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.userService.update(options.user.id, options.body),
+    };
+  }
+
+  private async patch(
+    options: ApiHandlerOptions<{
+      body: UserUpdateCredentialsRequestDto;
+      user: UserAuthResponse;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.userService.patch(options.user.id, options.body),
     };
   }
 }
