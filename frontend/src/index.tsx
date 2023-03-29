@@ -65,7 +65,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 path: AppRoute.MY_PROJECTS,
                 element: (
                   <ProtectedRoute>
-                    <MyProjects />,
+                    <MyProjects />
                   </ProtectedRoute>
                 ),
               },

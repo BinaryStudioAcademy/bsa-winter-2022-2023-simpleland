@@ -8,10 +8,6 @@ const projectCreate = joi.object<ProjectCreateRequestDto, true>({
     'string.name': ProjectValidationMessage.NAME_WRONG,
     'string.empty': ProjectValidationMessage.NAME_REQUIRE,
   }),
-  userId: joi.number().positive().integer().min(1).required().messages({
-    'number.userId': ProjectValidationMessage.USER_ID_WRONG,
-    'number.empty': ProjectValidationMessage.USER_ID_REQUIRE,
-  }),
 });
 
 export { projectCreate };
