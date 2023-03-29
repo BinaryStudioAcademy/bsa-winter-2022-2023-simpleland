@@ -1,3 +1,5 @@
+import { type StepIndustryDto } from 'shared/build/index.js';
+
 import { PageLayout, Stepper } from '~/libs/components/components.js';
 import { useCallback } from '~/libs/hooks/hooks.js';
 
@@ -5,10 +7,13 @@ import { StepIndustry } from './components/step-industry/step-industry.js';
 import styles from './styles.module.scss';
 
 const Start: React.FC = () => {
-  const idleFunction = useCallback((): void => {
-    ('');
+  const handlesStepSubmit = useCallback((payload: StepIndustryDto): void => {
+    payload;
   }, []);
-  const steps = [<StepIndustry key="secondStep" onSubmit={idleFunction} />];
+  const steps = [
+    <StepIndustry key="secondStep" onSubmit={handlesStepSubmit} />,
+    <StepIndustry key="secondStep" onSubmit={handlesStepSubmit} />,
+  ];
 
   return (
     <PageLayout style="black" className={styles['layout']}>

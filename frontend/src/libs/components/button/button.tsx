@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 
 type Properties = {
   label: string;
+  form?: string;
   icon?: IconType;
   size?: 'big' | 'small';
   style?: 'primary' | 'secondary' | 'plain';
@@ -19,6 +20,7 @@ type Properties = {
 };
 
 const Button: React.FC<Properties> = ({
+  form,
   onClick,
   label,
   size = 'big',
@@ -57,6 +59,7 @@ const Button: React.FC<Properties> = ({
   ) : (
     <button
       onClick={onClick}
+      form={form}
       type={type}
       disabled={isDisabled}
       className={validClassNames}

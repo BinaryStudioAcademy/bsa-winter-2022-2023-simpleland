@@ -36,7 +36,7 @@ const StepIndustry: React.FC<Properties> = ({ onSubmit }: Properties) => {
       <p className={styles['title-description']}>
         Choose the one from the list or enter the custom one
       </p>
-      <form onSubmit={handleFormSubmit}>
+      <form id="test-step" onSubmit={handleFormSubmit}>
         <Select
           control={control}
           errors={errors}

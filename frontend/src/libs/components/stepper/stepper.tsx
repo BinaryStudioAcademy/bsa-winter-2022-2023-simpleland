@@ -72,6 +72,7 @@ const Stepper: React.FC<Properties> = ({
       </div>
 
       <Button
+        form="test-step"
         type="submit"
         label={buttonLabel}
         style="secondary"
