@@ -1,4 +1,5 @@
 export {
+  type ProjectCreateDto,
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllResponseDto,
