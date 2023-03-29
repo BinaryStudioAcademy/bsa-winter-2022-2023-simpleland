@@ -7,22 +7,12 @@ import { name as sliceName } from './projects.slice.js';
 
 const getUserProjects = createAsyncThunk<
   ProjectGetAllResponseDto,
-  undefined,
+  string | undefined,
   AsyncThunkConfig
->(`${sliceName}/get-projects`, async (_, { extra }) => {
+>(`${sliceName}/get-projects`, async (query, { extra }) => {
   const { projectsApi } = extra;
 
-  return await projectsApi.getProjects();
+  return await projectsApi.getProjects(query);
 });
 
-const searchUserProjects = createAsyncThunk<
-  ProjectGetAllResponseDto,
-  string,
-  AsyncThunkConfig
->(`${sliceName}/search-projects`, async (query: string, { extra }) => {
-  const { projectsApi } = extra;
-
-  return await projectsApi.searchProjects(query);
-});
-
-export { getUserProjects, searchUserProjects };
+export { getUserProjects };
