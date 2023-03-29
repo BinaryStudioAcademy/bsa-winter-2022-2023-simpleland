@@ -61,11 +61,13 @@ export {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
   type UserTokenPayload,
+  type UserUpdateCredentialsRequestDto,
   type UserUpdateLoginRequestDto,
   type UserUpdateRequestDto,
   UsersApiPath,
   userSignInValidationSchema,
   userSignUpValidationSchema,
+  userUpdateCredentialsValidationSchema,
   userUpdateLoginValidationSchema,
   userUpdateValidationSchema,
 } from './packages/users/users.js';
