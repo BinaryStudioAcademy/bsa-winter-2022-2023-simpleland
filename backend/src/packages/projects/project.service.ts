@@ -46,17 +46,6 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
     return project.toObject();
   }
-
-  // public async search(
-  //   query: string,
-  //   id: number,
-  // ): Promise<ProjectGetAllResponseDto> {
-  //   const items = await this.projectRepository.search(query, id);
-
-  //   return {
-  //     items: items.map((project) => project.toObject()),
-  //   };
-  // }
 }
 
 export { ProjectService };
