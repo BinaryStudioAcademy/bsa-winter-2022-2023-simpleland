@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 const Start: React.FC = () => {
   const handlesStepSubmit = useCallback((payload: StepIndustryDto): void => {
     payload;
+    //idle function, just to push
   }, []);
   const steps = [
     <StepIndustry key="secondStep" onSubmit={handlesStepSubmit} />,
