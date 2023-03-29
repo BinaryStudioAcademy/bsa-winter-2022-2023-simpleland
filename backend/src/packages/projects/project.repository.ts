@@ -17,11 +17,19 @@ class ProjectRepository
     return projects.map((project) => ProjectEntity.initialize(project));
   }
 
-  public async findByUserId(id: number): Promise<ProjectEntity[]> {
-    const projects = await this.projectModel
-      .query()
-      .where('userId', id)
-      .execute();
+  public async findByUserId(
+    query: string,
+    id: number,
+  ): Promise<ProjectEntity[]> {
+    let projectQuery = this.projectModel.query().where('userId', id);
+
+    if (query) {
+      projectQuery = projectQuery.whereRaw('LOWER(name) LIKE ?', [
+        `%${query.toLowerCase()}%`,
+      ]);
+    }
+
+    const projects = await projectQuery.execute();
 
     return projects.map((project) => ProjectEntity.initialize(project));
   }
@@ -43,16 +51,6 @@ class ProjectRepository
       name: project.name,
       userId: project.userId,
     });
-  }
-
-  public async search(query: string, id: number): Promise<ProjectEntity[]> {
-    const projects = await this.projectModel
-      .query()
-      .whereRaw('LOWER(name) LIKE ?', [`%${query.toLowerCase()}%`])
-      .where('userId', id)
-      .execute();
-
-    return projects.map((project) => ProjectEntity.initialize(project));
   }
 }
 

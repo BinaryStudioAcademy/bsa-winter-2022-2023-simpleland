@@ -23,8 +23,11 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
     };
   }
 
-  public async findByUserId(id: number): Promise<ProjectGetAllResponseDto> {
-    const items = await this.projectRepository.findByUserId(id);
+  public async findByUserId(
+    query: string,
+    id: number,
+  ): Promise<ProjectGetAllResponseDto> {
+    const items = await this.projectRepository.findByUserId(query, id);
 
     return {
       items: items.map((project) => project.toObject()),
@@ -44,16 +47,16 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
     return project.toObject();
   }
 
-  public async search(
-    query: string,
-    id: number,
-  ): Promise<ProjectGetAllResponseDto> {
-    const items = await this.projectRepository.search(query, id);
+  // public async search(
+  //   query: string,
+  //   id: number,
+  // ): Promise<ProjectGetAllResponseDto> {
+  //   const items = await this.projectRepository.search(query, id);
 
-    return {
-      items: items.map((project) => project.toObject()),
-    };
-  }
+  //   return {
+  //     items: items.map((project) => project.toObject()),
+  //   };
+  // }
 }
 
 export { ProjectService };
