@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { type SectionGetAllItemResponseDto } from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/libs/types/async-thunk-config.type.js';
+import { type SectionGetAllItemResponseDto } from '~/packages/sections/sections.js';
 
 import { name as sliceName } from './sections.slice.js';
 

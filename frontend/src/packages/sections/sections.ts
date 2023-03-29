@@ -10,7 +10,7 @@ const sectionsApi = new SectionsApi({
   storage,
 });
 
-export { type SectionType } from './libs/enums/enums.js';
+export { SectionType } from './libs/enums/enums.js';
 export {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
