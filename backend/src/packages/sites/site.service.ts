@@ -1,4 +1,4 @@
-import { initAsyncItemsQueue } from '~/libs/helpers/init-async-items-queue.js';
+import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
@@ -10,7 +10,7 @@ import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteRepository } from '~/packages/sites/site.repository.js';
 
 import { PROMPT_HEADING } from './libs/constants/constants.js';
-import { SectionTypeToPrompt } from './libs/enums/enums.js';
+import { SectionTypeToPrompt } from './libs/maps/maps.js';
 import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
@@ -96,16 +96,16 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
     const siteDescription = this.createSiteDescription(siteInfo);
 
-    const { example, request } = SectionTypeToPrompt[type];
+    const { EXAMPLE, REQUEST } = SectionTypeToPrompt[type];
 
     const prompt = [
       PROMPT_HEADING,
       'Example:',
       exampleSiteDescription,
-      request,
-      example,
+      REQUEST,
+      EXAMPLE,
       siteDescription,
-      request,
+      REQUEST,
     ];
 
     return prompt.join('\n');
