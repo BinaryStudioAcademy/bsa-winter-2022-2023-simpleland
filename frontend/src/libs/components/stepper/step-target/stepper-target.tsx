@@ -20,7 +20,9 @@ type FormValues = {
   ageGroup: string;
 };
 
-const TargetAudience: React.FC<Properties> = ({ className }: Properties): JSX.Element => {
+const TargetAudience: React.FC<Properties> = ({
+  className,
+}: Properties): JSX.Element => {
   const {
     control,
     formState: { errors },
@@ -71,4 +73,3 @@ TargetAudience.propTypes = {
 };
 
 export { TargetAudience };
-

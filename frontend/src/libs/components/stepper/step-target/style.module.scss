@@ -16,20 +16,20 @@
   text-align: left;
 }
 
-input[type="checkbox"]::before {
-  margin:-4px 9px 0 0;
+input[type='checkbox']::before {
+  margin: -4px 9px 0 0;
 }
 
-input[type="checkbox"]:checked::before {
+input[type='checkbox']:checked::before {
   display: inline-block;
   width: 13px;
   height: 13px;
-  color: #FFB61D;
+  color: #ffb61d;
   font-size: 12px;
   text-align: center;
   vertical-align: middle;
   background-color: #343434;
-  content: "\2714";
+  content: '\2714';
   border-color: #343434;
   border-radius: 2px;
 }
