@@ -1,0 +1,50 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.main-content {
+  display: flex;
+}
+
+.main-content-left {
+  flex-grow: 1;
+}
+
+.main-content-right {
+  width: 530px;
+  margin-right: 15px;
+  padding: 185px 0;
+}
+
+.main-title {
+  margin-bottom: 29px;
+  color: #3d3737;
+  font-size: 62px;
+  line-height: 59px;
+}
+
+.main-description {
+  margin-bottom: 55px;
+  color: #161616;
+  font-size: 15px;
+  line-height: 25px;
+}
+
+.main-button {
+  width: 155px;
+  height: 45px;
+  color: #161616;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 22px;
+  background: transparent;
+  border: 2px solid #d3a265;
+  border-radius: 7.5px;
+  cursor: pointer;
+}
+
+.main-picture {
+  width: 100%;
+  background-color: orange;
+}
