@@ -12,6 +12,7 @@ import {
 import { actions as sectionsActions } from '~/slices/sections/sections.js';
 
 import { Footer, Header, Main } from './components/components.js';
+import styles from './styles.module.scss';
 
 const Site: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -38,7 +39,7 @@ const Site: React.FC = () => {
     });
   };
 
-  return <>{renderSections()}</>;
+  return <div className={styles['site']}>{renderSections()}</div>;
 };
 
 export { Site };
