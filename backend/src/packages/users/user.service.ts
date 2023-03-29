@@ -1,3 +1,4 @@
+import { ApplicationError } from '~/libs/exceptions/exceptions.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type IConfig } from '~/libs/packages/config/config.js';
 import { type IEncrypt } from '~/libs/packages/encrypt/encrypt.js';
@@ -9,6 +10,7 @@ import {
   type UserGetAllResponseDto,
   type UserPrivateData,
   type UserSignUpRequestDto,
+  type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
 
@@ -94,6 +96,44 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         email: null,
         passwordHash: null,
         passwordSalt: null,
+      }),
+    );
+
+    return user.toObject();
+  }
+
+  public async updatePassword(
+    id: number,
+    payload: UserUpdatePasswordRequestDto,
+  ): Promise<UserAuthResponse> {
+    const userPrivateData = (await this.findPrivateData(id)) as UserPrivateData;
+    const hasSamePassword = await this.encrypt.compare({
+      data: payload.password,
+      salt: userPrivateData.passwordSalt,
+      passwordHash: userPrivateData.passwordHash,
+    });
+
+    if (!hasSamePassword) {
+      throw new ApplicationError({
+        message: 'Password is not correct!',
+      });
+    }
+    const passwordSalt = await this.encrypt.generateSalt(
+      this.config.ENCRYPTION.USER_PASSWORD_SALT_ROUNDS,
+    );
+    const passwordHash = await this.encrypt.encrypt(
+      payload.newPassword,
+      passwordSalt,
+    );
+    const user = await this.userRepository.updatePassword(
+      UserEntity.initialize({
+        id,
+        firstName: null,
+        lastName: null,
+        accountName: null,
+        email: null,
+        passwordHash: passwordHash,
+        passwordSalt: passwordSalt,
       }),
     );
 
