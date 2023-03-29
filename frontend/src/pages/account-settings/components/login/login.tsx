@@ -6,8 +6,15 @@ import {
 
 import { Button, IconButton, Input } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
+import {
+  useAppDispatch,
+  useAppForm,
+  useCallback,
+  useState,
+} from '~/libs/hooks/hooks.js';
+import { type UserUpdatePasswordRequestDto } from '~/packages/users/users.js';
 import { CreatePasswordForm } from '~/pages/account-settings/components/login/components/create-password-form/create-password-form.js';
+import { actions as userActions } from '~/slices/users/users.js';
 
 import styles from './styles.module.scss';
 
@@ -34,15 +41,24 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
     setIsOpenPasswordModal(false);
   }, []);
 
-  const handleProjectSubmit = useCallback((): void => {
-    handlePasswordModalClose();
-  }, [handlePasswordModalClose]);
+  const dispatch = useAppDispatch();
+
+  const handlePasswordSubmit = useCallback(
+    (payload: UserUpdatePasswordRequestDto): void => {
+      void dispatch(userActions.updatePassword(payload))
+        .unwrap()
+        .then(() => {
+          handlePasswordModalClose();
+        });
+    },
+    [dispatch, handlePasswordModalClose],
+  );
 
   return (
     <>
       {isOpenPasswordModal ? (
         <CreatePasswordForm
-          onSubmit={handleProjectSubmit}
+          onSubmit={handlePasswordSubmit}
           isOpen={isOpenPasswordModal}
           onCloseModal={handlePasswordModalClose}
         />

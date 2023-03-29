@@ -7,6 +7,7 @@ import { UsersApiPath } from './libs/enums/enums.js';
 import {
   type UserAuthResponse,
   type UserGetAllResponseDto,
+  type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
 
@@ -39,6 +40,22 @@ class UserApi extends HttpApi {
   ): Promise<UserAuthResponse> {
     const response = await this.load(
       this.getFullEndpoint(UsersApiPath.ROOT, {}),
+      {
+        method: 'PUT',
+        contentType: ContentType.JSON,
+        hasAuth: true,
+        payload: JSON.stringify(payload),
+      },
+    );
+
+    return await response.json<UserAuthResponse>();
+  }
+
+  public async updatePassword(
+    payload: UserUpdatePasswordRequestDto,
+  ): Promise<UserAuthResponse> {
+    const response = await this.load(
+      this.getFullEndpoint(UsersApiPath.UPDATE_PASSWORD, {}),
       {
         method: 'PUT',
         contentType: ContentType.JSON,
