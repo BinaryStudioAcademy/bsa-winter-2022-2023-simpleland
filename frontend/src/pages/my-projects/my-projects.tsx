@@ -1,16 +1,28 @@
 import { Button, PageLayout } from '~/libs/components/components.js';
-import { AppRoute } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
+  useCallback,
   useEffect,
+  useState,
 } from '~/libs/hooks/hooks.js';
+import { type ProjectCreateRequestDto } from '~/packages/projects/projects.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
-import { ProjectCard } from './components/project-card/project-card.js';
+import { CreateProjectModal, ProjectCard } from './components/components.js';
 import styles from './styles.module.scss';
 
 const MyProjects: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleModalOpen = useCallback(() => {
+    setIsOpen(true);
+  }, []);
+
+  const handleModalClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   const dispatch = useAppDispatch();
 
   useEffect((): void => {
@@ -23,27 +35,63 @@ const MyProjects: React.FC = () => {
 
   const hasProjects = projects.length > 0;
 
+  const handleProjectSubmit = useCallback(
+    (payload: ProjectCreateRequestDto): void => {
+      void dispatch(projectActions.createProject(payload))
+        .unwrap()
+        .then(() => {
+          handleModalClose();
+        });
+    },
+    [dispatch, handleModalClose],
+  );
+
   return (
-    <PageLayout pageName="My Projects" style={hasProjects ? 'yellow' : 'black'}>
-      {hasProjects ? (
-        <div className={styles['cards-wrapper']}>
-          {projects.map((card) => (
-            <ProjectCard key={card.id} project={card} />
-          ))}
-        </div>
+    <PageLayout
+      pageName="My Projects"
+      style={hasProjects ? 'white' : 'black'}
+      className={styles['page-layout']}
+    >
+      {isOpen ? (
+        <CreateProjectModal
+          onSubmit={handleProjectSubmit}
+          isOpen={isOpen}
+          onCloseModal={handleModalClose}
+        />
       ) : (
-        <div className={styles['placeholder']}>
-          <div className={styles['placeholder-caption']}>
-            <span className={styles['placeholder-sub-caption']}>Hello!</span>
-            <span className={styles['placeholder-main-caption']}>
-              There are no businesses
-            </span>
+        <div className={styles['page-wrapper']}>
+          <div className={styles['search-wrapper']}>
+            <Button
+              label="Add Business"
+              icon="plus"
+              className={styles['create-button']}
+              size="small"
+              onClick={handleModalOpen}
+            />
           </div>
-          <Button
-            className={styles['placeholder-button']}
-            label="Create new business"
-            to={AppRoute.ROOT}
-          />
+          {hasProjects ? (
+            <div className={styles['cards-wrapper']}>
+              {projects.map((card) => (
+                <ProjectCard key={card.id} project={card} />
+              ))}
+            </div>
+          ) : (
+            <div className={styles['placeholder']}>
+              <div className={styles['placeholder-caption']}>
+                <span className={styles['placeholder-sub-caption']}>
+                  Hello!
+                </span>
+                <span className={styles['placeholder-main-caption']}>
+                  There are no businesses
+                </span>
+              </div>
+              <Button
+                className={styles['placeholder-button']}
+                label="Create new business"
+                onClick={handleModalOpen}
+              />
+            </div>
+          )}
         </div>
       )}
     </PageLayout>
