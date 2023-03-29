@@ -39,7 +39,7 @@ const MyProjects: React.FC = () => {
     const query = data.search;
 
     if (query !== previousQueryReference.current) {
-      void dispatch(projectActions.searchUserProjects(query));
+      void dispatch(projectActions.getUserProjects(query));
       previousQueryReference.current = query;
     }
   };
