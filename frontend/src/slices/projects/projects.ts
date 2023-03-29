@@ -1,8 +1,9 @@
-import { getUserProjects } from './actions.js';
+import { createProject, getUserProjects } from './actions.js';
 import { actions } from './projects.slice.js';
 
 const allActions = {
   ...actions,
+  createProject,
   getUserProjects,
 };
 
