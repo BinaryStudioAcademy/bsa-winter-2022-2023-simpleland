@@ -1,6 +1,8 @@
+import { HttpError } from '~/libs/exceptions/exceptions.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type IConfig } from '~/libs/packages/config/config.js';
 import { type IEncrypt } from '~/libs/packages/encrypt/encrypt.js';
+import { HttpCode } from '~/libs/packages/http/http.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserRepository } from '~/packages/users/user.repository.js';
 
@@ -9,6 +11,7 @@ import {
   type UserGetAllResponseDto,
   type UserPrivateData,
   type UserSignUpRequestDto,
+  type UserUpdateLoginRequestDto,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
 
@@ -98,6 +101,22 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
     );
 
     return user.toObject();
+  }
+
+  public async updateLogin(
+    id: number,
+    { login: newEmail }: UserUpdateLoginRequestDto,
+  ): Promise<UserEntity | null> {
+    const user = await this.userRepository.findByEmail(newEmail);
+
+    if (user) {
+      throw new HttpError({
+        message: 'Email is already used',
+        status: HttpCode.UNAUTHORIZED,
+      });
+    }
+
+    return await this.userRepository.updateLogin(id, newEmail);
   }
 
   public async findPrivateData(id: number): Promise<UserPrivateData | null> {
