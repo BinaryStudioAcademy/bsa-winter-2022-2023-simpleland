@@ -11,11 +11,15 @@ import {
   useCallback,
   UsePasswordForm,
 } from '~/libs/hooks/hooks.js';
+import { NotificationType } from '~/libs/packages/notification/notification.js';
 import { type UserUpdatePasswordRequestDto } from '~/packages/users/users.js';
-import { CreatePasswordForm } from '~/pages/account-settings/components/login/components/create-password-form/create-password-form.js';
+import { CreatePasswordForm } from '~/pages/account-settings/components/login/components/components.js';
+import { actions as appActions } from '~/slices/app/app.js';
 import { actions as userActions } from '~/slices/users/users.js';
 
 import styles from './styles.module.scss';
+
+const MESSAGE = 'Your password has been successfully changed';
 
 type Properties = {
   user: UserAuthResponse;
@@ -43,6 +47,7 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
         .unwrap()
         .then(() => {
           handlePasswordModalClose();
+          void dispatch(appActions.notify({ type: NotificationType.SUCCESS, message: MESSAGE }));
         });
     },
     [dispatch, handlePasswordModalClose],
