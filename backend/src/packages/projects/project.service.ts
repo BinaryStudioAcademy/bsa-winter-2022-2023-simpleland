@@ -25,10 +25,10 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
   }
 
   public async findByUserId(
-    parameters: ProjectSearchParameters,
     id: number,
+    parameters: ProjectSearchParameters,
   ): Promise<ProjectGetAllResponseDto> {
-    const items = await this.projectRepository.findByUserId(parameters, id);
+    const items = await this.projectRepository.findByUserId(id, parameters);
 
     return {
       items: items.map((project) => project.toObject()),

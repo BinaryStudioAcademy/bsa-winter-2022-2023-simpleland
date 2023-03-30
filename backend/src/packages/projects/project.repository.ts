@@ -20,15 +20,15 @@ class ProjectRepository
   }
 
   public async findByUserId(
-    { query }: ProjectSearchParameters,
     id: number,
+    { query }: ProjectSearchParameters,
   ): Promise<ProjectEntity[]> {
     const projects = await this.projectModel
       .query()
       .where('userId', id)
       .andWhere((builder) => {
         if (query) {
-          void builder.whereRaw('name ilike ?', [`%${query}%`]);
+          void builder.where('name', 'ilike', `%${query}%`);
         }
       });
 

@@ -103,8 +103,8 @@ class ProjectController extends Controller {
     }>,
   ): Promise<ApiHandlerResponse> {
     const projects = await this.projectService.findByUserId(
-      options.query,
       options.user.id,
+      options.query,
     );
 
     return {
