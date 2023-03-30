@@ -2,6 +2,8 @@ import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectModel } from '~/packages/projects/project.model.js';
 
+import { type ProjectSearchParameters } from './libs/types/types.js';
+
 class ProjectRepository
   implements Omit<IRepository, 'find' | 'update' | 'delete'>
 {
@@ -18,18 +20,17 @@ class ProjectRepository
   }
 
   public async findByUserId(
-    query: string,
+    { query }: ProjectSearchParameters,
     id: number,
   ): Promise<ProjectEntity[]> {
-    let projectQuery = this.projectModel.query().where('userId', id);
-
-    if (query) {
-      projectQuery = projectQuery.whereRaw('LOWER(name) LIKE ?', [
-        `%${query.toLowerCase()}%`,
-      ]);
-    }
-
-    const projects = await projectQuery.execute();
+    const projects = await this.projectModel
+      .query()
+      .where('userId', id)
+      .andWhere((builder) => {
+        if (query) {
+          void builder.whereRaw('name ilike ?', [`%${query}%`]);
+        }
+      });
 
     return projects.map((project) => ProjectEntity.initialize(project));
   }

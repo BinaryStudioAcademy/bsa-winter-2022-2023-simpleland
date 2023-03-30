@@ -9,7 +9,9 @@ import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type ProjectService } from '~/packages/projects/project.service.js';
 import {
   type ProjectCreateRequestDto,
+  type ProjectSearchParameters,
   projectCreateValidationSchema,
+  projectSearchValidationSchema,
 } from '~/packages/projects/projects.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 
@@ -45,10 +47,13 @@ class ProjectController extends Controller {
     this.addRoute({
       path: ProjectsApiPath.ROOT,
       method: 'GET',
+      validation: {
+        query: projectSearchValidationSchema,
+      },
       handler: (options) =>
         this.findByUserId(
           options as ApiHandlerOptions<{
-            query: { query: string };
+            query: ProjectSearchParameters;
             user: UserAuthResponse;
           }>,
         ),
@@ -93,15 +98,18 @@ class ProjectController extends Controller {
    */
   private async findByUserId(
     options: ApiHandlerOptions<{
-      query: { query: string };
+      query: ProjectSearchParameters;
       user: UserAuthResponse;
     }>,
   ): Promise<ApiHandlerResponse> {
-    const { query } = options.query;
+    const projects = await this.projectService.findByUserId(
+      options.query,
+      options.user.id,
+    );
 
     return {
       status: HttpCode.OK,
-      payload: await this.projectService.findByUserId(query, options.user.id),
+      payload: projects,
     };
   }
 
