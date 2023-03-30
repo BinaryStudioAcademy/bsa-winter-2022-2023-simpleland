@@ -1,1 +1,1 @@
-export { initAsyncItemsQueue } from './init-async-items-queue.js';
+export { initAsyncItemsQueue } from 'shared/build/index.js';
