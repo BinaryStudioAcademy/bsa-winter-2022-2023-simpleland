@@ -11,9 +11,13 @@ import { type UserService } from '~/packages/users/user.service.js';
 import { UsersApiPath } from './libs/enums/enums.js';
 import {
   type UserAuthResponse,
+  type UserUpdateLoginRequestDto,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
-import { userUpdateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+import {
+  userUpdateLoginValidationSchema,
+  userUpdateValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -57,6 +61,19 @@ class UserController extends Controller {
         this.update(
           options as ApiHandlerOptions<{
             body: UserUpdateRequestDto;
+            user: UserAuthResponse;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: UsersApiPath.UPDATE_LOGIN,
+      method: 'POST',
+      validation: { body: userUpdateLoginValidationSchema },
+      handler: (options) =>
+        this.updateLogin(
+          options as ApiHandlerOptions<{
+            body: UserUpdateLoginRequestDto;
             user: UserAuthResponse;
           }>,
         ),
@@ -118,6 +135,21 @@ class UserController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.userService.update(options.user.id, options.body),
+    };
+  }
+
+  private async updateLogin(
+    options: ApiHandlerOptions<{
+      body: UserUpdateLoginRequestDto;
+      user: UserAuthResponse;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.userService.updateLogin(
+        options.user.id,
+        options.body,
+      ),
     };
   }
 }
