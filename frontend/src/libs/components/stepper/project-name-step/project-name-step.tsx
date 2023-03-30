@@ -1,7 +1,9 @@
 import { Input } from '~/libs/components/input/input.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
-import { siteNameValidationSchema } from '~/packages/sites/sites.js';
-import { type SiteNameDto } from '~/packages/sites/sites.js';
+import {
+  type SiteNameDto,
+  siteNameValidationSchema,
+} from '~/packages/sites/sites.js';
 
 import { DEFAULT_PROJECT_NAME } from './libs/constants.js';
 import styles from './styles.module.scss';
