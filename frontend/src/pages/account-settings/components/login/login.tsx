@@ -4,13 +4,12 @@ import {
   userUpdateLoginValidationSchema,
 } from 'shared/build/index.js';
 
-import { Button, IconButton, Input } from '~/libs/components/components.js';
-import { getValidClassNames } from '~/libs/helpers/helpers.js';
+import { IconButton, Input } from '~/libs/components/components.js';
 import {
   useAppDispatch,
   useAppForm,
   useCallback,
-  useState,
+  UsePasswordForm,
 } from '~/libs/hooks/hooks.js';
 import { type UserUpdatePasswordRequestDto } from '~/packages/users/users.js';
 import { CreatePasswordForm } from '~/pages/account-settings/components/login/components/create-password-form/create-password-form.js';
@@ -23,25 +22,20 @@ type Properties = {
 };
 
 const Login: React.FC<Properties> = ({ user }: Properties) => {
-  const [isOpenPasswordModal, setIsOpenPasswordModal] = useState(false);
-  const { control, errors, handleReset } =
-    useAppForm<UserUpdateLoginRequestDto>({
-      defaultValues: {
-        login: user.email,
-        password: user.accountName ?? '',
-      },
-      validationSchema: userUpdateLoginValidationSchema,
-    });
-
-  const handlePasswordModalOpen = useCallback(() => {
-    setIsOpenPasswordModal(true);
-  }, []);
-
-  const handlePasswordModalClose = useCallback(() => {
-    setIsOpenPasswordModal(false);
-  }, []);
-
   const dispatch = useAppDispatch();
+  const {
+    isOpenPasswordModal,
+    handlePasswordModalOpen,
+    handlePasswordModalClose,
+  } = UsePasswordForm();
+
+  const { control, errors } = useAppForm<UserUpdateLoginRequestDto>({
+    defaultValues: {
+      login: user.email,
+      password: '',
+    },
+    validationSchema: userUpdateLoginValidationSchema,
+  });
 
   const handlePasswordSubmit = useCallback(
     (payload: UserUpdatePasswordRequestDto): void => {
@@ -91,27 +85,6 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
                 onClick={handlePasswordModalOpen}
               />
             </div>
-          </div>
-
-          <div className={styles['buttons']}>
-            <Button
-              type="button"
-              style="secondary"
-              size="small"
-              label="Cancel"
-              className={styles['button']}
-              onClick={handleReset}
-            />
-            <Button
-              type="submit"
-              style="primary"
-              size="small"
-              label="Save Changes"
-              className={getValidClassNames(
-                styles['button'],
-                styles['submit-button'],
-              )}
-            />
           </div>
         </form>
       )}
