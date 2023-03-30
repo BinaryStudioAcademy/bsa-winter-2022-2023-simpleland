@@ -11,11 +11,13 @@ import { notification } from '~/libs/packages/notification/notification.js';
 import { storage } from '~/libs/packages/storage/storage.js';
 import { authApi } from '~/packages/auth/auth.js';
 import { projectsApi } from '~/packages/projects/projects.js';
+import { sectionsApi } from '~/packages/sections/sections.js';
 import { sitesApi } from '~/packages/sites/sites.js';
 import { userApi } from '~/packages/users/users.js';
 import { reducer as appReducer } from '~/slices/app/app.js';
 import { reducer as authReducer } from '~/slices/auth/auth.js';
 import { reducer as projectsReducer } from '~/slices/projects/projects.js';
+import { reducer as sectionsReducer } from '~/slices/sections/sections.js';
 import { reducer as sitesReducer } from '~/slices/sites/sites.js';
 import { reducer as usersReducer } from '~/slices/users/users.js';
 
@@ -26,6 +28,7 @@ type RootReducer = {
   users: ReturnType<typeof usersReducer>;
   projects: ReturnType<typeof projectsReducer>;
   sites: ReturnType<typeof sitesReducer>;
+  sections: ReturnType<typeof sectionsReducer>;
   app: ReturnType<typeof appReducer>;
 };
 
@@ -36,6 +39,7 @@ type ExtraArguments = {
   sitesApi: typeof sitesApi;
   storage: typeof storage;
   notification: typeof notification;
+  sectionsApi: typeof sectionsApi;
 };
 
 class Store {
@@ -55,6 +59,7 @@ class Store {
         users: usersReducer,
         projects: projectsReducer,
         sites: sitesReducer,
+        sections: sectionsReducer,
         app: appReducer,
       },
       middleware: (getDefaultMiddleware) => {
@@ -78,6 +83,7 @@ class Store {
       projectsApi,
       sitesApi,
       storage,
+      sectionsApi,
     };
   }
 }
