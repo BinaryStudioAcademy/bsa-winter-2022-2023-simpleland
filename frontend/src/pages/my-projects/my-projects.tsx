@@ -41,7 +41,7 @@ const MyProjects: React.FC = () => {
 
   const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
     void handleSubmit(handleSearch)(event_);
-  }, 500);
+  });
 
   const hasProjects = projects.length > 0;
 

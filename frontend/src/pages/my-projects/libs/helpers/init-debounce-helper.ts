@@ -1,9 +1,9 @@
-type Function_<T extends unknown[], R> = (...arguments_: T) => R;
+type FunctionToDebounce<T extends unknown[], R> = (...arguments_: T) => R;
 
 function initDebounce<T extends unknown[], R>(
-  function_: Function_<T, R>,
-  delay: number,
-): Function_<T, void> {
+  functionToDebounce: FunctionToDebounce<T, R>,
+  delay = 500,
+): FunctionToDebounce<T, void> {
   let timer: ReturnType<typeof setTimeout> | undefined;
 
   return (...arguments_: T) => {
@@ -12,7 +12,7 @@ function initDebounce<T extends unknown[], R>(
     }
 
     timer = setTimeout(() => {
-      function_(...arguments_);
+      functionToDebounce(...arguments_);
       timer = undefined;
     }, delay);
   };
