@@ -47,7 +47,12 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
         .unwrap()
         .then(() => {
           handlePasswordModalClose();
-          void dispatch(appActions.notify({ type: NotificationType.SUCCESS, message: MESSAGE }));
+          void dispatch(
+            appActions.notify({
+              type: NotificationType.SUCCESS,
+              message: MESSAGE,
+            }),
+          );
         });
     },
     [dispatch, handlePasswordModalClose],
