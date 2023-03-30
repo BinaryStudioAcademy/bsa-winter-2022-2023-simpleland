@@ -55,7 +55,7 @@ export {
 export {
   type StepIndustryDto,
   stepIndustryValidationSchema,
-} from './packages/stepper/stepper.js';
+} from './packages/sites/sites.js';
 export {
   type UserAuthResponse,
   type UserGetAllItemResponseDto,
