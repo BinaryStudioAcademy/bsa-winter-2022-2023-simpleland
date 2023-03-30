@@ -4,7 +4,10 @@ import { type IHttp } from '~/libs/packages/http/http.js';
 import { type IStorage } from '~/libs/packages/storage/storage.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
-import { type ProjectGetAllResponseDto } from './libs/types/types.js';
+import {
+  type ProjectGetAllResponseDto,
+  type ProjectSearchParameters,
+} from './libs/types/types.js';
 
 type Constructor = {
   baseUrl: string;
@@ -17,10 +20,22 @@ class ProjectsApi extends HttpApi {
     super({ path: ApiPath.PROJECTS, baseUrl, http, storage });
   }
 
-  public async getProjects(query?: string): Promise<ProjectGetAllResponseDto> {
+  public async getProjects(
+    parameters?: ProjectSearchParameters,
+  ): Promise<ProjectGetAllResponseDto> {
+    const searchParameters = new URLSearchParams();
+
+    if (parameters?.query) {
+      searchParameters.append('query', parameters.query);
+    }
+
     const response = await this.load(
-      query
-        ? this.getFullEndpoint(ProjectsApiPath.ROOT, `?query=${query}`, {})
+      parameters
+        ? this.getFullEndpoint(
+            ProjectsApiPath.ROOT,
+            `?${searchParameters.toString()}`,
+            {},
+          )
         : this.getFullEndpoint(ProjectsApiPath.ROOT, {}),
       {
         method: 'GET',
