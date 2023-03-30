@@ -123,6 +123,15 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       accountName: user.userDetails.accountName,
     });
   }
+
+  public async updateLogin(
+    id: number,
+    email: string,
+  ): Promise<UserEntity | null> {
+    await this.userModel.query().findById(id).patch({ email });
+
+    return await this.find(id);
+  }
 }
 
 export { UserRepository };
