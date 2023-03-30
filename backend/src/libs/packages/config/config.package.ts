@@ -98,7 +98,7 @@ class Config implements IConfig {
         API_KEY: {
           doc: 'OpenAI secret API key',
           format: String,
-          env: 'API_KEY',
+          env: 'AI_ENGINE_SECRET_KEY',
           default: null,
         },
       },
