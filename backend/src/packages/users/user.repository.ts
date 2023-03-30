@@ -124,13 +124,23 @@ class UserRepository implements Omit<IRepository, 'delete'> {
     });
   }
 
-  public async updateLogin(
-    id: number,
-    email: string,
-  ): Promise<UserEntity | null> {
-    await this.userModel.query().findById(id).patch({ email });
+  public async updateLogin(entity: UserEntity): Promise<UserEntity> {
+    const { id, email } = entity.toObject();
+    const user = await this.userModel
+      .query()
+      .updateAndFetchById(id, { email })
+      .withGraphFetched('userDetails')
+      .execute();
 
-    return await this.find(id);
+    return UserEntity.initialize({
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
+      firstName: user.userDetails.firstName,
+      lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
+    });
   }
 }
 
