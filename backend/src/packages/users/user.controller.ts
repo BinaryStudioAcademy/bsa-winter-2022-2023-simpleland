@@ -68,7 +68,7 @@ class UserController extends Controller {
 
     this.addRoute({
       path: UsersApiPath.UPDATE_LOGIN,
-      method: 'POST',
+      method: 'PUT', 
       validation: { body: userUpdateLoginValidationSchema },
       handler: (options) =>
         this.updateLogin(
