@@ -13,6 +13,7 @@ const projectsApi = new ProjectsApi({
 export { projectsApi };
 export {
   type ProjectGetAllItemResponseDto,
+  type ProjectGetAllParametersDto,
   type ProjectGetAllResponseDto,
-  type ProjectSearchRequestDto,
+  type ProjectSearchParameters,
 } from './libs/types/types.js';

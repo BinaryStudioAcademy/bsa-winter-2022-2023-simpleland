@@ -32,10 +32,12 @@ export {
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllItemResponseDto,
+  type ProjectGetAllParametersDto,
   type ProjectGetAllResponseDto,
-  type ProjectSearchRequestDto,
+  type ProjectSearchParameters,
   projectCreateValidationSchema,
   ProjectsApiPath,
+  projectSearchValidationSchema,
 } from './packages/projects/projects.js';
 export {
   type SectionGetAllItemResponseDto,

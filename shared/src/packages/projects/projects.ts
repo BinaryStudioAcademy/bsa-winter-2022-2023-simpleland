@@ -6,7 +6,11 @@ export {
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllItemResponseDto,
+  type ProjectGetAllParametersDto,
   type ProjectGetAllResponseDto,
-  type ProjectSearchRequestDto,
+  type ProjectSearchParameters,
 } from './libs/types/types.js';
-export { projectCreate as projectCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+export {
+  projectCreate as projectCreateValidationSchema,
+  projectSearch as projectSearchValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';

@@ -14,6 +14,10 @@ export {
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectSearchParameters,
 } from './libs/types/types.js';
-export { projectCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+export {
+  projectCreateValidationSchema,
+  projectSearchValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 export { ProjectModel } from './project.model.js';
