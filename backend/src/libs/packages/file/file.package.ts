@@ -2,12 +2,23 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 import { type IConfig } from '~/libs/packages/config/config.js';
 
+import { FileEntity } from './file.entity.js';
+import { type FileRepository } from './file.repository.js';
+
+type Constructor = {
+  config: IConfig;
+  fileRepository: FileRepository;
+};
+
 class File {
   private storage: S3Client;
 
+  private fileRepository: FileRepository;
+
   private config: IConfig;
 
-  public constructor(config: IConfig) {
+  public constructor({ config, fileRepository }: Constructor) {
+    this.fileRepository = fileRepository;
     this.config = config;
 
     const { AWS_ACCESS_KEY, AWS_REGION, AWS_SECRET_ACCESS_KEY } =
@@ -28,7 +39,7 @@ class File {
   }: {
     file: Buffer;
     fileName: string;
-  }): Promise<string> {
+  }): Promise<{ id: number; url: string }> {
     const { AWS_BUCKET_NAME } = this.config.ENV.AWS;
 
     const command = new PutObjectCommand({
@@ -39,7 +50,13 @@ class File {
 
     await this.storage.send(command);
 
-    return this.getFileUrl(fileName);
+    const url = this.getFileUrl(fileName);
+
+    const fileEntity = await this.fileRepository.create(
+      FileEntity.initializeNew({ url }),
+    );
+
+    return fileEntity.toObject();
   }
 
   private getFileUrl(fileName: string): string {
