@@ -42,6 +42,7 @@ const ProjectName: React.FC<Properties> = ({ onSubmit }: Properties) => {
           name="siteName"
           control={control}
           errors={errors}
+          isLabelVisuallyHidden={true}
         />
       </form>
     </div>
