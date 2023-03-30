@@ -13,7 +13,7 @@ const WHITE_ROUTES: WhiteRoute[] = [
     methods: ['POST'],
   },
   {
-    routerPath: `/api/v1${ApiPath.SITES}${SitesApiPath.SECTIONS_BY_SITE}`,
+    routerPath: `/api/v1${ApiPath.SITES}${SitesApiPath.$SITE_ID_SECTIONS}`,
     methods: ['GET'],
   },
 ];

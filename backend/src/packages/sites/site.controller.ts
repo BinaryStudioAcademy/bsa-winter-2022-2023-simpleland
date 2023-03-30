@@ -91,7 +91,7 @@ class SiteController extends Controller {
     });
 
     this.addRoute({
-      path: SitesApiPath.SECTIONS_BY_SITE,
+      path: SitesApiPath.$SITE_ID_SECTIONS,
       method: 'GET',
       handler: (options) =>
         this.findSectionsBySiteId(

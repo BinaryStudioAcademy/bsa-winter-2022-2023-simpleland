@@ -21,7 +21,7 @@ class SectionsApi extends HttpApi {
     siteId: number,
   ): Promise<SectionGetAllResponseDto> {
     const response = await this.load(
-      this.getFullEndpoint(SitesApiPath.SECTIONS_BY_SITE, {
+      this.getFullEndpoint(SitesApiPath.$SITE_ID_SECTIONS, {
         siteId: siteId.toString(),
       }),
       {
