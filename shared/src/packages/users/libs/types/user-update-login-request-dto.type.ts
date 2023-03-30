@@ -1,6 +1,6 @@
 type UserUpdateLoginRequestDto = {
   login: string;
-  password: string;
+  repeatLogin: string;
 };
 
 export { type UserUpdateLoginRequestDto };
