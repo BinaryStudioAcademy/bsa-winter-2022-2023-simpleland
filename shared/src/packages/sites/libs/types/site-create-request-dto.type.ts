@@ -1,6 +1,6 @@
 type SiteCreateRequestDto = {
   name: string;
-  publishedUrl: string | null;
+  industry: string;
 };
 
 export { type SiteCreateRequestDto };
