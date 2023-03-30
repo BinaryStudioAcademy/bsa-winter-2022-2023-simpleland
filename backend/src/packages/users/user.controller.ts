@@ -11,10 +11,12 @@ import { type UserService } from '~/packages/users/user.service.js';
 import { UsersApiPath } from './libs/enums/enums.js';
 import {
   type UserAuthResponse,
+  type UserUpdateCredentialsRequestDto,
   type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
 import {
+  userUpdateCredentialsValidationSchema,
   userUpdatePasswordValidationSchema,
   userUpdateValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
@@ -74,6 +76,19 @@ class UserController extends Controller {
         this.updatePassword(
           options as ApiHandlerOptions<{
             body: UserUpdatePasswordRequestDto;
+            user: UserAuthResponse;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: UsersApiPath.ROOT,
+      method: 'PATCH',
+      validation: { body: userUpdateCredentialsValidationSchema },
+      handler: (options) =>
+        this.patch(
+          options as ApiHandlerOptions<{
+            body: UserUpdateCredentialsRequestDto;
             user: UserAuthResponse;
           }>,
         ),
@@ -173,6 +188,18 @@ class UserController extends Controller {
         options.user.id,
         options.body,
       ),
+    };
+  }
+
+  private async patch(
+    options: ApiHandlerOptions<{
+      body: UserUpdateCredentialsRequestDto;
+      user: UserAuthResponse;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.userService.patch(options.user.id, options.body),
     };
   }
 }

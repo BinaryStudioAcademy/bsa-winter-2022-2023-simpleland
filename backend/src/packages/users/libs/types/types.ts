@@ -7,6 +7,7 @@ export {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
   type UserTokenPayload,
+  type UserUpdateCredentialsRequestDto,
   type UserUpdateLoginRequestDto,
   type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
