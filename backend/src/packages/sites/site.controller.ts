@@ -40,6 +40,7 @@ import {
  *       enum:
  *         - header
  *         - footer
+ *         - main
  *     Section:
  *       type: object
  *       properties:
@@ -142,10 +143,8 @@ class SiteController extends Controller {
    *           schema:
    *             name:
    *               type: string
-   *             publishedUrl:
+   *             industry:
    *               type: string
-   *               format: uri
-   *               nullable: true
    *     responses:
    *       201:
    *         description: Successful creation
