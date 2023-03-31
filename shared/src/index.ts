@@ -9,7 +9,10 @@ export {
   HttpError,
   ValidationError,
 } from './libs/exceptions/exceptions.js';
-export { configureString } from './libs/helpers/helpers.js';
+export {
+  configureString,
+  initAsyncItemsQueue,
+} from './libs/helpers/helpers.js';
 export { type IConfig } from './libs/packages/config/config.js';
 export {
   type HttpMethod,
@@ -29,6 +32,7 @@ export {
 } from './libs/types/types.js';
 export { AuthApiPath } from './packages/auth/auth.js';
 export {
+  type ProjectCreateDto,
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllItemResponseDto,
@@ -39,6 +43,9 @@ export {
 export {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SiteFooterContent,
+  type SiteHeaderContent,
+  type SiteMainContent,
   SectionType,
 } from './packages/sections/sections.js';
 export {

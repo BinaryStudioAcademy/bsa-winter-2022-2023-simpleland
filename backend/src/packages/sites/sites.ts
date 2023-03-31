@@ -7,9 +7,11 @@ import { SiteService } from './site.service.js';
 
 const siteRepository = new SiteRepository(SiteModel);
 const siteService = new SiteService(siteRepository);
+
 const siteController = new SiteController(logger, siteService);
 
 export { siteController, siteService };
+export { SitesApiPath } from './libs/enums/enums.js';
 export {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,

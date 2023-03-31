@@ -1,0 +1,26 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 1085px;
+  padding: 85px 0;
+}
+
+.footer-logo {
+  margin-bottom: 55px;
+  color: #161616;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.footer-description {
+  color: #161616;
+  font-size: 15px;
+  line-height: 25px;
+}
