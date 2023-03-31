@@ -16,6 +16,7 @@ type Properties<T extends FieldValues> = {
   label?: string;
   name: FieldPath<T>;
   placeholder?: string;
+  className?: string | undefined;
   type?: 'text' | 'email' | 'password' | 'search';
   isDisabled?: boolean;
   inputMode?: 'email' | 'text' | 'search';
@@ -29,6 +30,7 @@ const Input = <T extends FieldValues>({
   placeholder = '',
   type = 'text',
   isDisabled = false,
+  className,
   inputMode = 'text',
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
@@ -36,15 +38,18 @@ const Input = <T extends FieldValues>({
   const error = errors[name]?.message;
   const hasError = Boolean(error);
 
+  const validClassNames = getValidClassNames(
+    styles['input'],
+    hasError && styles['has-error'],
+    className,
+  );
+
   return (
     <label className={styles['label']}>
       <span className={styles['input-label']}>{label}</span>
       <input
         {...field}
-        className={getValidClassNames(
-          styles['input'],
-          hasError && styles['has-error'],
-        )}
+        className={validClassNames}
         type={type}
         placeholder={placeholder}
         disabled={isDisabled}
