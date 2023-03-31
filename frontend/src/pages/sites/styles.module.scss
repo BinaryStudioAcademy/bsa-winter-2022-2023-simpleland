@@ -9,8 +9,10 @@
 
   display: flex;
   flex-grow: 1;
+  flex-direction: column;
   justify-content: center;
   margin-top: 62px;
+  margin-left: 300px;
 }
 
 .cards-wrapper {
@@ -20,4 +22,9 @@
   width: calc(var(--card-width) * 3 + var(--card-gap) * 2);
   height: max-content;
   margin-top: 18px;
+}
+
+.search-input-wrapper {
+  width: 292px;
+  margin-top: 120px;
 }

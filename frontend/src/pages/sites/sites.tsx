@@ -1,6 +1,16 @@
-import { PageLayout } from '~/libs/components/components.js';
-import { useAppSelector, useEffect, useParams } from '~/libs/hooks/hooks.js';
-import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook';
+import React, { useCallback } from 'react';
+
+import { Input, PageLayout } from '~/libs/components/components.js';
+import { debounce } from '~/libs/helpers/debounce/debounce.js';
+import {
+  useAppForm,
+  useAppSelector,
+  useEffect,
+  useParams,
+} from '~/libs/hooks/hooks.js';
+import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook.js';
+import { type SitesSearchRequestDto } from '~/packages/sites/libs/types/types.js';
+import { sitesSearchValidationSchema } from '~/packages/sites/sites.js';
 import { SiteCard } from '~/pages/sites/components/components.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
@@ -13,7 +23,10 @@ const Sites: React.FC = () => {
   useEffect((): void => {
     if (projectId) {
       void dispatch(
-        sitesActions.getSitesByProject({ projectId: Number(projectId) }),
+        sitesActions.getSitesByProjectId({
+          projectId: Number(projectId),
+          parameters: { pattern: null },
+        }),
       );
     }
   }, [dispatch, projectId]);
@@ -21,6 +34,26 @@ const Sites: React.FC = () => {
   const { sites } = useAppSelector(({ sites }) => ({
     sites: sites.sites,
   }));
+  const { control, errors, handleSubmit } = useAppForm<SitesSearchRequestDto>({
+    defaultValues: { pattern: '' },
+    validationSchema: sitesSearchValidationSchema,
+  });
+
+  const onInputChange = useCallback(
+    async (data: SitesSearchRequestDto): Promise<void> => {
+      await dispatch(
+        sitesActions.getSitesByProjectId({
+          projectId: Number(projectId),
+          parameters: data,
+        }),
+      );
+    },
+    [dispatch, projectId],
+  );
+
+  const handleFormChange = debounce((event_: React.BaseSyntheticEvent) => {
+    void handleSubmit(onInputChange)(event_);
+  });
 
   return (
     <PageLayout
@@ -29,6 +62,18 @@ const Sites: React.FC = () => {
       className={styles['page-layout']}
     >
       <div className={styles['page-wrapper']}>
+        <form onChange={handleFormChange}>
+          <div className={styles['search-input-wrapper']}>
+            <Input
+              type="text"
+              label="search"
+              placeholder="Search"
+              name="pattern"
+              control={control}
+              errors={errors}
+            />
+          </div>
+        </form>
         <div className={styles['cards-wrapper']}>
           {sites.map((site) => (
             <SiteCard key={site.id} site={site} />
