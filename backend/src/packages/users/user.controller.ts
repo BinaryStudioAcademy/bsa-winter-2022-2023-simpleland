@@ -68,7 +68,7 @@ class UserController extends Controller {
 
     this.addRoute({
       path: UsersApiPath.UPDATE_LOGIN,
-      method: 'PUT', 
+      method: 'PUT',
       validation: { body: userUpdateLoginValidationSchema },
       handler: (options) =>
         this.updateLogin(
@@ -137,6 +137,30 @@ class UserController extends Controller {
       payload: await this.userService.update(options.user.id, options.body),
     };
   }
+
+  /**
+   * @swagger
+   * /users/update-login:
+   *    patch:
+   *      description: Updating login. Returning user
+   *      requestBody:
+   *        description: Updates user login. Returns user
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                login: string;
+   *                repeatLogin: string;
+   *      responses:
+   *        200:
+   *          description: Successful update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/User'
+   */
 
   private async updateLogin(
     options: ApiHandlerOptions<{

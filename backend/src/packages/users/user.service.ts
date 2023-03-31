@@ -1,8 +1,7 @@
-import { HttpError } from '~/libs/exceptions/exceptions.js';
+import { ApplicationError } from '~/libs/exceptions/exceptions.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type IConfig } from '~/libs/packages/config/config.js';
 import { type IEncrypt } from '~/libs/packages/encrypt/encrypt.js';
-import { HttpCode } from '~/libs/packages/http/http.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserRepository } from '~/packages/users/user.repository.js';
 
@@ -105,18 +104,29 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
 
   public async updateLogin(
     id: number,
-    { login: newEmail }: UserUpdateLoginRequestDto,
-  ): Promise<UserEntity | null> {
-    const user = await this.userRepository.findByEmail(newEmail);
+    { login: email }: UserUpdateLoginRequestDto,
+  ): Promise<UserAuthResponse> {
+    const user = await this.userRepository.findByEmail(email);
 
     if (user) {
-      throw new HttpError({
-        message: 'Email is already used',
-        status: HttpCode.UNAUTHORIZED,
+      throw new ApplicationError({
+        message: 'Email is already used!',
       });
     }
 
-    return await this.userRepository.updateLogin(id, newEmail);
+    const updatedUser = await this.userRepository.updateLogin(
+      UserEntity.initialize({
+        id,
+        firstName: null,
+        lastName: null,
+        accountName: null,
+        email,
+        passwordHash: null,
+        passwordSalt: null,
+      }),
+    );
+
+    return updatedUser.toObject();
   }
 
   public async findPrivateData(id: number): Promise<UserPrivateData | null> {
