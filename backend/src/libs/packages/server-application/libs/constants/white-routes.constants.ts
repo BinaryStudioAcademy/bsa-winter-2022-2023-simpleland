@@ -17,7 +17,7 @@ const WHITE_ROUTES: WhiteRoute[] = [
     methods: ['GET'],
   },
   {
-    routerPath: 'https://simpleland-development.herokuapp.com/v1/documentation',
+    routerPath: '/v1/documentation',
     methods: ['GET'],
   },
 ];
