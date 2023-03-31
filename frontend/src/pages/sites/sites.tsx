@@ -67,7 +67,6 @@ const Sites: React.FC = () => {
           <div className={styles['search-input-wrapper']}>
             <Input
               type="text"
-              label="search"
               placeholder="Search"
               name="pattern"
               control={control}
