@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/libs/types/types.js';
 import {
   type UserAuthResponse,
+  type UserUpdateLoginRequestDto,
   type UserUpdateRequestDto,
 } from '~/packages/users/users.js';
 
@@ -18,4 +19,17 @@ const updateUser = createAsyncThunk<
   return await userApi.updateUser(updateUserPayload);
 });
 
-export { updateUser };
+const updateUserLogin = createAsyncThunk<
+  UserAuthResponse,
+  UserUpdateLoginRequestDto,
+  AsyncThunkConfig
+>(
+  `${sliceName}/update-user-login`,
+  async (updateUserLoginPayload, { extra }) => {
+    const { userApi } = extra;
+
+    return await userApi.updateUserLogin(updateUserLoginPayload);
+  },
+);
+
+export { updateUser, updateUserLogin };
