@@ -62,6 +62,7 @@ const Sites: React.FC = () => {
       className={styles['page-layout']}
     >
       <div className={styles['page-wrapper']}>
+        <h2>Landing</h2>
         <form onChange={handleFormChange}>
           <div className={styles['search-input-wrapper']}>
             <Input
