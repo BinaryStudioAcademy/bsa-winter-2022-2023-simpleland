@@ -1,6 +1,7 @@
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type IConfig } from '~/libs/packages/config/config.js';
 import { type IEncrypt } from '~/libs/packages/encrypt/encrypt.js';
+import { file } from '~/libs/packages/file/file.js';
 import { UserEntity } from '~/packages/users/user.entity.js';
 import { type UserRepository } from '~/packages/users/user.repository.js';
 
@@ -94,6 +95,8 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         email: null,
         passwordHash: null,
         passwordSalt: null,
+        avatarId: null,
+        avatarUrl: null,
       }),
     );
 
@@ -108,6 +111,29 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
     }
 
     return user.privateData;
+  }
+
+  public async updateAvatar(
+    id: number,
+    avatar: Buffer,
+  ): Promise<UserAuthResponse> {
+    const { id: avatarId } = await file.upload({ file: avatar });
+
+    const user = await this.userRepository.updateAvatar(
+      UserEntity.initialize({
+        id,
+        avatarId,
+        firstName: null,
+        lastName: null,
+        accountName: null,
+        email: null,
+        passwordHash: null,
+        passwordSalt: null,
+        avatarUrl: null,
+      }),
+    );
+
+    return user.toObject();
   }
 }
 

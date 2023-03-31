@@ -61,6 +61,18 @@ class UserController extends Controller {
           }>,
         ),
     });
+
+    this.addRoute({
+      path: UsersApiPath.AVATAR,
+      method: 'PUT',
+      handler: (options) =>
+        this.updateAvatar(
+          options as ApiHandlerOptions<{
+            user: UserAuthResponse;
+            fileBuffer: Buffer;
+          }>,
+        ),
+    });
   }
 
   /**
@@ -118,6 +130,19 @@ class UserController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.userService.update(options.user.id, options.body),
+    };
+  }
+
+  private async updateAvatar({
+    user,
+    fileBuffer,
+  }: ApiHandlerOptions<{
+    user: UserAuthResponse;
+    fileBuffer: Buffer;
+  }>): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.userService.updateAvatar(user.id, fileBuffer),
     };
   }
 }

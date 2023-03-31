@@ -1,3 +1,5 @@
+import crypto from 'node:crypto';
+
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 import { type IConfig } from '~/libs/packages/config/config.js';
@@ -35,12 +37,11 @@ class File {
 
   public async upload({
     file,
-    fileName,
   }: {
     file: Buffer;
-    fileName: string;
   }): Promise<{ id: number; url: string }> {
     const { AWS_BUCKET_NAME } = this.config.ENV.AWS;
+    const fileName = crypto.randomUUID();
 
     const command = new PutObjectCommand({
       Bucket: AWS_BUCKET_NAME,
