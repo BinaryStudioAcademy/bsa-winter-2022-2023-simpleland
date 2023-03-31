@@ -9,7 +9,10 @@ export {
   HttpError,
   ValidationError,
 } from './libs/exceptions/exceptions.js';
-export { configureString } from './libs/helpers/helpers.js';
+export {
+  configureString,
+  initAsyncItemsQueue,
+} from './libs/helpers/helpers.js';
 export { type IConfig } from './libs/packages/config/config.js';
 export {
   type HttpMethod,
@@ -40,6 +43,9 @@ export {
 export {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SiteFooterContent,
+  type SiteHeaderContent,
+  type SiteMainContent,
   SectionType,
 } from './packages/sections/sections.js';
 export {
@@ -54,6 +60,7 @@ export {
 } from './packages/sites/sites.js';
 export {
   type UserAuthResponse,
+  type UserCredentials,
   type UserGetAllItemResponseDto,
   type UserGetAllResponseDto,
   type UserSignInRequestDto,
@@ -61,14 +68,13 @@ export {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
   type UserTokenPayload,
-  type UserUpdateCredentialsRequestDto,
   type UserUpdateLoginRequestDto,
   type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
+  userCredentialsValidationSchema,
   UsersApiPath,
   userSignInValidationSchema,
   userSignUpValidationSchema,
-  userUpdateCredentialsValidationSchema,
   userUpdateLoginValidationSchema,
   userUpdatePasswordValidationSchema,
   userUpdateValidationSchema,

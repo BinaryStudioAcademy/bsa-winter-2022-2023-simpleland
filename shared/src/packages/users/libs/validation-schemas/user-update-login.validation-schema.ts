@@ -21,14 +21,9 @@ const userUpdateLogin = joi.object<UserUpdateLoginRequestDto, true>({
       'string.email': UserValidationMessage.EMAIL_WRONG,
       'string.empty': UserValidationMessage.EMAIL_REQUIRE,
     }),
-  password: joi
-    .string()
-    .pattern(UserValidationRule.PASSWORD_REGEX)
-    .required()
-    .messages({
-      'string.pattern.base': UserValidationMessage.PASSWORD_IS_INVALID,
-      'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
-    }),
+  repeatLogin: joi.string().required().valid(joi.ref('login')).messages({
+    'any.only': UserValidationMessage.EMAIL_DO_NOT_MATCH,
+  }),
 });
 
 export { userUpdateLogin };

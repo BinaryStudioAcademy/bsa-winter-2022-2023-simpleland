@@ -21,7 +21,7 @@ class SiteModel extends AbstractModel {
   }
 
   public static override relationMappings = (): RelationMappings => ({
-    'sections': {
+    sections: {
       relation: Model.ManyToManyRelation,
       modelClass: SectionModel,
       join: {

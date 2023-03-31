@@ -11,12 +11,12 @@ import { type UserService } from '~/packages/users/user.service.js';
 import { UsersApiPath } from './libs/enums/enums.js';
 import {
   type UserAuthResponse,
-  type UserUpdateCredentialsRequestDto,
+  type UserUpdateLoginRequestDto,
   type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
 import {
-  userUpdateCredentialsValidationSchema,
+  userUpdateLoginValidationSchema,
   userUpdatePasswordValidationSchema,
   userUpdateValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
@@ -82,13 +82,13 @@ class UserController extends Controller {
     });
 
     this.addRoute({
-      path: UsersApiPath.ROOT,
-      method: 'PATCH',
-      validation: { body: userUpdateCredentialsValidationSchema },
+      path: UsersApiPath.UPDATE_LOGIN,
+      method: 'PUT',
+      validation: { body: userUpdateLoginValidationSchema },
       handler: (options) =>
-        this.patch(
+        this.updateLogin(
           options as ApiHandlerOptions<{
-            body: UserUpdateCredentialsRequestDto;
+            body: UserUpdateLoginRequestDto;
             user: UserAuthResponse;
           }>,
         ),
@@ -191,15 +191,42 @@ class UserController extends Controller {
     };
   }
 
-  private async patch(
+  /**
+   * @swagger
+   * /users/update-login:
+   *    patch:
+   *      description: Updating login. Returning user
+   *      requestBody:
+   *        description: Updates user login. Returns user
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                login: string;
+   *                repeatLogin: string;
+   *      responses:
+   *        200:
+   *          description: Successful update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/User'
+   */
+
+  private async updateLogin(
     options: ApiHandlerOptions<{
-      body: UserUpdateCredentialsRequestDto;
+      body: UserUpdateLoginRequestDto;
       user: UserAuthResponse;
     }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.userService.patch(options.user.id, options.body),
+      payload: await this.userService.updateLogin(
+        options.user.id,
+        options.body,
+      ),
     };
   }
 }

@@ -10,7 +10,7 @@ import {
   type UserGetAllResponseDto,
   type UserPrivateData,
   type UserSignUpRequestDto,
-  type UserUpdateCredentialsRequestDto,
+  type UserUpdateLoginRequestDto,
   type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
@@ -141,17 +141,31 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
     return user.toObject();
   }
 
-  public async patch(
+  public async updateLogin(
     id: number,
-    payload: UserUpdateCredentialsRequestDto,
-  ): Promise<UserAuthResponse | null> {
-    const user = await this.userRepository.patch(id, payload);
+    { login: email }: UserUpdateLoginRequestDto,
+  ): Promise<UserAuthResponse> {
+    const user = await this.userRepository.findByEmail(email);
 
-    if (!user) {
-      return null;
+    if (user) {
+      throw new ApplicationError({
+        message: 'Email is already used!',
+      });
     }
 
-    return user.toObject();
+    const updatedUser = await this.userRepository.updateLogin(
+      UserEntity.initialize({
+        id,
+        firstName: null,
+        lastName: null,
+        accountName: null,
+        email,
+        passwordHash: null,
+        passwordSalt: null,
+      }),
+    );
+
+    return updatedUser.toObject();
   }
 
   public async findPrivateData(id: number): Promise<UserPrivateData | null> {
