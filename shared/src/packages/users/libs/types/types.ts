@@ -7,7 +7,5 @@ export { type UserSignInResponseDto } from './user-sign-in-response-dto.type.js'
 export { type UserSignUpRequestDto } from './user-sign-up-request-dto.type.js';
 export { type UserSignUpResponseDto } from './user-sign-up-response-dto.type.js';
 export { type UserTokenPayload } from './user-token-payload.type.js';
-export { type UserUpdateCredentialsRequestDto } from './user-update-credentials-request-dto.type.js';
 export { type UserUpdateLoginRequestDto } from './user-update-login-request-dto.type.js';
-export { type UserUpdatePasswordRequestDto } from './user-update-password-request-dto.type.js';
 export { type UserUpdateRequestDto } from './user-update-request-dto.type.js';
