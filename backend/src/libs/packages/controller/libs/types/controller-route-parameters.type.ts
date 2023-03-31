@@ -8,6 +8,7 @@ type ControllerRouteParameters = {
   method: HttpMethod;
   handler: ApiHandler;
   validation?: {
+    query?: ValidationSchema;
     body?: ValidationSchema;
     params?: ValidationSchema;
   };
