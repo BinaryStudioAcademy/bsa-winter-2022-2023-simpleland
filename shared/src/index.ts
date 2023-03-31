@@ -47,9 +47,11 @@ export {
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
+  type SitesSearchRequestDto,
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
   SitesApiPath,
+  sitesSearchValidationSchema,
 } from './packages/sites/sites.js';
 export {
   type UserAuthResponse,
