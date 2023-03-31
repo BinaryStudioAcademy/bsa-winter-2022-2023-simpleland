@@ -9,11 +9,10 @@ import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type UserService } from '~/packages/users/user.service.js';
 
 import { UsersApiPath } from './libs/enums/enums.js';
-import { type UserUpdateLoginRequestDto } from './libs/types/types.js';
 import {
   type UserAuthResponse,
-  type UserUpdateRequestDto,
-} from './libs/types/types.js';
+  type UserUpdateLoginRequestDto,
+  type UserUpdateRequestDto } from './libs/types/types.js';
 import {
   userUpdateLoginValidationSchema,
   userUpdateValidationSchema,

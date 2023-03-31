@@ -25,10 +25,13 @@ type Properties = {
 };
 
 const Login: React.FC<Properties> = ({ user }: Properties) => {
-  const credentialsFormValues = useMemo(() => ({
-    login: user.email,
-    password: '',
-  }), [user]);
+  const credentialsFormValues = useMemo(
+    () => ({
+      login: user.email,
+      password: '',
+    }),
+    [user],
+  );
   const dispatch = useAppDispatch();
 
   const { control, errors, handleReset } = useAppForm<UserCredentials>({
@@ -38,10 +41,13 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
 
   useEffect(() => {
     handleReset(credentialsFormValues);
-    }, [credentialsFormValues, handleReset]);
+  }, [credentialsFormValues, handleReset]);
 
-  const { isOpenModal: isOpenLoginModal, handleModalClose: handleLoginModalClose, handleModalOpen: handleLoginModalOpen } =
-    useModal();
+  const {
+    isOpenModal: isOpenLoginModal,
+    handleModalClose: handleLoginModalClose,
+    handleModalOpen: handleLoginModalOpen,
+  } = useModal();
 
   const handleSubmitUpdateUserLogin = useCallback(
     (payload: UserUpdateLoginRequestDto): void => {
