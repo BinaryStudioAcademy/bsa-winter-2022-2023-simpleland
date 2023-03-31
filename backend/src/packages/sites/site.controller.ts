@@ -12,10 +12,12 @@ import { SitesApiPath } from './libs/enums/enums.js';
 import {
   type SiteCreateRequestDto,
   type SiteGetByProjectParametersDto,
+  type SitesSearchRequestDto,
 } from './libs/types/types.js';
 import {
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
+  sitesSearchValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
 
 /**
@@ -64,15 +66,17 @@ class SiteController extends Controller {
     this.siteService = siteService;
 
     this.addRoute({
-      path: SitesApiPath.PROJECT_$PROJECT_ID,
+      path: `${SitesApiPath.PROJECT_$PROJECT_ID}${SitesApiPath.ROOT}`,
       method: 'GET',
       validation: {
         params: siteGetByProjectValidationSchema,
+        query: sitesSearchValidationSchema,
       },
       handler: (options) =>
         this.findAllByProjectId(
           options as ApiHandlerOptions<{
             params: SiteGetByProjectParametersDto;
+            query: SitesSearchRequestDto;
           }>,
         ),
     });
@@ -119,12 +123,16 @@ class SiteController extends Controller {
    *                   minItems: 0
    */
   private async findAllByProjectId(
-    options: ApiHandlerOptions<{ params: SiteGetByProjectParametersDto }>,
+    options: ApiHandlerOptions<{
+      params: SiteGetByProjectParametersDto;
+      query: SitesSearchRequestDto;
+    }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
       payload: await this.siteService.findAllByProjectId(
         options.params.projectId,
+        options.query,
       ),
     };
   }

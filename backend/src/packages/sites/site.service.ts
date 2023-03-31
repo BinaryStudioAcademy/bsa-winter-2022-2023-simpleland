@@ -10,6 +10,7 @@ import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteGetAllResponseDto,
+  type SitesSearchRequestDto,
 } from './libs/types/types.js';
 
 class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
@@ -29,8 +30,12 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async findAllByProjectId(
     projectId: number,
+    parameters: SitesSearchRequestDto,
   ): Promise<SiteGetAllResponseDto> {
-    const sites = await this.siteRepository.findAllByProjectId(projectId);
+    const sites = await this.siteRepository.findAllByProjectId(
+      projectId,
+      parameters,
+    );
 
     return {
       items: sites.map((site) => site.toObject()),
