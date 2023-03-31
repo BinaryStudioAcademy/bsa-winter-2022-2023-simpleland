@@ -18,4 +18,14 @@ const updateUser = createAsyncThunk<
   return await userApi.updateUser(updateUserPayload);
 });
 
-export { updateUser };
+const updateUserAvatar = createAsyncThunk<
+  UserAuthResponse,
+  FormData,
+  AsyncThunkConfig
+>(`${sliceName}/update-user-avatar`, async (payload, { extra }) => {
+  const { userApi } = extra;
+
+  return await userApi.updateUserAvatar(payload);
+});
+
+export { updateUser, updateUserAvatar };

@@ -39,6 +39,12 @@ const { reducer, actions, name } = createSlice({
     builder.addCase(usersActions.updateUser.fulfilled, (state, action) => {
       state.user = action.payload;
     });
+    builder.addCase(
+      usersActions.updateUserAvatar.fulfilled,
+      (state, action) => {
+        state.user = action.payload;
+      },
+    );
   },
 });
 

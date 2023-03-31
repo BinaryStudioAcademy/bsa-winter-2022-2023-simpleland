@@ -1,9 +1,10 @@
-import { updateUser } from './actions.js';
+import { updateUser, updateUserAvatar } from './actions.js';
 import { actions } from './users.slice.js';
 
 const allActions = {
   ...actions,
   updateUser,
+  updateUserAvatar,
 };
 
 export { allActions as actions };
