@@ -12,7 +12,8 @@ import { UsersApiPath } from './libs/enums/enums.js';
 import {
   type UserAuthResponse,
   type UserUpdateLoginRequestDto,
-  type UserUpdateRequestDto } from './libs/types/types.js';
+  type UserUpdateRequestDto,
+} from './libs/types/types.js';
 import {
   userUpdateLoginValidationSchema,
   userUpdateValidationSchema,
