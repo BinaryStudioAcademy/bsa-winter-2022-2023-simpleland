@@ -28,8 +28,26 @@ const AccountSettings: React.FC = () => {
     [dispatch],
   );
 
+  const handleUpdateUserAvatar = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const avatar = event.target.files?.item(0);
+
+      if (avatar) {
+        const formData = new FormData();
+        formData.append('file', avatar);
+
+        void dispatch(usersActions.updateUserAvatar(formData));
+      }
+    },
+    [dispatch],
+  );
+
   const handleScreenRender = (): React.ReactNode => (
-    <Profile user={user} onUpdateUser={handleUpdateUser} />
+    <Profile
+      user={user}
+      onUpdateUser={handleUpdateUser}
+      onUpdateUserAvatar={handleUpdateUserAvatar}
+    />
   );
 
   return (
