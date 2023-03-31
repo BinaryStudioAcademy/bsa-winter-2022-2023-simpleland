@@ -3,7 +3,10 @@ import { configureString } from '~/libs/helpers/helpers.js';
 import { HttpApi } from '~/libs/packages/api/api.js';
 import { type IHttp } from '~/libs/packages/http/http.js';
 import { type IStorage } from '~/libs/packages/storage/storage.js';
-import { type SiteGetAllResponseDto } from '~/packages/sites/sites.js';
+import {
+  type SiteGetAllResponseDto,
+  type SiteGetByProjectParametersDto,
+} from '~/packages/sites/sites.js';
 
 import { SitesApiPath } from './libs/enums/enums.js';
 
@@ -18,14 +21,21 @@ class SitesApi extends HttpApi {
     super({ path: '', baseUrl, http, storage });
   }
 
-  public async getByProjectId(
-    projectId: number,
-  ): Promise<SiteGetAllResponseDto> {
+  public async getByProjectId({
+    projectId,
+    parameters,
+  }: SiteGetByProjectParametersDto): Promise<SiteGetAllResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(
-        configureString(ApiPath.SITES, SitesApiPath.PROJECT_$PROJECT_ID, {
-          projectId: projectId.toString(),
-        }),
+        configureString(
+          ApiPath.SITES,
+          SitesApiPath.PROJECT_$PROJECT_ID,
+          SitesApiPath.ROOT,
+          {
+            projectId: projectId.toString(),
+          },
+        ),
+        parameters.pattern ? `?pattern=${parameters.pattern}` : '',
         {},
       ),
       {
