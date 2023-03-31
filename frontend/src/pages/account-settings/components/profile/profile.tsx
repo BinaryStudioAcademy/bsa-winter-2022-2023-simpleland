@@ -25,6 +25,14 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
       validationSchema: userUpdateValidationSchema,
     });
 
+  const handleFormCancel = useCallback(() => {
+    handleReset({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      accountName: user.accountName ?? '',
+    });
+  }, [handleReset, user]);
+
   const handleUpdateUserDetails = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
       void handleSubmit(onUpdateUser)(event_);
@@ -68,7 +76,7 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
           size="small"
           label="Cancel"
           className={styles['button']}
-          onClick={handleReset}
+          onClick={handleFormCancel}
         />
         <Button
           type="submit"
