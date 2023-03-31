@@ -109,6 +109,13 @@ class SiteController extends Controller {
    * /project/:projectId/sites:
    *   get:
    *     description: Returns an object with items property. Items - array of sites by specific project.
+   *     parameters
+   *       name: pattern
+   *       description: search parameters
+   *       in: query
+   *       required:false
+   *       schema:
+   *         pattern: string
    *     responses:
    *       200:
    *         description: Successful operation
