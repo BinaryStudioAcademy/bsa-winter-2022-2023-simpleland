@@ -34,6 +34,10 @@ import { userUpdateValidationSchema } from './libs/validation-schemas/validation
  *          accountName:
  *            type: string;
  *            nullable: true;
+ *          avatarUrl:
+ *            type: string;
+ *            format: uri;
+ *            nullable: true;
  */
 class UserController extends Controller {
   private userService: UserService;
@@ -133,6 +137,30 @@ class UserController extends Controller {
     };
   }
 
+  /**
+   * @swagger
+   * /users/avatar:
+   *    put:
+   *      description: Updating user avatar. Returning user
+   *      requestBody:
+   *        description: User avatar
+   *        required: true
+   *        content:
+   *          multipart/form-data:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                file:
+   *                  type: string
+   *                  format: binary
+   *      responses:
+   *        200:
+   *          description: Successful avatar update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/User'
+   */
   private async updateAvatar({
     user,
     fileBuffer,
