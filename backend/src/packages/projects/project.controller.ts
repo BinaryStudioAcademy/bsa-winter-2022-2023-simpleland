@@ -53,8 +53,8 @@ class ProjectController extends Controller {
       handler: (options) =>
         this.findByUserId(
           options as ApiHandlerOptions<{
-            query: ProjectSearchParameters;
             user: UserAuthResponse;
+            query: ProjectSearchParameters;
           }>,
         ),
     });
@@ -98,18 +98,16 @@ class ProjectController extends Controller {
    */
   private async findByUserId(
     options: ApiHandlerOptions<{
-      query: ProjectSearchParameters;
       user: UserAuthResponse;
+      query: ProjectSearchParameters;
     }>,
   ): Promise<ApiHandlerResponse> {
-    const projects = await this.projectService.findByUserId(
-      options.user.id,
-      options.query,
-    );
-
     return {
       status: HttpCode.OK,
-      payload: projects,
+      payload: await this.projectService.findByUserId(
+        options.user.id,
+        options.query,
+      ),
     };
   }
 
