@@ -51,13 +51,14 @@ const MyProjects: React.FC = () => {
         {hasProjects ? (
           <>
             <form onChange={handleFormChange}>
-              <div className={styles['search-input-wrapper']}>
+              <div className={styles['search-wrapper']}>
                 <Input
                   type="search"
                   placeholder="Search"
                   name="search"
                   control={control}
                   errors={errors}
+                  className={styles['search-input']}
                 />
               </div>
             </form>
