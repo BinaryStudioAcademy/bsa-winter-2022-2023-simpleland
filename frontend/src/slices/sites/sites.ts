@@ -1,9 +1,9 @@
-import { getSitesByProject } from './actions.js';
+import { getSitesByProjectId } from './actions.js';
 import { actions } from './sites.slice.js';
 
 const allActions = {
   ...actions,
-  getSitesByProject,
+  getSitesByProjectId,
 };
 
 export { allActions as actions };

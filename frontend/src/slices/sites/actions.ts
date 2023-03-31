@@ -8,14 +8,14 @@ import {
 
 import { name as sliceName } from './sites.slice.js';
 
-const getSitesByProject = createAsyncThunk<
+const getSitesByProjectId = createAsyncThunk<
   SiteGetAllResponseDto,
   SiteGetByProjectParametersDto,
   AsyncThunkConfig
 >(`${sliceName}/sites`, async (payload, { extra }) => {
   const { sitesApi } = extra;
 
-  return await sitesApi.getByProjectId(payload.projectId);
+  return await sitesApi.getByProjectId(payload);
 });
 
-export { getSitesByProject };
+export { getSitesByProjectId };
