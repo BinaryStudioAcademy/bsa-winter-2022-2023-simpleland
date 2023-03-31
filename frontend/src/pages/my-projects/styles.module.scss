@@ -1,8 +1,29 @@
+.page-layout {
+  display: block;
+}
+
+.page-wrapper {
+  --card-width: 294px;
+  --card-height: 296px;
+  --card-gap: 20px;
+
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 24px;
+  width: calc(var(--card-width) * 3 + var(--card-gap) * 2);
+  margin: 108px auto 24px;
+}
+
+.search-wrapper {
+  display: flex;
+  justify-content: end;
+}
+
 .cards-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 19px;
-  width: 917px;
+  gap: var(--card-gap);
 }
 
 .placeholder {
@@ -39,13 +60,7 @@
   padding: 20px 60px;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 10px;
-}
-
 .search-input-wrapper {
   width: 292px;
-  margin-top: 120px;
+  margin-top: 10px;
 }

@@ -46,15 +46,10 @@ const MyProjects: React.FC = () => {
   const hasProjects = projects.length > 0;
 
   return (
-    <PageLayout pageName="My Projects">
-      {hasProjects ? (
-        <>
-          <div className={styles['wrapper']}>
-            <div className={styles['cards-wrapper']}>
-              {projects.map((card) => (
-                <ProjectCard key={card.id} project={card} />
-              ))}
-            </div>
+    <PageLayout pageName="My Projects" className={styles['page-layout']}>
+      <div className={styles['page-wrapper']}>
+        {hasProjects ? (
+          <>
             <form onChange={handleFormChange}>
               <div className={styles['search-input-wrapper']}>
                 <Input
@@ -66,23 +61,28 @@ const MyProjects: React.FC = () => {
                 />
               </div>
             </form>
+            <div className={styles['cards-wrapper']}>
+              {projects.map((card) => (
+                <ProjectCard key={card.id} project={card} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className={styles['placeholder']}>
+            <div className={styles['placeholder-caption']}>
+              <span className={styles['placeholder-sub-caption']}>Hello!</span>
+              <span className={styles['placeholder-main-caption']}>
+                There are no businesses
+              </span>
+            </div>
+            <Button
+              className={styles['placeholder-button']}
+              label="Create new business"
+              to={AppRoute.ROOT}
+            />
           </div>
-        </>
-      ) : (
-        <div className={styles['placeholder']}>
-          <div className={styles['placeholder-caption']}>
-            <span className={styles['placeholder-sub-caption']}>Hello!</span>
-            <span className={styles['placeholder-main-caption']}>
-              There are no businesses
-            </span>
-          </div>
-          <Button
-            className={styles['placeholder-button']}
-            label="Create new business"
-            to={AppRoute.ROOT}
-          />
-        </div>
-      )}
+        )}
+      </div>
     </PageLayout>
   );
 };
