@@ -6,7 +6,6 @@ import { createRoot } from 'react-dom/client';
 import {
   App,
   Notification,
-  PageLayout,
   ProtectedRoute,
   RouterProvider,
   StoreProvider,
@@ -17,6 +16,8 @@ import { AccountSettings } from '~/pages/account-settings/account-settings.js';
 import { Auth } from '~/pages/auth/auth.js';
 import { MyProjects } from '~/pages/my-projects/my-projects.js';
 import { NotFound } from '~/pages/not-found/not-found.js';
+import { Root } from '~/pages/root/root.js';
+import { Site } from '~/pages/site/site.js';
 import { Sites } from '~/pages/sites/sites.js';
 import { Start } from '~/pages/start/start.js';
 
@@ -33,7 +34,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 path: AppRoute.ROOT,
                 element: (
                   <ProtectedRoute>
-                    <PageLayout style="black">Root</PageLayout>
+                    <Root />
                   </ProtectedRoute>
                 ),
               },
@@ -76,6 +77,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                     <MyProjects />
                   </ProtectedRoute>
                 ),
+              },
+              {
+                path: AppRoute.SITES_$SITE_ID,
+                element: <Site />,
               },
               {
                 path: AppRoute.SIGN_IN,

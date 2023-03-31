@@ -60,21 +60,24 @@ const MyProjects: React.FC = () => {
         />
       ) : (
         <div className={styles['page-wrapper']}>
-          <div className={styles['search-wrapper']}>
-            <Button
-              label="Add Business"
-              icon="plus"
-              className={styles['create-button']}
-              size="small"
-              onClick={handleModalOpen}
-            />
-          </div>
           {hasProjects ? (
-            <div className={styles['cards-wrapper']}>
-              {projects.map((card) => (
-                <ProjectCard key={card.id} project={card} />
-              ))}
-            </div>
+            <>
+              <div className={styles['search-wrapper']}>
+                <Button
+                  label="Add Business"
+                  icon="plus"
+                  className={styles['create-button']}
+                  size="small"
+                  onClick={handleModalOpen}
+                />
+              </div>
+
+              <div className={styles['cards-wrapper']}>
+                {projects.map((card) => (
+                  <ProjectCard key={card.id} project={card} />
+                ))}
+              </div>
+            </>
           ) : (
             <div className={styles['placeholder']}>
               <div className={styles['placeholder-caption']}>
