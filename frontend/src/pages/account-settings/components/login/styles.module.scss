@@ -3,20 +3,6 @@
   padding: 55px 0;
 }
 
-.captions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-bottom: 40px;
-}
-
-.caption {
-  color: var(--yellow);
-  font-size: 16px;
-  line-height: 16px;
-  cursor: pointer;
-}
-
 .inputs {
   display: flex;
   flex-direction: column;
@@ -24,16 +10,12 @@
   margin-bottom: 10px;
 }
 
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 13px;
+.input-wrapper {
+  position: relative;
 }
 
-.button {
-  width: 100%;
-}
-
-.submit-button {
-  color: var(--black);
+.input-icon {
+  position: absolute;
+  top: 40%;
+  right: 3%;
 }
