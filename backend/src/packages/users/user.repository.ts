@@ -114,14 +114,15 @@ class UserRepository implements Omit<IRepository, 'delete'> {
   public async update(entity: UserEntity): Promise<UserEntity> {
     const { id, firstName, lastName, accountName } = entity.toUserDetails();
 
-    const user = await this.userModel.query().upsertGraphAndFetch({
-      id,
-      userDetails: {
-        firstName,
-        lastName,
-        accountName,
-      },
-    });
+    await this.userModel
+      .relatedQuery('userDetails')
+      .for(id)
+      .patch({ firstName, lastName, accountName });
+
+    const user = (await this.userModel
+      .query()
+      .findById(id)
+      .withGraphFetched(this.defaultRelationExpression)) as UserModel;
 
     return UserEntity.initialize({
       id: user.id,

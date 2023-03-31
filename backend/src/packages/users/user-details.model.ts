@@ -3,6 +3,7 @@ import { type RelationMappings, Model } from 'objection';
 import {
   AbstractModel,
   DatabaseTableName,
+  getJoinRelationPath,
 } from '~/libs/packages/database/database.js';
 import { FileModel } from '~/libs/packages/file/file.js';
 import { UserModel } from '~/packages/users/user.model.js';
@@ -30,16 +31,22 @@ class UserDetailsModel extends AbstractModel {
         relation: Model.HasOneRelation,
         modelClass: UserModel,
         join: {
-          from: 'user_details.userId',
-          to: 'users.id',
+          from: getJoinRelationPath<UserDetailsModel>(
+            DatabaseTableName.USER_DETAILS,
+            'userId',
+          ),
+          to: getJoinRelationPath(DatabaseTableName.USERS, 'id'),
         },
       },
       avatar: {
         relation: Model.HasOneRelation,
         modelClass: FileModel,
         join: {
-          from: 'user_details.avatarId',
-          to: 'files.id',
+          from: getJoinRelationPath<UserDetailsModel>(
+            DatabaseTableName.USER_DETAILS,
+            'avatarId',
+          ),
+          to: getJoinRelationPath(DatabaseTableName.FILES, 'id'),
         },
       },
     };
