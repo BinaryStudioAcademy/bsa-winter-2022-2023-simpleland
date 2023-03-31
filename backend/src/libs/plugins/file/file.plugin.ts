@@ -6,6 +6,10 @@ import {
 } from 'fastify';
 import fp from 'fastify-plugin';
 
+import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
+
+import { ALLOWED_FILE_MIMETYPES } from './libs/allowed-file-mimetypes.constants.js';
+
 const file: FastifyPluginAsync = fp(async (fastify: FastifyInstance) => {
   fastify.decorateRequest('fileBuffer', null);
 
@@ -19,6 +23,22 @@ const file: FastifyPluginAsync = fp(async (fastify: FastifyInstance) => {
       const {
         body: { file },
       } = request;
+
+      const isAllowedMimetype = ALLOWED_FILE_MIMETYPES.includes(file.mimetype);
+
+      if (!isAllowedMimetype) {
+        throw new HttpError({
+          message: 'Unsupported file mimetype',
+          status: HttpCode.BAD_REQUEST,
+        });
+      }
+
+      if (file.file.truncated) {
+        throw new HttpError({
+          message: 'Payload too large',
+          status: HttpCode.CONTENT_TOO_LARGE,
+        });
+      }
 
       const fileBuffer = await file.toBuffer();
 

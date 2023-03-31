@@ -26,18 +26,9 @@ const { reducer, actions, name } = createSlice({
       state.currentUserDataStatus = DataStatus.IDLE;
       state.user = null;
     });
-    builder.addMatcher(
-      isAnyOf(
-        signIn.pending,
-        signUp.pending,
-        getCurrentUser.pending,
-        usersActions.updateUser.pending,
-        usersActions.updateUserAvatar.pending,
-      ),
-      (state) => {
-        state.currentUserDataStatus = DataStatus.PENDING;
-      },
-    );
+    builder.addCase(getCurrentUser.pending, (state) => {
+      state.currentUserDataStatus = DataStatus.PENDING;
+    });
     builder.addMatcher(
       isAnyOf(
         signIn.fulfilled,
