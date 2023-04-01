@@ -1,0 +1,21 @@
+.form-wrapper {
+  width: 321px;
+  padding: 55px 0;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  top: 40%;
+  right: 3%;
+}
