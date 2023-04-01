@@ -1,1 +1,1 @@
-export { emptySchema } from 'shared/build/index.js';
+export { emptyValidationSchema } from 'shared/build/index.js';
