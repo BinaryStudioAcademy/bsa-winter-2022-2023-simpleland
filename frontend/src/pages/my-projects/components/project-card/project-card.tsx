@@ -1,7 +1,7 @@
 import img from 'src/assets/img/project-mock-image.jpg';
 
-import { Link } from '~/libs/components/link/link.js';
-import { AppRoute } from '~/libs/enums/app-route.enum.js';
+import { Image, Link } from '~/libs/components/components.js';
+import { AppRoute } from '~/libs/enums/enums.js';
 import { configureString } from '~/libs/helpers/helpers.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import { type ProjectGetAllItemResponseDto } from '~/packages/projects/projects.js';
@@ -17,7 +17,7 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
 
   return (
     <div className={styles['card']}>
-      <img className={styles['card-image']} src={img} alt="" />
+      <Image className={styles['card-image']} src={img} alt="" />
       <div className={styles['card-description']}>
         <Link
           to={
