@@ -34,14 +34,14 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
     [user],
   );
 
-  const { control, errors, reset } = useAppForm({
+  const { control, errors, handleReset } = useAppForm({
     defaultValues: credentialsFormValues,
     mode: 'onSubmit',
   });
 
   useEffect(() => {
-    reset(credentialsFormValues);
-  }, [credentialsFormValues, reset]);
+    handleReset(credentialsFormValues);
+  }, [credentialsFormValues, handleReset]);
 
   const {
     isOpenModal: isOpenLoginModal,

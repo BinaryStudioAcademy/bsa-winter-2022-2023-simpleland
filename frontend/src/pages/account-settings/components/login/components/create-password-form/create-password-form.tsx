@@ -26,6 +26,7 @@ const CreatePasswordForm: React.FC<Properties> = ({
     useAppForm<UserUpdatePasswordRequestDto>({
       defaultValues: DEFAULT_UPDATE_PASSWORD_PAYLOAD,
       validationSchema: userUpdatePasswordValidationSchema,
+      mode: 'onSubmit',
     });
 
   const handleFormSubmit = useCallback(
