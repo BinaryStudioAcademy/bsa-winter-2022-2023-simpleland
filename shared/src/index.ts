@@ -70,9 +70,13 @@ export {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
   type UserTokenPayload,
+  type UserUpdateLoginRequestDto,
+  type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
   UsersApiPath,
   userSignInValidationSchema,
   userSignUpValidationSchema,
+  userUpdateLoginValidationSchema,
+  userUpdatePasswordValidationSchema,
   userUpdateValidationSchema,
 } from './packages/users/users.js';

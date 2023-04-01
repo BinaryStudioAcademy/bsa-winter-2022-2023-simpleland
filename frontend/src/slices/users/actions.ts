@@ -3,6 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/libs/types/types.js';
 import {
   type UserAuthResponse,
+  type UserUpdateLoginRequestDto,
+  type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
 } from '~/packages/users/users.js';
 
@@ -18,4 +20,38 @@ const updateUser = createAsyncThunk<
   return await userApi.updateUser(updateUserPayload);
 });
 
-export { updateUser };
+const updateUserLogin = createAsyncThunk<
+  UserAuthResponse,
+  UserUpdateLoginRequestDto,
+  AsyncThunkConfig
+>(
+  `${sliceName}/update-user-login`,
+  async (updateUserLoginPayload, { extra }) => {
+    const { userApi, notification } = extra;
+
+    const user = await userApi.updateUserLogin(updateUserLoginPayload);
+
+    notification.success('Your email has been successfully changed');
+
+    return user;
+  },
+);
+
+const updateUserPassword = createAsyncThunk<
+  UserAuthResponse,
+  UserUpdatePasswordRequestDto,
+  AsyncThunkConfig
+>(
+  `${sliceName}/update-password`,
+  async (updateUserPasswordPayload, { extra }) => {
+    const { userApi, notification } = extra;
+
+    const user = await userApi.updateUserPassword(updateUserPasswordPayload);
+
+    notification.success('Your password has been successfully changed');
+
+    return user;
+  },
+);
+
+export { updateUser, updateUserLogin, updateUserPassword };

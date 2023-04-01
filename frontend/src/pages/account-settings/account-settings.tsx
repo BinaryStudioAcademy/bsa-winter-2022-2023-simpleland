@@ -5,6 +5,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useCallback,
+  useLocation,
 } from '~/libs/hooks/hooks.js';
 import {
   type UserAuthResponse,
@@ -12,7 +13,7 @@ import {
 } from '~/packages/users/users.js';
 import { actions as usersActions } from '~/slices/users/users.js';
 
-import { Profile } from './components/components.js';
+import { Login, Profile } from './components/components.js';
 import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
@@ -28,9 +29,18 @@ const AccountSettings: React.FC = () => {
     [dispatch],
   );
 
-  const handleScreenRender = (): React.ReactNode => (
-    <Profile user={user} onUpdateUser={handleUpdateUser} />
-  );
+  const location = useLocation();
+
+  const handleScreenRender = (): React.ReactNode => {
+    switch (location.pathname) {
+      case AppRoute.PROFILE: {
+        return <Profile user={user} onUpdateUser={handleUpdateUser} />;
+      }
+      case AppRoute.LOGIN: {
+        return <Login user={user} />;
+      }
+    }
+  };
 
   return (
     <>
@@ -42,6 +52,9 @@ const AccountSettings: React.FC = () => {
             <div className={styles['page-nav']}>
               <Link to={AppRoute.PROFILE} className={styles['profile-link']}>
                 Profile
+              </Link>
+              <Link to={AppRoute.LOGIN} className={styles['profile-link']}>
+                Login
               </Link>
             </div>
           </div>
