@@ -1,4 +1,5 @@
-import { Button, PageLayout } from '~/libs/components/components.js';
+import { Button, Loader, PageLayout } from '~/libs/components/components.js';
+import { DataStatus } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
@@ -29,8 +30,9 @@ const MyProjects: React.FC = () => {
     void dispatch(projectActions.getUserProjects());
   }, [dispatch]);
 
-  const { projects } = useAppSelector((state) => ({
+  const { projects, status } = useAppSelector((state) => ({
     projects: state.projects.projects,
+    status: state.projects.dataStatus,
   }));
 
   const hasProjects = projects.length > 0;
@@ -45,6 +47,14 @@ const MyProjects: React.FC = () => {
     },
     [dispatch, handleModalClose],
   );
+
+  if (status === DataStatus.PENDING) {
+    return (
+      <PageLayout style="black">
+        <Loader style="yellow" />
+      </PageLayout>
+    );
+  }
 
   return (
     <PageLayout

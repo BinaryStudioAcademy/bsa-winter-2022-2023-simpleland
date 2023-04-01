@@ -1,4 +1,5 @@
-import { PageLayout } from '~/libs/components/components.js';
+import { Loader, PageLayout } from '~/libs/components/components.js';
+import { DataStatus } from '~/libs/enums/enums.js';
 import { useAppSelector, useEffect, useParams } from '~/libs/hooks/hooks.js';
 import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook';
 import { SiteCard } from '~/pages/sites/components/components.js';
@@ -18,9 +19,18 @@ const Sites: React.FC = () => {
     }
   }, [dispatch, projectId]);
 
-  const { sites } = useAppSelector(({ sites }) => ({
+  const { sites, status } = useAppSelector(({ sites }) => ({
     sites: sites.sites,
+    status: sites.dataStatus,
   }));
+
+  if (status === DataStatus.PENDING) {
+    return (
+      <PageLayout style="black">
+        <Loader style="yellow" />
+      </PageLayout>
+    );
+  }
 
   return (
     <PageLayout
