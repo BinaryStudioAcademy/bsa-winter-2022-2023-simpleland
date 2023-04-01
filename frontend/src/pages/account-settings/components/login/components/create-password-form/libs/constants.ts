@@ -6,4 +6,7 @@ const DEFAULT_UPDATE_PASSWORD_PAYLOAD: UserUpdatePasswordRequestDto = {
   repeatNewPassword: '',
 };
 
-export { DEFAULT_UPDATE_PASSWORD_PAYLOAD };
+const inputWrapper = 'input-wrapper';
+const inputIcon = 'input-icon';
+
+export { DEFAULT_UPDATE_PASSWORD_PAYLOAD, inputIcon, inputWrapper };
