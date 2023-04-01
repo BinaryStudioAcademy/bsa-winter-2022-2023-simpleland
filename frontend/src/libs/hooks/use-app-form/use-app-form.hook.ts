@@ -10,10 +10,11 @@ import {
 import { useForm } from 'react-hook-form';
 
 import { type ValidationSchema } from '~/libs/types/types.js';
+import { emptySchema } from '~/libs/validation-schemas/validation-schemas.js';
 
 type Parameters<T extends FieldValues = FieldValues> = {
   defaultValues: DeepPartial<T>;
-  validationSchema: ValidationSchema;
+  validationSchema?: ValidationSchema;
 };
 
 type ReturnValue<T extends FieldValues = FieldValues> = {
@@ -34,7 +35,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
     reset: handleReset,
   } = useForm<T>({
     defaultValues,
-    resolver: joiResolver(validationSchema),
+    resolver: joiResolver(validationSchema ?? emptySchema),
   });
 
   return {
