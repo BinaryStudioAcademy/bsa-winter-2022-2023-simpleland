@@ -10,10 +10,8 @@ import {
 import { NotificationType } from '~/libs/packages/notification/notification.js';
 import {
   type UserAuthResponse,
-  type UserCredentials,
   type UserUpdateLoginRequestDto,
   type UserUpdatePasswordRequestDto,
-  userCredentialsValidationSchema,
 } from '~/packages/users/users.js';
 import {
   CreatePasswordForm,
@@ -40,9 +38,8 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
     [user],
   );
 
-  const { control, errors, handleReset } = useAppForm<UserCredentials>({
+  const { control, errors, handleReset } = useAppForm({
     defaultValues: credentialsFormValues,
-    validationSchema: userCredentialsValidationSchema,
   });
 
   useEffect(() => {

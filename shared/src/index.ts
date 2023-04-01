@@ -61,7 +61,6 @@ export {
 } from './packages/sites/sites.js';
 export {
   type UserAuthResponse,
-  type UserCredentials,
   type UserGetAllItemResponseDto,
   type UserGetAllResponseDto,
   type UserSignInRequestDto,
@@ -72,7 +71,6 @@ export {
   type UserUpdateLoginRequestDto,
   type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
-  userCredentialsValidationSchema,
   UsersApiPath,
   userSignInValidationSchema,
   userSignUpValidationSchema,
