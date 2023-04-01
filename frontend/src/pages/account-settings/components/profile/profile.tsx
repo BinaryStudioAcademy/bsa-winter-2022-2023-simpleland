@@ -29,9 +29,9 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
   const handleUpdateUserDetails = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
       void handleSubmit(onUpdateUser)(event_);
-      },
+    },
     [handleSubmit, onUpdateUser],
-    );
+  );
 
   return (
     <form className={styles['form-wrapper']} onSubmit={handleUpdateUserDetails}>
@@ -79,11 +79,11 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
           className={getValidClassNames(
             styles['button'],
             styles['submit-button'],
-            )}
+          )}
         />
       </div>
     </form>
-    );
+  );
 };
 
 export { Profile };

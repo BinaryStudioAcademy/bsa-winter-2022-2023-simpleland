@@ -34,7 +34,7 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
     [user],
   );
 
-  const { control, errors,  reset } = useAppForm({
+  const { control, errors, reset } = useAppForm({
     defaultValues: credentialsFormValues,
     mode: 'onSubmit',
   });
