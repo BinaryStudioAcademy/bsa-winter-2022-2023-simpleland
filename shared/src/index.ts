@@ -50,6 +50,10 @@ export {
   SitesApiPath,
 } from './packages/sites/sites.js';
 export {
+  type StepTargetDto,
+  stepTargetValidationSchema,
+} from './packages/step/step.js';
+export {
   type UserAuthResponse,
   type UserGetAllItemResponseDto,
   type UserGetAllResponseDto,

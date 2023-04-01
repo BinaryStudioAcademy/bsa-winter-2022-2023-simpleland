@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 type Properties = {
   label: string;
   icon?: IconType;
+  form?: string;
   size?: 'big' | 'small';
   style?: 'primary' | 'secondary' | 'plain';
   type?: 'button' | 'submit';
@@ -19,6 +20,7 @@ type Properties = {
 const Button: React.FC<Properties> = ({
   onClick,
   label,
+  form,
   size = 'big',
   style = 'primary',
   type = 'button',
@@ -29,6 +31,7 @@ const Button: React.FC<Properties> = ({
 }: Properties) => (
   <button
     onClick={onClick}
+    form={form}
     type={type}
     disabled={isDisabled}
     className={getValidClassNames(

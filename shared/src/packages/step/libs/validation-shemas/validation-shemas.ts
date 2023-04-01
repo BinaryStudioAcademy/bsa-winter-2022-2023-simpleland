@@ -1,0 +1,1 @@
+export { stepTarget } from './step-target.validation-schema.js';

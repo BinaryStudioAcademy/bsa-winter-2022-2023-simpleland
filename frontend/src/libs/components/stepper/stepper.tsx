@@ -2,6 +2,7 @@ import { Button, IconButton } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useMemo, useStepper } from '~/libs/hooks/hooks.js';
 
+import { TargetAudience } from './step-target/stepper-target.js';
 import styles from './styles.module.scss';
 
 const ONE_STEP_LENGTH = 1;
@@ -68,11 +69,14 @@ const Stepper: React.FC<Properties> = ({
           </div>
         </div>
 
-        <div className={styles['children-wrapper']}>{stepBlock}</div>
+        <div className={styles['children-wrapper']}>
+          <TargetAudience />{stepBlock}</div>
       </div>
 
       <Button
         label={buttonLabel}
+        form='test-step'
+        type='submit'
         style="secondary"
         size="small"
         onClick={handleNextStep}
