@@ -17,7 +17,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
     defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
     validationSchema: userSignUpValidationSchema,
-    mode: 'onSubmit',
   });
 
   const handleFormSubmit = useCallback(

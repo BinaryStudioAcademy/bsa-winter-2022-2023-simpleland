@@ -36,7 +36,6 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
 
   const { control, errors, handleReset } = useAppForm({
     defaultValues: credentialsFormValues,
-    mode: 'onSubmit',
   });
 
   useEffect(() => {

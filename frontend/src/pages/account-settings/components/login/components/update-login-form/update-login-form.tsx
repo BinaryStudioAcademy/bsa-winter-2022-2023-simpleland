@@ -29,7 +29,6 @@ const UpdateLoginForm: React.FC<Properties> = ({
         repeatLogin: '',
       },
       validationSchema: userUpdateLoginValidationSchema,
-      mode: 'onSubmit',
     });
 
   const handleUpdateUserLogin = useCallback(

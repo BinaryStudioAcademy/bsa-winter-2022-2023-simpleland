@@ -23,7 +23,6 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
         accountName: user.accountName ?? '',
       },
       validationSchema: userUpdateValidationSchema,
-      mode: 'onSubmit',
     });
 
   const handleUpdateUserDetails = useCallback(

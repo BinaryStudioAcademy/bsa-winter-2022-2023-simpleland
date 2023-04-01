@@ -26,7 +26,6 @@ const CreateProjectModal: React.FC<Properties> = ({
     {
       defaultValues: DEFAULT_CREATE_PROJECT_PAYLOAD,
       validationSchema: projectCreateValidationSchema,
-      mode: 'onSubmit',
     },
   );
 
