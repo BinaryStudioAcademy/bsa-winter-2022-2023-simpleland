@@ -138,6 +138,8 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         email: null,
         passwordHash: passwordHash,
         passwordSalt: passwordSalt,
+        avatarId: null,
+        avatarUrl: null,
       }),
     );
 
@@ -165,6 +167,8 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         email,
         passwordHash: null,
         passwordSalt: null,
+        avatarId: null,
+        avatarUrl: null,
       }),
     );
 

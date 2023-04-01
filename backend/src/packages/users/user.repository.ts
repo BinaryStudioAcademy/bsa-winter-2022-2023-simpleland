@@ -173,7 +173,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
         passwordSalt,
         passwordHash,
       })
-      .withGraphFetched('userDetails')
+      .withGraphFetched(this.defaultRelationExpression)
       .execute();
 
     return UserEntity.initialize({
@@ -184,6 +184,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
       accountName: user.userDetails.accountName,
+      avatarId: user.userDetails.avatarId,
+      avatarUrl: user.userDetails.avatar?.url ?? null,
     });
   }
 
@@ -192,7 +194,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
     const user = await this.userModel
       .query()
       .updateAndFetchById(id, { email })
-      .withGraphFetched('userDetails')
+      .withGraphFetched(this.defaultRelationExpression)
       .execute();
 
     return UserEntity.initialize({
@@ -203,6 +205,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
       accountName: user.userDetails.accountName,
+      avatarId: user.userDetails.avatarId,
+      avatarUrl: user.userDetails.avatar?.url ?? null,
     });
   }
 }
