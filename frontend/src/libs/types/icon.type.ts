@@ -1,3 +1,9 @@
-type IconType = 'arrowRight' | 'arrowLeft' | 'cross' | 'plus' | 'pencil' | 'eye';
+type IconType =
+  | 'arrowRight'
+  | 'arrowLeft'
+  | 'cross'
+  | 'plus'
+  | 'pencil'
+  | 'eye';
 
 export { type IconType };
