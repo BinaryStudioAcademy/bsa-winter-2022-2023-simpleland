@@ -15,7 +15,7 @@ type Properties = {
 };
 
 const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
-  const { control, errors, handleSubmit, handleReset } =
+  const { control, errors, handleSubmit, reset } =
     useAppForm<UserUpdateRequestDto>({
       defaultValues: {
         firstName: user.firstName,
@@ -23,22 +23,15 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
         accountName: user.accountName ?? '',
       },
       validationSchema: userUpdateValidationSchema,
+      mode: 'onSubmit',
     });
-
-  const handleFormCancel = useCallback(() => {
-    handleReset({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      accountName: user.accountName ?? '',
-    });
-  }, [handleReset, user]);
 
   const handleUpdateUserDetails = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
       void handleSubmit(onUpdateUser)(event_);
-    },
+      },
     [handleSubmit, onUpdateUser],
-  );
+    );
 
   return (
     <form className={styles['form-wrapper']} onSubmit={handleUpdateUserDetails}>
@@ -76,7 +69,7 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
           size="small"
           label="Cancel"
           className={styles['button']}
-          onClick={handleFormCancel}
+          onClick={reset}
         />
         <Button
           type="submit"
@@ -86,11 +79,11 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
           className={getValidClassNames(
             styles['button'],
             styles['submit-button'],
-          )}
+            )}
         />
       </div>
     </form>
-  );
+    );
 };
 
 export { Profile };
