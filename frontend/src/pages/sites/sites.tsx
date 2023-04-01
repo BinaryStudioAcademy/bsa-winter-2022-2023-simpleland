@@ -1,4 +1,4 @@
-import { PageLayout } from '~/libs/components/components.js';
+import { Button, PageLayout } from '~/libs/components/components.js';
 import { useAppSelector, useEffect, useParams } from '~/libs/hooks/hooks.js';
 import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook';
 import { SiteCard } from '~/pages/sites/components/components.js';
@@ -22,19 +22,36 @@ const Sites: React.FC = () => {
     sites: sites.sites,
   }));
 
+  const hasSites = sites.length > 0;
+
   return (
     <PageLayout
-      style="white"
+      style={hasSites ? 'white' : 'black'}
       pageName="My Sites"
       className={styles['page-layout']}
     >
-      <div className={styles['page-wrapper']}>
-        <div className={styles['cards-wrapper']}>
-          {sites.map((site) => (
-            <SiteCard key={site.id} site={site} />
-          ))}
+      {hasSites ? (
+        <div className={styles['page-wrapper']}>
+          <div className={styles['cards-wrapper']}>
+            {sites.map((site) => (
+              <SiteCard key={site.id} site={site} />
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className={styles['placeholder']}>
+          <div className={styles['placeholder-caption']}>
+            <span className={styles['placeholder-sub-caption']}>Hello!</span>
+            <span className={styles['placeholder-main-caption']}>
+              There are no sites
+            </span>
+          </div>
+          <Button
+            className={styles['placeholder-button']}
+            label="Create a new site"
+          />
+        </div>
+      )}
     </PageLayout>
   );
 };
