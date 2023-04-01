@@ -11,9 +11,15 @@ import { type UserService } from '~/packages/users/user.service.js';
 import { UsersApiPath } from './libs/enums/enums.js';
 import {
   type UserAuthResponse,
+  type UserUpdateLoginRequestDto,
+  type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
-import { userUpdateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+import {
+  userUpdateLoginValidationSchema,
+  userUpdatePasswordValidationSchema,
+  userUpdateValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -62,18 +68,6 @@ class UserController extends Controller {
           options as ApiHandlerOptions<{
             body: UserUpdateRequestDto;
             user: UserAuthResponse;
-          }>,
-        ),
-    });
-
-    this.addRoute({
-      path: UsersApiPath.AVATAR,
-      method: 'PUT',
-      handler: (options) =>
-        this.updateAvatar(
-          options as ApiHandlerOptions<{
-            user: UserAuthResponse;
-            fileBuffer: Buffer;
           }>,
         ),
     });
@@ -134,6 +128,83 @@ class UserController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.userService.update(options.user.id, options.body),
+    };
+  }
+
+  /**
+   * @swagger
+   * /users/password:
+   *    patch:
+   *      description: Updating password. Returning user
+   *      requestBody:
+   *        description: passwords
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                password: string;
+   *                newPassword: string;
+   *      responses:
+   *        200:
+   *          description: Successful update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/User'
+   */
+  private async updatePassword(
+    options: ApiHandlerOptions<{
+      body: UserUpdatePasswordRequestDto;
+      user: UserAuthResponse;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.userService.updatePassword(
+        options.user.id,
+        options.body,
+      ),
+    };
+  }
+
+  /**
+   * @swagger
+   * /users/update-login:
+   *    patch:
+   *      description: Updating login. Returning user
+   *      requestBody:
+   *        description: Updates user login. Returns user
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                login: string;
+   *                repeatLogin: string;
+   *      responses:
+   *        200:
+   *          description: Successful update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/User'
+   */
+
+  private async updateLogin(
+    options: ApiHandlerOptions<{
+      body: UserUpdateLoginRequestDto;
+      user: UserAuthResponse;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.userService.updateLogin(
+        options.user.id,
+        options.body,
+      ),
     };
   }
 

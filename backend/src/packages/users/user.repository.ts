@@ -162,6 +162,49 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       avatarUrl: user.userDetails.avatar?.url ?? null,
     });
   }
+
+  public async updatePassword(entity: UserEntity): Promise<UserEntity> {
+    const { id } = entity.toObject();
+    const { passwordHash, passwordSalt } = entity.privateData;
+
+    const user = await this.userModel
+      .query()
+      .updateAndFetchById(id, {
+        passwordSalt,
+        passwordHash,
+      })
+      .withGraphFetched('userDetails')
+      .execute();
+
+    return UserEntity.initialize({
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
+      firstName: user.userDetails.firstName,
+      lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
+    });
+  }
+
+  public async updateLogin(entity: UserEntity): Promise<UserEntity> {
+    const { id, email } = entity.toObject();
+    const user = await this.userModel
+      .query()
+      .updateAndFetchById(id, { email })
+      .withGraphFetched('userDetails')
+      .execute();
+
+    return UserEntity.initialize({
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
+      firstName: user.userDetails.firstName,
+      lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
+    });
+  }
 }
 
 export { UserRepository };

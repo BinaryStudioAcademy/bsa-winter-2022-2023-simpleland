@@ -7,6 +7,7 @@ const AppRoute = {
   START: '/start',
   PROFILE: '/profile',
   SITES_$SITE_ID: '/sites/:siteId',
+  LOGIN: '/login',
   ANY: '*',
 } as const;
 
