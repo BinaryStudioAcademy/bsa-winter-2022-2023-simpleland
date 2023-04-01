@@ -59,6 +59,7 @@ const MyProjects: React.FC = () => {
                   control={control}
                   errors={errors}
                   className={styles['search-input']}
+                  icon="search"
                 />
               </div>
             </form>
