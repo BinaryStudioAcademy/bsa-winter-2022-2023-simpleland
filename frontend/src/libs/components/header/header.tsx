@@ -29,12 +29,14 @@ const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
     <header className={styles['header']}>
       <div className={styles['logo-wrapper']}>
         <Image alt="logo" src={logo} />
-        <span className={styles['logo-text']}>SimpleLand</span>
+        <Link to={AppRoute.ROOT}>
+          <span className={styles['logo-text']}>SimpleLand</span>
+        </Link>
       </div>
       <div className={styles['header-sidebar']}>
         <ul className={styles['header-nav-list']}>
           <li>
-            <Link to={AppRoute.ROOT}>
+            <Link to={AppRoute.ROOT} className={styles['page-link']}>
               <span className={styles['section-title']}>{pageName}</span>
             </Link>
           </li>
