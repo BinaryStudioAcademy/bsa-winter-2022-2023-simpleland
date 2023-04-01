@@ -49,15 +49,16 @@ export {
   SectionType,
 } from './packages/sections/sections.js';
 export {
+  type SiteCreateParametersDto,
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
+  type SiteCreateStepName,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
-  type SiteNameDto,
+  siteCreateStepNameValidationSchema,
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
-  siteNameValidationSchema,
   SitesApiPath,
 } from './packages/sites/sites.js';
 export {

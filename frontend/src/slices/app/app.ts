@@ -1,8 +1,9 @@
-import { notify } from './actions.js';
+import { navigate, notify } from './actions.js';
 import { actions } from './app.slice.js';
 
 const allActions = {
   ...actions,
+  navigate,
   notify,
 };
 

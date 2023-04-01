@@ -1,1 +1,1 @@
-export { siteNameValidationSchema } from 'shared/build/index.js';
+export { siteCreateStepNameValidationSchema } from 'shared/build/index.js';

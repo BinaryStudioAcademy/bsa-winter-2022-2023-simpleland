@@ -20,11 +20,12 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
       <img className={styles['card-image']} src={img} alt="" />
       <div className={styles['card-description']}>
         <Link
-          to={
-            configureString(AppRoute.PROJECTS_$PROJECT_ID_SITES, {
-              projectId: id.toString(),
-            }) as ValueOf<typeof AppRoute>
-          }
+          to={configureString<ValueOf<typeof AppRoute>>(
+            AppRoute.PROJECTS_$PROJECT_ID_SITES,
+            {
+              projectId: id,
+            },
+          )}
         >
           <h2>{name}</h2>
         </Link>

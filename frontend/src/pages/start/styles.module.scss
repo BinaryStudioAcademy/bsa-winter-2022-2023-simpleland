@@ -23,11 +23,54 @@
 
 .content-info {
   flex-grow: 1;
-  height: 460px;
+  min-height: 485px;
   padding: 44px 0 68px;
   background-color: var(--white);
 }
 
-.stepper-wrapper {
+.stepper {
+  display: flex;
+  flex-direction: column;
   width: 340px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.bar-wrapper {
+  margin-bottom: 24px;
+}
+
+.bar {
+  height: 8px;
+  margin-bottom: 4px;
+  background-color: var(--gray-100);
+  border-radius: 100px;
+}
+
+.bar-yellow {
+  width: 0;
+  background-color: var(--yellow);
+}
+
+.img-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.text {
+  color: var(--gray-600);
+  font-weight: 500;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 16px;
+}
+
+.yellow {
+  color: var(--yellow);
+}
+
+.button {
+  width: 152px;
+  margin: 0 auto;
 }

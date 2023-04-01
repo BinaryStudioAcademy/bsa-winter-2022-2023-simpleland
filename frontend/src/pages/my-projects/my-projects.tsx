@@ -47,18 +47,12 @@ const MyProjects: React.FC = () => {
   );
 
   return (
-    <PageLayout
-      pageName="My Projects"
-      style={hasProjects ? 'white' : 'black'}
-      className={styles['page-layout']}
-    >
-      {isOpen ? (
-        <CreateProjectModal
-          onSubmit={handleProjectSubmit}
-          isOpen={isOpen}
-          onCloseModal={handleModalClose}
-        />
-      ) : (
+    <>
+      <PageLayout
+        pageName="My Projects"
+        style={hasProjects ? 'white' : 'black'}
+        className={styles['page-layout']}
+      >
         <div className={styles['page-wrapper']}>
           {hasProjects ? (
             <>
@@ -96,8 +90,13 @@ const MyProjects: React.FC = () => {
             </div>
           )}
         </div>
-      )}
-    </PageLayout>
+      </PageLayout>
+      <CreateProjectModal
+        onSubmit={handleProjectSubmit}
+        isOpen={isOpen}
+        onCloseModal={handleModalClose}
+      />
+    </>
   );
 };
 

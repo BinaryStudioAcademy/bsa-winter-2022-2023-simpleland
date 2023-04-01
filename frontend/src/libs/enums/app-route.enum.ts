@@ -4,7 +4,7 @@ const AppRoute = {
   SIGN_UP: '/sign-up',
   MY_PROJECTS: '/my-projects',
   PROJECTS_$PROJECT_ID_SITES: '/projects/:projectId/sites',
-  START: '/start',
+  PROJECTS_$PROJECT_ID_START: '/projects/:projectId/start',
   PROFILE: '/profile',
   SITES_$SITE_ID: '/sites/:siteId',
   ANY: '*',

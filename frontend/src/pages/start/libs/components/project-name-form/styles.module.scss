@@ -1,21 +1,25 @@
-.project-name {
-  margin-top: 23px;
-}
-
-.project-name-title {
+.title {
   margin-bottom: 8px;
   color: var(--gray-600);
   font-weight: 600;
   font-size: 24px;
 }
 
-.project-name-subtitle {
+.subtitle {
   margin-top: 8px;
   color: var(--gray-600);
   font-weight: 400;
   font-size: 14px;
 }
 
-.form-wrapper {
-  margin-top: 29px;
+.form {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.button {
+  width: 152px;
+  margin: auto auto 0;
 }
