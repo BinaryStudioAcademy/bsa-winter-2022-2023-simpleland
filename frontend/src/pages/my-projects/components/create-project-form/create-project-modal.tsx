@@ -39,7 +39,7 @@ const CreateProjectModal: React.FC<Properties> = ({
   return (
     <Modal isOpen={isOpen} onClose={onCloseModal}>
       <div className={getValidClassNames(styles['form-wrapper'], className)}>
-        <h2>Create a new business</h2>
+        <h2>Create a new project</h2>
         <form className={styles['form-wrapper']} onSubmit={handleFormSubmit}>
           <Input
             control={control}
@@ -52,7 +52,7 @@ const CreateProjectModal: React.FC<Properties> = ({
             type="submit"
             style="primary"
             size="small"
-            label="Create Business"
+            label="Create Project"
             className={styles['submit-button']}
           />
         </form>
