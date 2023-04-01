@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 type Properties = {
   src: string;
   alt: string;
-  className?: string;
+  className?: string | undefined;
   width?: string;
   height?: string;
 };
