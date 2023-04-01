@@ -71,6 +71,44 @@ class UserController extends Controller {
           }>,
         ),
     });
+
+    this.addRoute({
+      path: UsersApiPath.UPDATE_PASSWORD,
+      method: 'PUT',
+      validation: { body: userUpdatePasswordValidationSchema },
+      handler: (options) =>
+        this.updatePassword(
+          options as ApiHandlerOptions<{
+            body: UserUpdatePasswordRequestDto;
+            user: UserAuthResponse;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: UsersApiPath.UPDATE_LOGIN,
+      method: 'PUT',
+      validation: { body: userUpdateLoginValidationSchema },
+      handler: (options) =>
+        this.updateLogin(
+          options as ApiHandlerOptions<{
+            body: UserUpdateLoginRequestDto;
+            user: UserAuthResponse;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: UsersApiPath.AVATAR,
+      method: 'PUT',
+      handler: (options) =>
+        this.updateAvatar(
+          options as ApiHandlerOptions<{
+            user: UserAuthResponse;
+            fileBuffer: Buffer;
+          }>,
+        ),
+    });
   }
 
   /**
