@@ -12,19 +12,26 @@ import {
   type UserAuthResponse,
   type UserCredentials,
   type UserUpdateLoginRequestDto,
+  type UserUpdatePasswordRequestDto,
   userCredentialsValidationSchema,
 } from '~/packages/users/users.js';
-import { UpdateLoginsForm } from '~/pages/account-settings/components/login/components/components.js';
+import {
+  CreatePasswordForm,
+  UpdateLoginsForm,
+} from '~/pages/account-settings/components/login/components/components.js';
 import { actions as appActions } from '~/slices/app/app.js';
-import { actions as usersActions } from '~/slices/users/users.js';
+import { actions as userActions } from '~/slices/users/users.js';
 
 import styles from './styles.module.scss';
+
+const MESSAGE = 'Your password has been successfully changed';
 
 type Properties = {
   user: UserAuthResponse;
 };
 
 const Login: React.FC<Properties> = ({ user }: Properties) => {
+  const dispatch = useAppDispatch();
   const credentialsFormValues = useMemo(
     () => ({
       login: user.email,
@@ -32,7 +39,6 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
     }),
     [user],
   );
-  const dispatch = useAppDispatch();
 
   const { control, errors, handleReset } = useAppForm<UserCredentials>({
     defaultValues: credentialsFormValues,
@@ -51,7 +57,7 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
 
   const handleSubmitUpdateUserLogin = useCallback(
     (payload: UserUpdateLoginRequestDto): void => {
-      void dispatch(usersActions.updateUserLogin(payload))
+      void dispatch(userActions.updateUserLogin(payload))
         .unwrap()
         .then(() => {
           handleLoginModalClose();
@@ -66,16 +72,47 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
     [dispatch, handleLoginModalClose],
   );
 
+  const {
+    isOpenModal: isOpenPasswordModal,
+    handleModalClose: handlePasswordModalClose,
+    handleModalOpen: handlePasswordModalOpen,
+  } = useModal();
+
+  const handlePasswordSubmit = useCallback(
+    (payload: UserUpdatePasswordRequestDto): void => {
+      void dispatch(userActions.updateUserPassword(payload))
+        .unwrap()
+        .then(() => {
+          handlePasswordModalClose();
+          void dispatch(
+            appActions.notify({
+              type: NotificationType.SUCCESS,
+              message: MESSAGE,
+            }),
+          );
+        });
+    },
+    [dispatch, handlePasswordModalClose],
+  );
+
   return (
     <>
-      {isOpenLoginModal ? (
+      {isOpenLoginModal && (
         <UpdateLoginsForm
           user={user}
           isOpen={isOpenLoginModal}
           onSubmitUpdateUserLogin={handleSubmitUpdateUserLogin}
           onClose={handleLoginModalClose}
         />
-      ) : (
+      )}
+      {isOpenPasswordModal && (
+        <CreatePasswordForm
+          onSubmit={handlePasswordSubmit}
+          isOpen={isOpenPasswordModal}
+          onCloseModal={handlePasswordModalClose}
+        />
+      )}
+      {!isOpenLoginModal && !isOpenPasswordModal && (
         <form className={styles['form-wrapper']}>
           <div className={styles['inputs']}>
             <div className={styles['input-wrapper']}>
@@ -91,18 +128,28 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
               <IconButton
                 icon="pencil"
                 label="E-mail"
-                onClick={handleLoginModalOpen}
                 className={styles['input-icon']}
+                onClick={handleLoginModalOpen}
               />
             </div>
-            <Input
-              type="password"
-              label="Password"
-              placeholder="password"
-              name="password"
-              control={control}
-              errors={errors}
-            />
+            <div className={styles['input-wrapper']}>
+              <Input
+                type="password"
+                label="Password"
+                placeholder="password"
+                name="password"
+                control={control}
+                errors={errors}
+                isDisabled={true}
+              />
+
+              <IconButton
+                icon="pencil"
+                label="Open password modal"
+                className={styles['input-icon']}
+                onClick={handlePasswordModalOpen}
+              />
+            </div>
           </div>
         </form>
       )}
