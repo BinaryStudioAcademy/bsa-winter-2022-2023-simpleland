@@ -17,7 +17,7 @@ import {
 } from '~/packages/users/users.js';
 import {
   CreatePasswordForm,
-  UpdateLoginsForm,
+  UpdateLoginForm,
 } from '~/pages/account-settings/components/login/components/components.js';
 import { actions as appActions } from '~/slices/app/app.js';
 import { actions as userActions } from '~/slices/users/users.js';
@@ -98,7 +98,7 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
   return (
     <>
       {isOpenLoginModal && (
-        <UpdateLoginsForm
+        <UpdateLoginForm
           user={user}
           isOpen={isOpenLoginModal}
           onSubmitUpdateUserLogin={handleSubmitUpdateUserLogin}

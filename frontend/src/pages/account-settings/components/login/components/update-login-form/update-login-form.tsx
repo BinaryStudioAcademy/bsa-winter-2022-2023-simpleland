@@ -16,7 +16,7 @@ type Properties = {
   onClose: () => void;
 };
 
-const UpdateLoginsForm: React.FC<Properties> = ({
+const UpdateLoginForm: React.FC<Properties> = ({
   user,
   isOpen,
   onSubmitUpdateUserLogin,
@@ -81,4 +81,4 @@ const UpdateLoginsForm: React.FC<Properties> = ({
   );
 };
 
-export { UpdateLoginsForm };
+export { UpdateLoginForm };
