@@ -100,7 +100,7 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
                 name="login"
                 control={control}
                 errors={errors}
-                isDisabled={true}
+                isDisabled
               />
               <IconButton
                 icon="pencil"
@@ -117,7 +117,7 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
                 name="password"
                 control={control}
                 errors={errors}
-                isDisabled={true}
+                isDisabled
               />
 
               <IconButton
