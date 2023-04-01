@@ -27,9 +27,13 @@ const updateUserLogin = createAsyncThunk<
 >(
   `${sliceName}/update-user-login`,
   async (updateUserLoginPayload, { extra }) => {
-    const { userApi } = extra;
+    const { userApi, notification } = extra;
 
-    return await userApi.updateUserLogin(updateUserLoginPayload);
+    const user = await userApi.updateUserLogin(updateUserLoginPayload);
+
+    notification.success('Your email has been successfully changed');
+
+    return user;
   },
 );
 
@@ -40,9 +44,13 @@ const updateUserPassword = createAsyncThunk<
 >(
   `${sliceName}/update-password`,
   async (updateUserPasswordPayload, { extra }) => {
-    const { userApi } = extra;
+    const { userApi, notification } = extra;
 
-    return await userApi.updateUserPassword(updateUserPasswordPayload);
+    const user = await userApi.updateUserPassword(updateUserPasswordPayload);
+
+    notification.success('Your password has been successfully changed');
+
+    return user;
   },
 );
 

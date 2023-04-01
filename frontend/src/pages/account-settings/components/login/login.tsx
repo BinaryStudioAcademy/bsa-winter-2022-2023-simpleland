@@ -7,7 +7,6 @@ import {
   useMemo,
   useModal,
 } from '~/libs/hooks/hooks.js';
-import { NotificationType } from '~/libs/packages/notification/notification.js';
 import {
   type UserAuthResponse,
   type UserUpdateLoginRequestDto,
@@ -17,12 +16,9 @@ import {
   CreatePasswordForm,
   UpdateLoginForm,
 } from '~/pages/account-settings/components/login/components/components.js';
-import { actions as appActions } from '~/slices/app/app.js';
 import { actions as userActions } from '~/slices/users/users.js';
 
 import styles from './styles.module.scss';
-
-const MESSAGE = 'Your password has been successfully changed';
 
 type Properties = {
   user: UserAuthResponse;
@@ -56,15 +52,7 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
     (payload: UserUpdateLoginRequestDto): void => {
       void dispatch(userActions.updateUserLogin(payload))
         .unwrap()
-        .then(() => {
-          handleLoginModalClose();
-          void dispatch(
-            appActions.notify({
-              type: NotificationType.SUCCESS,
-              message: 'Email updated',
-            }),
-          );
-        });
+        .then(handleLoginModalClose);
     },
     [dispatch, handleLoginModalClose],
   );
@@ -79,15 +67,7 @@ const Login: React.FC<Properties> = ({ user }: Properties) => {
     (payload: UserUpdatePasswordRequestDto): void => {
       void dispatch(userActions.updateUserPassword(payload))
         .unwrap()
-        .then(() => {
-          handlePasswordModalClose();
-          void dispatch(
-            appActions.notify({
-              type: NotificationType.SUCCESS,
-              message: MESSAGE,
-            }),
-          );
-        });
+        .then(handlePasswordModalClose);
     },
     [dispatch, handlePasswordModalClose],
   );
