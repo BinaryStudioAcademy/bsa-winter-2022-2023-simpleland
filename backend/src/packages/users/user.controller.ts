@@ -40,6 +40,10 @@ import {
  *          accountName:
  *            type: string;
  *            nullable: true;
+ *          avatarUrl:
+ *            type: string;
+ *            format: uri;
+ *            nullable: true;
  */
 class UserController extends Controller {
   private userService: UserService;
@@ -90,6 +94,18 @@ class UserController extends Controller {
           options as ApiHandlerOptions<{
             body: UserUpdateLoginRequestDto;
             user: UserAuthResponse;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: UsersApiPath.AVATAR,
+      method: 'PUT',
+      handler: (options) =>
+        this.updateAvatar(
+          options as ApiHandlerOptions<{
+            user: UserAuthResponse;
+            fileBuffer: Buffer;
           }>,
         ),
     });
@@ -227,6 +243,43 @@ class UserController extends Controller {
         options.user.id,
         options.body,
       ),
+    };
+  }
+
+  /**
+   * @swagger
+   * /users/avatar:
+   *    put:
+   *      description: Updating user avatar. Returning user
+   *      requestBody:
+   *        description: User avatar
+   *        required: true
+   *        content:
+   *          multipart/form-data:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                file:
+   *                  type: string
+   *                  format: binary
+   *      responses:
+   *        200:
+   *          description: Successful avatar update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/User'
+   */
+  private async updateAvatar({
+    user,
+    fileBuffer,
+  }: ApiHandlerOptions<{
+    user: UserAuthResponse;
+    fileBuffer: Buffer;
+  }>): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.userService.updateAvatar(user.id, fileBuffer),
     };
   }
 }

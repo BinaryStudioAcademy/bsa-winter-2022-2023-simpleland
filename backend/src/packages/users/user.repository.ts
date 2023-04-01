@@ -5,6 +5,8 @@ import { type UserModel } from '~/packages/users/user.model.js';
 class UserRepository implements Omit<IRepository, 'delete'> {
   private userModel: typeof UserModel;
 
+  private defaultRelationExpression = 'userDetails.avatar';
+
   public constructor(userModel: typeof UserModel) {
     this.userModel = userModel;
   }
@@ -12,9 +14,9 @@ class UserRepository implements Omit<IRepository, 'delete'> {
   public async find(id: number): Promise<UserEntity | null> {
     const user = await this.userModel
       .query()
-      .where('users.id', id)
+      .findById(id)
       .first()
-      .withGraphJoined('userDetails');
+      .withGraphJoined(this.defaultRelationExpression);
 
     if (!user) {
       return null;
@@ -28,6 +30,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
       accountName: user.userDetails.accountName,
+      avatarId: user.userDetails.avatarId,
+      avatarUrl: user.userDetails.avatar?.url ?? null,
     });
   }
 
@@ -36,7 +40,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       .query()
       .where('email', email)
       .first()
-      .withGraphJoined('userDetails');
+      .withGraphJoined(this.defaultRelationExpression);
 
     if (!user) {
       return null;
@@ -50,6 +54,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
       accountName: user.userDetails.accountName,
+      avatarId: user.userDetails.avatarId,
+      avatarUrl: user.userDetails.avatar?.url ?? null,
     });
   }
 
@@ -57,7 +63,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
     const users = await this.userModel
       .query()
       .select()
-      .withGraphJoined('userDetails');
+      .withGraphJoined(this.defaultRelationExpression);
 
     return users.map((user) => {
       return UserEntity.initialize({
@@ -68,6 +74,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
         firstName: user.userDetails.firstName,
         lastName: user.userDetails.lastName,
         accountName: user.userDetails.accountName,
+        avatarId: user.userDetails.avatarId,
+        avatarUrl: user.userDetails.avatar?.url ?? null,
       });
     });
   }
@@ -87,7 +95,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
           lastName,
         },
       })
-      .withGraphFetched('userDetails')
+      .withGraphFetched(this.defaultRelationExpression)
       .execute();
 
     return UserEntity.initialize({
@@ -98,20 +106,23 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
       accountName: user.userDetails.accountName,
+      avatarId: user.userDetails.avatarId,
+      avatarUrl: user.userDetails.avatar?.url ?? null,
     });
   }
 
   public async update(entity: UserEntity): Promise<UserEntity> {
     const { id, firstName, lastName, accountName } = entity.toUserDetails();
 
-    const user = await this.userModel.query().upsertGraphAndFetch({
-      id,
-      userDetails: {
-        firstName,
-        lastName,
-        accountName,
-      },
-    });
+    await this.userModel
+      .relatedQuery('userDetails')
+      .for(id)
+      .patch({ firstName, lastName, accountName });
+
+    const user = (await this.userModel
+      .query()
+      .findById(id)
+      .withGraphFetched(this.defaultRelationExpression)) as UserModel;
 
     return UserEntity.initialize({
       id: user.id,
@@ -121,6 +132,34 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
       accountName: user.userDetails.accountName,
+      avatarId: user.userDetails.avatarId,
+      avatarUrl: user.userDetails.avatar?.url ?? null,
+    });
+  }
+
+  public async updateAvatar(entity: UserEntity): Promise<UserEntity> {
+    const { id, avatarId } = entity.toUserAvatar();
+
+    await this.userModel
+      .relatedQuery('userDetails')
+      .for(id)
+      .patch({ avatarId });
+
+    const user = (await this.userModel
+      .query()
+      .findById(id)
+      .withGraphFetched(this.defaultRelationExpression)) as UserModel;
+
+    return UserEntity.initialize({
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
+      firstName: user.userDetails.firstName,
+      lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
+      avatarId: user.userDetails.avatarId,
+      avatarUrl: user.userDetails.avatar?.url ?? null,
     });
   }
 
@@ -134,7 +173,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
         passwordSalt,
         passwordHash,
       })
-      .withGraphFetched('userDetails')
+      .withGraphFetched(this.defaultRelationExpression)
       .execute();
 
     return UserEntity.initialize({
@@ -145,6 +184,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
       accountName: user.userDetails.accountName,
+      avatarId: user.userDetails.avatarId,
+      avatarUrl: user.userDetails.avatar?.url ?? null,
     });
   }
 
@@ -153,7 +194,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
     const user = await this.userModel
       .query()
       .updateAndFetchById(id, { email })
-      .withGraphFetched('userDetails')
+      .withGraphFetched(this.defaultRelationExpression)
       .execute();
 
     return UserEntity.initialize({
@@ -164,6 +205,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       firstName: user.userDetails.firstName,
       lastName: user.userDetails.lastName,
       accountName: user.userDetails.accountName,
+      avatarId: user.userDetails.avatarId,
+      avatarUrl: user.userDetails.avatar?.url ?? null,
     });
   }
 }

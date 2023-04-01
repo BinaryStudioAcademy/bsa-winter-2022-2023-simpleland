@@ -3,7 +3,9 @@ import { type RelationMappings, Model } from 'objection';
 import {
   AbstractModel,
   DatabaseTableName,
+  getJoinRelationPath,
 } from '~/libs/packages/database/database.js';
+import { FileModel } from '~/libs/packages/file/file.js';
 import { UserModel } from '~/packages/users/user.model.js';
 
 class UserDetailsModel extends AbstractModel {
@@ -15,6 +17,10 @@ class UserDetailsModel extends AbstractModel {
 
   public 'accountName': string | null;
 
+  public 'avatarId': number | null;
+
+  public 'avatar': FileModel | null;
+
   public static override get tableName(): string {
     return DatabaseTableName.USER_DETAILS;
   }
@@ -25,8 +31,22 @@ class UserDetailsModel extends AbstractModel {
         relation: Model.HasOneRelation,
         modelClass: UserModel,
         join: {
-          from: 'user_details.userId',
-          to: 'users.id',
+          from: getJoinRelationPath<UserDetailsModel>(
+            DatabaseTableName.USER_DETAILS,
+            'userId',
+          ),
+          to: getJoinRelationPath(DatabaseTableName.USERS, 'id'),
+        },
+      },
+      avatar: {
+        relation: Model.HasOneRelation,
+        modelClass: FileModel,
+        join: {
+          from: getJoinRelationPath<UserDetailsModel>(
+            DatabaseTableName.USER_DETAILS,
+            'avatarId',
+          ),
+          to: getJoinRelationPath(DatabaseTableName.FILES, 'id'),
         },
       },
     };

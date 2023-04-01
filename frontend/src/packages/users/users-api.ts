@@ -83,6 +83,20 @@ class UserApi extends HttpApi {
 
     return await response.json<UserAuthResponse>();
   }
+
+  public async updateUserAvatar(payload: FormData): Promise<UserAuthResponse> {
+    const response = await this.load(
+      this.getFullEndpoint(UsersApiPath.AVATAR, {}),
+      {
+        method: 'PUT',
+        contentType: ContentType.FORM_DATA,
+        hasAuth: true,
+        payload,
+      },
+    );
+
+    return await response.json<UserAuthResponse>();
+  }
 }
 
 export { UserApi };

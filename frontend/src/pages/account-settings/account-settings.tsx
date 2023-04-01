@@ -7,6 +7,7 @@ import {
   useCallback,
   useLocation,
 } from '~/libs/hooks/hooks.js';
+import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
   type UserAuthResponse,
   type UserUpdateRequestDto,
@@ -29,12 +30,32 @@ const AccountSettings: React.FC = () => {
     [dispatch],
   );
 
+  const handleUpdateUserAvatar = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const [avatar] = event.target.files ?? [];
+
+      if (avatar) {
+        const formData = new FormData();
+        formData.append(FormDataKey.FILE, avatar);
+
+        void dispatch(usersActions.updateUserAvatar(formData));
+      }
+    },
+    [dispatch],
+  );
+
   const location = useLocation();
 
   const handleScreenRender = (): React.ReactNode => {
     switch (location.pathname) {
       case AppRoute.PROFILE: {
-        return <Profile user={user} onUpdateUser={handleUpdateUser} />;
+        return (
+          <Profile
+            user={user}
+            onUpdateUser={handleUpdateUser}
+            onUpdateUserAvatar={handleUpdateUserAvatar}
+          />
+        );
       }
       case AppRoute.LOGIN: {
         return <Login user={user} />;

@@ -14,6 +14,7 @@ export {
   initAsyncItemsQueue,
 } from './libs/helpers/helpers.js';
 export { type IConfig } from './libs/packages/config/config.js';
+export { FormDataKey } from './libs/packages/file/file.js';
 export {
   type HttpMethod,
   type HttpOptions,

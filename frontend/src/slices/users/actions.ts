@@ -54,4 +54,14 @@ const updateUserPassword = createAsyncThunk<
   },
 );
 
-export { updateUser, updateUserLogin, updateUserPassword };
+const updateUserAvatar = createAsyncThunk<
+  UserAuthResponse,
+  FormData,
+  AsyncThunkConfig
+>(`${sliceName}/update-user-avatar`, async (payload, { extra }) => {
+  const { userApi } = extra;
+
+  return await userApi.updateUserAvatar(payload);
+});
+
+export { updateUser, updateUserAvatar, updateUserLogin, updateUserPassword };
