@@ -30,6 +30,7 @@ export {
   type ValidationSchema,
   type ValueOf,
 } from './libs/types/types.js';
+export { emptySchema } from './libs/validation-shemas/validation-schemas.js';
 export { AuthApiPath } from './packages/auth/auth.js';
 export {
   type ProjectCreateDto,
