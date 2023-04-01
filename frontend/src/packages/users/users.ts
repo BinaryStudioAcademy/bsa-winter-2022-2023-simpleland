@@ -13,7 +13,6 @@ const userApi = new UserApi({
 export { userApi };
 export {
   type UserAuthResponse,
-  type UserCredentials,
   type UserGetAllItemResponseDto,
   type UserGetAllResponseDto,
   type UserSignInRequestDto,
@@ -25,7 +24,6 @@ export {
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
 export {
-  userCredentialsValidationSchema,
   userSignInValidationSchema,
   userSignUpValidationSchema,
   userUpdateLoginValidationSchema,
