@@ -14,7 +14,10 @@ import { type IDatabase } from '~/libs/packages/database/database.js';
 import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { token } from '~/libs/packages/token/token.js';
-import { authorization, file } from '~/libs/plugins/plugins.js';
+import {
+  authorization as authorizationPlugin,
+  file as filePlugin,
+} from '~/libs/plugins/plugins.js';
 import {
   type ServerCommonErrorResponse,
   type ServerValidationErrorResponse,
@@ -90,12 +93,12 @@ class ServerApp implements IServerApp {
       attachFieldsToBody: true,
       throwFileSizeLimit: false,
     });
-    await this.app.register(authorization, {
+    await this.app.register(authorizationPlugin, {
       whiteRoutesConfig: WHITE_ROUTES,
       userService,
       token,
     });
-    await this.app.register(file);
+    await this.app.register(filePlugin);
   }
 
   public async initMiddlewares(): Promise<void> {

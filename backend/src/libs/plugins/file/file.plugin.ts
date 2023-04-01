@@ -6,6 +6,7 @@ import {
 } from 'fastify';
 import fp from 'fastify-plugin';
 
+import { FormDataKey } from '~/libs/packages/file/file.js';
 import { HttpCode, HttpError } from '~/libs/packages/http/http.js';
 
 import { ALLOWED_FILE_MIMETYPES } from './libs/allowed-file-mimetypes.constants.js';
@@ -15,14 +16,14 @@ const file: FastifyPluginAsync = fp(async (fastify: FastifyInstance) => {
 
   fastify.addHook(
     'preValidation',
-    async (request: FastifyRequest<{ Body: { file: MultipartFile } }>) => {
+    async (
+      request: FastifyRequest<{ Body: { [FormDataKey.FILE]: MultipartFile } }>,
+    ) => {
       if (!request.isMultipart()) {
         return;
       }
 
-      const {
-        body: { file },
-      } = request;
+      const file = request.body[FormDataKey.FILE];
 
       const isAllowedMimetype = ALLOWED_FILE_MIMETYPES.includes(file.mimetype);
 

@@ -6,6 +6,7 @@ import {
   useAppSelector,
   useCallback,
 } from '~/libs/hooks/hooks.js';
+import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
   type UserAuthResponse,
   type UserUpdateRequestDto,
@@ -30,11 +31,11 @@ const AccountSettings: React.FC = () => {
 
   const handleUpdateUserAvatar = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const avatar = event.target.files?.item(0);
+      const [avatar] = event.target.files ?? [];
 
       if (avatar) {
         const formData = new FormData();
-        formData.append('file', avatar);
+        formData.append(FormDataKey.FILE, avatar);
 
         void dispatch(usersActions.updateUserAvatar(formData));
       }
