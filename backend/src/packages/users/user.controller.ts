@@ -12,10 +12,12 @@ import { UsersApiPath } from './libs/enums/enums.js';
 import {
   type UserAuthResponse,
   type UserUpdateLoginRequestDto,
+  type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
 } from './libs/types/types.js';
 import {
   userUpdateLoginValidationSchema,
+  userUpdatePasswordValidationSchema,
   userUpdateValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
 
@@ -61,6 +63,19 @@ class UserController extends Controller {
         this.update(
           options as ApiHandlerOptions<{
             body: UserUpdateRequestDto;
+            user: UserAuthResponse;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: UsersApiPath.UPDATE_PASSWORD,
+      method: 'PUT',
+      validation: { body: userUpdatePasswordValidationSchema },
+      handler: (options) =>
+        this.updatePassword(
+          options as ApiHandlerOptions<{
+            body: UserUpdatePasswordRequestDto;
             user: UserAuthResponse;
           }>,
         ),
@@ -135,6 +150,44 @@ class UserController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.userService.update(options.user.id, options.body),
+    };
+  }
+
+  /**
+   * @swagger
+   * /users/password:
+   *    patch:
+   *      description: Updating password. Returning user
+   *      requestBody:
+   *        description: passwords
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                password: string;
+   *                newPassword: string;
+   *      responses:
+   *        200:
+   *          description: Successful update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/User'
+   */
+  private async updatePassword(
+    options: ApiHandlerOptions<{
+      body: UserUpdatePasswordRequestDto;
+      user: UserAuthResponse;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.userService.updatePassword(
+        options.user.id,
+        options.body,
+      ),
     };
   }
 

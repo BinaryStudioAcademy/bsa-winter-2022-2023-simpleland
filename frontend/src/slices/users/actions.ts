@@ -4,6 +4,7 @@ import { type AsyncThunkConfig } from '~/libs/types/types.js';
 import {
   type UserAuthResponse,
   type UserUpdateLoginRequestDto,
+  type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
 } from '~/packages/users/users.js';
 
@@ -32,4 +33,17 @@ const updateUserLogin = createAsyncThunk<
   },
 );
 
-export { updateUser, updateUserLogin };
+const updateUserPassword = createAsyncThunk<
+  UserAuthResponse,
+  UserUpdatePasswordRequestDto,
+  AsyncThunkConfig
+>(
+  `${sliceName}/update-password`,
+  async (updateUserPasswordPayload, { extra }) => {
+    const { userApi } = extra;
+
+    return await userApi.updateUserPassword(updateUserPasswordPayload);
+  },
+);
+
+export { updateUser, updateUserLogin, updateUserPassword };
