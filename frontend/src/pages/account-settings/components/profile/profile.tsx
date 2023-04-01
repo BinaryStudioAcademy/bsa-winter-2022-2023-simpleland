@@ -15,7 +15,7 @@ type Properties = {
 };
 
 const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
-  const { control, errors, handleSubmit, reset } =
+  const { control, errors, handleSubmit, handleReset } =
     useAppForm<UserUpdateRequestDto>({
       defaultValues: {
         firstName: user.firstName,
@@ -69,7 +69,7 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
           size="small"
           label="Cancel"
           className={styles['button']}
-          onClick={reset}
+          onClick={handleReset}
         />
         <Button
           type="submit"
