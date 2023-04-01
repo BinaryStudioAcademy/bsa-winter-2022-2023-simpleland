@@ -64,7 +64,7 @@ const MyProjects: React.FC = () => {
             <>
               <div className={styles['search-wrapper']}>
                 <Button
-                  label="Add Business"
+                  label="Add Project"
                   icon="plus"
                   className={styles['create-button']}
                   size="small"
@@ -85,12 +85,12 @@ const MyProjects: React.FC = () => {
                   Hello!
                 </span>
                 <span className={styles['placeholder-main-caption']}>
-                  There are no businesses
+                  There are no projects
                 </span>
               </div>
               <Button
                 className={styles['placeholder-button']}
-                label="Create new business"
+                label="Create a new project"
                 onClick={handleModalOpen}
               />
             </div>
