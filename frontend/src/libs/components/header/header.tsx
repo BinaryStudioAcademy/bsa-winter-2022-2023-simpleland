@@ -36,7 +36,7 @@ const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
       <div className={styles['header-sidebar']}>
         <ul className={styles['header-nav-list']}>
           <li>
-            <Link to={AppRoute.ROOT}>
+            <Link to={AppRoute.ROOT} className={styles['page-link']}>
               <span className={styles['section-title']}>{pageName}</span>
             </Link>
           </li>
