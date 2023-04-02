@@ -3,7 +3,6 @@ import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useAppDispatch,
   useCallback,
-  useMemo,
   useParams,
   useState,
   useStepper,
@@ -15,42 +14,14 @@ import { FinalForm, ProjectNameForm } from './libs/components/components.js';
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
 
+const steps = [ProjectNameForm, FinalForm] as const;
+
 const Start: React.FC = () => {
   const { projectId } = useParams();
   const [sitePayload, setSitePayload] =
     useState<SiteCreateRequestDto>(DEFAULT_SITE_PAYLOAD);
 
   const dispatch = useAppDispatch();
-
-  const handleStepSubmit = useCallback(
-    (newSitePayload: Partial<SiteCreateRequestDto>) => {
-      setSitePayload((oldSitePayload) => ({
-        ...oldSitePayload,
-        ...newSitePayload,
-      }));
-
-      handleNextStep();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
-
-  const handleFinalSubmit = useCallback(() => {
-    void dispatch(
-      siteActions.createSite({
-        ...sitePayload,
-        projectId: Number(projectId),
-      }),
-    );
-  }, [dispatch, sitePayload, projectId]);
-
-  const steps = useMemo(
-    () => [
-      <ProjectNameForm onSubmit={handleStepSubmit} key="name" />,
-      <FinalForm onSubmit={handleFinalSubmit} key="final" />,
-    ],
-    [handleStepSubmit, handleFinalSubmit],
-  );
 
   const {
     currentStep,
@@ -61,9 +32,28 @@ const Start: React.FC = () => {
     handlePreviousStep,
   } = useStepper({ length: steps.length });
 
-  const currentForm = useMemo(() => {
-    return steps[currentStep - ONE_STEP_LENGTH];
-  }, [steps, currentStep]);
+  const handleStepSubmit = useCallback(
+    (newSitePayload: Partial<SiteCreateRequestDto>) => {
+      if (isLastStep) {
+        return void dispatch(
+          siteActions.createSite({
+            ...sitePayload,
+            projectId: Number(projectId),
+          }),
+        );
+      }
+
+      setSitePayload((oldSitePayload) => ({
+        ...oldSitePayload,
+        ...newSitePayload,
+      }));
+
+      handleNextStep();
+    },
+    [dispatch, handleNextStep, isLastStep, projectId, sitePayload],
+  );
+
+  const CurrentForm = steps[(currentStep - ONE_STEP_LENGTH) as 0];
 
   return (
     <PageLayout style="black" className={styles['layout']}>
@@ -106,7 +96,7 @@ const Start: React.FC = () => {
                   </div>
                 </div>
               </div>
-              {currentForm}
+              <CurrentForm onSubmit={handleStepSubmit} />
             </div>
           </div>
         </div>

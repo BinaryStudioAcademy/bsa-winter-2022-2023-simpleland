@@ -1,6 +1,11 @@
 import logo from '~/assets/img/logo.svg';
-import { Image, PageLayout, Redirect } from '~/libs/components/components.js';
-import { AppRoute } from '~/libs/enums/enums.js';
+import {
+  Image,
+  Loader,
+  PageLayout,
+  Redirect,
+} from '~/libs/components/components.js';
+import { AppRoute, DataStatus } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
@@ -17,8 +22,9 @@ import { SignInForm, SignUpForm } from './components/components.js';
 import styles from './styles.module.scss';
 
 const Auth: React.FC = () => {
-  const { user } = useAppSelector(({ auth }) => ({
+  const { user, status } = useAppSelector(({ auth }) => ({
     user: auth.user,
+    status: auth.currentUserDataStatus,
   }));
   const dispatch = useAppDispatch();
 
@@ -51,6 +57,14 @@ const Auth: React.FC = () => {
 
     return null;
   };
+
+  if (status === DataStatus.PENDING) {
+    return (
+      <PageLayout style="black">
+        <Loader style="yellow" />
+      </PageLayout>
+    );
+  }
 
   if (hasUser) {
     return <Redirect to={AppRoute.ROOT} />;
