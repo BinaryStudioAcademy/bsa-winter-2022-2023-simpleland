@@ -34,13 +34,15 @@ class SectionService
   public async create({
     siteId,
     prompt,
+    imagePrompt,
     type,
   }: {
     siteId: number;
     prompt: string;
+    imagePrompt: string;
     type: ValueOf<typeof SectionType>;
   }): Promise<SectionGetAllItemResponseDto> {
-    const content = await this.createSectionContent(prompt, type);
+    const content = await this.createSectionContent(prompt, imagePrompt, type);
 
     const section = await this.sectionRepository.create({
       siteId,
@@ -55,6 +57,7 @@ class SectionService
 
   private async createSectionContent<T extends ValueOf<typeof SectionType>>(
     prompt: string,
+    imagePrompt: string,
     type: T,
   ): Promise<
     | SiteHeaderContent
@@ -72,7 +75,7 @@ class SectionService
         return this.createMainContent(response);
       }
       case SectionType.PORTFOLIO: {
-        return await this.createPortfolioContent(response);
+        return await this.createPortfolioContent(response, imagePrompt);
       }
       case SectionType.FOOTER: {
         return this.createFooterContent(response);
@@ -102,6 +105,7 @@ class SectionService
 
   private async createPortfolioContent(
     content: Record<string, string>,
+    imagePrompt: string,
   ): Promise<SitePortfolioContent> {
     const portfolioContent = {
       categories:
@@ -112,7 +116,7 @@ class SectionService
 
     await initAsyncItemsQueue(portfolioContent.categories, async (category) => {
       const images = await openAI.createImages({
-        prompt: `Portfolio images for website by category: ${category.name}`,
+        prompt: `${imagePrompt}\nGenerate portfolio images for website for ${category.name} category.`,
         n: 8,
         response_format: 'b64_json',
       });
