@@ -11,9 +11,7 @@ import {
   userUpdatePasswordValidationSchema,
 } from '~/packages/users/users.js';
 
-import {
-  DEFAULT_UPDATE_PASSWORD_PAYLOAD,
-} from './libs/constants.js';
+import { DEFAULT_UPDATE_PASSWORD_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
