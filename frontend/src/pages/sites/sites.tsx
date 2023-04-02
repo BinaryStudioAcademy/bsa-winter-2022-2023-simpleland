@@ -1,5 +1,5 @@
-import { Button, PageLayout } from '~/libs/components/components.js';
-import { AppRoute } from '~/libs/enums/enums.js';
+import { Button, Loader, PageLayout } from '~/libs/components/components.js';
+import { AppRoute, DataStatus } from '~/libs/enums/enums.js';
 import { configureString } from '~/libs/helpers/helpers.js';
 import {
   useAppDispatch,
@@ -25,8 +25,9 @@ const Sites: React.FC = () => {
     }
   }, [dispatch, projectId]);
 
-  const { sites } = useAppSelector(({ sites }) => ({
+  const { sites, status } = useAppSelector(({ sites }) => ({
     sites: sites.sites,
+    status: sites.dataStatus,
   }));
 
   const hasSites = sites.length > 0;
@@ -36,6 +37,14 @@ const Sites: React.FC = () => {
       projectId,
     },
   );
+
+  if (status === DataStatus.PENDING) {
+    return (
+      <PageLayout style="black">
+        <Loader style="yellow" />
+      </PageLayout>
+    );
+  }
 
   return (
     <PageLayout

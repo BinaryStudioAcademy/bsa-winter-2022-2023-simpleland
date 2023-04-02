@@ -8,6 +8,7 @@ import { SectionType } from './libs/enums/enums.js';
 import {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SiteAboutContent,
   type SiteFeedbackContent,
   type SiteFooterContent,
   type SiteHeaderContent,
@@ -60,6 +61,7 @@ class SectionService
     | SiteHeaderContent
     | SiteMainContent
     | SiteFooterContent
+    | SiteAboutContent
     | SiteFeedbackContent
   > {
     switch (type) {
@@ -68,6 +70,9 @@ class SectionService
       }
       case SectionType.MAIN: {
         return await this.createMainContent(prompt);
+      }
+      case SectionType.ABOUT: {
+        return this.createAboutContent(prompt);
       }
       case SectionType.FOOTER: {
         return await this.createFooterContent(prompt);
@@ -112,6 +117,15 @@ class SectionService
       description: content['description'] ?? '',
       contacts: [],
       socials: [],
+    };
+  }
+
+  private async createAboutContent(prompt: string): SiteAboutContent {
+    const content = await openAI.createCompletion(prompt);
+
+    return {
+      title: content['title'] ?? '',
+      description: content['description'] ?? '',
     };
   }
 

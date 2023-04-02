@@ -42,6 +42,7 @@ import {
  *         - header
  *         - footer
  *         - main
+ *         - about
  *     Section:
  *       type: object
  *       properties:
