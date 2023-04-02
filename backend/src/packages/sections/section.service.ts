@@ -72,7 +72,7 @@ class SectionService
         return await this.createMainContent(prompt);
       }
       case SectionType.ABOUT: {
-        return this.createAboutContent(prompt);
+        return await this.createAboutContent(prompt);
       }
       case SectionType.FOOTER: {
         return await this.createFooterContent(prompt);
@@ -120,7 +120,7 @@ class SectionService
     };
   }
 
-  private async createAboutContent(prompt: string): SiteAboutContent {
+  private async createAboutContent(prompt: string): Promise<SiteAboutContent> {
     const content = await openAI.createCompletion(prompt);
 
     return {
