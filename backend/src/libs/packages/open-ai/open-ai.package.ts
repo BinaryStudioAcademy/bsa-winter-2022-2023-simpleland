@@ -37,6 +37,14 @@ class OpenAI {
     return this.parseCompletionResponse(text);
   }
 
+  public async createImage(prompt: string): Promise<string> {
+    const response = await this.openAIApi.createImage({
+      prompt,
+    });
+
+    return response.data.data[0]?.url ?? '';
+  }
+
   private parseCompletionResponse(response: string): Record<string, string> {
     const result: Record<string, string> = {};
     const lines = response.split('\n').filter(Boolean);
