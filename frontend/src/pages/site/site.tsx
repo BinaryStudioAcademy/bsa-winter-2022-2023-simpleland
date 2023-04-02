@@ -7,6 +7,7 @@ import {
   useParams,
 } from '~/libs/hooks/hooks.js';
 import {
+  type SiteAboutContent,
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
@@ -14,7 +15,7 @@ import {
 } from '~/packages/sections/sections.js';
 import { actions as sectionsActions } from '~/slices/sections/sections.js';
 
-import { Footer, Header, Main } from './components/components.js';
+import { About, Footer, Header, Main } from './components/components.js';
 import styles from './styles.module.scss';
 
 const Site: React.FC = () => {
@@ -47,6 +48,9 @@ const Site: React.FC = () => {
         }
         case SectionType.MAIN: {
           return <Main content={content as SiteMainContent} key={type} />;
+        }
+        case SectionType.ABOUT: {
+          return <About content={content as SiteAboutContent} key={type} />;
         }
         case SectionType.FOOTER: {
           return <Footer content={content as SiteFooterContent} key={type} />;
