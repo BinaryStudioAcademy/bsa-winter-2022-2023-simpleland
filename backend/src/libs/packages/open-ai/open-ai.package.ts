@@ -1,4 +1,9 @@
-import { type CreateCompletionRequest, Configuration, OpenAIApi } from 'openai';
+import {
+  type CreateCompletionRequest,
+  type CreateImageRequest,
+  Configuration,
+  OpenAIApi,
+} from 'openai';
 
 import { type IConfig } from '~/libs/packages/config/config.js';
 
@@ -35,6 +40,18 @@ class OpenAI {
     const text = choices[0]?.text ?? '';
 
     return this.parseCompletionResponse(text);
+  }
+
+  public async createImages(request: CreateImageRequest): Promise<string[]> {
+    const { data } = await this.openAIApi.createImage(request);
+
+    return data.data.map((item) => {
+      if (request.response_format === 'b64_json') {
+        return item.b64_json ?? '';
+      }
+
+      return item.url ?? '';
+    });
   }
 
   private parseCompletionResponse(response: string): Record<string, string> {

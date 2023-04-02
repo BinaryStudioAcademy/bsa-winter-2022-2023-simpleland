@@ -33,6 +33,9 @@ const Site: React.FC = () => {
         case SectionType.MAIN: {
           return <Main content={content as SiteMainContent} key={type} />;
         }
+        case SectionType.PORTFOLIO: {
+          return <></>;
+        }
         case SectionType.FOOTER: {
           return <Footer content={content as SiteFooterContent} key={type} />;
         }

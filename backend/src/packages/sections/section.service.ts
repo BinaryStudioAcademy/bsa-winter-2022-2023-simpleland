@@ -1,4 +1,6 @@
+import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
+import { file } from '~/libs/packages/file/file.js';
 import { openAI } from '~/libs/packages/open-ai/open-ai.js';
 import { type ValueOf } from '~/libs/types/types.js';
 
@@ -9,6 +11,7 @@ import {
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
+  type SitePortfolioContent,
 } from './libs/types/types.js';
 import { SectionEntity } from './section.entity.js';
 import { type SectionRepository } from './section.repository.js';
@@ -53,7 +56,12 @@ class SectionService
   private async createSectionContent<T extends ValueOf<typeof SectionType>>(
     prompt: string,
     type: T,
-  ): Promise<SiteHeaderContent | SiteMainContent | SiteFooterContent> {
+  ): Promise<
+    | SiteHeaderContent
+    | SiteMainContent
+    | SitePortfolioContent
+    | SiteFooterContent
+  > {
     const response = await openAI.createCompletion(prompt);
 
     switch (type) {
@@ -62,6 +70,9 @@ class SectionService
       }
       case SectionType.MAIN: {
         return this.createMainContent(response);
+      }
+      case SectionType.PORTFOLIO: {
+        return await this.createPortfolioContent(response);
       }
       case SectionType.FOOTER: {
         return this.createFooterContent(response);
@@ -87,6 +98,32 @@ class SectionService
       description: content['description'] ?? '',
       picture: '',
     };
+  }
+
+  private async createPortfolioContent(
+    content: Record<string, string>,
+  ): Promise<SitePortfolioContent> {
+    const portfolioContent = {
+      categories:
+        content['categories']?.split(', ').map((item) => {
+          return { name: item, images: [] };
+        }) ?? [],
+    } as SitePortfolioContent;
+
+    await initAsyncItemsQueue(portfolioContent.categories, async (category) => {
+      const images = await openAI.createImages({
+        prompt: `Portfolio images for website by category: ${category.name}`,
+        n: 8,
+        response_format: 'b64_json',
+      });
+      const imagePromises = images.map((image) => {
+        return file.upload({ file: Buffer.from(image) });
+      });
+      const s3Images = await Promise.all(imagePromises);
+      category.images = s3Images.map((image) => image.url);
+    });
+
+    return portfolioContent;
   }
 
   private createFooterContent(

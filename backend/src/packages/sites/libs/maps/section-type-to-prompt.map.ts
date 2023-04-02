@@ -8,12 +8,16 @@ const SectionTypeToPrompt: Record<
   [SectionType.HEADER]: {
     EXAMPLE: 'logo: id Studio\nphone: (303)555-0105',
     REQUEST:
-      'Genearte text logo for header section, phone number for header section.',
+      'Generate text logo for header section, phone number for header section.',
   },
   [SectionType.MAIN]: {
     EXAMPLE:
       'title: We create your space better\ndescription: Our team creates comfortable spaces for our clients. We’ve been designing your everyday life and work through great ideas since 1999.',
     REQUEST: 'Generate title for main section, description for main section.',
+  },
+  [SectionType.PORTFOLIO]: {
+    EXAMPLE: 'categories: commercial, office, other',
+    REQUEST: 'Generate 3 categories for portfolio section.',
   },
   [SectionType.FOOTER]: {
     EXAMPLE:

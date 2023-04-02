@@ -3,3 +3,4 @@ export { type SectionGetAllResponseDto } from './section-get-all-response-dto.ty
 export { type SiteFooterContent } from './site-footer-content.type.js';
 export { type SiteHeaderContent } from './site-header-content.type.js';
 export { type SiteMainContent } from './site-main-content.type.js';
+export { type SitePortfolioContent } from './site-portfolio-content.type.js';

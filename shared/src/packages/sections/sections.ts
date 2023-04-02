@@ -5,4 +5,5 @@ export {
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
+  type SitePortfolioContent,
 } from './libs/types/types.js';
