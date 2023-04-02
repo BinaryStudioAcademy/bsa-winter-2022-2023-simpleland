@@ -21,7 +21,27 @@
   position: relative;
 }
 
+.input-box {
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+}
+
 .input-icon {
+  position: absolute;
+  top: 42%;
+  right: 5%;
+}
+
+.input-control {
+  position: absolute;
+  top: 42%;
+  right: 5%;
+}
+
+.input-manipulate {
   position: absolute;
   top: 42%;
   right: 5%;

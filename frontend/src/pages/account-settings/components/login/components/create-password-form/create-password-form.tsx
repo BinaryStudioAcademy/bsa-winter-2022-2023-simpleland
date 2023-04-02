@@ -13,8 +13,6 @@ import {
 
 import {
   DEFAULT_UPDATE_PASSWORD_PAYLOAD,
-  inputIcon,
-  inputWrapper,
 } from './libs/constants.js';
 import styles from './styles.module.scss';
 
@@ -50,10 +48,10 @@ const CreatePasswordForm: React.FC<Properties> = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onCloseModal}>
-      <div className={getValidClassNames(styles[inputWrapper], className)}>
+      <div className={getValidClassNames(styles['form-wrapper'], className)}>
         <h2 className={styles['title']}>Change Password</h2>
         <form className={styles['form-wrapper']} onSubmit={handleFormSubmit}>
-          <div className={styles['input-wrapper']}>
+          <div className={styles['input-container']}>
             <Input
               type={showPassword ? 'text' : 'password'}
               label="Password"
@@ -65,11 +63,11 @@ const CreatePasswordForm: React.FC<Properties> = ({
               label="password"
               icon={showPassword ? 'eye-slash' : 'eye'}
               onClick={toggleShowPassword}
-              className={styles[inputIcon]}
+              className={styles['input-icon']}
             />
           </div>
 
-          <div className={styles[inputWrapper]}>
+          <div className={styles['input-box']}>
             <Input
               type={showNewPassword ? 'text' : 'password'}
               label="New password"
@@ -81,11 +79,11 @@ const CreatePasswordForm: React.FC<Properties> = ({
               label="New password"
               icon={showNewPassword ? 'eye-slash' : 'eye'}
               onClick={toggleShowNewPassword}
-              className={styles[inputIcon]}
+              className={styles['input-manipulate']}
             />
           </div>
 
-          <div className={styles[inputWrapper]}>
+          <div className={styles['input-wrapper']}>
             <Input
               type={showRepeatPassword ? 'text' : 'password'}
               label="Repeat new password"
@@ -97,7 +95,7 @@ const CreatePasswordForm: React.FC<Properties> = ({
               label="Repeat password"
               icon={showRepeatPassword ? 'eye-slash' : 'eye'}
               onClick={toggleShowRepeatPassword}
-              className={styles[inputIcon]}
+              className={styles['input-control']}
             />
           </div>
 
