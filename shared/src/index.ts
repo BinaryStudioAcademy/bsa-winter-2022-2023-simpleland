@@ -38,6 +38,7 @@ export {
   type ProjectCreateResponseDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectUploadImageRequstDto,
   projectCreateValidationSchema,
   ProjectsApiPath,
 } from './packages/projects/projects.js';
