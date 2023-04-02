@@ -16,6 +16,15 @@ type EnvironmentSchema = {
   JWT: {
     SECRET_KEY: string;
   };
+  OPEN_AI: {
+    API_KEY: string;
+  };
+  AWS: {
+    AWS_ACCESS_KEY: string;
+    AWS_SECRET_ACCESS_KEY: string;
+    AWS_REGION: string;
+    AWS_BUCKET_NAME: string;
+  };
 };
 
 export { type EnvironmentSchema };

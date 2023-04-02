@@ -94,6 +94,40 @@ class Config implements IConfig {
           default: null,
         },
       },
+      OPEN_AI: {
+        API_KEY: {
+          doc: 'OpenAI secret API key',
+          format: String,
+          env: 'AI_ENGINE_SECRET_KEY',
+          default: null,
+        },
+      },
+      AWS: {
+        AWS_ACCESS_KEY: {
+          doc: 'AWS access key',
+          format: String,
+          env: 'AWS_ACCESS_KEY',
+          default: null,
+        },
+        AWS_SECRET_ACCESS_KEY: {
+          doc: 'AWS secret access key',
+          format: String,
+          env: 'AWS_SECRET_ACCESS_KEY',
+          default: null,
+        },
+        AWS_REGION: {
+          doc: 'AWS region',
+          format: String,
+          env: 'AWS_REGION',
+          default: null,
+        },
+        AWS_BUCKET_NAME: {
+          doc: 'AWS bucket name',
+          format: String,
+          env: 'AWS_BUCKET_NAME',
+          default: null,
+        },
+      },
     });
   }
 

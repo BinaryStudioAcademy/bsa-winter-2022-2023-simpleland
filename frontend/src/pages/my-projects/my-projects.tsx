@@ -1,4 +1,5 @@
-import { Button, PageLayout } from '~/libs/components/components.js';
+import { Button, Loader, PageLayout } from '~/libs/components/components.js';
+import { DataStatus } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
@@ -29,8 +30,9 @@ const MyProjects: React.FC = () => {
     void dispatch(projectActions.getUserProjects());
   }, [dispatch]);
 
-  const { projects } = useAppSelector((state) => ({
+  const { projects, status } = useAppSelector((state) => ({
     projects: state.projects.projects,
+    status: state.projects.dataStatus,
   }));
 
   const hasProjects = projects.length > 0;
@@ -46,35 +48,40 @@ const MyProjects: React.FC = () => {
     [dispatch, handleModalClose],
   );
 
+  if (status === DataStatus.PENDING) {
+    return (
+      <PageLayout style="black">
+        <Loader style="yellow" />
+      </PageLayout>
+    );
+  }
+
   return (
-    <PageLayout
-      pageName="My Projects"
-      style={hasProjects ? 'white' : 'black'}
-      className={styles['page-layout']}
-    >
-      {isOpen ? (
-        <CreateProjectModal
-          onSubmit={handleProjectSubmit}
-          isOpen={isOpen}
-          onCloseModal={handleModalClose}
-        />
-      ) : (
+    <>
+      <PageLayout
+        pageName="My Projects"
+        style={hasProjects ? 'white' : 'black'}
+        className={styles['page-layout']}
+      >
         <div className={styles['page-wrapper']}>
-          <div className={styles['search-wrapper']}>
-            <Button
-              label="Add Business"
-              icon="plus"
-              className={styles['create-button']}
-              size="small"
-              onClick={handleModalOpen}
-            />
-          </div>
           {hasProjects ? (
-            <div className={styles['cards-wrapper']}>
-              {projects.map((card) => (
-                <ProjectCard key={card.id} project={card} />
-              ))}
-            </div>
+            <>
+              <div className={styles['search-wrapper']}>
+                <Button
+                  label="Add Project"
+                  icon="plus"
+                  className={styles['create-button']}
+                  size="small"
+                  onClick={handleModalOpen}
+                />
+              </div>
+
+              <div className={styles['cards-wrapper']}>
+                {projects.map((card) => (
+                  <ProjectCard key={card.id} project={card} />
+                ))}
+              </div>
+            </>
           ) : (
             <div className={styles['placeholder']}>
               <div className={styles['placeholder-caption']}>
@@ -82,19 +89,24 @@ const MyProjects: React.FC = () => {
                   Hello!
                 </span>
                 <span className={styles['placeholder-main-caption']}>
-                  There are no businesses
+                  There are no projects
                 </span>
               </div>
               <Button
                 className={styles['placeholder-button']}
-                label="Create new business"
+                label="Create a new project"
                 onClick={handleModalOpen}
               />
             </div>
           )}
         </div>
-      )}
-    </PageLayout>
+      </PageLayout>
+      <CreateProjectModal
+        onSubmit={handleProjectSubmit}
+        isOpen={isOpen}
+        onCloseModal={handleModalClose}
+      />
+    </>
   );
 };
 

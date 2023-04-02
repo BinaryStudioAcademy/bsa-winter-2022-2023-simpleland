@@ -15,6 +15,10 @@ class UserEntity implements IEntity {
 
   private 'accountName': string | null;
 
+  private 'avatarId': number | null;
+
+  private 'avatarUrl': string | null;
+
   private constructor({
     id,
     email,
@@ -23,6 +27,8 @@ class UserEntity implements IEntity {
     firstName,
     lastName,
     accountName,
+    avatarId,
+    avatarUrl,
   }: {
     id: number | null;
     email: string | null;
@@ -31,6 +37,8 @@ class UserEntity implements IEntity {
     firstName: string | null;
     lastName: string | null;
     accountName: string | null;
+    avatarId: number | null;
+    avatarUrl: string | null;
   }) {
     this.id = id;
     this.email = email;
@@ -39,6 +47,8 @@ class UserEntity implements IEntity {
     this.firstName = firstName;
     this.lastName = lastName;
     this.accountName = accountName;
+    this.avatarId = avatarId;
+    this.avatarUrl = avatarUrl;
   }
 
   public get privateData(): {
@@ -59,6 +69,8 @@ class UserEntity implements IEntity {
     firstName,
     lastName,
     accountName,
+    avatarId,
+    avatarUrl,
   }: {
     id: number | null;
     email: string | null;
@@ -67,6 +79,8 @@ class UserEntity implements IEntity {
     firstName: string | null;
     lastName: string | null;
     accountName: string | null;
+    avatarId: number | null;
+    avatarUrl: string | null;
   }): UserEntity {
     return new UserEntity({
       id,
@@ -76,6 +90,8 @@ class UserEntity implements IEntity {
       firstName,
       lastName,
       accountName,
+      avatarId,
+      avatarUrl,
     });
   }
 
@@ -100,6 +116,8 @@ class UserEntity implements IEntity {
       firstName,
       lastName,
       accountName: null,
+      avatarId: null,
+      avatarUrl: null,
     });
   }
 
@@ -109,6 +127,7 @@ class UserEntity implements IEntity {
     firstName: string;
     lastName: string;
     accountName: string | null;
+    avatarUrl: string | null;
   } {
     return {
       id: this.id as number,
@@ -116,6 +135,7 @@ class UserEntity implements IEntity {
       firstName: this.firstName as string,
       lastName: this.lastName as string,
       accountName: this.accountName,
+      avatarUrl: this.avatarUrl,
     };
   }
 
@@ -146,6 +166,16 @@ class UserEntity implements IEntity {
       firstName: this.firstName as string,
       lastName: this.lastName as string,
       accountName: this.accountName === '' ? null : this.accountName,
+    };
+  }
+
+  public toUserAvatar(): {
+    id: number;
+    avatarId: number;
+  } {
+    return {
+      id: this.id as number,
+      avatarId: this.avatarId as number,
     };
   }
 }

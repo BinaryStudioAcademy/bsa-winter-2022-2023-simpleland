@@ -40,16 +40,16 @@ const StepIndustry: React.FC<Properties> = ({ onSubmit }: Properties) => {
         <Select
           control={control}
           errors={errors}
-          name="industrySelect"
+          name="selectIndusrtyName"
           placeholder="Please select your industry"
           options={options}
         />
         <Input
           type="text"
           label="Your industry"
-          isLabelVisuallyHidden={true}
+          isLabelVisuallyHidden
           placeholder="Please enter your industry"
-          name="industryInput"
+          name="enterIndustryName"
           control={control}
           errors={errors}
         />

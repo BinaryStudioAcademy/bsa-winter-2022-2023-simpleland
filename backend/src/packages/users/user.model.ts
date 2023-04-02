@@ -25,7 +25,7 @@ class UserModel extends AbstractModel {
       relation: Model.HasOneRelation,
       modelClass: UserDetailsModel,
       join: {
-        from: 'users.id',
+        from: getJoinRelationPath<UserModel>(DatabaseTableName.USERS, 'id'),
         to: getJoinRelationPath<UserDetailsModel>(
           DatabaseTableName.USER_DETAILS,
           'userId',
