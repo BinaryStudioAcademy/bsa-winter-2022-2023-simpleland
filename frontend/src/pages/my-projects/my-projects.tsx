@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from '~/libs/hooks/hooks.js';
+import { FormDataKey } from '~/libs/packages/file/file.js';
 import { type ProjectCreateRequestDto } from '~/packages/projects/projects.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
@@ -48,6 +49,21 @@ const MyProjects: React.FC = () => {
     [dispatch, handleModalClose],
   );
 
+  const handleUpdateProjectImage = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
+      const [image] = event.target.files ?? [];
+
+      if (image) {
+        const formData = new FormData();
+        formData.append(FormDataKey.FILE, image);
+        formData.append(FormDataKey.PROJECT_ID, id.toString());
+
+        void dispatch(projectActions.updateProjectImage(formData));
+      }
+    },
+    [dispatch],
+  );
+
   if (status === DataStatus.PENDING) {
     return (
       <PageLayout style="black">
@@ -78,7 +94,11 @@ const MyProjects: React.FC = () => {
 
               <div className={styles['cards-wrapper']}>
                 {projects.map((card) => (
-                  <ProjectCard key={card.id} project={card} />
+                  <ProjectCard
+                    key={card.id}
+                    project={card}
+                    onUpdateProjectImage={handleUpdateProjectImage}
+                  />
                 ))}
               </div>
             </>
