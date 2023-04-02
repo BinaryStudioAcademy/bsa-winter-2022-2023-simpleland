@@ -63,7 +63,7 @@ const CreatePasswordForm: React.FC<Properties> = ({
             />
             <IconButton
               label="password"
-              icon="eye"
+              icon={showPassword ? 'eye-slash' : 'eye'}
               onClick={toggleShowPassword}
               className={styles[inputIcon]}
             />
@@ -79,7 +79,7 @@ const CreatePasswordForm: React.FC<Properties> = ({
             />
             <IconButton
               label="New password"
-              icon="eye"
+              icon={showNewPassword ? 'eye-slash' : 'eye'}
               onClick={toggleShowNewPassword}
               className={styles[inputIcon]}
             />
@@ -95,7 +95,7 @@ const CreatePasswordForm: React.FC<Properties> = ({
             />
             <IconButton
               label="Repeat password"
-              icon="eye"
+              icon={showRepeatPassword ? 'eye-slash' : 'eye'}
               onClick={toggleShowRepeatPassword}
               className={styles[inputIcon]}
             />

@@ -62,7 +62,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           />
           <IconButton
             label="password"
-            icon="eye"
+            icon={showPassword ? 'eye-slash' : 'eye'}
             onClick={toggleShowPassword}
             className={styles['input-icon']}
           />
