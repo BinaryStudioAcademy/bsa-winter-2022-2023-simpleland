@@ -1,0 +1,45 @@
+.about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 1085px;
+  padding: 85px 0;
+}
+
+.about-content {
+  display: flex;
+}
+
+.about-left {
+  flex-grow: 1;
+}
+
+.about-right {
+  margin-right: 15px;
+  padding: 185px 0;
+}
+
+.about-title {
+  width: 112px;
+  height: 78px;
+  margin-top: 100px;
+  color: #161616;
+  font-size: 38px;
+  font-family: "BN Chester", sans-serif;
+  line-height: 39px;
+}
+
+.about-description {
+  width: 529px;
+  height: 225px;
+  margin-bottom: 55px;
+  color: #161616;
+  font-size: 15px;
+  line-height: 25px;
+}
