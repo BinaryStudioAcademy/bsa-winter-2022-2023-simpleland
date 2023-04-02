@@ -7,23 +7,45 @@ class ProjectRepository
 {
   private projectModel: typeof ProjectModel;
 
+  private defaultRelationExpression = 'image';
+
   public constructor(projectModel: typeof ProjectModel) {
     this.projectModel = projectModel;
   }
 
   public async findAll(): Promise<ProjectEntity[]> {
-    const projects = await this.projectModel.query().execute();
+    const projects = await this.projectModel
+      .query()
+      .withGraphFetched(this.defaultRelationExpression)
+      .execute();
 
-    return projects.map((project) => ProjectEntity.initialize(project));
+    return projects.map((project) => {
+      return ProjectEntity.initialize({
+        id: project.userId,
+        name: project.name,
+        userId: project.userId,
+        imageId: project.imageId,
+        imageUrl: project.image?.url ?? null,
+      });
+    });
   }
 
   public async findByUserId(id: number): Promise<ProjectEntity[]> {
     const projects = await this.projectModel
       .query()
       .where('userId', id)
+      .withGraphFetched(this.defaultRelationExpression)
       .execute();
 
-    return projects.map((project) => ProjectEntity.initialize(project));
+    return projects.map((project) => {
+      return ProjectEntity.initialize({
+        id: project.id,
+        name: project.name,
+        userId: project.userId,
+        imageId: project.imageId,
+        imageUrl: project.image?.url ?? null,
+      });
+    });
   }
 
   public async create(entity: ProjectEntity): Promise<ProjectEntity> {
@@ -42,6 +64,27 @@ class ProjectRepository
       id: project.id,
       name: project.name,
       userId: project.userId,
+      imageId: project.imageId,
+      imageUrl: project.image?.url ?? null,
+    });
+  }
+
+  public async updateImage(entity: ProjectEntity): Promise<ProjectEntity> {
+    const { id, imageId } = entity.toUserImage();
+
+    await this.projectModel.query().for(id).patch({ imageId });
+
+    const project = (await this.projectModel
+      .query()
+      .findById(id)
+      .withGraphFetched(this.defaultRelationExpression)) as ProjectModel;
+
+    return ProjectEntity.initialize({
+      id: project.id,
+      name: project.name,
+      userId: project.userId,
+      imageId: project.imageId,
+      imageUrl: project.image?.url ?? null,
     });
   }
 }
