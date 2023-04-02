@@ -5,6 +5,7 @@ import {
   useParams,
 } from '~/libs/hooks/hooks.js';
 import {
+  type SiteAboutSectionContent,
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
@@ -12,7 +13,7 @@ import {
 } from '~/packages/sections/sections.js';
 import { actions as sectionsActions } from '~/slices/sections/sections.js';
 
-import { Footer, Header, Main } from './components/components.js';
+import { AboutSection, Footer, Header, Main } from './components/components.js';
 import styles from './styles.module.scss';
 
 const Site: React.FC = () => {
@@ -32,6 +33,14 @@ const Site: React.FC = () => {
         }
         case SectionType.MAIN: {
           return <Main content={content as SiteMainContent} key={type} />;
+        }
+        case SectionType.ABOUT_SECTION: {
+          return (
+            <AboutSection
+              content={content as SiteAboutSectionContent}
+              key={type}
+            />
+          );
         }
         case SectionType.FOOTER: {
           return <Footer content={content as SiteFooterContent} key={type} />;
