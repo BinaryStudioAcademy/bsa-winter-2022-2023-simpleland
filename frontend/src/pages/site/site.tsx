@@ -1,3 +1,5 @@
+import { Loader, PageLayout } from '~/libs/components/components.js';
+import { DataStatus } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
@@ -18,12 +20,25 @@ import styles from './styles.module.scss';
 
 const Site: React.FC = () => {
   const dispatch = useAppDispatch();
-  const sections = useAppSelector((state) => state.sections.sections);
+
+  const { sections, status } = useAppSelector((state) => ({
+    sections: state.sections.sections,
+    status: state.sections.dataStatus,
+  }));
+
   const { siteId } = useParams() as { siteId: string };
 
   useEffect(() => {
     void dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) }));
   }, [dispatch, siteId]);
+
+  if (status === DataStatus.PENDING) {
+    return (
+      <PageLayout style="black">
+        <Loader style="yellow" />
+      </PageLayout>
+    );
+  }
 
   const renderSections = (): JSX.Element[] => {
     return sections.map(({ type, content }) => {
