@@ -29,4 +29,14 @@ const getUserProjects = createAsyncThunk<
   return await projectsApi.getProjects();
 });
 
-export { createProject, getUserProjects };
+const updateProjectImage = createAsyncThunk<
+  ProjectGetAllItemResponseDto,
+  FormData,
+  AsyncThunkConfig
+>(`${sliceName}/update-project-image`, async (payload, { extra }) => {
+  const { projectsApi } = extra;
+
+  return await projectsApi.updateProjectImage(payload);
+});
+
+export { createProject, getUserProjects, updateProjectImage };
