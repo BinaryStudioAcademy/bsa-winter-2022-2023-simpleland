@@ -7,7 +7,9 @@ import {
 
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useFormController } from '~/libs/hooks/hooks.js';
+import { type IconType } from '~/libs/types/icon.type.js';
 
+import { Icon } from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
@@ -15,6 +17,7 @@ type Properties<T extends FieldValues> = {
   errors: FieldErrors<T>;
   label?: string;
   name: FieldPath<T>;
+  icon?: IconType;
   placeholder?: string;
   type?: 'text' | 'email' | 'password';
   isDisabled?: boolean;
@@ -27,6 +30,7 @@ const Input = <T extends FieldValues>({
   errors,
   label,
   name,
+  icon,
   placeholder = '',
   type = 'text',
   isDisabled = false,
@@ -48,10 +52,12 @@ const Input = <T extends FieldValues>({
       >
         {label}
       </span>
+      {icon && <Icon iconName={icon} className={styles['search-input-icon']} />}
       <input
         {...field}
         className={getValidClassNames(
           styles['input'],
+          icon && styles['search-input'],
           hasError && styles['has-error'],
         )}
         type={type}
