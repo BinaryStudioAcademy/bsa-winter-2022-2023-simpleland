@@ -1,4 +1,4 @@
-import avatarImage from '~/assets/img/default-avatar-profile-icon.svg';
+import avatarPlaceholder from '~/assets/img/default-avatar-profile-icon.svg';
 import logo from '~/assets/img/logo.svg';
 import { Button, Image, Link, Popover } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum';
@@ -14,7 +14,7 @@ type Properties = {
 };
 
 const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
-  const { firstName, lastName, accountName } = user;
+  const { firstName, lastName, accountName, avatarUrl } = user;
   const profileName = accountName?.length
     ? accountName
     : `${firstName} ${lastName}`;
@@ -36,7 +36,7 @@ const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
       <div className={styles['header-sidebar']}>
         <ul className={styles['header-nav-list']}>
           <li>
-            <Link to={AppRoute.ROOT}>
+            <Link to={AppRoute.ROOT} className={styles['page-link']}>
               <span className={styles['section-title']}>{pageName}</span>
             </Link>
           </li>
@@ -46,7 +46,7 @@ const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
             <div className={styles['profile-data-wrapper']}>
               <img
                 alt="profile"
-                src={avatarImage}
+                src={avatarUrl ?? avatarPlaceholder}
                 className={styles['profile-icon']}
               />
               <span className={styles['profile-caption']}>{profileName}</span>

@@ -1,0 +1,37 @@
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.form-inner {
+  display: flex;
+  flex-direction: column;
+  width: 321px;
+  padding: 48px 0;
+}
+
+.form-title {
+  margin-bottom: 35px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 13px;
+}
+
+.button {
+  padding: 5px 58.5px;
+}

@@ -25,6 +25,8 @@ rules:
     - never
   react/self-closing-comp:
     - error
+  react/jsx-boolean-value:
+    - error
 
 overrides:
   - files:

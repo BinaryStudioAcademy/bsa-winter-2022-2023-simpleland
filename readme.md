@@ -55,6 +55,7 @@ erDiagram
   %% mb user_details should content subscription_end_time col?
   user_details ||--|| users : user_id
   user_details ||--|| subscriptions : subscription_id
+  user_details ||--|| files : avatar_id
   user_details {
     int id PK
     dateTime created_at
@@ -64,6 +65,7 @@ erDiagram
     varchar last_name
     varchar account_name "may be null if user didn't provide account name"
     int subscription_id FK
+    int avatar_id FK "may be null if user didn't upload avatar"
   }
 
   sites {
@@ -79,7 +81,7 @@ erDiagram
     dateTime created_at
     dateTime updated_at
     varchar name
-    enum type "'header' | 'footer' | 'main'"
+    enum type "'header' | 'footer' | 'main' | 'about'"
     jsonb content
   }
 
@@ -118,6 +120,13 @@ erDiagram
     dateTime updated_at
     varchar name
     float price "would be null for free plan?"
+  }
+
+  files {
+    int id PK
+    dateTime created_at
+    dateTime update_at
+    int url
   }
 
 ```

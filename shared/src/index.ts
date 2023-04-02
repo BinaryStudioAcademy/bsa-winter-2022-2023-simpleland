@@ -14,6 +14,7 @@ export {
   initAsyncItemsQueue,
 } from './libs/helpers/helpers.js';
 export { type IConfig } from './libs/packages/config/config.js';
+export { FormDataKey } from './libs/packages/file/file.js';
 export {
   type HttpMethod,
   type HttpOptions,
@@ -43,18 +44,22 @@ export {
 export {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SiteAboutContent,
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
   SectionType,
 } from './packages/sections/sections.js';
 export {
+  type SiteCreateParametersDto,
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
+  type SiteCreateStepName,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
   type SitesSearchRequestDto,
+  siteCreateStepNameValidationSchema,
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
   SitesApiPath,
@@ -69,9 +74,13 @@ export {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
   type UserTokenPayload,
+  type UserUpdateLoginRequestDto,
+  type UserUpdatePasswordRequestDto,
   type UserUpdateRequestDto,
   UsersApiPath,
   userSignInValidationSchema,
   userSignUpValidationSchema,
+  userUpdateLoginValidationSchema,
+  userUpdatePasswordValidationSchema,
   userUpdateValidationSchema,
 } from './packages/users/users.js';

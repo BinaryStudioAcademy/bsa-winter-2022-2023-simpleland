@@ -10,6 +10,7 @@ import { type SiteService } from '~/packages/sites/site.service.js';
 
 import { SitesApiPath } from './libs/enums/enums.js';
 import {
+  type SiteCreateParametersDto,
   type SiteCreateRequestDto,
   type SiteGetByProjectParametersDto,
   type SitesSearchRequestDto,
@@ -43,6 +44,7 @@ import {
  *         - header
  *         - footer
  *         - main
+ *         - about
  *     Section:
  *       type: object
  *       properties:
@@ -83,14 +85,17 @@ class SiteController extends Controller {
     });
 
     this.addRoute({
-      path: SitesApiPath.ROOT,
+      path: SitesApiPath.PROJECT_$PROJECT_ID,
       method: 'POST',
       validation: {
         body: siteCreateValidationSchema,
       },
       handler: (options) =>
         this.create(
-          options as ApiHandlerOptions<{ body: SiteCreateRequestDto }>,
+          options as ApiHandlerOptions<{
+            body: SiteCreateRequestDto;
+            params: SiteCreateParametersDto;
+          }>,
         ),
     });
 
@@ -147,7 +152,7 @@ class SiteController extends Controller {
 
   /**
    * @swagger
-   * /project/:projectId/sites:
+   * /sites/project/:projectId:
    *   post:
    *     description: Create a site. Returns object with site info
    *     requestBody:
@@ -171,12 +176,16 @@ class SiteController extends Controller {
    */
   private async create(
     options: ApiHandlerOptions<{
+      params: SiteCreateParametersDto;
       body: SiteCreateRequestDto;
     }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.CREATED,
-      payload: await this.siteService.create(options.body),
+      payload: await this.siteService.create({
+        ...options.body,
+        projectId: options.params.projectId,
+      }),
     };
   }
 
@@ -184,7 +193,7 @@ class SiteController extends Controller {
    * @swagger
    * /sites/{siteId}/sections:
    *   get:
-   *     description: Returns object with items property. Items - array of sections related to site
+   *   description: Returns object with items property. Items - array of sections related to site
    *     parameters:
    *       - in: path
    *         name: siteId

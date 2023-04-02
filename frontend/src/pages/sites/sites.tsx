@@ -1,9 +1,16 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Icon, Input, PageLayout } from '~/libs/components/components.js';
-import { AppRoute } from '~/libs/enums/app-route.enum';
+import {
+  Button,
+  Icon,
+  Input,
+  Loader,
+  PageLayout,
+} from '~/libs/components/components.js';
+import { AppRoute, DataStatus } from '~/libs/enums/enums.js';
 import { debounce } from '~/libs/helpers/debounce/debounce.js';
+import { configureString } from '~/libs/helpers/helpers.js';
 import {
   useAppForm,
   useAppSelector,
@@ -11,6 +18,7 @@ import {
   useParams,
 } from '~/libs/hooks/hooks.js';
 import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook.js';
+import { type ValueOf } from '~/libs/types/types.js';
 import { type SitesSearchRequestDto } from '~/packages/sites/libs/types/types.js';
 import { sitesSearchValidationSchema } from '~/packages/sites/sites.js';
 import { SiteCard } from '~/pages/sites/components/components.js';
@@ -33,9 +41,11 @@ const Sites: React.FC = () => {
     }
   }, [dispatch, projectId]);
 
-  const { sites } = useAppSelector(({ sites }) => ({
+  const { sites, status } = useAppSelector(({ sites }) => ({
     sites: sites.sites,
+    status: sites.dataStatus,
   }));
+
   const { control, errors, handleSubmit } = useAppForm<SitesSearchRequestDto>({
     defaultValues: { pattern: '' },
     validationSchema: sitesSearchValidationSchema,
@@ -57,40 +67,86 @@ const Sites: React.FC = () => {
     void handleSubmit(onInputChange)(event_);
   });
 
+  const hasSites = sites.length > 0;
+  const createSiteLink = configureString<ValueOf<typeof AppRoute>>(
+    AppRoute.PROJECTS_$PROJECT_ID_START,
+    {
+      projectId,
+    },
+  );
+
+  if (status === DataStatus.PENDING) {
+    return (
+      <PageLayout style="black">
+        <Loader style="yellow" />
+      </PageLayout>
+    );
+  }
+
   return (
     <PageLayout
-      style="white"
       pageName="My Sites"
+      style={hasSites ? 'white' : 'black'}
       className={styles['page-layout']}
     >
       <div className={styles['page-wrapper']}>
-        <div className={styles['button-wrapper']}>
-          <div>
-            <Link to={AppRoute.MY_PROJECTS}>
-              <span className={styles['link-to-projects']}>
-                <Icon iconName="arrowLeft" className={styles['back-icon']} />
+        {hasSites ? (
+          <>
+            <div className={styles['search-wrapper']}>
+              <Button
+                label="Add Site"
+                icon="plus"
+                className={styles['create-button']}
+                size="small"
+                to={createSiteLink}
+              />
+            </div>
+            <div className={styles['button-wrapper']}>
+              <div>
+                <Link to={AppRoute.MY_PROJECTS}>
+                  <span className={styles['link-to-projects']}>
+                    <Icon
+                      iconName="arrowLeft"
+                      className={styles['back-icon']}
+                    />
+                  </span>
+                </Link>
+              </div>
+              <h2>Landing</h2>
+            </div>
+            <form className={styles['search-form']} onChange={handleFormChange}>
+              <div className={styles['search-input-wrapper']}>
+                <Input
+                  type="text"
+                  placeholder="Search"
+                  name="pattern"
+                  control={control}
+                  errors={errors}
+                  icon="search"
+                />
+              </div>
+            </form>
+            <div className={styles['cards-wrapper']}>
+              {sites.map((site) => (
+                <SiteCard key={site.id} site={site} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className={styles['placeholder']}>
+            <div className={styles['placeholder-caption']}>
+              <span className={styles['placeholder-sub-caption']}>Hello!</span>
+              <span className={styles['placeholder-main-caption']}>
+                There are no sites
               </span>
-            </Link>
-          </div>
-          <h2>Landing</h2>
-        </div>
-        <form className={styles['search-form']} onChange={handleFormChange}>
-          <div className={styles['search-input-wrapper']}>
-            <Input
-              type="text"
-              placeholder="Search"
-              name="pattern"
-              control={control}
-              errors={errors}
-              icon="search"
+            </div>
+            <Button
+              className={styles['placeholder-button']}
+              label="Create a new site"
+              to={createSiteLink}
             />
           </div>
-        </form>
-        <div className={styles['cards-wrapper']}>
-          {sites.map((site) => (
-            <SiteCard key={site.id} site={site} />
-          ))}
-        </div>
+        )}
       </div>
     </PageLayout>
   );
