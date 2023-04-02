@@ -10,7 +10,7 @@ async function up(knex: Knex): Promise<void> {
   );
 }
 
-function down(knex: Knex): void {
+function down(): void {
   return;
 }
 
