@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Input, PageLayout } from '~/libs/components/components.js';
+import { Icon, Input, PageLayout } from '~/libs/components/components.js';
+import { AppRoute } from '~/libs/enums/app-route.enum';
 import { debounce } from '~/libs/helpers/debounce/debounce.js';
 import {
   useAppForm,
@@ -62,8 +64,17 @@ const Sites: React.FC = () => {
       className={styles['page-layout']}
     >
       <div className={styles['page-wrapper']}>
-        <h2>Landing</h2>
-        <form onChange={handleFormChange}>
+        <div className={styles['button-wrapper']}>
+          <div>
+            <Link to={AppRoute.MY_PROJECTS}>
+              <span className={styles['link-to-projects']}>
+                <Icon iconName="arrowLeft" className={styles['back-icon']} />
+              </span>
+            </Link>
+          </div>
+          <h2>Landing</h2>
+        </div>
+        <form className={styles['search-form']} onChange={handleFormChange}>
           <div className={styles['search-input-wrapper']}>
             <Input
               type="text"
@@ -71,6 +82,7 @@ const Sites: React.FC = () => {
               name="pattern"
               control={control}
               errors={errors}
+              icon="search"
             />
           </div>
         </form>
