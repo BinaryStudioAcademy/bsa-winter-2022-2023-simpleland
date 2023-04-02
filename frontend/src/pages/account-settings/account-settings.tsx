@@ -5,14 +5,16 @@ import {
   useAppDispatch,
   useAppSelector,
   useCallback,
+  useLocation,
 } from '~/libs/hooks/hooks.js';
+import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
   type UserAuthResponse,
   type UserUpdateRequestDto,
 } from '~/packages/users/users.js';
 import { actions as usersActions } from '~/slices/users/users.js';
 
-import { Profile } from './components/components.js';
+import { Login, Profile } from './components/components.js';
 import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
@@ -28,9 +30,38 @@ const AccountSettings: React.FC = () => {
     [dispatch],
   );
 
-  const handleScreenRender = (): React.ReactNode => (
-    <Profile user={user} onUpdateUser={handleUpdateUser} />
+  const handleUpdateUserAvatar = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const [avatar] = event.target.files ?? [];
+
+      if (avatar) {
+        const formData = new FormData();
+        formData.append(FormDataKey.FILE, avatar);
+
+        void dispatch(usersActions.updateUserAvatar(formData));
+      }
+    },
+    [dispatch],
   );
+
+  const location = useLocation();
+
+  const handleScreenRender = (): React.ReactNode => {
+    switch (location.pathname) {
+      case AppRoute.PROFILE: {
+        return (
+          <Profile
+            user={user}
+            onUpdateUser={handleUpdateUser}
+            onUpdateUserAvatar={handleUpdateUserAvatar}
+          />
+        );
+      }
+      case AppRoute.LOGIN: {
+        return <Login user={user} />;
+      }
+    }
+  };
 
   return (
     <>
@@ -42,6 +73,9 @@ const AccountSettings: React.FC = () => {
             <div className={styles['page-nav']}>
               <Link to={AppRoute.PROFILE} className={styles['profile-link']}>
                 Profile
+              </Link>
+              <Link to={AppRoute.LOGIN} className={styles['profile-link']}>
+                Login
               </Link>
             </div>
           </div>

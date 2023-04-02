@@ -1,23 +1,26 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
+import { type AppRoute } from '~/libs/enums/enums.js';
 import { type NotificationType } from '~/libs/packages/notification/notification.js';
-import { type AsyncThunkConfig } from '~/libs/types/async-thunk-config.type.js';
-import { type ValueOf } from '~/libs/types/types.js';
+import { type AsyncThunkConfig, type ValueOf } from '~/libs/types/types.js';
 
 import { name as sliceName } from './app.slice.js';
 
-type Notification = {
-  message: string;
-  type: ValueOf<typeof NotificationType>;
-};
-
-const notify = createAsyncThunk<unknown, Notification, AsyncThunkConfig>(
-  `${sliceName}/notify`,
-  ({ type, message }, { extra }) => {
-    const { notification } = extra;
-
-    notification[type](message);
-  },
+const navigate = createAction<ValueOf<typeof AppRoute> | null>(
+  `${sliceName}/navigate`,
 );
 
-export { notify };
+const notify = createAsyncThunk<
+  unknown,
+  {
+    message: string;
+    type: ValueOf<typeof NotificationType>;
+  },
+  AsyncThunkConfig
+>(`${sliceName}/notify`, ({ type, message }, { extra }) => {
+  const { notification } = extra;
+
+  notification[type](message);
+});
+
+export { navigate, notify };

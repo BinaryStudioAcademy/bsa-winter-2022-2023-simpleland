@@ -1,4 +1,5 @@
-import { Button, Input } from '~/libs/components/components.js';
+import avatarPlaceholder from '~/assets/img/default-avatar-profile-icon.svg';
+import { Button, Image, Input } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
@@ -12,9 +13,14 @@ import styles from './styles.module.scss';
 type Properties = {
   user: UserAuthResponse;
   onUpdateUser: (payload: UserUpdateRequestDto) => void;
+  onUpdateUserAvatar: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
+const Profile: React.FC<Properties> = ({
+  user,
+  onUpdateUser,
+  onUpdateUserAvatar,
+}: Properties) => {
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<UserUpdateRequestDto>({
       defaultValues: {
@@ -25,14 +31,6 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
       validationSchema: userUpdateValidationSchema,
     });
 
-  const handleFormCancel = useCallback(() => {
-    handleReset({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      accountName: user.accountName ?? '',
-    });
-  }, [handleReset, user]);
-
   const handleUpdateUserDetails = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
       void handleSubmit(onUpdateUser)(event_);
@@ -42,7 +40,18 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
 
   return (
     <form className={styles['form-wrapper']} onSubmit={handleUpdateUserDetails}>
-      <div className={styles['profile-image']} />
+      <label className={styles['profile-image-wrapper']}>
+        <Image
+          src={user.avatarUrl ?? avatarPlaceholder}
+          alt="avatar"
+          className={styles['profile-image']}
+        />
+        <input
+          type="file"
+          onChange={onUpdateUserAvatar}
+          className="visually-hidden"
+        />
+      </label>
       <div className={styles['inputs']}>
         <Input
           type="text"
@@ -76,7 +85,7 @@ const Profile: React.FC<Properties> = ({ user, onUpdateUser }: Properties) => {
           size="small"
           label="Cancel"
           className={styles['button']}
-          onClick={handleFormCancel}
+          onClick={handleReset}
         />
         <Button
           type="submit"

@@ -43,10 +43,15 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   }
 
   public async create(
-    payload: SiteCreateRequestDto,
+    payload: SiteCreateRequestDto & {
+      projectId: number;
+    },
   ): Promise<SiteCreateResponseDto> {
     const entity = await this.siteRepository.create(
-      SiteEntity.initializeNew({ name: payload.name }),
+      SiteEntity.initializeNew({
+        name: payload.name,
+        projectId: payload.projectId,
+      }),
     );
     const site = entity.toObject();
 
