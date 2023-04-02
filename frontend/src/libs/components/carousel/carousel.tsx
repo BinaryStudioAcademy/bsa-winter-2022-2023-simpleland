@@ -1,14 +1,14 @@
 import LibraryCarousel, { type ControlProps } from 'nuka-carousel';
-import React, { useCallback, useState } from 'react';
 
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
+import { useCallback, useState } from '~/libs/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
 const Carousel: React.FC<React.PropsWithChildren> = ({
   children,
 }: React.PropsWithChildren) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const handleDotClick = useCallback((index: number) => {
     return () => {
