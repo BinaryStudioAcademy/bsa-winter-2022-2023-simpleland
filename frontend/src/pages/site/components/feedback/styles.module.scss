@@ -1,0 +1,89 @@
+.feedback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+}
+
+.feedback-container {
+  width: 1085px;
+  padding: 55px 0;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+  color: #161616;
+  font-size: 37px;
+  font-family: "BN Chester", sans-serif;
+  line-height: 36px;
+}
+
+.title-brown {
+  color: #d3a265;
+}
+
+.feedback-carousel-slide {
+  display: flex;
+  gap: 28px;
+}
+
+.feedback-card {
+  position: relative;
+  width: 528px;
+  padding: 33px 33px 33px 85px;
+  background: var(--white);
+  border-radius: 9px;
+}
+
+.feedback-card::after {
+  content: "";
+  position: absolute;
+  top: 35%;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: #dcd1bb;
+}
+
+.feedback-card-heading {
+  display: flex;
+  margin-bottom: 28px;
+}
+
+.feedback-card-photo {
+  z-index: var(--z-index-level-one);
+  display: block;
+  width: 159px;
+  height: 159px;
+  margin-right: 29px;
+  border-radius: 50%;
+}
+
+.feedback-card-person-info {
+  margin-top: 20px;
+}
+
+.feedback-card-person-name {
+  margin-bottom: 7px;
+  color: #161616;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.feedback-card-person-profession {
+  color: #b5b5b5;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.feedback-card-text {
+  padding: 0 10px;
+  color: #161616;
+  font-size: 15px;
+  line-height: 25px;
+}
