@@ -1,6 +1,7 @@
 import { type CreateCompletionRequest, Configuration, OpenAIApi } from 'openai';
 
 import { type IConfig } from '~/libs/packages/config/config.js';
+import { file } from '~/libs/packages/file/file.js';
 
 class OpenAI {
   private openAIApi: OpenAIApi;
@@ -40,11 +41,16 @@ class OpenAI {
   public async createImage(prompt: string): Promise<string> {
     const { data } = await this.openAIApi.createImage({
       prompt,
+      response_format: 'b64_json',
     });
 
     const [image] = data.data;
 
-    return image?.url ?? '';
+    const buffer = Buffer.from(image?.b64_json ?? '', 'base64');
+
+    const { url } = await file.upload({ file: buffer });
+
+    return url;
   }
 
   private parseCompletionResponse(response: string): Record<string, string> {
