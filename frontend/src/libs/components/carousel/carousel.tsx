@@ -5,9 +5,15 @@ import { useCallback, useState } from '~/libs/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
-const Carousel: React.FC<React.PropsWithChildren> = ({
+type Properties = {
+  cellSpacing?: number;
+  children: React.ReactNode;
+};
+
+const Carousel: React.FC<Properties> = ({
   children,
-}: React.PropsWithChildren) => {
+  cellSpacing = 10,
+}: Properties) => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const handleDotClick = useCallback((index: number) => {
@@ -45,6 +51,7 @@ const Carousel: React.FC<React.PropsWithChildren> = ({
       <LibraryCarousel
         renderBottomCenterControls={renderDots}
         slideIndex={currentSlide}
+        cellSpacing={cellSpacing}
         defaultControlsConfig={{
           prevButtonClassName: styles['default-buttons'] as string,
           nextButtonClassName: styles['default-buttons'] as string,

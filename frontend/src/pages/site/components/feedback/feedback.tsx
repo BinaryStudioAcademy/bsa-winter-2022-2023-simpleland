@@ -29,7 +29,7 @@ const Feedback: React.FC<Properties> = ({
       <div className={styles['feedback-container']}>
         {handleRenderTitle()}
         <div className={styles['feedback-carousel']}>
-          <Carousel>
+          <Carousel cellSpacing={28}>
             {cards.map((card, index, array) => {
               if (index % 2 === 0) {
                 const nextCard = array[index + 1] as {
