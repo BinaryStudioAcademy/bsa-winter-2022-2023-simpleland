@@ -14,6 +14,7 @@ import {
 import { type UserAuthResponse } from '~/packages/users/users.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
+import { type ProjectUploadImageRequstDto } from './libs/types/types.js';
 
 /**
  * @swagger
@@ -62,6 +63,19 @@ class ProjectController extends Controller {
           options as ApiHandlerOptions<{
             user: UserAuthResponse;
             body: ProjectCreateRequestDto;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: ProjectsApiPath.CHANGE_IMAGE,
+      method: 'PUT',
+      handler: (options) =>
+        this.updateImage(
+          options as ApiHandlerOptions<{
+            user: UserAuthResponse;
+            body: ProjectUploadImageRequstDto;
+            fileBuffer: Buffer;
           }>,
         ),
     });
@@ -132,6 +146,21 @@ class ProjectController extends Controller {
         name: options.body.name,
         userId: options.user.id,
       }),
+    };
+  }
+
+  private async updateImage({
+    user,
+    body,
+    fileBuffer,
+  }: ApiHandlerOptions<{
+    user: UserAuthResponse;
+    body: ProjectUploadImageRequstDto;
+    fileBuffer: Buffer;
+  }>): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.projectService.updateImage(user.id, body, fileBuffer),
     };
   }
 }
