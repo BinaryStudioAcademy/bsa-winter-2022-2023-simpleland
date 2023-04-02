@@ -2,7 +2,7 @@ const SectionType = {
   HEADER: 'header',
   FOOTER: 'footer',
   MAIN: 'main',
-  ABOUT_SECTION: 'about_section',
+  ABOUT: 'about',
 } as const;
 
 export { SectionType };

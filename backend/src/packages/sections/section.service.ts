@@ -6,7 +6,7 @@ import { SectionType } from './libs/enums/enums.js';
 import {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
-  type SiteAboutSectionContent,
+  type SiteAboutContent,
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
@@ -55,10 +55,7 @@ class SectionService
     prompt: string,
     type: T,
   ): Promise<
-    | SiteHeaderContent
-    | SiteMainContent
-    | SiteFooterContent
-    | SiteAboutSectionContent
+    SiteHeaderContent | SiteMainContent | SiteFooterContent | SiteAboutContent
   > {
     const response = await openAI.createCompletion(prompt);
 
@@ -69,8 +66,8 @@ class SectionService
       case SectionType.MAIN: {
         return this.createMainContent(response);
       }
-      case SectionType.ABOUT_SECTION: {
-        return this.createAboutSectionContent(response);
+      case SectionType.ABOUT: {
+        return this.createAboutContent(response);
       }
       case SectionType.FOOTER: {
         return this.createFooterContent(response);
@@ -109,9 +106,9 @@ class SectionService
     };
   }
 
-  private createAboutSectionContent(
+  private createAboutContent(
     content: Record<string, string>,
-  ): SiteAboutSectionContent {
+  ): SiteAboutContent {
     return {
       title: content['title'] ?? '',
       description: content['description'] ?? '',

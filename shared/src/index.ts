@@ -44,7 +44,7 @@ export {
 export {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
-  type SiteAboutSectionContent,
+  type SiteAboutContent,
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,

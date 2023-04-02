@@ -4,11 +4,11 @@ const TABLE_NAME = 'sections';
 
 const COLUMN_NAME = 'type';
 
-const ENUM_NAME = 'enum_about_section_sections_type';
+const ENUM_NAME = 'enum_about_sections_type';
 
 const SECTION_TYPES = ['header', 'footer', 'main'];
 
-const UPDATED_SECTION_TYPES = [...SECTION_TYPES, 'about_section'];
+const UPDATED_SECTION_TYPES = [...SECTION_TYPES, 'about'];
 
 async function up(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TABLE_NAME, (table) => {

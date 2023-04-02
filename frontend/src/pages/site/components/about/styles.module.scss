@@ -1,31 +1,31 @@
-.about-section {
+.about {
   display: flex;
   justify-content: center;
   align-items: center;
   background: #f4f4f4;
 }
 
-.about-section-container {
+.about-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: 1085px;
   padding: 85px 0;
 }
 
-.about-section-content {
+.about-content {
   display: flex;
 }
 
-.about-section-left {
+.about-left {
   flex-grow: 1;
 }
 
-.about-section-right {
+.about-right {
   margin-right: 15px;
   padding: 185px 0;
 }
 
-.about-section-title {
+.about-title {
   width: 112px;
   height: 78px;
   margin-top: 100px;
@@ -35,7 +35,7 @@
   line-height: 39px;
 }
 
-.about-section-description {
+.about-description {
   width: 529px;
   height: 225px;
   margin-bottom: 55px;
