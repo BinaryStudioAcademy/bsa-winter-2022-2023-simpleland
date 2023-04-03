@@ -1,5 +1,6 @@
 import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
+import { type File } from '~/libs/packages/file/file.package.js';
 import { openAI } from '~/libs/packages/open-ai/open-ai.js';
 import { type ValueOf } from '~/libs/types/types.js';
 
@@ -16,13 +17,21 @@ import {
 import { SectionEntity } from './section.entity.js';
 import { type SectionRepository } from './section.repository.js';
 
+type Constructor = {
+  sectionRepository: SectionRepository;
+  file: File;
+};
+
 class SectionService
   implements Omit<IService, 'find' | 'findAll' | 'update' | 'delete'>
 {
   private sectionRepository: SectionRepository;
 
-  public constructor(sectionRepository: SectionRepository) {
+  private file: File;
+
+  public constructor({ sectionRepository, file }: Constructor) {
     this.sectionRepository = sectionRepository;
+    this.file = file;
   }
 
   public async findBySiteId(siteId: number): Promise<SectionGetAllResponseDto> {
@@ -147,9 +156,13 @@ class SectionService
     }));
 
     await initAsyncItemsQueue(cards, async (card) => {
-      card.photo = await openAI.createImage(
+      const image = await openAI.createImage(
         `Portrait with sigma 85mm f/1.4. ${card.photo}`,
       );
+
+      const { url } = await this.file.upload({ file: image });
+
+      card.photo = url;
     });
 
     return {

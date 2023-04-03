@@ -1,7 +1,6 @@
 import { type CreateCompletionRequest, Configuration, OpenAIApi } from 'openai';
 
 import { type IConfig } from '~/libs/packages/config/config.js';
-import { type File } from '~/libs/packages/file/file.js';
 import { type ValueOf } from '~/libs/types/types.js';
 
 import { ImageSize } from './libs/enums/enums.js';
@@ -9,7 +8,6 @@ import { imageSizeToResolutionMap } from './libs/maps/maps.js';
 
 type Constructor = {
   config: IConfig;
-  file: File;
 };
 
 class OpenAI {
@@ -17,9 +15,7 @@ class OpenAI {
 
   private completionConfig: Omit<CreateCompletionRequest, 'prompt'>;
 
-  private file: File;
-
-  public constructor({ config, file }: Constructor) {
+  public constructor({ config }: Constructor) {
     this.openAIApi = new OpenAIApi(
       new Configuration({ apiKey: config.ENV.OPEN_AI.API_KEY }),
     );
@@ -32,8 +28,6 @@ class OpenAI {
       frequency_penalty: 0,
       presence_penalty: 0,
     };
-
-    this.file = file;
   }
 
   public async createCompletion(
@@ -63,11 +57,7 @@ class OpenAI {
 
     const [image] = data.data;
 
-    const buffer = Buffer.from(image?.b64_json ?? '', 'base64');
-
-    const { url } = await this.file.upload({ file: buffer });
-
-    return url;
+    return image?.b64_json ?? '';
   }
 
   private parseCompletionResponse(response: string): Record<string, string> {
