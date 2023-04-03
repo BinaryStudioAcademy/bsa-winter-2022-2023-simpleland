@@ -1,6 +1,11 @@
-import { Button, Input, Modal } from '~/libs/components/components.js';
+import {
+  Button,
+  IconButton,
+  Input,
+  Modal,
+} from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
+import { useAppForm, useCallback, useToggle } from '~/libs/hooks/hooks.js';
 import {
   type UserUpdatePasswordRequestDto,
   userUpdatePasswordValidationSchema,
@@ -35,34 +40,62 @@ const CreatePasswordForm: React.FC<Properties> = ({
     [handleSubmit, onSubmit],
   );
 
+  const [showPassword, toggleShowPassword] = useToggle(false);
+  const [showNewPassword, toggleShowNewPassword] = useToggle(false);
+  const [showRepeatPassword, toggleShowRepeatPassword] = useToggle(false);
+
   return (
     <Modal isOpen={isOpen} onClose={onCloseModal}>
       <div className={getValidClassNames(styles['form-wrapper'], className)}>
         <h2 className={styles['title']}>Change Password</h2>
         <form className={styles['form-wrapper']} onSubmit={handleFormSubmit}>
-          <Input
-            control={control}
-            errors={errors}
-            label="Current Password"
-            name="password"
-            type="password"
-          />
+          <div className={styles['input-container']}>
+            <Input
+              type={showPassword ? 'text' : 'password'}
+              label="Password"
+              name="password"
+              control={control}
+              errors={errors}
+            />
+            <IconButton
+              label="password"
+              icon={showPassword ? 'eye-slash' : 'eye'}
+              onClick={toggleShowPassword}
+              className={styles['input-icon']}
+            />
+          </div>
 
-          <Input
-            control={control}
-            errors={errors}
-            label="New Password"
-            name="newPassword"
-            type="password"
-          />
+          <div className={styles['input-box']}>
+            <Input
+              type={showNewPassword ? 'text' : 'password'}
+              label="New password"
+              name="newPassword"
+              control={control}
+              errors={errors}
+            />
+            <IconButton
+              label="New password"
+              icon={showNewPassword ? 'eye-slash' : 'eye'}
+              onClick={toggleShowNewPassword}
+              className={styles['input-manipulate']}
+            />
+          </div>
 
-          <Input
-            control={control}
-            errors={errors}
-            label="Repeat New password"
-            name="repeatNewPassword"
-            type="password"
-          />
+          <div className={styles['input-wrapper']}>
+            <Input
+              type={showRepeatPassword ? 'text' : 'password'}
+              label="Repeat new password"
+              name="repeatNewPassword"
+              control={control}
+              errors={errors}
+            />
+            <IconButton
+              label="Repeat password"
+              icon={showRepeatPassword ? 'eye-slash' : 'eye'}
+              onClick={toggleShowRepeatPassword}
+              className={styles['input-control']}
+            />
+          </div>
 
           <Button
             type="submit"

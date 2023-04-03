@@ -4,11 +4,6 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import {
-  type ActionMeta,
-  type MultiValue,
-  type SingleValue,
-} from 'react-select';
 import ReactSelect from 'react-select';
 
 import { useCallback, useFormController } from '~/libs/hooks/hooks.js';
@@ -20,19 +15,11 @@ import { styles } from './styles.js';
 type Properties<T extends FieldValues> = {
   control: Control<T, null>;
   name: FieldPath<T>;
-  onChange?: HandleChangeFunction;
   options: SelectOption<string | number>[];
   placeholder?: string;
   errors: FieldErrors<T>;
-  isDisabled?: boolean;
   isMulti?: boolean;
-};
-
-type HandleChangeFunction = {
-  newValue:
-    | SingleValue<SelectOption<string>>
-    | MultiValue<SelectOption<string>>;
-  actionMeta: ActionMeta<SelectOption<string>>;
+  isDisabled?: boolean;
 };
 
 const Select = <T extends FieldValues>({
@@ -88,12 +75,12 @@ const Select = <T extends FieldValues>({
   return (
     <div>
       <ReactSelect
-        value={handleSelectValue(field.value)}
         defaultValue={handleSelectValue(field.value)}
-        classNamePrefix="react-select"
-        options={options}
+        value={handleSelectValue(field.value)}
         onChange={handleChange}
         isMulti={isMulti}
+        classNamePrefix="react-select"
+        options={options}
         placeholder={placeholder}
         name={name}
         styles={styles}

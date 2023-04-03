@@ -38,7 +38,7 @@ class File {
   public async upload({
     file,
   }: {
-    file: Buffer;
+    file: Buffer | string;
   }): Promise<{ id: number; url: string }> {
     const { AWS_BUCKET_NAME } = this.config.ENV.AWS;
     const fileName = crypto.randomUUID();
@@ -46,7 +46,7 @@ class File {
     const command = new PutObjectCommand({
       Bucket: AWS_BUCKET_NAME,
       Key: fileName,
-      Body: file,
+      Body: typeof file === 'string' ? this.getBufferFromBase64(file) : file,
     });
 
     await this.storage.send(command);
@@ -64,6 +64,10 @@ class File {
     const { AWS_BUCKET_NAME } = this.config.ENV.AWS;
 
     return `https://${AWS_BUCKET_NAME}.s3.amazonaws.com/${fileName}`;
+  }
+
+  private getBufferFromBase64(base64: string): Buffer {
+    return Buffer.from(base64, 'base64');
   }
 }
 
