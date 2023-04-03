@@ -48,7 +48,7 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
     return project.toObject();
   }
 
-  public async updateImage(
+  public async uploadImage(
     id: number,
     body: ProjectUploadImageParametersDto,
     avatar: Buffer,
@@ -56,7 +56,7 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
     const projectId = +body.projectId;
     const { id: avatarId } = await file.upload({ file: avatar });
 
-    const project = await this.projectRepository.updateImage(
+    const project = await this.projectRepository.uploadImage(
       ProjectEntity.initialize({
         id: projectId,
         avatarId,

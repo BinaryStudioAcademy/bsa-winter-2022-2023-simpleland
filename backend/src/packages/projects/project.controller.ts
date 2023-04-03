@@ -71,7 +71,7 @@ class ProjectController extends Controller {
       path: ProjectsApiPath.PROJECT_$PROJECT_ID + ProjectsApiPath.AVATAR,
       method: 'PUT',
       handler: (options) =>
-        this.updateImage(
+        this.uploadImage(
           options as ApiHandlerOptions<{
             user: UserAuthResponse;
             params: ProjectUploadImageParametersDto;
@@ -176,7 +176,7 @@ class ProjectController extends Controller {
    *                $ref: '#/components/schemas/Project'
    */
 
-  private async updateImage({
+  private async uploadImage({
     user,
     params,
     fileBuffer,
@@ -187,7 +187,7 @@ class ProjectController extends Controller {
   }>): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.projectService.updateImage(
+      payload: await this.projectService.uploadImage(
         user.id,
         params,
         fileBuffer,
