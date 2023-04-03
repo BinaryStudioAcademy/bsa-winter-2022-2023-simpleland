@@ -1,0 +1,25 @@
+.feedback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+}
+
+.feedback-container {
+  width: 1085px;
+  padding: 55px 0;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+  color: #161616;
+  font-size: 37px;
+  font-family: "BN Chester", sans-serif;
+  line-height: 36px;
+}
+
+.title-brown {
+  color: #d3a265;
+}

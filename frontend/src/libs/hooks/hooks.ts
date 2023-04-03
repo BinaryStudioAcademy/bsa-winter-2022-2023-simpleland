@@ -3,6 +3,7 @@ export { useAppForm } from './use-app-form/use-app-form.hook.js';
 export { useAppSelector } from './use-app-selector/use-app-selector.hook.js';
 export { useStepper } from './use-app-stepper/use-app-stepper.hook.js';
 export { useModal } from './use-modal/use-modal.hook.js';
+export { useToggle } from './use-toggle/use-toggle.hook.js';
 export { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 export { useController as useFormController } from 'react-hook-form';
 export { useLocation, useNavigate, useParams } from 'react-router-dom';
