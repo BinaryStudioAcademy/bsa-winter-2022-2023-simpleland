@@ -37,7 +37,7 @@ const TargetAudience: React.FC<Properties> = ({
     (event_: React.BaseSyntheticEvent): void => {
       void handleSubmit(onSubmit)(event_);
     },
-    [handleSubmit, onSubmit]
+    [handleSubmit, onSubmit],
   );
 
   return (
@@ -57,11 +57,12 @@ const TargetAudience: React.FC<Properties> = ({
           errors={errors}
           customComponents={{
             Option: (
-              properties: OptionProps<OptionType, true>
+              properties: OptionProps<OptionType, true>,
             ): JSX.Element => (
               <components.Option {...properties}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <input
+                    className={style['checkbox']}
                     type="checkbox"
                     defaultChecked={properties.isSelected}
                     style={{

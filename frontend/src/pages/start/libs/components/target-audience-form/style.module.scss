@@ -16,11 +16,11 @@
   text-align: left;
 }
 
-input[type="checkbox"]::before {
+.checkbox::before {
   margin: -4px 9px 0 0;
 }
 
-input[type="checkbox"]:checked::before {
+.checkbox:checked::before {
   display: inline-block;
   width: 13px;
   height: 13px;

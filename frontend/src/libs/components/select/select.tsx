@@ -38,8 +38,8 @@ const Select = <T extends FieldValues>({
   const selectedOption = options.find((option) => option.value === field.value);
 
   const componentsToUse = customComponents
-  ? { ...components, ...customComponents }
-  : components;
+    ? { ...components, ...customComponents }
+    : components;
 
   const error = errors[name]?.message;
   const hasError = Boolean(error);

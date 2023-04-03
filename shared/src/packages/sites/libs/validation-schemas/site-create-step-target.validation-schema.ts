@@ -10,7 +10,7 @@ const siteCreateStepTarget = joi.object<SiteCreateStepTarget, true>({
       joi.object({
         label: joi.string().required(),
         value: joi.string().required(),
-      })
+      }),
     )
     .min(1)
     .messages({ 'array.min': SiteValidationMessage.SITE_TARGET_REQUIRE }),

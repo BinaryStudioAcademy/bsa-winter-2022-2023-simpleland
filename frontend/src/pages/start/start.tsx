@@ -15,7 +15,7 @@ import { TargetAudience } from './libs/components/target-audience-form/target-au
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
 
-const steps = [ProjectNameForm,TargetAudience, FinalForm] as const;
+const steps = [ProjectNameForm, TargetAudience, FinalForm] as const;
 
 const Start: React.FC = () => {
   const { projectId } = useParams();
