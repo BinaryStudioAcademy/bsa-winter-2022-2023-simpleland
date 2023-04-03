@@ -1,4 +1,5 @@
 type SitePortfolioContent = {
+  title: string;
   categories: SitePortfolioCategory[];
 };
 

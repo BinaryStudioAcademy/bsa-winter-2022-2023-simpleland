@@ -79,8 +79,6 @@ class SectionService
     | SiteFeedbackContent
     | SiteFooterContent
   > {
-    const response = await openAI.createCompletion(prompt);
-
     switch (type) {
       case SectionType.HEADER: {
         return await this.createHeaderContent(prompt);
@@ -92,7 +90,7 @@ class SectionService
         return await this.createAboutContent(prompt);
       }
       case SectionType.PORTFOLIO: {
-        return await this.createPortfolioContent(response, imagePrompt);
+        return await this.createPortfolioContent(prompt, imagePrompt);
       }
       case SectionType.FOOTER: {
         return await this.createFooterContent(prompt);
@@ -182,10 +180,12 @@ class SectionService
   }
 
   private async createPortfolioContent(
-    content: Record<string, string>,
+    prompt: string,
     imagePrompt: string,
   ): Promise<SitePortfolioContent> {
+    const content = await openAI.createCompletion(prompt);
     const portfolioContent = {
+      title: 'Our portfolio',
       categories:
         content['categories']?.split(', ').map((item) => {
           return { name: item, images: [] };
