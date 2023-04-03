@@ -149,6 +149,33 @@ class ProjectController extends Controller {
     };
   }
 
+  /**
+   * @swagger
+   * /projects/update-image:
+   *    put:
+   *      description: Updating project image. Returning project
+   *      requestBody:
+   *        description: Project image and project id
+   *        required: true
+   *        content:
+   *          multipart/form-data:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                file:
+   *                  type: string
+   *                  format: binary
+                    project_id:
+                      type: string
+   *      responses:
+   *        200:
+   *          description: Successful image update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/Project'
+   */
+
   private async updateImage({
     user,
     body,
