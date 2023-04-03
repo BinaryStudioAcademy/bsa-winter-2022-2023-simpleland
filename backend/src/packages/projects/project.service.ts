@@ -9,7 +9,7 @@ import {
   type ProjectCreateDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllResponseDto,
-  type ProjectUploadImageRequstDto,
+  type ProjectUploadImageParametersDto,
 } from './libs/types/types.js';
 
 class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
@@ -50,19 +50,19 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async updateImage(
     id: number,
-    body: ProjectUploadImageRequstDto,
-    image: Buffer,
+    body: ProjectUploadImageParametersDto,
+    avatar: Buffer,
   ): Promise<ProjectGetAllItemResponseDto> {
-    const projectId = +body.project_id.value;
-    const { id: imageId } = await file.upload({ file: image });
+    const projectId = +body.projectId;
+    const { id: avatarId } = await file.upload({ file: avatar });
 
     const project = await this.projectRepository.updateImage(
       ProjectEntity.initialize({
         id: projectId,
-        imageId,
+        avatarId,
         name: null,
         userId: id,
-        imageUrl: null,
+        avatarUrl: null,
       }),
     );
 

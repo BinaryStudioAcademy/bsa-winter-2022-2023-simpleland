@@ -12,9 +12,9 @@ class ProjectModel extends AbstractModel {
 
   public 'name': string | null;
 
-  public 'imageId': number | null;
+  public 'avatarId': number | null;
 
-  public 'image': FileModel | null;
+  public 'avatar': FileModel | null;
 
   public static override get tableName(): string {
     return DatabaseTableName.PROJECTS;
@@ -22,13 +22,13 @@ class ProjectModel extends AbstractModel {
 
   public static override get relationMappings(): RelationMappings {
     return {
-      image: {
+      avatar: {
         relation: Model.HasOneRelation,
         modelClass: FileModel,
         join: {
           from: getJoinRelationPath<ProjectModel>(
             DatabaseTableName.PROJECTS,
-            'imageId',
+            'avatarId',
           ),
           to: getJoinRelationPath(DatabaseTableName.FILES, 'id'),
         },

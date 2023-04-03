@@ -7,7 +7,7 @@ class ProjectRepository
 {
   private projectModel: typeof ProjectModel;
 
-  private defaultRelationExpression = 'image';
+  private defaultRelationExpression = 'avatar';
 
   public constructor(projectModel: typeof ProjectModel) {
     this.projectModel = projectModel;
@@ -24,8 +24,8 @@ class ProjectRepository
         id: project.userId,
         name: project.name,
         userId: project.userId,
-        imageId: project.imageId,
-        imageUrl: project.image?.url ?? null,
+        avatarId: project.avatarId,
+        avatarUrl: project.avatar?.url ?? null,
       });
     });
   }
@@ -42,8 +42,8 @@ class ProjectRepository
         id: project.id,
         name: project.name,
         userId: project.userId,
-        imageId: project.imageId,
-        imageUrl: project.image?.url ?? null,
+        avatarId: project.avatarId,
+        avatarUrl: project.avatar?.url ?? null,
       });
     });
   }
@@ -64,15 +64,15 @@ class ProjectRepository
       id: project.id,
       name: project.name,
       userId: project.userId,
-      imageId: project.imageId,
-      imageUrl: project.image?.url ?? null,
+      avatarId: project.avatarId,
+      avatarUrl: project.avatar?.url ?? null,
     });
   }
 
   public async updateImage(entity: ProjectEntity): Promise<ProjectEntity> {
-    const { id, imageId } = entity.toUserImage();
+    const { id, avatarId } = entity.toProjectImage();
 
-    await this.projectModel.query().for(id).patch({ imageId });
+    await this.projectModel.query().patch({ avatarId }).where('id', id);
 
     const project = (await this.projectModel
       .query()
@@ -83,8 +83,8 @@ class ProjectRepository
       id: project.id,
       name: project.name,
       userId: project.userId,
-      imageId: project.imageId,
-      imageUrl: project.image?.url ?? null,
+      avatarId: project.avatarId,
+      avatarUrl: project.avatar?.url ?? null,
     });
   }
 }

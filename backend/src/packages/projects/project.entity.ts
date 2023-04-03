@@ -7,49 +7,49 @@ class ProjectEntity implements IEntity {
 
   private 'userId': number | null;
 
-  private 'imageId': number | null;
+  private 'avatarId': number | null;
 
-  private 'imageUrl': string | null;
+  private 'avatarUrl': string | null;
 
   private constructor({
     id,
     name,
     userId,
-    imageId,
-    imageUrl,
+    avatarId,
+    avatarUrl,
   }: {
     id: number | null;
     name: string | null;
     userId: number | null;
-    imageId: number | null;
-    imageUrl: string | null;
+    avatarId: number | null;
+    avatarUrl: string | null;
   }) {
     this.id = id;
     this.name = name;
     this.userId = userId;
-    this.imageId = imageId;
-    this.imageUrl = imageUrl;
+    this.avatarId = avatarId;
+    this.avatarUrl = avatarUrl;
   }
 
   public static initialize({
     id,
     name,
     userId,
-    imageId,
-    imageUrl,
+    avatarId,
+    avatarUrl,
   }: {
     id: number | null;
     name: string | null;
     userId: number | null;
-    imageId: number | null;
-    imageUrl: string | null;
+    avatarId: number | null;
+    avatarUrl: string | null;
   }): ProjectEntity {
     return new ProjectEntity({
       id,
       name,
       userId,
-      imageId,
-      imageUrl,
+      avatarId,
+      avatarUrl,
     });
   }
 
@@ -64,8 +64,8 @@ class ProjectEntity implements IEntity {
       id: null,
       name,
       userId,
-      imageId: null,
-      imageUrl: null,
+      avatarId: null,
+      avatarUrl: null,
     });
   }
 
@@ -73,13 +73,13 @@ class ProjectEntity implements IEntity {
     id: number;
     name: string;
     userId: number;
-    imageUrl: string | null;
+    avatarUrl: string | null;
   } {
     return {
       id: this.id as number,
       name: this.name as string,
       userId: this.userId as number,
-      imageUrl: this.imageUrl,
+      avatarUrl: this.avatarUrl,
     };
   }
 
@@ -93,13 +93,13 @@ class ProjectEntity implements IEntity {
     };
   }
 
-  public toUserImage(): {
+  public toProjectImage(): {
     id: number;
-    imageId: number;
+    avatarId: number;
   } {
     return {
       id: this.id as number,
-      imageId: this.imageId as number,
+      avatarId: this.avatarId as number,
     };
   }
 }
