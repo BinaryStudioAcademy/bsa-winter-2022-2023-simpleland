@@ -12,44 +12,21 @@ import styles from './styles.module.scss';
 const Feedback: React.FC<Properties> = ({
   content: { title, cards },
 }: Properties) => {
-  const handleRenderTitle = (): JSX.Element => {
-    const [firstWord = '', ...rest] = title.split(' ');
-
-    return (
-      <div className={styles['title']}>
-        {firstWord}
-        &nbsp;
-        <span className={styles['title-brown']}>{rest.join(' ')}</span>
-      </div>
-    );
-  };
+  const [titleFirstWord, ...titleRest] = title.split(' ');
 
   return (
     <div className={styles['feedback']}>
       <div className={styles['feedback-container']}>
-        {handleRenderTitle()}
+        <div className={styles['title']}>
+          {titleFirstWord}
+          &nbsp;
+          <span className={styles['title-brown']}>{titleRest.join(' ')}</span>
+        </div>
         <div className={styles['feedback-carousel']}>
-          <Carousel cellSpacing={28}>
-            {cards.map((card, index, array) => {
-              if (index % 2 === 0) {
-                const nextCard = array[index + 1] as {
-                  photo: string;
-                  name: string;
-                  profession: string;
-                  feedback: string;
-                };
-
-                return (
-                  <div
-                    className={styles['feedback-carousel-slide']}
-                    key={index}
-                  >
-                    <FeedbackCard card={card} />
-                    <FeedbackCard card={nextCard} />
-                  </div>
-                );
-              }
-            })}
+          <Carousel slidesToShow={2} slidesToScroll={2} cellSpacing={28}>
+            {cards.map((card) => (
+              <FeedbackCard card={card} key={card.photo} />
+            ))}
           </Carousel>
         </div>
       </div>

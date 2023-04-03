@@ -1,18 +1,25 @@
 import { type CreateCompletionRequest, Configuration, OpenAIApi } from 'openai';
 
 import { type IConfig } from '~/libs/packages/config/config.js';
-import { file } from '~/libs/packages/file/file.js';
+import { type File } from '~/libs/packages/file/file.js';
 import { type ValueOf } from '~/libs/types/types.js';
 
 import { ImageSize } from './libs/enums/enums.js';
-import { ImageSizeToResolutionMap } from './libs/maps/maps.js';
+import { imageSizeToResolutionMap } from './libs/maps/maps.js';
+
+type Constructor = {
+  config: IConfig;
+  file: File;
+};
 
 class OpenAI {
   private openAIApi: OpenAIApi;
 
   private completionConfig: Omit<CreateCompletionRequest, 'prompt'>;
 
-  public constructor(config: IConfig) {
+  private file: File;
+
+  public constructor({ config, file }: Constructor) {
     this.openAIApi = new OpenAIApi(
       new Configuration({ apiKey: config.ENV.OPEN_AI.API_KEY }),
     );
@@ -25,6 +32,8 @@ class OpenAI {
       frequency_penalty: 0,
       presence_penalty: 0,
     };
+
+    this.file = file;
   }
 
   public async createCompletion(
@@ -48,7 +57,7 @@ class OpenAI {
   ): Promise<string> {
     const { data } = await this.openAIApi.createImage({
       prompt,
-      size: ImageSizeToResolutionMap[size],
+      size: imageSizeToResolutionMap[size],
       response_format: 'b64_json',
     });
 
@@ -56,7 +65,7 @@ class OpenAI {
 
     const buffer = Buffer.from(image?.b64_json ?? '', 'base64');
 
-    const { url } = await file.upload({ file: buffer });
+    const { url } = await this.file.upload({ file: buffer });
 
     return url;
   }

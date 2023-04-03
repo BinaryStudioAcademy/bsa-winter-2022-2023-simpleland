@@ -7,12 +7,16 @@ import styles from './styles.module.scss';
 
 type Properties = {
   cellSpacing?: number;
+  slidesToShow?: number;
+  slidesToScroll?: number;
   children: React.ReactNode;
 };
 
 const Carousel: React.FC<Properties> = ({
   children,
   cellSpacing = 10,
+  slidesToShow = 1,
+  slidesToScroll = 1,
 }: Properties) => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
@@ -52,6 +56,8 @@ const Carousel: React.FC<Properties> = ({
         renderBottomCenterControls={renderDots}
         slideIndex={currentSlide}
         cellSpacing={cellSpacing}
+        slidesToShow={slidesToShow}
+        slidesToScroll={slidesToScroll}
         defaultControlsConfig={{
           prevButtonClassName: styles['default-buttons'] as string,
           nextButtonClassName: styles['default-buttons'] as string,

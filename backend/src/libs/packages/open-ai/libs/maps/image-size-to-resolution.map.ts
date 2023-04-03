@@ -3,7 +3,7 @@ import { CreateImageRequestSizeEnum } from 'openai';
 import { ImageSize } from '~/libs/packages/open-ai/libs/enums/enums.js';
 import { type ValueOf } from '~/libs/types/types.js';
 
-const ImageSizeToResolutionMap: Record<
+const imageSizeToResolutionMap: Record<
   ValueOf<typeof ImageSize>,
   ValueOf<typeof CreateImageRequestSizeEnum>
 > = {
@@ -12,4 +12,4 @@ const ImageSizeToResolutionMap: Record<
   [ImageSize.LARGE]: CreateImageRequestSizeEnum._1024x1024,
 };
 
-export { ImageSizeToResolutionMap };
+export { imageSizeToResolutionMap };

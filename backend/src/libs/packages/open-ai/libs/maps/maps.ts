@@ -1,1 +1,1 @@
-export { ImageSizeToResolutionMap } from './image-size-to-resolution.map.js';
+export { imageSizeToResolutionMap } from './image-size-to-resolution.map.js';
