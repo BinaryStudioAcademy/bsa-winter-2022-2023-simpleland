@@ -51,14 +51,9 @@ class SitesApi extends HttpApi {
   }: SiteGetByProjectParametersDto): Promise<SiteGetAllResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(
-        configureString(
-          ApiPath.SITES,
-          SitesApiPath.PROJECT_$PROJECT_ID,
-          SitesApiPath.ROOT,
-          {
-            projectId: projectId.toString(),
-          },
-        ),
+        configureString(SitesApiPath.PROJECT_$PROJECT_ID, SitesApiPath.ROOT, {
+          projectId: projectId.toString(),
+        }),
         parameters.pattern ? `?pattern=${parameters.pattern}` : '',
         {},
       ),
