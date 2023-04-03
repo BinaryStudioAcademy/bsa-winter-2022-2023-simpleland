@@ -1,5 +1,4 @@
-import { initAsyncItemsQueue } from 'shared/build/index.js';
-
+import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { openAI } from '~/libs/packages/open-ai/open-ai.js';
 import { type ValueOf } from '~/libs/types/types.js';
