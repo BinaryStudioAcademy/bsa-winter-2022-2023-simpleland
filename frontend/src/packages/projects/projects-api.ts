@@ -1,4 +1,5 @@
 import { ApiPath, ContentType } from '~/libs/enums/enums.js';
+import { configureString } from '~/libs/helpers/helpers.js';
 import { HttpApi } from '~/libs/packages/api/api.js';
 import { type IHttp } from '~/libs/packages/http/http.js';
 import { type IStorage } from '~/libs/packages/storage/storage.js';
@@ -50,11 +51,20 @@ class ProjectsApi extends HttpApi {
     return await response.json<ProjectGetAllResponseDto>();
   }
 
-  public async updateProjectImage(
+  public async uploadProjectImage(
+    projectId: number,
     payload: FormData,
   ): Promise<ProjectGetAllItemResponseDto> {
     const response = await this.load(
-      this.getFullEndpoint(ProjectsApiPath.CHANGE_IMAGE, {}),
+      this.getFullEndpoint(
+        configureString(
+          ProjectsApiPath.PROJECT_$PROJECT_ID + ProjectsApiPath.AVATAR,
+          {
+            projectId,
+          },
+        ),
+        {},
+      ),
       {
         method: 'PUT',
         contentType: ContentType.FORM_DATA,
