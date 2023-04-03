@@ -28,7 +28,7 @@ const ProjectNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 
   return (
     <>
-      <h2 className={styles['title']}>What is your project&apos;s name?</h2>
+      <h2 className={styles['title']}>What is your site&apos;s name?</h2>
       <div className={styles['subtitle']}>
         Don&apos;t have one? Just enter your name.
       </div>
