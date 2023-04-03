@@ -3,6 +3,7 @@ import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useAppDispatch,
   useCallback,
+  useMemo,
   useParams,
   useState,
   useStepper,
@@ -53,7 +54,10 @@ const Start: React.FC = () => {
     [dispatch, handleNextStep, isLastStep, projectId, sitePayload],
   );
 
-  const CurrentForm = steps[(currentStep - ONE_STEP_LENGTH) as 0];
+  const CurrentForm = useMemo(
+    () => steps[(currentStep - ONE_STEP_LENGTH) as 0],
+    [currentStep],
+  );
 
   return (
     <PageLayout style="black" className={styles['layout']}>
