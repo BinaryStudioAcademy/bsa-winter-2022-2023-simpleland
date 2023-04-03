@@ -50,10 +50,10 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async uploadImage(
     id: number,
-    body: ProjectUploadImageParametersDto,
+    parameters: ProjectUploadImageParametersDto,
     avatar: Buffer,
   ): Promise<ProjectGetAllItemResponseDto> {
-    const projectId = +body.projectId;
+    const projectId = +parameters.projectId;
     const { id: avatarId } = await file.upload({ file: avatar });
 
     const project = await this.projectRepository.uploadImage(
