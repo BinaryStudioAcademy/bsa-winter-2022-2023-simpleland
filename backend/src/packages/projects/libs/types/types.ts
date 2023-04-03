@@ -3,5 +3,5 @@ export {
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectGetAllResponseDto,
-  type ProjectUploadImageRequstDto,
+  type ProjectUploadImageParametersDto,
 } from 'shared/build/index.js';
