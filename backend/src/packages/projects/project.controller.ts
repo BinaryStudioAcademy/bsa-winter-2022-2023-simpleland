@@ -68,7 +68,7 @@ class ProjectController extends Controller {
     });
 
     this.addRoute({
-      path: ProjectsApiPath.PROJECT_$PROJECT_ID + ProjectsApiPath.AVATAR,
+      path: ProjectsApiPath.PROJECT_$PROJECT_ID_AVATAR,
       method: 'PUT',
       handler: (options) =>
         this.uploadImage(

@@ -58,7 +58,7 @@ class ProjectsApi extends HttpApi {
     const response = await this.load(
       this.getFullEndpoint(
         configureString(
-          ProjectsApiPath.PROJECT_$PROJECT_ID + ProjectsApiPath.AVATAR,
+          ProjectsApiPath.PROJECT_$PROJECT_ID_AVATAR,
           {
             projectId,
           },
