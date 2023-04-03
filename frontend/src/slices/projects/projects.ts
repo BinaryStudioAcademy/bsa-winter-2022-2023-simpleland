@@ -1,7 +1,7 @@
 import {
   createProject,
   getUserProjects,
-  updateProjectImage,
+  uploadProjectImage,
 } from './actions.js';
 import { actions } from './projects.slice.js';
 
@@ -9,7 +9,7 @@ const allActions = {
   ...actions,
   createProject,
   getUserProjects,
-  updateProjectImage,
+  uploadProjectImage,
 };
 
 export { allActions as actions };
