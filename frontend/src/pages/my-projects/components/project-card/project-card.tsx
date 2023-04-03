@@ -11,7 +11,10 @@ import styles from './styles.module.scss';
 
 type Properties = {
   project: ProjectGetAllItemResponseDto;
-  onUpdateProjectImage: (event: React.ChangeEvent<HTMLInputElement>, id: number) => void;
+  onUpdateProjectImage: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    id: number,
+  ) => void;
 };
 
 const ProjectCard: React.FC<Properties> = ({
@@ -20,7 +23,11 @@ const ProjectCard: React.FC<Properties> = ({
 }: Properties) => {
   const { id, name, imageUrl } = project;
 
-  const handleFileChoose = useCallback((event_: React.ChangeEvent<HTMLInputElement>) => onUpdateProjectImage(event_, id),[onUpdateProjectImage,id]);
+  const handleFileChoose = useCallback(
+    (event_: React.ChangeEvent<HTMLInputElement>) =>
+      onUpdateProjectImage(event_, id),
+    [onUpdateProjectImage, id],
+  );
 
   return (
     <div className={styles['card']}>
