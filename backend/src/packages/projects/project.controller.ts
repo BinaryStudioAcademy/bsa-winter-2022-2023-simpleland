@@ -151,7 +151,7 @@ class ProjectController extends Controller {
 
   /**
    * @swagger
-   * /projects/update-image:
+   * /projects/:projectId/avatar:
    *    put:
    *      description: Updating project image. Returning project
    *      requestBody:
@@ -165,8 +165,6 @@ class ProjectController extends Controller {
    *                file:
    *                  type: string
    *                  format: binary
-                    project_id:
-                      type: string
    *      responses:
    *        200:
    *          description: Successful image update
