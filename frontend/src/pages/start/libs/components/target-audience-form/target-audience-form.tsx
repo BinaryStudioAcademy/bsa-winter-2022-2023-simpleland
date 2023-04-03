@@ -23,7 +23,7 @@ type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateStepTarget>) => void;
 };
 
-const TargetAudience: React.FC<Properties> = ({
+const TargetAudienceForm: React.FC<Properties> = ({
   onSubmit,
 }: Properties): JSX.Element => {
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepTarget>({
@@ -86,4 +86,4 @@ const TargetAudience: React.FC<Properties> = ({
   );
 };
 
-export { TargetAudience };
+export { TargetAudienceForm };

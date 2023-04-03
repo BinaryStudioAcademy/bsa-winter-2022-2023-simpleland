@@ -10,12 +10,11 @@ import {
 import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
 import { actions as siteActions } from '~/slices/sites/sites.js';
 
-import { FinalForm, ProjectNameForm } from './libs/components/components.js';
-import { TargetAudience } from './libs/components/target-audience-form/target-audience-form.js';
+import { FinalForm, ProjectNameForm,TargetAudienceForm } from './libs/components/components.js';
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
 
-const steps = [ProjectNameForm, TargetAudience, FinalForm] as const;
+const steps = [ProjectNameForm, TargetAudienceForm, FinalForm] as const;
 
 const Start: React.FC = () => {
   const { projectId } = useParams();
