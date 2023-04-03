@@ -3,6 +3,7 @@ const SectionType = {
   FOOTER: 'footer',
   MAIN: 'main',
   ABOUT: 'about',
+  FEEDBACK: 'feedback',
 } as const;
 
 export { SectionType };

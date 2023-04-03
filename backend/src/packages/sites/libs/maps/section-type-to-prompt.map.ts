@@ -26,6 +26,12 @@ const SectionTypeToPrompt: Record<
     REQUEST:
       'Generate logo text for footer section, description for footer section.',
   },
+  [SectionType.FEEDBACK]: {
+    EXAMPLE:
+      'name: Annette Black\nphotoDescription: The woman in the photo has long, wavy hair and bright green eyes that sparkle with kindness. She is dressed in a flowing floral dress, standing in a lush green field with a peaceful and contented demeanor.\nprofession: Merchandising Associate\nfeedback: This interior design company offers impressive designs that are both practical and imaginative. They have a reliable team and a strong portfolio that demonstrates their skill in creating beautiful spaces. Highly recommended.',
+    REQUEST:
+      'Generate name for feedback section, photoDescription for feedback section, profession for feedback section, feedback for feedback section',
+  },
 } as const;
 
 export { SectionTypeToPrompt };

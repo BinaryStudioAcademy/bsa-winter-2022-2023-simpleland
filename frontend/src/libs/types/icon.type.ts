@@ -4,6 +4,8 @@ type IconType =
   | 'cross'
   | 'plus'
   | 'pencil'
-  | 'search';
+  | 'search'
+  | 'eye'
+  | 'eye-slash';
 
 export { type IconType };
