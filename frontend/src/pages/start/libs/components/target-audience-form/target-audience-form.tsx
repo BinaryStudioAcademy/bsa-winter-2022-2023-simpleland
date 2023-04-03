@@ -19,7 +19,7 @@ type OptionType = {
 
 type Properties = {
   className?: string;
-  children?:React.ReactNode;
+  children?: React.ReactNode;
   onSubmit: (sitePayload: Partial<SiteCreateStepTarget>) => void;
 };
 
