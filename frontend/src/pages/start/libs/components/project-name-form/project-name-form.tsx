@@ -43,7 +43,7 @@ const ProjectNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           isLabelVisuallyHidden
         />
         <Button
-          label="Next"
+          label="Go next"
           style="secondary"
           size="small"
           type="submit"
