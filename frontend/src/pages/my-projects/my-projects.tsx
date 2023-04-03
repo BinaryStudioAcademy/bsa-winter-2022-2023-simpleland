@@ -7,8 +7,10 @@ import {
   useEffect,
   useState,
 } from '~/libs/hooks/hooks.js';
-import { FormDataKey } from '~/libs/packages/file/file.js';
-import { type ProjectCreateRequestDto } from '~/packages/projects/projects.js';
+import {
+  type ProjectCreateRequestDto,
+  type ProjectFormData,
+} from '~/packages/projects/projects.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
 import { CreateProjectModal, ProjectCard } from './components/components.js';
@@ -39,7 +41,7 @@ const MyProjects: React.FC = () => {
   const hasProjects = projects.length > 0;
 
   const handleProjectSubmit = useCallback(
-    (payload: ProjectCreateRequestDto): void => {
+    (payload: ProjectCreateRequestDto & ProjectFormData): void => {
       void dispatch(projectActions.createProject(payload))
         .unwrap()
         .then(() => {
@@ -47,21 +49,6 @@ const MyProjects: React.FC = () => {
         });
     },
     [dispatch, handleModalClose],
-  );
-
-  const handleUpdateProjectImage = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
-      const [image] = event.target.files ?? [];
-
-      if (image) {
-        const formData = new FormData();
-        formData.append(FormDataKey.FILE, image);
-        formData.append(FormDataKey.PROJECT_ID, id.toString());
-
-        void dispatch(projectActions.updateProjectImage(formData));
-      }
-    },
-    [dispatch],
   );
 
   if (status === DataStatus.PENDING) {
@@ -94,11 +81,7 @@ const MyProjects: React.FC = () => {
 
               <div className={styles['cards-wrapper']}>
                 {projects.map((card) => (
-                  <ProjectCard
-                    key={card.id}
-                    project={card}
-                    onUpdateProjectImage={handleUpdateProjectImage}
-                  />
+                  <ProjectCard key={card.id} project={card} />
                 ))}
               </div>
             </>
