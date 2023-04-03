@@ -29,6 +29,8 @@ class SectionService
 
   private file: File;
 
+  private static feedbackCardsQuantity = 8;
+
   public constructor({ sectionRepository, file }: Constructor) {
     this.sectionRepository = sectionRepository;
     this.file = file;
@@ -140,10 +142,8 @@ class SectionService
   private async createFeedbackContent(
     prompt: string,
   ): Promise<SiteFeedbackContent> {
-    const CARDS_COUNT = 8;
-
     const cardsContent = await Promise.all(
-      Array.from({ length: CARDS_COUNT }).map(() =>
+      Array.from({ length: SectionService.feedbackCardsQuantity }, () =>
         openAI.createCompletion(prompt),
       ),
     );
