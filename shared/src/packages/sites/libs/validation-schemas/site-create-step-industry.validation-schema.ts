@@ -1,4 +1,4 @@
-import joi, { allow } from 'joi';
+import joi from 'joi';
 
 import { SiteValidationMessage, SiteValidationRule } from '../enums/enums.js';
 import { type SiteCreateIndustryName } from '../types/types.js';
