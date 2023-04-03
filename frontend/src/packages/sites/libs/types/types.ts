@@ -2,6 +2,7 @@ export {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteCreateStepName,
+  type SiteCreateStepTarget,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,

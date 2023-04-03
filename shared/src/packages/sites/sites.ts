@@ -4,12 +4,14 @@ export {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteCreateStepName,
+  type SiteCreateStepTarget,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
 } from './libs/types/types.js';
 export {
   siteCreateStepName as siteCreateStepNameValidationSchema,
+  siteCreateStepTarget as siteCreateStepTargetValidationSchema,
   siteCreate as siteCreateValidationSchema,
   siteGetByProjectParameters as siteGetByProjectValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

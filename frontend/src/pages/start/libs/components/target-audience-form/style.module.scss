@@ -1,0 +1,40 @@
+.step-question {
+  margin: 0 0 8px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.chose-age {
+  margin: 0 0 44px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+input[type="checkbox"]::before {
+  margin: -4px 9px 0 0;
+}
+
+input[type="checkbox"]:checked::before {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  color: var(--yellow);
+  font-size: 10px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: var(--gray-600);
+  content: "\2714";
+  border-color: var(--gray-600);
+  border-radius: 2px;
+}
+
+.button {
+  width: 152px;
+  margin: 129px auto 0;
+}
