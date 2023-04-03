@@ -64,8 +64,8 @@ export {
   SitesApiPath,
 } from './packages/sites/sites.js';
 export {
-  type StepIndustryDto,
-  stepIndustryValidationSchema,
+  type SiteCreateIndustryName,
+  siteCreateStepIndustryValidationSchema,
 } from './packages/sites/sites.js';
 export {
   type UserAuthResponse,

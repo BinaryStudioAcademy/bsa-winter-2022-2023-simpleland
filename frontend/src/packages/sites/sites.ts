@@ -12,6 +12,7 @@ const sitesApi = new SitesApi({
 
 export { sitesApi };
 export {
+  type SiteCreateIndustryName,
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteCreateStepName,
@@ -20,3 +21,4 @@ export {
   type SiteGetByProjectParametersDto,
 } from './libs/types/types.js';
 export { siteCreateStepNameValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+export { siteCreateStepIndustryValidationSchema } from './libs/validation-schemas/validation-schemas.js';

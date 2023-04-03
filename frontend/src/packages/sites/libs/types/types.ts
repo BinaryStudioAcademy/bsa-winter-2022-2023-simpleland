@@ -1,4 +1,5 @@
 export {
+  type SiteCreateIndustryName,
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteCreateStepName,
