@@ -2,6 +2,10 @@ import { type CreateCompletionRequest, Configuration, OpenAIApi } from 'openai';
 
 import { type IConfig } from '~/libs/packages/config/config.js';
 import { file } from '~/libs/packages/file/file.js';
+import { type ValueOf } from '~/libs/types/types.js';
+
+import { ImageSize } from './libs/enums/enums.js';
+import { ImageSizeToResolutionMap } from './libs/maps/maps.js';
 
 class OpenAI {
   private openAIApi: OpenAIApi;
@@ -38,9 +42,13 @@ class OpenAI {
     return this.parseCompletionResponse(text);
   }
 
-  public async createImage(prompt: string): Promise<string> {
+  public async createImage(
+    prompt: string,
+    size: ValueOf<typeof ImageSize> = ImageSize.SMALL,
+  ): Promise<string> {
     const { data } = await this.openAIApi.createImage({
       prompt,
+      size: ImageSizeToResolutionMap[size],
       response_format: 'b64_json',
     });
 
