@@ -4,13 +4,13 @@ const TableName = { PROJECTS: 'projects', FILES: 'files' };
 
 const ColumnName = {
   ID: 'id',
-  IMAGE_ID: 'image_id',
+  AVATAR_ID: 'avatar_id',
 };
 
 function up(knex: Knex): Promise<void> {
   return knex.schema.alterTable(TableName.PROJECTS, (table) => {
     table
-      .integer(ColumnName.IMAGE_ID)
+      .integer(ColumnName.AVATAR_ID)
       .unsigned()
       .references(ColumnName.ID)
       .inTable(TableName.FILES);
@@ -19,8 +19,8 @@ function up(knex: Knex): Promise<void> {
 
 function down(knex: Knex): Promise<void> {
   return knex.schema.alterTable(TableName.PROJECTS, (table) => {
-    table.dropForeign(ColumnName.IMAGE_ID);
-    table.dropColumn(ColumnName.IMAGE_ID);
+    table.dropForeign(ColumnName.AVATAR_ID);
+    table.dropColumn(ColumnName.AVATAR_ID);
   });
 }
 
