@@ -1,6 +1,7 @@
 const ProjectsApiPath = {
   ROOT: '/',
-  CHANGE_IMAGE: '/change-image',
+  PROJECT_$PROJECT_ID: '/project/:projectId',
+  AVATAR: '/avatar',
 } as const;
 
 export { ProjectsApiPath };
