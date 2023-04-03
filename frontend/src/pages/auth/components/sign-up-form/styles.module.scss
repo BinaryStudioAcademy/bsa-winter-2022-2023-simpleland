@@ -36,3 +36,13 @@
 .sign-in-link {
   border-bottom: 2px solid var(--yellow);
 }
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  top: 42%;
+  right: 5%;
+}

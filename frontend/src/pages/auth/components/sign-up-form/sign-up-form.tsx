@@ -1,6 +1,11 @@
-import { Button, Input, Link } from '~/libs/components/components.js';
+import {
+  Button,
+  IconButton,
+  Input,
+  Link,
+} from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum.js';
-import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
+import { useAppForm, useCallback, useToggle } from '~/libs/hooks/hooks.js';
 import {
   type UserSignUpRequestDto,
   userSignUpValidationSchema,
@@ -25,6 +30,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
     },
     [handleSubmit, onSubmit],
   );
+
+  const [showPassword, toggleShowPassword] = useToggle(false);
 
   return (
     <div className={styles['sign-up']}>
@@ -61,14 +68,22 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           errors={errors}
           inputMode="email"
         />
-        <Input
-          type="password"
-          label="Password"
-          placeholder="Enter your password"
-          name="password"
-          control={control}
-          errors={errors}
-        />
+        <div className={styles['input-wrapper']}>
+          <Input
+            type={showPassword ? 'text' : 'password'}
+            label="Password"
+            placeholder="Enter your password"
+            name="password"
+            control={control}
+            errors={errors}
+          />
+          <IconButton
+            label="password"
+            icon={showPassword ? 'eye-slash' : 'eye'}
+            onClick={toggleShowPassword}
+            className={styles['input-icon']}
+          />
+        </div>
         <Button
           type="submit"
           style="primary"

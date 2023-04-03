@@ -11,3 +11,4 @@ const file = new File({ config, fileRepository });
 
 export { file };
 export { FileModel } from './file.model.js';
+export { type File } from './file.package.js';

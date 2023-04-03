@@ -77,6 +77,18 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
         },
         {
           siteId: site.id,
+          prompt: this.createPrompt(SectionType.ABOUT, payload),
+          imagePrompt: this.createImagePrompt(payload),
+          type: SectionType.ABOUT,
+        },
+        {
+          siteId: site.id,
+          prompt: this.createPrompt(SectionType.FEEDBACK, payload),
+          imagePrompt: this.createImagePrompt(payload),
+          type: SectionType.FEEDBACK,
+        },
+        {
+          siteId: site.id,
           prompt: this.createPrompt(SectionType.FOOTER, payload),
           imagePrompt: this.createImagePrompt(payload),
           type: SectionType.FOOTER,
@@ -125,15 +137,10 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     return prompt.join('\n');
   }
 
-  private createImagePrompt(
-    siteInfo: SiteCreateRequestDto,
-  ): string {
+  private createImagePrompt(siteInfo: SiteCreateRequestDto): string {
     const siteDescription = this.createSiteDescription(siteInfo);
 
-    const prompt = [
-      PROMPT_HEADING,
-      siteDescription,
-    ];
+    const prompt = [PROMPT_HEADING, siteDescription];
 
     return prompt.join('\n');
   }
