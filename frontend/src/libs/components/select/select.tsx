@@ -18,7 +18,7 @@ type Properties<T extends FieldValues> = {
   options: SelectOption<string | number>[];
   placeholder?: string;
   isMulti?: boolean;
-  hideSelectedOptions?: boolean;
+  hideSelectedOptions: boolean;
   customComponents?: object;
   errors: FieldErrors<T>;
 };

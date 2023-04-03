@@ -1,13 +1,12 @@
-import { type ReactNode } from 'react';
 import { type OptionProps, components } from 'react-select';
-import {
-  type SiteCreateStepTarget,
-  siteCreateStepTargetValidationSchema,
-} from 'shared/build';
 
 import { Button, Select } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
+import {
+  type SiteCreateStepTarget,
+  siteCreateStepTargetValidationSchema,
+} from '~/packages/sites/sites.js';
 
 import { DEFAULT_STEP_TARGET_VALUE, options } from './libs/constants.js';
 import style from './style.module.scss';
@@ -20,7 +19,7 @@ type OptionType = {
 
 type Properties = {
   className?: string;
-  children?: ReactNode;
+  children?:React.ReactNode;
   onSubmit: (sitePayload: Partial<SiteCreateStepTarget>) => void;
 };
 
