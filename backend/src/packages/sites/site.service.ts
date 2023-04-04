@@ -107,6 +107,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     const exampleSiteDescription = this.createSiteDescription({
       name: EXAMPLE_COMPANY_NAME,
       industry: EXAMPLE_INDUSTRY,
+      tone: siteInfo.tone,
     });
 
     const siteDescription = this.createSiteDescription(siteInfo);
