@@ -1,7 +1,7 @@
 import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
-import { openAI } from '~/libs/packages/open-ai/open-ai.js';
+import { type OpenAI } from '~/libs/packages/open-ai/open-ai.package.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
   type SectionGetAllResponseDto,
@@ -22,6 +22,7 @@ import {
 type Constructor = {
   siteRepository: SiteRepository;
   file: File;
+  openAI: OpenAI;
 };
 
 class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
@@ -29,9 +30,12 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   private file: File;
 
-  public constructor({ siteRepository, file }: Constructor) {
+  private openAI: OpenAI;
+
+  public constructor({ siteRepository, file, openAI }: Constructor) {
     this.siteRepository = siteRepository;
     this.file = file;
+    this.openAI = openAI;
   }
 
   public async findAll(): Promise<SiteGetAllResponseDto> {
@@ -57,7 +61,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
       projectId: number;
     },
   ): Promise<SiteCreateResponseDto> {
-    const siteImage = await openAI.createImage(
+    const siteImage = await this.openAI.createImage(
       this.createSiteImagePrompt(payload),
     );
     const { url } = await this.file.upload({ file: siteImage });
