@@ -14,6 +14,7 @@ import styles from './styles.module.scss';
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateIndustryName>) => void;
 };
+
 const IndustryForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   const { control, errors, handleSubmit, watch } =
     useAppForm<SiteCreateIndustryName>({
