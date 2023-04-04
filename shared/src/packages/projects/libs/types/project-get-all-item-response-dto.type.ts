@@ -5,6 +5,7 @@ type ProjectGetAllItemResponseDto = {
   id: number;
   name: string;
   userId: number;
+  avatarUrl: string | null;
   type: ValueOf<typeof ProjectType>;
 };
 

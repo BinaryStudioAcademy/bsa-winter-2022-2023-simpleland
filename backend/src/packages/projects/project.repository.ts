@@ -9,6 +9,8 @@ class ProjectRepository
 {
   private projectModel: typeof ProjectModel;
 
+  private defaultRelationExpression = 'avatar';
+
   public constructor(projectModel: typeof ProjectModel) {
     this.projectModel = projectModel;
   }
@@ -16,7 +18,15 @@ class ProjectRepository
   public async findAll(): Promise<ProjectEntity[]> {
     const projects = await this.projectModel.query().execute();
 
-    return projects.map((project) => ProjectEntity.initialize(project));
+    return projects.map((project) => {
+      return ProjectEntity.initialize({
+        id: project.id,
+        name: project.name,
+        userId: project.userId,
+        avatarId: project.avatarId,
+        avatarUrl: project.avatar?.url ?? null,
+      });
+    });
   }
 
   public async findByUserId(
@@ -30,9 +40,19 @@ class ProjectRepository
         if (name) {
           void builder.where('name', 'ilike', `%${name}%`);
         }
-      });
+      })
+      .withGraphFetched(this.defaultRelationExpression)
+      .execute();
 
-    return projects.map((project) => ProjectEntity.initialize(project));
+    return projects.map((project) => {
+      return ProjectEntity.initialize({
+        id: project.id,
+        name: project.name,
+        userId: project.userId,
+        avatarId: project.avatarId,
+        avatarUrl: project.avatar?.url ?? null,
+      });
+    });
   }
 
   public async create(entity: ProjectEntity): Promise<ProjectEntity> {
@@ -52,6 +72,25 @@ class ProjectRepository
       id: project.id,
       name: project.name,
       userId: project.userId,
+      avatarId: project.avatarId,
+      avatarUrl: project.avatar?.url ?? null,
+    });
+  }
+
+  public async uploadImage(entity: ProjectEntity): Promise<ProjectEntity> {
+    const { id, avatarId } = entity.toProjectAvatar();
+
+    const project = await this.projectModel
+      .query()
+      .patchAndFetchById(id, { avatarId })
+      .withGraphFetched(this.defaultRelationExpression);
+
+    return ProjectEntity.initialize({
+      id: project.id,
+      name: project.name,
+      userId: project.userId,
+      avatarId: project.avatarId,
+      avatarUrl: project.avatar?.url ?? null,
       type: project.type,
     });
   }
