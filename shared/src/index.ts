@@ -12,6 +12,7 @@ export {
 export {
   configureString,
   initAsyncItemsQueue,
+  initDebounce,
 } from './libs/helpers/helpers.js';
 export { type IConfig } from './libs/packages/config/config.js';
 export { FormDataKey } from './libs/packages/file/file.js';
@@ -36,9 +37,12 @@ export {
   type ProjectCreateDto,
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
+  type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
+  type ProjectGetAllParametersDto,
   type ProjectGetAllResponseDto,
   projectCreateValidationSchema,
+  projectFilterValidationSchema,
   ProjectsApiPath,
 } from './packages/projects/projects.js';
 export {
