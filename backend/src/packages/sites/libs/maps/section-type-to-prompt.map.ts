@@ -21,8 +21,9 @@ const SectionTypeToPrompt: Record<
     REQUEST: 'Generate title for about section, description for about section.',
   },
   [SectionType.PORTFOLIO]: {
-    EXAMPLE: 'categories: commercial, residential, office, other',
-    REQUEST: 'Generate 4 categories for portfolio section.',
+    EXAMPLE: 'categories: commercial,residential,office,other',
+    REQUEST:
+      'Generate four category names for the portfolio section, separated by commas without spaces',
   },
   [SectionType.FOOTER]: {
     EXAMPLE:

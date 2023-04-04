@@ -32,6 +32,8 @@ class SectionService
 
   private static feedbackCardsQuantity = 8;
 
+  private static portfolioCategoryImagesQuantity = 8;
+
   public constructor({ sectionRepository, file }: Constructor) {
     this.sectionRepository = sectionRepository;
     this.file = file;
@@ -46,15 +48,13 @@ class SectionService
   public async create({
     siteId,
     prompt,
-    imagePrompt,
     type,
   }: {
     siteId: number;
     prompt: string;
-    imagePrompt: string;
     type: ValueOf<typeof SectionType>;
   }): Promise<SectionGetAllItemResponseDto> {
-    const content = await this.createSectionContent(prompt, imagePrompt, type);
+    const content = await this.createSectionContent(prompt, type);
 
     const section = await this.sectionRepository.create({
       siteId,
@@ -69,7 +69,6 @@ class SectionService
 
   private async createSectionContent<T extends ValueOf<typeof SectionType>>(
     prompt: string,
-    imagePrompt: string,
     type: T,
   ): Promise<
     | SiteHeaderContent
@@ -90,7 +89,7 @@ class SectionService
         return await this.createAboutContent(prompt);
       }
       case SectionType.PORTFOLIO: {
-        return await this.createPortfolioContent(prompt, imagePrompt);
+        return await this.createPortfolioContent(prompt);
       }
       case SectionType.FOOTER: {
         return await this.createFooterContent(prompt);
@@ -181,25 +180,23 @@ class SectionService
 
   private async createPortfolioContent(
     prompt: string,
-    imagePrompt: string,
   ): Promise<SitePortfolioContent> {
     const content = await openAI.createCompletion(prompt);
     const portfolioContent = {
       title: 'Our portfolio',
       categories:
-        content['categories']?.split(', ').map((item) => {
+        content['categories']?.split(',').map((item) => {
           return { name: item, images: [] };
         }) ?? [],
     } as SitePortfolioContent;
 
     await initAsyncItemsQueue(portfolioContent.categories, async (category) => {
-      const images = await openAI.createImages({
-        prompt: `${imagePrompt}\nGenerate portfolio images for website for ${category.name} category.`,
-        n: 8,
-        response_format: 'b64_json',
-      });
+      const images = await openAI.createImages(
+        `Find website portfolio images for the ${category.name} category.`,
+        SectionService.portfolioCategoryImagesQuantity,
+      );
       const imagePromises = images.map((image) => {
-        return this.file.upload({ file: Buffer.from(image) });
+        return this.file.upload({ file: image });
       });
       const s3Images = await Promise.all(imagePromises);
       category.images = s3Images.map((image) => image.url);
