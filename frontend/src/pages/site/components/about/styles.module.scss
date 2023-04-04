@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f4f4f4;
+  background: var(--gray-background);
 }
 
 .about-container {
@@ -29,7 +29,7 @@
   width: 112px;
   height: 78px;
   margin-top: 100px;
-  color: #161616;
+  color: var(--site-text-color);
   font-size: 38px;
   font-family: "BN Chester", sans-serif;
   line-height: 39px;
@@ -39,7 +39,7 @@
   width: 529px;
   height: 225px;
   margin-bottom: 55px;
-  color: #161616;
+  color: var(--site-text-color);
   font-size: 15px;
   line-height: 25px;
 }
