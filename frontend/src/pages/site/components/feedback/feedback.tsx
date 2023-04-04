@@ -2,12 +2,11 @@ import { Carousel } from '~/libs/components/components.js';
 import { type SiteFeedbackContent } from '~/packages/sections/sections.js';
 
 import { FeedbackCard } from './components/components.js';
+import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteFeedbackContent;
 };
-
-import styles from './styles.module.scss';
 
 const Feedback: React.FC<Properties> = ({
   content: { title, cards },
