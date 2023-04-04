@@ -1,4 +1,4 @@
-import img from 'src/assets/img/site-mock-image.jpg';
+import mockImage from 'src/assets/img/site-mock-image.jpg';
 
 import { Divider, IconButton } from '~/libs/components/components.js';
 import { type SiteGetAllItemResponseDto } from '~/packages/sites/sites.js';
@@ -10,11 +10,12 @@ type Properties = {
 };
 
 const SiteCard: React.FC<Properties> = ({ site }: Properties) => {
-  const { name } = site;
+  const { name, image } = site;
+  const imgUrl = image.length > 0 ? image : mockImage;
 
   return (
     <div className={styles['card']}>
-      <img className={styles['image']} src={img} alt="site theme" />
+      <img className={styles['image']} src={imgUrl} alt="site theme" />
 
       <div className={styles['content-wrapper']}>
         <h2 className={styles['title']}>{name}</h2>
