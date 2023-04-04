@@ -20,6 +20,11 @@ const SectionTypeToPrompt: Record<
       'title: About Studio\ndescription: Interiart is an award-winning architecture and interior design practice based in NYC. We work internationally on projects of residential & commercial interior design that require a creative approach. Our talented and experienced designers leverage their knowledge and expertise to create unique and comfortable interiors for you. Our team knows that interior design can be stressful for the client and we do our best to make it as easy as possible. We listen to your needs, ideas, and inputs. And most importantly, we make it exciting and enjoyable for our clients.',
     REQUEST: 'Generate title for about section, description for about section.',
   },
+  [SectionType.PORTFOLIO]: {
+    EXAMPLE: 'categories: commercial,residential,office,other',
+    REQUEST:
+      'Generate four category names for the portfolio section, separated by commas without spaces',
+  },
   [SectionType.FOOTER]: {
     EXAMPLE:
       'logo: id Studio\ndescription: We are one of the leading interior design and remodeling studios available for all of your residential and commercial interior design needs.',
