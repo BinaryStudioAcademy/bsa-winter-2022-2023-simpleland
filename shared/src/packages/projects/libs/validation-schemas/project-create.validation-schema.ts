@@ -12,11 +12,11 @@ const projectCreate = joi.object<ProjectCreateRequestDto, true>({
   }),
   type: joi
     .string()
-    .valid(...Object.keys(ProjectType))
     .required()
+    .valid(...Object.values(ProjectType))
     .messages({
-      'any.only': ProjectValidationMessage.TYPE_WRONG,
-      'any.required': ProjectValidationMessage.TYPE_REQUIRE,
+      'string.type': ProjectValidationMessage.TYPE_WRONG,
+      'string.required': ProjectValidationMessage.TYPE_REQUIRE,
     }),
 });
 
