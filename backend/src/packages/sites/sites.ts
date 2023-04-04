@@ -1,3 +1,4 @@
+import { file } from '~/libs/packages/file/file.js';
 import { logger } from '~/libs/packages/logger/logger.js';
 
 import { SiteController } from './site.controller.js';
@@ -6,7 +7,7 @@ import { SiteRepository } from './site.repository.js';
 import { SiteService } from './site.service.js';
 
 const siteRepository = new SiteRepository(SiteModel);
-const siteService = new SiteService(siteRepository);
+const siteService = new SiteService({ siteRepository, file });
 
 const siteController = new SiteController(logger, siteService);
 
