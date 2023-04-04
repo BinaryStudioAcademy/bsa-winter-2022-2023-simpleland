@@ -11,7 +11,7 @@ type Properties = {
 
 const SiteCard: React.FC<Properties> = ({ site }: Properties) => {
   const { name, image } = site;
-  const imgUrl = image.length > 0 ? image : mockImage;
+  const imgUrl = image ?? mockImage;
 
   return (
     <div className={styles['card']}>
