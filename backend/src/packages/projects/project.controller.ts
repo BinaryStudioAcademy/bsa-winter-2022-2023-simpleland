@@ -151,7 +151,7 @@ class ProjectController extends Controller {
 
   /**
    * @swagger
-   * /projects/:projectId/avatar:
+   * /projects/project/:projectId/avatar:
    *    put:
    *      description: Updating project image. Returning project
    *      requestBody:
