@@ -36,13 +36,14 @@ class ProjectRepository
   }
 
   public async create(entity: ProjectEntity): Promise<ProjectEntity> {
-    const { name, userId } = entity.toNewObject();
+    const { name, userId, type } = entity.toNewObject();
 
     const project = await this.projectModel
       .query()
       .insert({
         name,
         userId,
+        type,
       })
       .returning('*')
       .execute();
@@ -51,6 +52,7 @@ class ProjectRepository
       id: project.id,
       name: project.name,
       userId: project.userId,
+      type: project.type,
     });
   }
 }

@@ -42,6 +42,7 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
       ProjectEntity.initializeNew({
         name: payload.name,
         userId: payload.userId,
+        type: payload.type,
       }),
     );
 
