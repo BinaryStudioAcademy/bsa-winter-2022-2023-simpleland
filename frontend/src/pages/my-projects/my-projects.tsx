@@ -97,6 +97,7 @@ const MyProjects: React.FC = () => {
               <div className={styles['search-wrapper']}>
                 <form onChange={handleFormChange}>
                   <Input
+                    label="search"
                     type="search"
                     placeholder="Search"
                     name="search"
@@ -104,6 +105,7 @@ const MyProjects: React.FC = () => {
                     errors={errors}
                     className={styles['search-input']}
                     icon="loupe"
+                    isLabelVisuallyHidden
                   />
                 </form>
                 <Button
