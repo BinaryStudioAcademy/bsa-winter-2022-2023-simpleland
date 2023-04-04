@@ -1,5 +1,4 @@
-import img from 'src/assets/img/project-mock-image.jpg';
-
+import img from '~/assets/img/project-mock-image.jpg';
 import { Button, Image, Input, Modal } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
