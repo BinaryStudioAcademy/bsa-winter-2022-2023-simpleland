@@ -64,7 +64,7 @@ const Start: React.FC = () => {
       <div className={styles['page-wrapper']}>
         <div className={styles['content']}>
           <div className={styles['content-text']}>
-            First, tell us about your project
+            First, tell us about your site
           </div>
           <div className={styles['content-info']}>
             <div className={styles['stepper']}>
