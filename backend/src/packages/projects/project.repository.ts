@@ -70,7 +70,7 @@ class ProjectRepository
   }
 
   public async uploadImage(entity: ProjectEntity): Promise<ProjectEntity> {
-    const { id, avatarId } = entity.toProjectImage();
+    const { id, avatarId } = entity.toProjectAvatar();
 
     await this.projectModel.query().patch({ avatarId }).where('id', id);
 

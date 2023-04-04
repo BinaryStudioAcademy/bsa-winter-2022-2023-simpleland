@@ -93,7 +93,7 @@ class ProjectEntity implements IEntity {
     };
   }
 
-  public toProjectImage(): {
+  public toProjectAvatar(): {
     id: number;
     avatarId: number;
   } {
