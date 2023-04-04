@@ -1,7 +1,14 @@
-import { Button, Loader, PageLayout } from '~/libs/components/components.js';
+import {
+  Button,
+  Input,
+  Loader,
+  PageLayout,
+} from '~/libs/components/components.js';
 import { DataStatus } from '~/libs/enums/enums.js';
+import { initDebounce } from '~/libs/helpers/helpers.js';
 import {
   useAppDispatch,
+  useAppForm,
   useAppSelector,
   useCallback,
   useEffect,
@@ -9,11 +16,13 @@ import {
 } from '~/libs/hooks/hooks.js';
 import {
   type ProjectCreateRequestDto,
+  type ProjectGetAllParametersDto,
   type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
 import { CreateProjectModal, ProjectCard } from './components/components.js';
+import { DEFAULT_PROJECT_FILTER_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 const MyProjects: React.FC = () => {
@@ -30,13 +39,19 @@ const MyProjects: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect((): void => {
-    void dispatch(projectActions.getUserProjects());
+    void dispatch(projectActions.getUserProjects({ name: '' }));
   }, [dispatch]);
 
   const { projects, status } = useAppSelector((state) => ({
     projects: state.projects.projects,
     status: state.projects.dataStatus,
   }));
+
+  const { control, errors, handleSubmit } =
+    useAppForm<ProjectGetAllParametersDto>({
+      defaultValues: DEFAULT_PROJECT_FILTER_PAYLOAD,
+      mode: 'onChange',
+    });
 
   const hasProjects = projects.length > 0;
 
@@ -50,6 +65,17 @@ const MyProjects: React.FC = () => {
     },
     [dispatch, handleModalClose],
   );
+
+  const handleSearch = useCallback(
+    (data: ProjectGetAllParametersDto): void => {
+      void dispatch(projectActions.getUserProjects({ name: data.search }));
+    },
+    [dispatch],
+  );
+
+  const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
+    void handleSubmit(handleSearch)(event_);
+  });
 
   if (status === DataStatus.PENDING) {
     return (
@@ -70,6 +96,19 @@ const MyProjects: React.FC = () => {
           {hasProjects ? (
             <>
               <div className={styles['search-wrapper']}>
+                <form onChange={handleFormChange}>
+                  <Input
+                    label="search"
+                    type="search"
+                    placeholder="Search"
+                    name="search"
+                    control={control}
+                    errors={errors}
+                    className={styles['search-input']}
+                    icon="loupe"
+                    isLabelVisuallyHidden
+                  />
+                </form>
                 <Button
                   label="Add Project"
                   icon="plus"

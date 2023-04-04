@@ -9,7 +9,9 @@ import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type ProjectService } from '~/packages/projects/project.service.js';
 import {
   type ProjectCreateRequestDto,
+  type ProjectFilterQueryDto,
   projectCreateValidationSchema,
+  projectFilterValidationSchema,
 } from '~/packages/projects/projects.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 
@@ -46,9 +48,15 @@ class ProjectController extends Controller {
     this.addRoute({
       path: ProjectsApiPath.ROOT,
       method: 'GET',
+      validation: {
+        query: projectFilterValidationSchema,
+      },
       handler: (options) =>
         this.findByUserId(
-          options as ApiHandlerOptions<{ user: UserAuthResponse }>,
+          options as ApiHandlerOptions<{
+            user: UserAuthResponse;
+            query: ProjectFilterQueryDto;
+          }>,
         ),
     });
 
@@ -86,6 +94,13 @@ class ProjectController extends Controller {
    * /projects:
    *    get:
    *      description: Returns an array of projects
+   *      parameters:
+   *        - name: query
+   *          description: The search query
+   *          in: query
+   *          required: true
+   *          schema:
+   *            type: string
    *      responses:
    *        200:
    *          description: Successful operation
@@ -99,11 +114,15 @@ class ProjectController extends Controller {
   private async findByUserId(
     options: ApiHandlerOptions<{
       user: UserAuthResponse;
+      query: ProjectFilterQueryDto;
     }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.projectService.findByUserId(options.user.id),
+      payload: await this.projectService.findByUserId(
+        options.user.id,
+        options.query,
+      ),
     };
   }
 

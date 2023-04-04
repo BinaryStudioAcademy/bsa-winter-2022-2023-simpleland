@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/libs/types/async-thunk-config.type.js';
 import {
   type ProjectCreateRequestDto,
+  type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
   type ProjectUploadImageDto,
@@ -32,12 +33,12 @@ const createProject = createAsyncThunk<
 
 const getUserProjects = createAsyncThunk<
   ProjectGetAllResponseDto,
-  undefined,
+  ProjectFilterQueryDto,
   AsyncThunkConfig
->(`${sliceName}/get-projects`, async (_, { extra }) => {
+>(`${sliceName}/get-projects`, async (parameters, { extra }) => {
   const { projectsApi } = extra;
 
-  return await projectsApi.getProjects();
+  return await projectsApi.getProjects(parameters);
 });
 
 const uploadProjectImage = createAsyncThunk<
