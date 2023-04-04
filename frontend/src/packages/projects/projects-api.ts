@@ -57,7 +57,7 @@ class ProjectsApi extends HttpApi {
   ): Promise<ProjectGetAllItemResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(
-        configureString(ProjectsApiPath.PROJECT_$PROJECT_ID_AVATAR, {
+        configureString(ProjectsApiPath.$PROJECT_ID_AVATAR, {
           projectId,
         }),
         {},

@@ -9,7 +9,7 @@ import {
 } from '~/libs/hooks/hooks.js';
 import {
   type ProjectCreateRequestDto,
-  type ProjectFormData,
+  type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
@@ -41,7 +41,7 @@ const MyProjects: React.FC = () => {
   const hasProjects = projects.length > 0;
 
   const handleProjectSubmit = useCallback(
-    (payload: ProjectCreateRequestDto & ProjectFormData): void => {
+    (payload: ProjectCreateRequestDto & ProjectUploadImageDto): void => {
       void dispatch(projectActions.createProject(payload))
         .unwrap()
         .then(() => {
