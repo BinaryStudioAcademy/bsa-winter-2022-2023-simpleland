@@ -1,5 +1,5 @@
-type ProjectUploadImageDto  = {
+type ProjectUploadImageDto = {
   formData: FormData | null;
 };
 
-export { type ProjectUploadImageDto  };
+export { type ProjectUploadImageDto };
