@@ -1,1 +1,4 @@
-export { projectCreateValidationSchema } from 'shared/build/index.js';
+export {
+  projectCreateValidationSchema,
+  projectFilterValidationSchema,
+} from 'shared/build/index.js';

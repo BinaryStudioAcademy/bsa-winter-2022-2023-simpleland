@@ -24,6 +24,7 @@ export {
 } from './libs/packages/http/http.js';
 export { type IStorage } from './libs/packages/storage/storage.js';
 export {
+  type FunctionToDebounce,
   type ServerCommonErrorResponse,
   type ServerErrorDetail,
   type ServerErrorResponse,
@@ -36,9 +37,12 @@ export {
   type ProjectCreateDto,
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
+  type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
+  type ProjectGetAllParametersDto,
   type ProjectGetAllResponseDto,
   projectCreateValidationSchema,
+  projectFilterValidationSchema,
   ProjectsApiPath,
 } from './packages/projects/projects.js';
 export {

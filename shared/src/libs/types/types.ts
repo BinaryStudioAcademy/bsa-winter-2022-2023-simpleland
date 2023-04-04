@@ -1,3 +1,4 @@
+export { type FunctionToDebounce } from './function-to-debounce.type.js';
 export { type ServerErrorDetail } from './server-error-detail.type.js';
 export {
   type ServerCommonErrorResponse,
