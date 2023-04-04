@@ -191,15 +191,16 @@ class SectionService
     } as SitePortfolioContent;
 
     await initAsyncItemsQueue(portfolioContent.categories, async (category) => {
-      const images = await openAI.createImages(
+      const rawImages = await openAI.createImages(
         `Find website portfolio images for the ${category.name} category.`,
         SectionService.portfolioCategoryImagesQuantity,
       );
-      const imagePromises = images.map((image) => {
-        return this.file.upload({ file: image });
-      });
-      const s3Images = await Promise.all(imagePromises);
-      category.images = s3Images.map((image) => image.url);
+      const images = await Promise.all(
+        rawImages.map((image) => {
+          return this.file.upload({ file: image });
+        }),
+      );
+      category.images = images.map((image) => image.url);
     });
 
     return portfolioContent;

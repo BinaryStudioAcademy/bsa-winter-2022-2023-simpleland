@@ -76,20 +76,18 @@ const Portfolio: React.FC<Properties> = ({
             >
               All
             </button>
-            {categories.map((category, index) => {
-              return (
-                <button
-                  key={`${category.name}/${index}`}
-                  onClick={handleSelectCategory(index)}
-                  className={getValidClassNames(
-                    styles['button'],
-                    isActiveCategory(index) && styles['button-brown'],
-                  )}
-                >
-                  {category.name}
-                </button>
-              );
-            })}
+            {categories.map((category, index) => (
+              <button
+                key={`${category.name}/${index}`}
+                onClick={handleSelectCategory(index)}
+                className={getValidClassNames(
+                  styles['button'],
+                  isActiveCategory(index) && styles['button-brown'],
+                )}
+              >
+                {category.name}
+              </button>
+            ))}
           </div>
 
           {isVisibleViewButtonLabel && (

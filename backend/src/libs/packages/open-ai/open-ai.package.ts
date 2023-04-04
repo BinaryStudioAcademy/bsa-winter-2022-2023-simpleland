@@ -49,9 +49,9 @@ class OpenAI {
     prompt: string,
     size: ValueOf<typeof ImageSize> = ImageSize.SMALL,
   ): Promise<string> {
-    const images = await this.createImages(prompt, 1, size);
+    const [image] = await this.createImages(prompt, 1, size);
 
-    return images[0] ?? '';
+    return image ?? '';
   }
 
   public async createImages(
