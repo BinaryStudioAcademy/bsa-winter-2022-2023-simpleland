@@ -79,12 +79,10 @@ class ProjectRepository
   public async uploadImage(entity: ProjectEntity): Promise<ProjectEntity> {
     const { id, avatarId } = entity.toProjectAvatar();
 
-    await this.projectModel.query().patch({ avatarId }).where('id', id);
-
-    const project = (await this.projectModel
+    const project = await this.projectModel
       .query()
-      .findById(id)
-      .withGraphFetched(this.defaultRelationExpression)) as ProjectModel;
+      .patchAndFetchById(id, { avatarId })
+      .withGraphFetched(this.defaultRelationExpression);
 
     return ProjectEntity.initialize({
       id: project.id,
