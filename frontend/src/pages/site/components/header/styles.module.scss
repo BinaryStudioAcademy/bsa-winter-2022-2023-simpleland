@@ -17,12 +17,12 @@
 }
 
 .header-logo {
-  color: #161616;
+  color: var(--site-text-color);
   font-size: 22px;
 }
 
 .header-phone {
-  color: #161616;
+  color: var(--site-text-color);
   font-weight: 500;
   font-size: 15px;
   line-height: 18px;
