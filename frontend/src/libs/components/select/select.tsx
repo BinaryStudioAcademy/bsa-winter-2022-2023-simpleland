@@ -19,6 +19,7 @@ type Properties<T extends FieldValues> = {
   placeholder?: string;
   errors: FieldErrors<T>;
   isMulti?: boolean;
+  isSearchable?: boolean;
 };
 
 const Select = <T extends FieldValues>({
@@ -28,6 +29,7 @@ const Select = <T extends FieldValues>({
   placeholder,
   errors,
   isMulti = false,
+  isSearchable = false,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -77,6 +79,7 @@ const Select = <T extends FieldValues>({
         value={handleSelectValue(field.value)}
         onChange={handleChange}
         isMulti={isMulti}
+        isSearchable={isSearchable}
         classNamePrefix="react-select"
         options={options}
         placeholder={placeholder}

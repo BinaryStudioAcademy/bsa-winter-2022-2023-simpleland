@@ -1,4 +1,4 @@
-import { Button, Input, Modal } from '~/libs/components/components.js';
+import { Button, Input, Modal, Select } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
@@ -36,6 +36,15 @@ const CreateProjectModal: React.FC<Properties> = ({
     [handleSubmit, onSubmit],
   );
 
+  const options = [
+    { value: 'eCommercial', label: 'eCommercial' },
+    { value: 'Business', label: 'Business' },
+    { value: 'Blog', label: 'Blog' },
+    { value: 'Portfolio', label: 'Portfolio' },
+    { value: 'Personal', label: 'Personal' },
+    { value: 'Nonprofit', label: 'Nonprofit' },
+  ];
+
   return (
     <Modal isOpen={isOpen} onClose={onCloseModal}>
       <div className={getValidClassNames(styles['form-wrapper'], className)}>
@@ -47,7 +56,16 @@ const CreateProjectModal: React.FC<Properties> = ({
             label="Enter your project name"
             name="name"
           />
-
+          <div className={styles['select-wrapper']}>
+            <Select
+              control={control}
+              errors={errors}
+              name="type"
+              placeholder="Please select your type"
+              options={options}
+              isSearchable
+            />
+          </div>
           <Button
             type="submit"
             style="primary"

@@ -13,7 +13,7 @@ type Properties = {
 };
 
 const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
-  const { id, name } = project;
+  const { id, name, type } = project;
 
   return (
     <div className={styles['card']}>
@@ -28,6 +28,7 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
           )}
         >
           <h2>{name}</h2>
+          <p>{type}</p>
         </Link>
       </div>
     </div>
