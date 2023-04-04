@@ -44,10 +44,6 @@ class ProjectsApi extends HttpApi {
   ): Promise<ProjectGetAllResponseDto> {
     const searchParameters = new URLSearchParams(parameters);
 
-    if (parameters.name === '') {
-      searchParameters.delete('name');
-    }
-
     const response = await this.load(
       this.getFullEndpoint(
         configureString(ProjectsApiPath.ROOT, {}),
