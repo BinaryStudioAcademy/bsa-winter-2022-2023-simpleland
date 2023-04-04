@@ -6,7 +6,7 @@ import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
 import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
   type ProjectCreateRequestDto,
-  type ProjectFormData,
+  type ProjectUploadImageDto,
   projectCreateValidationSchema,
 } from '~/packages/projects/projects.js';
 
@@ -16,7 +16,7 @@ import styles from './styles.module.scss';
 type Properties = {
   isOpen: boolean;
   onCloseModal: () => void;
-  onSubmit: (payload: ProjectCreateRequestDto & ProjectFormData) => void;
+  onSubmit: (payload: ProjectCreateRequestDto & ProjectUploadImageDto) => void;
   className?: string;
 };
 
@@ -33,22 +33,19 @@ const CreateProjectModal: React.FC<Properties> = ({
     },
   );
 
-  const [{ image, blob }, setImage] = useState<{
-    image: string;
-    blob: Blob | null;
-  }>({
-    image: img,
-    blob: null,
-  });
+  const [image, setImage] = useState<{
+    src: string;
+    blob: Blob;
+  } | null>(null);
 
   const handleFormSubmit = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
       void handleSubmit((payload) => {
         let formData: null | FormData = null;
 
-        if (blob) {
+        if (image) {
           formData = new FormData();
-          formData.append(FormDataKey.FILE, blob);
+          formData.append(FormDataKey.FILE, image.blob);
         }
 
         onSubmit({
@@ -57,7 +54,7 @@ const CreateProjectModal: React.FC<Properties> = ({
         });
       })(event_);
     },
-    [handleSubmit, blob, onSubmit],
+    [handleSubmit, image, onSubmit],
   );
 
   const handleImageChange = useCallback(
@@ -68,7 +65,7 @@ const CreateProjectModal: React.FC<Properties> = ({
       if (newImage) {
         reader.addEventListener('load', () => {
           setImage({
-            image: reader.result as string,
+            src: reader.result as string,
             blob: newImage,
           });
         });
@@ -87,7 +84,7 @@ const CreateProjectModal: React.FC<Properties> = ({
           <label className={styles['choose-image-wrapper']}>
             <Image
               className={styles['choose-image']}
-              src={image}
+              src={image?.src ?? img}
               alt="project"
             />
             <input
