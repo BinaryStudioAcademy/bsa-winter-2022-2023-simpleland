@@ -1,11 +1,9 @@
 import 'react-tooltip/dist/react-tooltip.css';
 
-import { Tooltip } from 'react-tooltip';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
-import { TooltipId } from '~/libs/enums/enums.js';
-
-const AppTooltip: React.FC = () => {
-  return <Tooltip id={TooltipId.MAIN} />;
+const Tooltip: React.FC = () => {
+  return <ReactTooltip id='app-main-tooltip' />;
 };
 
-export { AppTooltip };
+export { Tooltip };
