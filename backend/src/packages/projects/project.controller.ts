@@ -16,6 +16,7 @@ import {
 import { type UserAuthResponse } from '~/packages/users/users.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
+import { type ProjectUploadImageParametersDto } from './libs/types/types.js';
 
 /**
  * @swagger
@@ -70,6 +71,19 @@ class ProjectController extends Controller {
           options as ApiHandlerOptions<{
             user: UserAuthResponse;
             body: ProjectCreateRequestDto;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: ProjectsApiPath.$PROJECT_ID_AVATAR,
+      method: 'PUT',
+      handler: (options) =>
+        this.uploadImage(
+          options as ApiHandlerOptions<{
+            user: UserAuthResponse;
+            params: ProjectUploadImageParametersDto;
+            fileBuffer: Buffer;
           }>,
         ),
     });
@@ -151,6 +165,50 @@ class ProjectController extends Controller {
         name: options.body.name,
         userId: options.user.id,
       }),
+    };
+  }
+
+  /**
+   * @swagger
+   * /projects/:projectId/avatar:
+   *    put:
+   *      description: Updating project image. Returning project
+   *      requestBody:
+   *        description: Project image and project id
+   *        required: true
+   *        content:
+   *          multipart/form-data:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                file:
+   *                  type: string
+   *                  format: binary
+   *      responses:
+   *        200:
+   *          description: Successful image update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/Project'
+   */
+
+  private async uploadImage({
+    user,
+    params,
+    fileBuffer,
+  }: ApiHandlerOptions<{
+    user: UserAuthResponse;
+    params: ProjectUploadImageParametersDto;
+    fileBuffer: Buffer;
+  }>): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.projectService.uploadImage(
+        user.id,
+        params,
+        fileBuffer,
+      ),
     };
   }
 }
