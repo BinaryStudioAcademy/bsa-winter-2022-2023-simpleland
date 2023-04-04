@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 
 import {
   App,
+  AppTooltip,
   Notification,
   ProtectedRoute,
   RouterProvider,
@@ -100,5 +101,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
       />
     </StoreProvider>
     <Notification />
+    <AppTooltip />
   </StrictMode>,
 );
