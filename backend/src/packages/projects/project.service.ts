@@ -1,5 +1,3 @@
-import { type ProjectGetAllItemResponseDto } from 'shared/build/packages/projects/projects.js';
-
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { file } from '~/libs/packages/file/file.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
@@ -9,6 +7,7 @@ import {
   type ProjectCreateDto,
   type ProjectCreateResponseDto,
   type ProjectFilterQueryDto,
+  type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
   type ProjectUploadImageParametersDto,
 } from './libs/types/types.js';
