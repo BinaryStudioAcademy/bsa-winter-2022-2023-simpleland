@@ -9,7 +9,7 @@ class SiteEntity implements IEntity {
 
   private 'publishedUrl': string | null;
 
-  private 'image': string;
+  private 'image': string | null;
 
   private constructor({
     id,
@@ -22,7 +22,7 @@ class SiteEntity implements IEntity {
     name: string;
     publishedUrl: string | null;
     projectId: number;
-    image: string;
+    image: string | null;
   }) {
     this.id = id;
     this.name = name;
@@ -42,7 +42,7 @@ class SiteEntity implements IEntity {
     name: string;
     publishedUrl: string | null;
     projectId: number;
-    image: string;
+    image: string | null;
   }): SiteEntity {
     return new SiteEntity({
       id,
@@ -60,7 +60,7 @@ class SiteEntity implements IEntity {
   }: {
     name: string;
     projectId: number;
-    image: string;
+    image: string | null;
   }): SiteEntity {
     return new SiteEntity({
       id: null,
@@ -76,7 +76,7 @@ class SiteEntity implements IEntity {
     name: string;
     publishedUrl: string | null;
     projectId: number;
-    image: string;
+    image: string | null;
   } {
     return {
       id: this.id as number,
@@ -90,7 +90,7 @@ class SiteEntity implements IEntity {
   public toNewObject(): {
     name: string;
     projectId: number;
-    image: string;
+    image: string | null;
   } {
     return {
       name: this.name,

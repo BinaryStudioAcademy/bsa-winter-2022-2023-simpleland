@@ -2,7 +2,7 @@ type SiteGetAllItemResponseDto = {
   id: number;
   name: string;
   publishedUrl: string | null;
-  image: string;
+  image: string | null;
 };
 
 export { type SiteGetAllItemResponseDto };
