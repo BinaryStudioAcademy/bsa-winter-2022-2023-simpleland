@@ -68,7 +68,7 @@ class ProjectController extends Controller {
     });
 
     this.addRoute({
-      path: ProjectsApiPath.PROJECT_$PROJECT_ID_AVATAR,
+      path: ProjectsApiPath.$PROJECT_ID_AVATAR,
       method: 'PUT',
       handler: (options) =>
         this.uploadImage(
@@ -151,7 +151,7 @@ class ProjectController extends Controller {
 
   /**
    * @swagger
-   * /projects/project/:projectId/avatar:
+   * /projects/:projectId/avatar:
    *    put:
    *      description: Updating project image. Returning project
    *      requestBody:
