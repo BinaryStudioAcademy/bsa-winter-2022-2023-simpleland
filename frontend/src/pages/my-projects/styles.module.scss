@@ -12,16 +12,17 @@
   flex-direction: column;
   gap: 24px;
   width: calc(var(--card-width) * 3 + var(--card-gap) * 2);
-  margin: 108px auto 24px;
+  margin: 50px auto 24px;
 }
 
 .search-wrapper {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
 }
 
 .create-button {
   gap: 8px;
+  margin-top: 9px;
 }
 
 .cards-wrapper {
@@ -62,4 +63,8 @@
 
 .placeholder-button {
   padding: 20px 60px;
+}
+
+.search-input {
+  width: 292px;
 }
