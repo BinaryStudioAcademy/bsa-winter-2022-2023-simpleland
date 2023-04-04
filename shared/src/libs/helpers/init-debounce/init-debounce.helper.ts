@@ -1,4 +1,4 @@
-import { type FunctionToDebounce } from 'shared/build/index.js';
+import { type FunctionToDebounce } from './libs/types/types.js';
 
 const initDebounce = <T extends unknown[], R>(
   functionToDebounce: FunctionToDebounce<T, R>,

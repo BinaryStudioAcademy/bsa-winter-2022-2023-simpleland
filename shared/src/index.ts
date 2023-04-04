@@ -12,6 +12,7 @@ export {
 export {
   configureString,
   initAsyncItemsQueue,
+  initDebounce,
 } from './libs/helpers/helpers.js';
 export { type IConfig } from './libs/packages/config/config.js';
 export { FormDataKey } from './libs/packages/file/file.js';
@@ -24,7 +25,6 @@ export {
 } from './libs/packages/http/http.js';
 export { type IStorage } from './libs/packages/storage/storage.js';
 export {
-  type FunctionToDebounce,
   type ServerCommonErrorResponse,
   type ServerErrorDetail,
   type ServerErrorResponse,
