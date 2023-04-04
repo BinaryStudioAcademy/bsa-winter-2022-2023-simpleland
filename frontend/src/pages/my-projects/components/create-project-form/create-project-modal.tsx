@@ -56,6 +56,7 @@ const CreateProjectModal: React.FC<Properties> = ({
         onSubmit({
           name: payload.name,
           formData,
+          type: payload.type,
         });
       })(event_);
     },
