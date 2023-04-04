@@ -51,3 +51,18 @@
   display: block;
   height: 20px;
 }
+
+.search-input-icon {
+  position: absolute;
+  width: 15px;
+  margin: 23px 10px;
+  transform: translateY(-50%);
+}
+
+.search-input-icon path {
+  stroke: var(--black);
+}
+
+.search-input {
+  padding-left: 30px;
+}
