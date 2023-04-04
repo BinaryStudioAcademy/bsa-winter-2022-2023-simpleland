@@ -28,7 +28,10 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     const sites = await this.siteRepository.findAll();
 
     return {
-      items: sites.map((site) => site.toObject()),
+      items: sites.map((site) => ({
+        ...site.toObject(),
+        targetAudience: [],
+      })),
     };
   }
 
@@ -38,7 +41,10 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     const sites = await this.siteRepository.findAllByProjectId(projectId);
 
     return {
-      items: sites.map((site) => site.toObject()),
+      items: sites.map((site) => ({
+        ...site.toObject(),
+        targetAudience: [],
+      })),
     };
   }
 
@@ -53,7 +59,10 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
         projectId: payload.projectId,
       }),
     );
-    const site = entity.toObject();
+    const site = {
+      ...entity.toObject(),
+      targetAudience: [],
+    };
 
     await initAsyncItemsQueue(
       [
@@ -93,10 +102,14 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   ): string {
     const EXAMPLE_COMPANY_NAME = 'id Studio';
     const EXAMPLE_INDUSTRY = 'interior design';
+    const EXAMPLE_TARGET = [
+      { label: 'Kids', value: 'Kids 13-17' },
+    ];
 
     const exampleSiteDescription = this.createSiteDescription({
       name: EXAMPLE_COMPANY_NAME,
       industry: EXAMPLE_INDUSTRY,
+      targetAudience: EXAMPLE_TARGET,
     });
 
     const siteDescription = this.createSiteDescription(siteInfo);
