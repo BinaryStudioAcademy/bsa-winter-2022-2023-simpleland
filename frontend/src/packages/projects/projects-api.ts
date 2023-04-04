@@ -59,6 +59,28 @@ class ProjectsApi extends HttpApi {
 
     return await response.json<ProjectGetAllResponseDto>();
   }
+
+  public async uploadProjectImage(
+    projectId: number,
+    payload: FormData,
+  ): Promise<ProjectGetAllItemResponseDto> {
+    const response = await this.load(
+      this.getFullEndpoint(
+        configureString(ProjectsApiPath.$PROJECT_ID_AVATAR, {
+          projectId,
+        }),
+        {},
+      ),
+      {
+        method: 'PUT',
+        contentType: ContentType.FORM_DATA,
+        hasAuth: true,
+        payload,
+      },
+    );
+
+    return await response.json<ProjectGetAllItemResponseDto>();
+  }
 }
 
 export { ProjectsApi };
