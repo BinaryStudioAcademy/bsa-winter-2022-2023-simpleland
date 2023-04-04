@@ -34,6 +34,15 @@ import { ProjectsApiPath } from './libs/enums/enums.js';
  *            type: number
  *            format: int64
  *            minimum: 1
+ *          projectType:
+ *          type: string
+ *          enum:
+ *          - eCommercial
+ *          - Business
+ *          - Blog
+ *          - Portfolio
+ *          - Personal
+ *          - Nonprofit
  */
 
 class ProjectController extends Controller {
@@ -150,6 +159,7 @@ class ProjectController extends Controller {
       payload: await this.projectService.create({
         name: options.body.name,
         userId: options.user.id,
+        type: options.body.type,
       }),
     };
   }
