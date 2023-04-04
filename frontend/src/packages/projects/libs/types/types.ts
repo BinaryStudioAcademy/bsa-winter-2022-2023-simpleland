@@ -1,6 +1,6 @@
 export {
   type ProjectCreateRequestDto,
-  type ProjectFormData,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectUploadImageDto,
 } from 'shared/build/index.js';

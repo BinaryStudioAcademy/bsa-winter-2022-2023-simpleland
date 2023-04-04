@@ -13,8 +13,8 @@ const projectsApi = new ProjectsApi({
 export { projectsApi };
 export {
   type ProjectCreateRequestDto,
-  type ProjectFormData,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectUploadImageDto,
 } from './libs/types/types.js';
 export { projectCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
