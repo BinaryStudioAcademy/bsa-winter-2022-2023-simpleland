@@ -69,6 +69,11 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
         },
         {
           siteId: site.id,
+          prompt: this.createPrompt(SectionType.PORTFOLIO, payload),
+          type: SectionType.PORTFOLIO,
+        },
+        {
+          siteId: site.id,
           prompt: this.createPrompt(SectionType.ABOUT, payload),
           type: SectionType.ABOUT,
         },

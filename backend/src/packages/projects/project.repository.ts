@@ -2,6 +2,8 @@ import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectModel } from '~/packages/projects/project.model.js';
 
+import { type ProjectFilterQueryDto } from './libs/types/types.js';
+
 class ProjectRepository
   implements Omit<IRepository, 'find' | 'update' | 'delete'>
 {
@@ -17,11 +19,18 @@ class ProjectRepository
     return projects.map((project) => ProjectEntity.initialize(project));
   }
 
-  public async findByUserId(id: number): Promise<ProjectEntity[]> {
+  public async findByUserId(
+    id: number,
+    { name }: ProjectFilterQueryDto,
+  ): Promise<ProjectEntity[]> {
     const projects = await this.projectModel
       .query()
       .where('userId', id)
-      .execute();
+      .andWhere((builder) => {
+        if (name) {
+          void builder.where('name', 'ilike', `%${name}%`);
+        }
+      });
 
     return projects.map((project) => ProjectEntity.initialize(project));
   }

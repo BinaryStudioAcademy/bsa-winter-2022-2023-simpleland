@@ -16,5 +16,6 @@ export { ProtectedRoute } from './protected-route/protected-route.js';
 export { RouterProvider } from './router-provider/router-provider.jsx';
 export { Select } from './select/select.js';
 export { Notification } from './toastr/notification.js';
+export { Tooltip } from './tooltip/tooltip.js';
 export { Provider as StoreProvider } from 'react-redux';
 export { Navigate as Redirect, Outlet as RouterOutlet } from 'react-router-dom';

@@ -13,7 +13,11 @@ export { projectController, projectService };
 export {
   type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
+  type ProjectFilterQueryDto,
   type ProjectGetAllResponseDto,
 } from './libs/types/types.js';
-export { projectCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+export {
+  projectCreateValidationSchema,
+  projectFilterValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 export { ProjectModel } from './project.model.js';

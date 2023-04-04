@@ -5,6 +5,7 @@ import { type ProjectRepository } from '~/packages/projects/project.repository.j
 import {
   type ProjectCreateDto,
   type ProjectCreateResponseDto,
+  type ProjectFilterQueryDto,
   type ProjectGetAllResponseDto,
 } from './libs/types/types.js';
 
@@ -23,8 +24,11 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
     };
   }
 
-  public async findByUserId(id: number): Promise<ProjectGetAllResponseDto> {
-    const items = await this.projectRepository.findByUserId(id);
+  public async findByUserId(
+    id: number,
+    parameters: ProjectFilterQueryDto,
+  ): Promise<ProjectGetAllResponseDto> {
+    const items = await this.projectRepository.findByUserId(id, parameters);
 
     return {
       items: items.map((project) => project.toObject()),
