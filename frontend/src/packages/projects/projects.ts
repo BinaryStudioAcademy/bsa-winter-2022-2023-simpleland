@@ -17,6 +17,7 @@ export {
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllParametersDto,
   type ProjectGetAllResponseDto,
+  type ProjectUploadImageDto,
 } from './libs/types/types.js';
 export {
   projectCreateValidationSchema,
