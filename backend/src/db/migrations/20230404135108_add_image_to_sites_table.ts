@@ -6,7 +6,7 @@ const COLUMN_NAME = 'image';
 
 function up(knex: Knex): Promise<void> {
   return knex.schema.alterTable(TABLE_NAME, (table) => {
-    table.string(COLUMN_NAME).defaultTo('');
+    table.string(COLUMN_NAME).nullable().defaultTo(null);
   });
 }
 
