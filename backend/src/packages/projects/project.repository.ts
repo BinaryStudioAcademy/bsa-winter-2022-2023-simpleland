@@ -25,6 +25,7 @@ class ProjectRepository
         userId: project.userId,
         avatarId: project.avatarId,
         avatarUrl: project.avatar?.url ?? null,
+        type: project.type,
       });
     });
   }
@@ -51,6 +52,7 @@ class ProjectRepository
         userId: project.userId,
         avatarId: project.avatarId,
         avatarUrl: project.avatar?.url ?? null,
+        type: project.type,
       });
     });
   }
@@ -74,6 +76,7 @@ class ProjectRepository
       userId: project.userId,
       avatarId: project.avatarId,
       avatarUrl: project.avatar?.url ?? null,
+      type: project.type,
     });
   }
 

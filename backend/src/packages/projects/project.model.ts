@@ -19,7 +19,7 @@ class ProjectModel extends AbstractModel {
 
   public 'avatar': FileModel | null;
 
-  public 'type': ValueOf<typeof ProjectType>;
+  public 'type': ValueOf<typeof ProjectType> | null;
 
   public static override get tableName(): string {
     return DatabaseTableName.PROJECTS;

@@ -75,6 +75,7 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
         name: null,
         userId: id,
         avatarUrl: null,
+        type: null,
       }),
     );
 

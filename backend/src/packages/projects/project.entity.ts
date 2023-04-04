@@ -14,7 +14,7 @@ class ProjectEntity implements IEntity {
 
   private 'avatarUrl': string | null;
 
-  private 'type': ValueOf<typeof ProjectType>;
+  private 'type': ValueOf<typeof ProjectType> | null;
 
   private constructor({
     id,
@@ -29,7 +29,7 @@ class ProjectEntity implements IEntity {
     userId: number | null;
     avatarId: number | null;
     avatarUrl: string | null;
-    type: ValueOf<typeof ProjectType>;
+    type: ValueOf<typeof ProjectType> | null;
   }) {
     this.id = id;
     this.name = name;
@@ -52,7 +52,7 @@ class ProjectEntity implements IEntity {
     userId: number | null;
     avatarId: number | null;
     avatarUrl: string | null;
-    type: ValueOf<typeof ProjectType>;
+    type: ValueOf<typeof ProjectType> | null;
   }): ProjectEntity {
     return new ProjectEntity({
       id,
@@ -95,7 +95,7 @@ class ProjectEntity implements IEntity {
       name: this.name as string,
       userId: this.userId as number,
       avatarUrl: this.avatarUrl,
-      type: this.type,
+      type: this.type as ValueOf<typeof ProjectType>,
     };
   }
 
@@ -107,6 +107,7 @@ class ProjectEntity implements IEntity {
     return {
       name: this.name as string,
       userId: this.userId as number,
+      type: this.type as ValueOf<typeof ProjectType>,
     };
   }
 
@@ -117,7 +118,6 @@ class ProjectEntity implements IEntity {
     return {
       id: this.id as number,
       avatarId: this.avatarId as number,
-      type: this.type,
     };
   }
 }
