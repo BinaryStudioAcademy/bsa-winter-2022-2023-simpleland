@@ -1,1 +1,1 @@
-export { ProjectsApiPath } from 'shared/build/index.js';
+export { ProjectsApiPath, ProjectType } from 'shared/build/index.js';

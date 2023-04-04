@@ -44,6 +44,7 @@ export {
   projectCreateValidationSchema,
   projectFilterValidationSchema,
   ProjectsApiPath,
+  ProjectType,
 } from './packages/projects/projects.js';
 export {
   type SectionGetAllItemResponseDto,
