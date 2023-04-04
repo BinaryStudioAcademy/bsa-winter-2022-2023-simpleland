@@ -12,6 +12,7 @@ import {
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
+  type SitePortfolioContent,
   SectionType,
 } from '~/packages/sections/sections.js';
 import { actions as sectionsActions } from '~/slices/sections/sections.js';
@@ -22,6 +23,7 @@ import {
   Footer,
   Header,
   Main,
+  Portfolio,
 } from './components/components.js';
 import styles from './styles.module.scss';
 
@@ -60,7 +62,9 @@ const Site: React.FC = () => {
           return <About content={content as SiteAboutContent} key={type} />;
         }
         case SectionType.PORTFOLIO: {
-          return <></>;
+          return (
+            <Portfolio content={content as SitePortfolioContent} key={type} />
+          );
         }
         case SectionType.FOOTER: {
           return <Footer content={content as SiteFooterContent} key={type} />;
