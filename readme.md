@@ -102,6 +102,7 @@ erDiagram
     dateTime updated_at
     varchar name
     int user_id FK
+    enum type "'eCommercial' | 'Business' | 'Blog' | 'Portfolio' | 'Personal' | 'Nonprofit'"
   }
 
   projects_sites }|--|| projects : project_id
