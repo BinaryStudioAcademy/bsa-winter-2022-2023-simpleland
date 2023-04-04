@@ -6,7 +6,7 @@ import {
 } from 'react-hook-form';
 import ReactSelect from 'react-select';
 
-import { useFormController } from '~/libs/hooks/hooks.js';
+import { useCallback, useFormController } from '~/libs/hooks/hooks.js';
 import { type SelectOption } from '~/libs/types/types.js';
 
 import style from './select.module.scss';
@@ -18,18 +18,54 @@ type Properties<T extends FieldValues> = {
   options: SelectOption<string | number>[];
   placeholder?: string;
   errors: FieldErrors<T>;
+  isMulti?: boolean;
 };
 
 const Select = <T extends FieldValues>({
   control,
   name,
   options,
-  placeholder = '',
+  placeholder,
   errors,
+  isMulti = false,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
-  const selectedOption = options.find((option) => option.value === field.value);
+  const handleSelectValue = (
+    value: string | number | (string | number)[],
+  ):
+    | SelectOption<string | number>
+    | SelectOption<string | number>[]
+    | undefined => {
+    if (isMulti) {
+      return options.filter((option) => {
+        return (value as (string | number)[]).includes(option.value);
+      });
+    }
+
+    return options.find((c) => c.value === value);
+  };
+
+  const handleChange = useCallback(
+    (option: unknown): void => {
+      if (isMulti) {
+        field.onChange(
+          (option as SelectOption<string | number>[])
+            .filter((selectedOption) => {
+              return options.some(
+                (option) => option.value === selectedOption.value,
+              );
+            })
+            .map((option) => option.value),
+        );
+
+        return;
+      }
+
+      field.onChange((option as SelectOption<string | number>).value);
+    },
+    [isMulti, field, options],
+  );
 
   const error = errors[name]?.message;
   const hasError = Boolean(error);
@@ -37,9 +73,10 @@ const Select = <T extends FieldValues>({
   return (
     <div>
       <ReactSelect
-        {...field}
-        value={selectedOption}
-        defaultValue={selectedOption}
+        defaultValue={handleSelectValue(field.value)}
+        value={handleSelectValue(field.value)}
+        onChange={handleChange}
+        isMulti={isMulti}
         classNamePrefix="react-select"
         options={options}
         placeholder={placeholder}
