@@ -1,5 +1,5 @@
 import { type IService } from '~/libs/interfaces/interfaces.js';
-import { file } from '~/libs/packages/file/file.js';
+import { type File } from '~/libs/packages/file/file.package.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectRepository } from '~/packages/projects/project.repository.js';
 
@@ -12,11 +12,19 @@ import {
   type ProjectUploadImageParametersDto,
 } from './libs/types/types.js';
 
+type Constructor = {
+  projectRepository: ProjectRepository;
+  file: File;
+};
+
 class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
   private projectRepository: ProjectRepository;
 
-  public constructor(projectRepository: ProjectRepository) {
+  private file: File;
+
+  public constructor({ projectRepository, file }: Constructor) {
     this.projectRepository = projectRepository;
+    this.file = file;
   }
 
   public async findAll(): Promise<ProjectGetAllResponseDto> {
@@ -57,7 +65,7 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
     avatar: Buffer,
   ): Promise<ProjectGetAllItemResponseDto> {
     const projectId = +parameters.projectId;
-    const { id: avatarId } = await file.upload({ file: avatar });
+    const { id: avatarId } = await this.file.upload({ file: avatar });
 
     const project = await this.projectRepository.uploadImage(
       ProjectEntity.initialize({
