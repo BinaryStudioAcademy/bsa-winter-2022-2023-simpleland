@@ -71,10 +71,7 @@ const Input = <T extends FieldValues>({
         disabled={isDisabled}
         inputMode={inputMode}
       />
-      <ErrorMessage
-        error={error as string}
-        className={styles['error-message']}
-      />
+      <ErrorMessage error={error as string} />
     </label>
   );
 };
