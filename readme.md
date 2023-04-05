@@ -74,6 +74,7 @@ erDiagram
     dateTime updated_at
     varchar name
     varchar published_url "may be null if site was not published to specific domain"
+    varchar image "may be null if OpenAI doesn't generate an image"
   }
 
   sections {
@@ -81,7 +82,7 @@ erDiagram
     dateTime created_at
     dateTime updated_at
     varchar name
-    enum type "'header' | 'footer' | 'main' | 'about' | 'feedback' | 'service'"
+    enum type "'header' | 'footer' | 'main'| 'portfolio' | 'about' | 'feedback' | 'service'"
     jsonb content
   }
 

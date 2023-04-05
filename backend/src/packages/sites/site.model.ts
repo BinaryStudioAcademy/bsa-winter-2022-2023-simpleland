@@ -16,6 +16,8 @@ class SiteModel extends AbstractModel {
 
   public 'projectId': number;
 
+  public 'image': string | null;
+
   public static override get tableName(): string {
     return DatabaseTableName.SITES;
   }

@@ -9,11 +9,14 @@ import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type ProjectService } from '~/packages/projects/project.service.js';
 import {
   type ProjectCreateRequestDto,
+  type ProjectFilterQueryDto,
   projectCreateValidationSchema,
+  projectFilterValidationSchema,
 } from '~/packages/projects/projects.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
+import { type ProjectUploadImageParametersDto } from './libs/types/types.js';
 
 /**
  * @swagger
@@ -45,9 +48,15 @@ class ProjectController extends Controller {
     this.addRoute({
       path: ProjectsApiPath.ROOT,
       method: 'GET',
+      validation: {
+        query: projectFilterValidationSchema,
+      },
       handler: (options) =>
         this.findByUserId(
-          options as ApiHandlerOptions<{ user: UserAuthResponse }>,
+          options as ApiHandlerOptions<{
+            user: UserAuthResponse;
+            query: ProjectFilterQueryDto;
+          }>,
         ),
     });
 
@@ -65,6 +74,19 @@ class ProjectController extends Controller {
           }>,
         ),
     });
+
+    this.addRoute({
+      path: ProjectsApiPath.$PROJECT_ID_AVATAR,
+      method: 'PUT',
+      handler: (options) =>
+        this.uploadImage(
+          options as ApiHandlerOptions<{
+            user: UserAuthResponse;
+            params: ProjectUploadImageParametersDto;
+            fileBuffer: Buffer;
+          }>,
+        ),
+    });
   }
 
   /**
@@ -72,6 +94,13 @@ class ProjectController extends Controller {
    * /projects:
    *    get:
    *      description: Returns an array of projects
+   *      parameters:
+   *        - name: query
+   *          description: The search query
+   *          in: query
+   *          required: true
+   *          schema:
+   *            type: string
    *      responses:
    *        200:
    *          description: Successful operation
@@ -85,11 +114,15 @@ class ProjectController extends Controller {
   private async findByUserId(
     options: ApiHandlerOptions<{
       user: UserAuthResponse;
+      query: ProjectFilterQueryDto;
     }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
-      payload: await this.projectService.findByUserId(options.user.id),
+      payload: await this.projectService.findByUserId(
+        options.user.id,
+        options.query,
+      ),
     };
   }
 
@@ -132,6 +165,50 @@ class ProjectController extends Controller {
         name: options.body.name,
         userId: options.user.id,
       }),
+    };
+  }
+
+  /**
+   * @swagger
+   * /projects/:projectId/avatar:
+   *    put:
+   *      description: Updating project image. Returning project
+   *      requestBody:
+   *        description: Project image and project id
+   *        required: true
+   *        content:
+   *          multipart/form-data:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                file:
+   *                  type: string
+   *                  format: binary
+   *      responses:
+   *        200:
+   *          description: Successful image update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/Project'
+   */
+
+  private async uploadImage({
+    user,
+    params,
+    fileBuffer,
+  }: ApiHandlerOptions<{
+    user: UserAuthResponse;
+    params: ProjectUploadImageParametersDto;
+    fileBuffer: Buffer;
+  }>): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.projectService.uploadImage(
+        user.id,
+        params,
+        fileBuffer,
+      ),
     };
   }
 }

@@ -5,11 +5,11 @@ import {
   type FieldValues,
 } from 'react-hook-form';
 
+import { Icon } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useFormController } from '~/libs/hooks/hooks.js';
-import { type IconType } from '~/libs/types/icon.type.js';
+import { type IconType } from '~/libs/types/types.js';
 
-import { Icon } from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
@@ -17,11 +17,12 @@ type Properties<T extends FieldValues> = {
   errors: FieldErrors<T>;
   label?: string;
   name: FieldPath<T>;
-  icon?: IconType;
+  className?: string | undefined;
   placeholder?: string;
-  type?: 'text' | 'email' | 'password';
+  type?: 'text' | 'email' | 'password' | 'search';
+  icon?: IconType;
   isDisabled?: boolean;
-  inputMode?: 'email' | 'text';
+  inputMode?: 'email' | 'text' | 'search';
   isLabelVisuallyHidden?: boolean;
 };
 
@@ -30,10 +31,11 @@ const Input = <T extends FieldValues>({
   errors,
   label,
   name,
-  icon,
   placeholder = '',
   type = 'text',
+  icon,
   isDisabled = false,
+  className,
   inputMode = 'text',
   isLabelVisuallyHidden = false,
 }: Properties<T>): JSX.Element => {
@@ -41,6 +43,13 @@ const Input = <T extends FieldValues>({
 
   const error = errors[name]?.message;
   const hasError = Boolean(error);
+
+  const validClassNames = getValidClassNames(
+    styles['input'],
+    hasError && styles['has-error'],
+    icon && styles['search-input'],
+    className,
+  );
 
   return (
     <label className={styles['label']}>
@@ -55,11 +64,7 @@ const Input = <T extends FieldValues>({
       {icon && <Icon iconName={icon} className={styles['search-input-icon']} />}
       <input
         {...field}
-        className={getValidClassNames(
-          styles['input'],
-          icon && styles['search-input'],
-          hasError && styles['has-error'],
-        )}
+        className={validClassNames}
         type={type}
         placeholder={placeholder}
         disabled={isDisabled}

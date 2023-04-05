@@ -1,12 +1,11 @@
 import { type SiteServiceContent } from '~/packages/sections/sections.js';
 
 import { ServiceCard } from './components/components.js';
+import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteServiceContent;
 };
-
-import styles from './styles.module.scss';
 
 const Service: React.FC<Properties> = ({
   content: { title, cards },

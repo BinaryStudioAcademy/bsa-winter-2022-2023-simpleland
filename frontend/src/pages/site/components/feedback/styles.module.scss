@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f4f4f4;
+  background: var(--gray-background);
 }
 
 .feedback-container {
@@ -14,12 +14,12 @@
   display: flex;
   justify-content: center;
   margin-bottom: 80px;
-  color: #161616;
+  color: var(--site-text-color);
   font-size: 37px;
   font-family: "BN Chester", sans-serif;
   line-height: 36px;
 }
 
 .title-brown {
-  color: #d3a265;
+  color: var(--site-brown-color);
 }

@@ -13,6 +13,7 @@ import {
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
+  type SitePortfolioContent,
   type SiteServiceContent,
 } from './libs/types/types.js';
 import { SectionEntity } from './section.entity.js';
@@ -30,7 +31,9 @@ class SectionService
 
   private file: File;
 
-  private static feedbackCardsQuantity = 8;
+  private static feedbackCardsQuantity = 2;
+
+  private static portfolioCategoryImagesQuantity = 2;
 
   private static serviceCardsQuantity = 4;
 
@@ -73,10 +76,11 @@ class SectionService
   ): Promise<
     | SiteHeaderContent
     | SiteMainContent
-    | SiteFooterContent
+    | SitePortfolioContent
     | SiteAboutContent
     | SiteFeedbackContent
     | SiteServiceContent
+    | SiteFooterContent
   > {
     switch (type) {
       case SectionType.HEADER: {
@@ -87,6 +91,9 @@ class SectionService
       }
       case SectionType.ABOUT: {
         return await this.createAboutContent(prompt);
+      }
+      case SectionType.PORTFOLIO: {
+        return await this.createPortfolioContent(prompt);
       }
       case SectionType.FOOTER: {
         return await this.createFooterContent(prompt);
@@ -208,6 +215,34 @@ class SectionService
       title: 'What people say',
       cards,
     };
+  }
+
+  private async createPortfolioContent(
+    prompt: string,
+  ): Promise<SitePortfolioContent> {
+    const content = await openAI.createCompletion(prompt);
+    const portfolioContent = {
+      title: 'Our portfolio',
+      categories:
+        content['categories']?.split(',').map((item) => {
+          return { name: item, images: [] };
+        }) ?? [],
+    } as SitePortfolioContent;
+
+    await initAsyncItemsQueue(portfolioContent.categories, async (category) => {
+      const rawImages = await openAI.createImages(
+        `Find website portfolio images for the ${category.name} category.`,
+        SectionService.portfolioCategoryImagesQuantity,
+      );
+      const images = await Promise.all(
+        rawImages.map((image) => {
+          return this.file.upload({ file: image });
+        }),
+      );
+      category.images = images.map((image) => image.url);
+    });
+
+    return portfolioContent;
   }
 }
 

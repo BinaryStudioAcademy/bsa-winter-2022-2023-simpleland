@@ -121,7 +121,7 @@ const Sites: React.FC = () => {
                   name="pattern"
                   control={control}
                   errors={errors}
-                  icon="search"
+                  icon="loupe"
                 />
               </div>
             </form>
