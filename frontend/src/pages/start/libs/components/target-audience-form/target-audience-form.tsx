@@ -54,7 +54,7 @@ const TargetAudienceForm: React.FC<Properties> = ({
           options={options}
           placeholder="Please select your industry"
           errors={errors}
-          customComponents={{
+          components={{
             Option: (
               properties: OptionProps<OptionType, true>,
             ): JSX.Element => (

@@ -1,4 +1,4 @@
 type SiteCreateStepTarget = {
-  targetAudience: { label: string; value: string }[];
+  targetAudience: string[];
 };
 export { type SiteCreateStepTarget };

@@ -20,7 +20,7 @@ type Properties<T extends FieldValues> = {
   errors: FieldErrors<T>;
   isMulti?: boolean;
   hideSelectedOptions: boolean;
-  customComponents?: object;
+  components?: Record<string, React.ElementType>;
 };
 
 const Select = <T extends FieldValues>({
@@ -30,14 +30,10 @@ const Select = <T extends FieldValues>({
   placeholder,
   errors,
   isMulti = false,
-  customComponents,
+  components,
   hideSelectedOptions,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
-
-  const componentsToUse = customComponents
-    ? { ...components, ...customComponents }
-    : components;
 
   const handleSelectValue = (
     value: string | number | (string | number)[],
@@ -86,7 +82,7 @@ const Select = <T extends FieldValues>({
         value={handleSelectValue(field.value)}
         onChange={handleChange}
         isMulti={isMulti}
-        components={componentsToUse}
+        components={components}
         classNamePrefix="react-select"
         options={options}
         placeholder={placeholder}

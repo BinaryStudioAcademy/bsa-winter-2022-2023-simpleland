@@ -1,7 +1,7 @@
 type SiteCreateRequestDto = {
   name: string;
   industry: string;
-  targetAudience: { label: string; value: string }[];
+  targetAudience: string[];
 };
 
 export { type SiteCreateRequestDto };

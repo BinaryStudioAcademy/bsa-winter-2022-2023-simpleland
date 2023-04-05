@@ -1,7 +1,7 @@
 type SiteCreateResponseDto = {
   id: number;
   name: string;
-  targetAudience: { label: string; value: string }[];
+  targetAudience: string[];
   publishedUrl: string | null;
 };
 
