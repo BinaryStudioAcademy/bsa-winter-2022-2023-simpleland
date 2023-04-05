@@ -100,6 +100,8 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         passwordSalt: null,
         avatarId: null,
         avatarUrl: null,
+        subscriptionId: null,
+        subscriptionEnd: null,
       }),
     );
 
@@ -140,6 +142,8 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         passwordSalt: passwordSalt,
         avatarId: null,
         avatarUrl: null,
+        subscriptionId: null,
+        subscriptionEnd: null,
       }),
     );
 
@@ -169,6 +173,8 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         passwordSalt: null,
         avatarId: null,
         avatarUrl: null,
+        subscriptionId: null,
+        subscriptionEnd: null,
       }),
     );
 
@@ -202,6 +208,34 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         passwordHash: null,
         passwordSalt: null,
         avatarUrl: null,
+        subscriptionId: null,
+        subscriptionEnd: null,
+      }),
+    );
+
+    return user.toObject();
+  }
+
+  public async updateSubscription({
+    id,
+    subscriptionId,
+  }: {
+    id: number;
+    subscriptionId: number;
+  }): Promise<UserAuthResponse> {
+    const user = await this.userRepository.updateSubscription(
+      UserEntity.initialize({
+        id,
+        subscriptionId,
+        avatarId: null,
+        firstName: null,
+        lastName: null,
+        accountName: null,
+        email: null,
+        passwordHash: null,
+        passwordSalt: null,
+        avatarUrl: null,
+        subscriptionEnd: null,
       }),
     );
 

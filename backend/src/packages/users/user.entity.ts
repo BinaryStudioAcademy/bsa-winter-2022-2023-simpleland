@@ -19,6 +19,10 @@ class UserEntity implements IEntity {
 
   private 'avatarUrl': string | null;
 
+  private 'subscriptionId': number | null;
+
+  private 'subscriptionEnd': string | null;
+
   private constructor({
     id,
     email,
@@ -29,6 +33,8 @@ class UserEntity implements IEntity {
     accountName,
     avatarId,
     avatarUrl,
+    subscriptionId,
+    subscriptionEnd,
   }: {
     id: number | null;
     email: string | null;
@@ -39,6 +45,8 @@ class UserEntity implements IEntity {
     accountName: string | null;
     avatarId: number | null;
     avatarUrl: string | null;
+    subscriptionId: number | null;
+    subscriptionEnd: string | null;
   }) {
     this.id = id;
     this.email = email;
@@ -49,6 +57,8 @@ class UserEntity implements IEntity {
     this.accountName = accountName;
     this.avatarId = avatarId;
     this.avatarUrl = avatarUrl;
+    this.subscriptionId = subscriptionId;
+    this.subscriptionEnd = subscriptionEnd;
   }
 
   public get privateData(): {
@@ -71,6 +81,8 @@ class UserEntity implements IEntity {
     accountName,
     avatarId,
     avatarUrl,
+    subscriptionId,
+    subscriptionEnd,
   }: {
     id: number | null;
     email: string | null;
@@ -81,6 +93,8 @@ class UserEntity implements IEntity {
     accountName: string | null;
     avatarId: number | null;
     avatarUrl: string | null;
+    subscriptionId: number | null;
+    subscriptionEnd: string | null;
   }): UserEntity {
     return new UserEntity({
       id,
@@ -92,6 +106,8 @@ class UserEntity implements IEntity {
       accountName,
       avatarId,
       avatarUrl,
+      subscriptionId,
+      subscriptionEnd,
     });
   }
 
@@ -118,6 +134,8 @@ class UserEntity implements IEntity {
       accountName: null,
       avatarId: null,
       avatarUrl: null,
+      subscriptionId: null,
+      subscriptionEnd: null,
     });
   }
 
@@ -128,6 +146,7 @@ class UserEntity implements IEntity {
     lastName: string;
     accountName: string | null;
     avatarUrl: string | null;
+    isSubscribed: boolean;
   } {
     return {
       id: this.id as number,
@@ -136,6 +155,7 @@ class UserEntity implements IEntity {
       lastName: this.lastName as string,
       accountName: this.accountName,
       avatarUrl: this.avatarUrl,
+      isSubscribed: this.checkSubscription(),
     };
   }
 
@@ -177,6 +197,26 @@ class UserEntity implements IEntity {
       id: this.id as number,
       avatarId: this.avatarId as number,
     };
+  }
+
+  public toSubscription(): {
+    id: number;
+    subscriptionId: number;
+  } {
+    return {
+      id: this.id as number,
+      subscriptionId: this.subscriptionId as number,
+    };
+  }
+
+  public checkSubscription(): boolean {
+    if (!this.subscriptionId) {
+      return false;
+    }
+
+    return Boolean(
+      new Date(this.subscriptionEnd as string) > new Date(Date.now()),
+    );
   }
 }
 
