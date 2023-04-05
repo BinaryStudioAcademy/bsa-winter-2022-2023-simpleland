@@ -8,6 +8,7 @@ import {
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useFormController } from '~/libs/hooks/hooks.js';
 
+import { ErrorMessage } from '../error-message/error-message.js';
 import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
@@ -59,9 +60,10 @@ const Input = <T extends FieldValues>({
         disabled={isDisabled}
         inputMode={inputMode}
       />
-      <span className={styles['error-message']}>
-        {hasError && (error as string)}
-      </span>
+      <ErrorMessage
+        error={error as string}
+        className={styles['error-message']}
+      />
     </label>
   );
 };

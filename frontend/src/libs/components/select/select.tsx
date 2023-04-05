@@ -9,6 +9,7 @@ import ReactSelect from 'react-select';
 import { useCallback, useFormController } from '~/libs/hooks/hooks.js';
 import { type SelectOption } from '~/libs/types/types.js';
 
+import { ErrorMessage } from '../error-message/error-message.js';
 import style from './select.module.scss';
 import { styles } from './styles.js';
 
@@ -68,7 +69,6 @@ const Select = <T extends FieldValues>({
   );
 
   const error = errors[name]?.message;
-  const hasError = Boolean(error);
 
   return (
     <div>
@@ -83,9 +83,10 @@ const Select = <T extends FieldValues>({
         name={name}
         styles={styles}
       />
-      <span className={style['error-message']}>
-        {hasError && (error as string)}
-      </span>
+      <ErrorMessage
+        error={error as string}
+        className={style['error-message']}
+      />
     </div>
   );
 };
