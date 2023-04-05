@@ -1,4 +1,4 @@
-import { type SelectOption } from '~/libs/types/types.js';
+import { type SelectOption, type ValueOf } from '~/libs/types/types.js';
 import {
   type SiteCreateStepTone,
   SiteToneType,
@@ -6,7 +6,7 @@ import {
 
 import { SiteToneTypeToReadable } from './site-tone-type-to-readable.enum.js';
 
-const OPTIONS: SelectOption<string | number>[] = Object.values(
+const OPTIONS: SelectOption<ValueOf<typeof SiteToneType>>[] = Object.values(
   SiteToneType,
 ).map((it) => ({
   value: it,
