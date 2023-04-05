@@ -1,5 +1,5 @@
 import { type StylesConfig } from 'react-select';
-import searchIcon from 'src/assets/img/icons/search.svg';
+import searchIcon from 'src/assets/img/loupe.svg';
 
 import { type SelectOption } from '~/libs/types/types.js';
 

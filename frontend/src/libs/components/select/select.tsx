@@ -4,7 +4,7 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import ReactSelect, { components } from 'react-select';
+import ReactSelect from 'react-select';
 
 import { useCallback, useFormController } from '~/libs/hooks/hooks.js';
 import { type SelectOption } from '~/libs/types/types.js';
@@ -19,8 +19,6 @@ type Properties<T extends FieldValues> = {
   placeholder?: string;
   errors: FieldErrors<T>;
   isMulti?: boolean;
-  hideSelectedOptions: boolean;
-  components?: Record<string, React.ElementType>;
 };
 
 const Select = <T extends FieldValues>({
@@ -30,8 +28,6 @@ const Select = <T extends FieldValues>({
   placeholder,
   errors,
   isMulti = false,
-  components,
-  hideSelectedOptions,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -41,32 +37,26 @@ const Select = <T extends FieldValues>({
     | SelectOption<string | number>
     | SelectOption<string | number>[]
     | undefined => {
-    if (isMulti) {
-      return options.filter((option) => {
-        return (value as (string | number)[]).includes(option.value);
-      });
-    }
-
-    return options.find((c) => c.value === value);
+    return isMulti
+      ? options.filter((option) => {
+          return (value as (string | number)[]).includes(option.value);
+        })
+      : options.find((c) => c.value === value);
   };
 
   const handleChange = useCallback(
-    (option: unknown): void => {
-      if (isMulti) {
-        field.onChange(
-          (option as SelectOption<string | number>[])
+    (updatedOption: unknown): void => {
+      const updatedValue = isMulti
+        ? (updatedOption as SelectOption<string | number>[])
             .filter((selectedOption) => {
               return options.some(
                 (option) => option.value === selectedOption.value,
               );
             })
-            .map((option) => option.value),
-        );
+            .map((option) => option.value)
+        : (updatedOption as SelectOption<string | number>).value;
 
-        return;
-      }
-
-      field.onChange((option as SelectOption<string | number>).value);
+      field.onChange(updatedValue);
     },
     [isMulti, field, options],
   );
@@ -77,18 +67,15 @@ const Select = <T extends FieldValues>({
   return (
     <div>
       <ReactSelect
-        {...field}
         defaultValue={handleSelectValue(field.value)}
         value={handleSelectValue(field.value)}
         onChange={handleChange}
         isMulti={isMulti}
-        components={components}
         classNamePrefix="react-select"
         options={options}
         placeholder={placeholder}
         name={name}
         styles={styles}
-        hideSelectedOptions={hideSelectedOptions}
       />
       <span className={style['error-message']}>
         {hasError && (error as string)}

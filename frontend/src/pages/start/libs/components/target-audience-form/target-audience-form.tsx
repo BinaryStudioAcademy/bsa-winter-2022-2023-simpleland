@@ -50,29 +50,9 @@ const TargetAudienceForm: React.FC<Properties> = ({
           control={control}
           name="targetAudience"
           isMulti
-          hideSelectedOptions={false}
           options={options}
           placeholder="Please select your industry"
           errors={errors}
-          components={{
-            Option: (
-              properties: OptionProps<OptionType, true>,
-            ): JSX.Element => (
-              <components.Option {...properties}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <input
-                    className={style['checkbox']}
-                    type="checkbox"
-                    defaultChecked={properties.isSelected}
-                    style={{
-                      marginRight: '9px',
-                    }}
-                  />
-                  <div>{properties.label}</div>
-                </div>
-              </components.Option>
-            ),
-          }}
         />
         <Button
           label="Next"

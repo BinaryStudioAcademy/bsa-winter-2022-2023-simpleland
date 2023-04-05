@@ -3,6 +3,7 @@ type SiteGetAllItemResponseDto = {
   name: string;
   targetAudience: string[];
   publishedUrl: string | null;
+  image: string | null;
 };
 
 export { type SiteGetAllItemResponseDto };

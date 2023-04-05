@@ -1,5 +1,6 @@
 export { App } from './app/app.js';
 export { Button } from './button/button.js';
+export { Carousel } from './carousel/carousel.js';
 export { Divider } from './divider/divider.js';
 export { Header } from './header/header.js';
 export { Icon } from './icon/icon.js';
@@ -15,5 +16,6 @@ export { ProtectedRoute } from './protected-route/protected-route.js';
 export { RouterProvider } from './router-provider/router-provider.jsx';
 export { Select } from './select/select.js';
 export { Notification } from './toastr/notification.js';
+export { Tooltip } from './tooltip/tooltip.js';
 export { Provider as StoreProvider } from 'react-redux';
 export { Navigate as Redirect, Outlet as RouterOutlet } from 'react-router-dom';
