@@ -49,6 +49,7 @@ export {
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
+  type SiteServiceContent,
   SectionType,
 } from './packages/sections/sections.js';
 export {
