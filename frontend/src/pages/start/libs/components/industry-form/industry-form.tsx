@@ -5,14 +5,17 @@ import {
   useEffect,
   useState,
 } from '~/libs/hooks/hooks.js';
-import { type SiteCreateIndustryName } from '~/packages/sites/sites.js';
+import {
+  type SiteCreateIndustryName,
+  type SiteCreateRequestDto,
+} from '~/packages/sites/sites.js';
 import { siteCreateStepIndustryValidationSchema } from '~/packages/sites/sites.js';
 
 import { DEFAULT_STEP_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-  onSubmit: (sitePayload: Partial<SiteCreateIndustryName>) => void;
+  onSubmit: (sitePayload: Partial<SiteCreateRequestDto>) => void;
 };
 
 const IndustryForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
@@ -24,22 +27,27 @@ const IndustryForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 
   const handleFormSubmit = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
-      void handleSubmit(onSubmit)(event_);
+      void handleSubmit((payload) => {
+        const resultValue = disableSelect
+          ? payload.enterIndustry
+          : payload.selectIndustry;
+
+        onSubmit({ industry: resultValue });
+      })(event_);
     },
     [handleSubmit, onSubmit],
   );
 
-  const watchValue = watch();
   const [disableSelect, setDisableSelect] = useState(false);
   const [disableInput, setDisableInput] = useState(false);
 
   useEffect(() => {
     return () => {
-      const { selectIndustry, enterIndustry } = watchValue;
+      const { selectIndustry, enterIndustry } = watch();
       setDisableSelect(Boolean(enterIndustry));
       setDisableInput(Boolean(selectIndustry));
     };
-  }, [watchValue]);
+  }, [watch()]);
 
   const options = [
     { value: 'Casino', label: 'Casino' },
