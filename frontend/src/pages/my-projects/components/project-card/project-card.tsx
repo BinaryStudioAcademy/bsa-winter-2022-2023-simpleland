@@ -13,11 +13,11 @@ type Properties = {
 };
 
 const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
-  const { id, name } = project;
+  const { id, name, avatarUrl } = project;
 
   return (
     <div className={styles['card']}>
-      <Image className={styles['card-image']} src={img} alt="" />
+      <Image className={styles['card-image']} src={avatarUrl ?? img} alt="" />
       <div className={styles['card-description']}>
         <Link
           to={configureString<ValueOf<typeof AppRoute>>(
