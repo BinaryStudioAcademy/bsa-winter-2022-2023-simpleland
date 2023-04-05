@@ -12,6 +12,6 @@
       "~/*": ["./src/*"]
     },
     "outDir": "build",
-    "declaration": true,
+    "declaration": true
   }
 }

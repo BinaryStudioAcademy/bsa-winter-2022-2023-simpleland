@@ -1,5 +1,4 @@
-import { SiteToneType } from '~/packages/sites/libs/enums/enums.js';
-import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
+import { type SiteCreateRequestDto, SiteToneType } from '~/packages/sites/sites.js';
 
 const ONE_STEP_LENGTH = 1 as const;
 
