@@ -1,6 +1,6 @@
 type SiteCreateIndustryName = {
-  selectIndustry?: string;
-  enterIndustry?: string;
+  selectIndustry: string;
+  enterIndustry: string;
 };
 
 export { type SiteCreateIndustryName };
