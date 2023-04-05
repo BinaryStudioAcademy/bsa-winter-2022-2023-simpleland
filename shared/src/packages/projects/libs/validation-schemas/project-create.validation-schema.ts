@@ -16,8 +16,8 @@ const projectCreate = joi.object<ProjectCreateRequestDto, true>({
     .required()
     .valid(...Object.values(ProjectCategory))
     .messages({
-      'any.only': ProjectValidationMessage.TYPE_WRONG,
-      'string.empty': ProjectValidationMessage.TYPE_REQUIRE,
+      'any.only': ProjectValidationMessage.CATEGORY_WRONG,
+      'string.empty': ProjectValidationMessage.CATEGORY_REQUIRE,
     }),
 });
 
