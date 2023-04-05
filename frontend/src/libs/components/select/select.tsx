@@ -4,7 +4,7 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import ReactSelect from 'react-select';
+import ReactSelect, { components } from 'react-select';
 
 import { useCallback, useFormController } from '~/libs/hooks/hooks.js';
 import { type SelectOption } from '~/libs/types/types.js';
@@ -19,6 +19,8 @@ type Properties<T extends FieldValues> = {
   placeholder?: string;
   errors: FieldErrors<T>;
   isMulti?: boolean;
+  hideSelectedOptions: boolean;
+  customComponents?: object;
 };
 
 const Select = <T extends FieldValues>({
@@ -27,7 +29,9 @@ const Select = <T extends FieldValues>({
   options,
   placeholder,
   errors,
-  isMulti = false,
+  customComponents,
+  isMulti,
+  hideSelectedOptions,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -43,6 +47,10 @@ const Select = <T extends FieldValues>({
         })
       : options.find((c) => c.value === value);
   };
+
+  const componentsToUse = customComponents
+    ? { ...components, ...customComponents }
+    : components;
 
   const handleChange = useCallback(
     (updatedOption: unknown): void => {
@@ -67,10 +75,12 @@ const Select = <T extends FieldValues>({
   return (
     <div>
       <ReactSelect
+        components={componentsToUse}
         defaultValue={handleSelectValue(field.value)}
         value={handleSelectValue(field.value)}
         onChange={handleChange}
         isMulti={isMulti}
+        hideSelectedOptions={hideSelectedOptions}
         classNamePrefix="react-select"
         options={options}
         placeholder={placeholder}

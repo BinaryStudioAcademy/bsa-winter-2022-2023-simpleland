@@ -22,8 +22,8 @@ import styles from './styles.module.scss';
 
 const steps = [
   SiteNameForm,
-  TargetAudienceForm,
   IndustryForm,
+  TargetAudienceForm,
   FinalForm,
 ] as const;
 

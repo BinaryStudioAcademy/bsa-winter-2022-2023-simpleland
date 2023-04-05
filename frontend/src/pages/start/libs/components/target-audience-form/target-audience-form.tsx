@@ -40,29 +40,51 @@ const TargetAudienceForm: React.FC<Properties> = ({
   );
 
   return (
-    <div className={getValidClassNames(style['wrapper'])}>
-      <h1 className={getValidClassNames(style['step-question'])}>
+    <>
+      <h2 className={getValidClassNames(style['title'])}>
         What is your Target audience?
-      </h1>
-      <p className={getValidClassNames(style['chose-age'])}>Choose the age</p>
+      </h2>
+      <div className={getValidClassNames(style['subtitle'])}>
+        Choose the age
+      </div>
       <form className={style['form']} onSubmit={handleFormSubmit}>
         <Select
           control={control}
           name="targetAudience"
           isMulti
+          hideSelectedOptions={false}
           options={options}
           placeholder="Please select your industry"
           errors={errors}
+          customComponents={{
+            Option: (
+              properties: OptionProps<OptionType, true>,
+            ): JSX.Element => (
+              <components.Option {...properties}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <input
+                    className={style['checkbox']}
+                    type="checkbox"
+                    defaultChecked={properties.isSelected}
+                    style={{
+                      marginRight: '9px',
+                    }}
+                  />
+                  <div>{properties.label}</div>
+                </div>
+              </components.Option>
+            ),
+          }}
         />
         <Button
-          label="Next"
+          label="Go next"
           style="secondary"
           size="small"
           type="submit"
           className={style['button']}
         />
       </form>
-    </div>
+    </>
   );
 };
 
