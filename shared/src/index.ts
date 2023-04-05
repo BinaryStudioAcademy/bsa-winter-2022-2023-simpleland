@@ -65,6 +65,11 @@ export {
   SitesApiPath,
 } from './packages/sites/sites.js';
 export {
+  type SubscribeRequestDto,
+  SUBSCRIPTION_PRICE,
+  SubscriptionApiPath,
+} from './packages/subscription/subscription.js';
+export {
   type UserAuthResponse,
   type UserGetAllItemResponseDto,
   type UserGetAllResponseDto,
