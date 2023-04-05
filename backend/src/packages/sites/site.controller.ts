@@ -113,12 +113,12 @@ class SiteController extends Controller {
    * @swagger
    * /project/:projectId/sites:
    *   get:
-   *     description: Returns an object with items property. Items - array of sites by specific project.
-   *     parameters
-   *       name: pattern
+   *     description: Returns an object with items property. Items are array of sites by specific project.
+   *     parameters:
    *       description: search parameters
+   *       name: pattern
    *       in: query
-   *       required:false
+   *       required: false
    *       schema:
    *         pattern: string
    *     responses:
@@ -193,7 +193,7 @@ class SiteController extends Controller {
    * @swagger
    * /sites/{siteId}/sections:
    *   get:
-   *   description: Returns object with items property. Items - array of sections related to site
+   *     description: Returns object with items property. Items - array of sections related to site
    *     parameters:
    *       - in: path
    *         name: siteId
