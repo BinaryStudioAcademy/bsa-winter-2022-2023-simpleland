@@ -13,7 +13,7 @@ type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateRequestDto>) => void;
 };
 
-const ProjectNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+const SiteNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepName>({
     defaultValues: DEFAULT_STEP_PAYLOAD,
     validationSchema: siteCreateStepNameValidationSchema,
@@ -54,4 +54,4 @@ const ProjectNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   );
 };
 
-export { ProjectNameForm };
+export { SiteNameForm };
