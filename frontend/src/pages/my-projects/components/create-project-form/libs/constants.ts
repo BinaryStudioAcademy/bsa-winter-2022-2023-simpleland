@@ -1,8 +1,11 @@
-import { type ProjectCreateRequestDto } from '~/packages/projects/projects.js';
+import {
+  type ProjectCreateRequestDto,
+  ProjectCategory,
+} from '~/packages/projects/projects.js';
 
 const DEFAULT_CREATE_PROJECT_PAYLOAD: ProjectCreateRequestDto = {
   name: '',
-  type: 'Business',
+  category: ProjectCategory.BUSINESS,
 };
 
 export { DEFAULT_CREATE_PROJECT_PAYLOAD };

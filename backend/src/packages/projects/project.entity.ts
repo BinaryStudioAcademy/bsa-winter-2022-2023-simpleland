@@ -1,7 +1,7 @@
 import { type IEntity } from '~/libs/interfaces/interfaces.js';
 import { type ValueOf } from '~/libs/types/types.js';
 
-import { type ProjectType } from './libs/enums/enums.js';
+import { type ProjectCategory } from './libs/enums/enums.js';
 
 class ProjectEntity implements IEntity {
   private 'id': number | null;
@@ -14,7 +14,7 @@ class ProjectEntity implements IEntity {
 
   private 'avatarUrl': string | null;
 
-  private 'type': ValueOf<typeof ProjectType> | null;
+  private 'category': ValueOf<typeof ProjectCategory> | null;
 
   private constructor({
     id,
@@ -22,21 +22,21 @@ class ProjectEntity implements IEntity {
     userId,
     avatarId,
     avatarUrl,
-    type,
+    category,
   }: {
     id: number | null;
     name: string | null;
     userId: number | null;
     avatarId: number | null;
     avatarUrl: string | null;
-    type: ValueOf<typeof ProjectType> | null;
+    category: ValueOf<typeof ProjectCategory> | null;
   }) {
     this.id = id;
     this.name = name;
     this.userId = userId;
     this.avatarId = avatarId;
     this.avatarUrl = avatarUrl;
-    this.type = type;
+    this.category = category;
   }
 
   public static initialize({
@@ -45,14 +45,14 @@ class ProjectEntity implements IEntity {
     userId,
     avatarId,
     avatarUrl,
-    type,
+    category,
   }: {
     id: number | null;
     name: string | null;
     userId: number | null;
     avatarId: number | null;
     avatarUrl: string | null;
-    type: ValueOf<typeof ProjectType> | null;
+    category: ValueOf<typeof ProjectCategory> | null;
   }): ProjectEntity {
     return new ProjectEntity({
       id,
@@ -60,18 +60,18 @@ class ProjectEntity implements IEntity {
       userId,
       avatarId,
       avatarUrl,
-      type,
+      category,
     });
   }
 
   public static initializeNew({
     name,
     userId,
-    type,
+    category,
   }: {
     name: string;
     userId: number;
-    type: ValueOf<typeof ProjectType>;
+    category: ValueOf<typeof ProjectCategory>;
   }): ProjectEntity {
     return new ProjectEntity({
       id: null,
@@ -79,7 +79,7 @@ class ProjectEntity implements IEntity {
       userId,
       avatarId: null,
       avatarUrl: null,
-      type,
+      category,
     });
   }
 
@@ -88,26 +88,26 @@ class ProjectEntity implements IEntity {
     name: string;
     userId: number;
     avatarUrl: string | null;
-    type: ValueOf<typeof ProjectType>;
+    category: ValueOf<typeof ProjectCategory>;
   } {
     return {
       id: this.id as number,
       name: this.name as string,
       userId: this.userId as number,
       avatarUrl: this.avatarUrl,
-      type: this.type as ValueOf<typeof ProjectType>,
+      category: this.category as ValueOf<typeof ProjectCategory>,
     };
   }
 
   public toNewObject(): {
     name: string;
     userId: number;
-    type: ValueOf<typeof ProjectType>;
+    category: ValueOf<typeof ProjectCategory>;
   } {
     return {
       name: this.name as string,
       userId: this.userId as number,
-      type: this.type as ValueOf<typeof ProjectType>,
+      category: this.category as ValueOf<typeof ProjectCategory>,
     };
   }
 
