@@ -14,7 +14,7 @@ import {
 } from '~/libs/hooks/hooks.js';
 import { type IconType, type SelectOption } from '~/libs/types/types.js';
 
-import style from './select.module.scss';
+import styles from './select.module.scss';
 import { getStyles } from './styles.js';
 
 type Properties<T extends FieldValues> = {
@@ -93,7 +93,7 @@ const Select = <T extends FieldValues>({
   return (
     <div>
       {icon && !isMenuOpen && !isOptionSelected && (
-        <Icon iconName={icon} className={style['select-icon']} />
+        <Icon iconName={icon} className={styles['select-icon']} />
       )}
       <ReactSelect
         defaultValue={handleSelectValue(field.value)}
@@ -108,7 +108,7 @@ const Select = <T extends FieldValues>({
         onMenuClose={handleMenuOpenToggle}
         styles={getStyles({ hasIcon: !isMenuOpen && !isOptionSelected })}
       />
-      <span className={style['error-message']}>
+      <span className={styles['error-message']}>
         {hasError && (error as string)}
       </span>
     </div>

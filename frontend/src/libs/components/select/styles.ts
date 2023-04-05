@@ -1,9 +1,15 @@
-import { type StylesConfig } from 'react-select';
+import { type CSSObjectWithLabel, type StylesConfig } from 'react-select';
 import searchIcon from 'src/assets/img/loupe.svg';
 
 import { type SelectOption } from '~/libs/types/types.js';
 
-const styles: StylesConfig<SelectOption<string | number> | undefined> = {
+type Parameters = {
+  hasIcon: boolean;
+};
+
+const getStyles = ({
+  hasIcon,
+}: Parameters): StylesConfig<SelectOption<string | number> | undefined> => ({
   control: (provided) => ({
     ...provided,
     border: '2px solid #FFB61D',
@@ -39,7 +45,7 @@ const styles: StylesConfig<SelectOption<string | number> | undefined> = {
     ...provided,
     padding: '0',
   }),
-  dropdownIndicator: (provided, state) => {
+  dropdownIndicator: (provided, state): CSSObjectWithLabel => {
     const rotation = state.selectProps.menuIsOpen ? '180deg' : '0deg';
 
     return {
@@ -72,7 +78,8 @@ const styles: StylesConfig<SelectOption<string | number> | undefined> = {
   valueContainer: (provided) => ({
     ...provided,
     caretColor: 'transparent',
+    paddingLeft: hasIcon ? '30px' : '10px',
   }),
-};
+});
 
-export { styles };
+export { getStyles };
