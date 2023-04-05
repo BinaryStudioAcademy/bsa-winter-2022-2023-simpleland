@@ -4,16 +4,9 @@ import {
   ProjectCategory,
 } from '~/packages/projects/projects.js';
 
-const projectCategoryToReadable = {
-  [ProjectCategory.ECOMMERICAL]: 'eCommercial',
-  [ProjectCategory.BUSINESS]: 'Business',
-  [ProjectCategory.BLOG]: 'Blog',
-  [ProjectCategory.PORTFOLIO]: 'Portfolio',
-  [ProjectCategory.PERSONAL]: 'Personal',
-  [ProjectCategory.NONPROFIT]: 'Nonprofit',
-};
+import { projectCategoryToReadable } from './types/types.js';
 
-const options: SelectOption<string | number>[] = Object.values(
+const OPTIONS: SelectOption<string | number>[] = Object.values(
   ProjectCategory,
 ).map((it) => ({
   value: it,
@@ -25,4 +18,4 @@ const DEFAULT_CREATE_PROJECT_PAYLOAD: ProjectCreateRequestDto = {
   category: ProjectCategory.BUSINESS,
 };
 
-export { DEFAULT_CREATE_PROJECT_PAYLOAD, options };
+export { DEFAULT_CREATE_PROJECT_PAYLOAD, OPTIONS as options };
