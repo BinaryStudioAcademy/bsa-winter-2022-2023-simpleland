@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
-import StripeCheckout, { type Token } from 'react-stripe-checkout';
+import { type Token } from 'react-stripe-checkout';
 
-import { Button } from '~/libs/components/components.js';
+import { Button, Checkout } from '~/libs/components/components.js';
 import { useAppDispatch } from '~/libs/hooks/hooks.js';
-import { config } from '~/libs/packages/config/config.js';
 import { SUBSCRIPTION_PRICE } from '~/packages/subscription/subscription.js';
 import { actions as usersActions } from '~/slices/users/users.js';
 
@@ -39,11 +38,10 @@ const Subscription: React.FC = () => {
           size="small"
           className={styles['button']}
         />
-        <StripeCheckout
-          stripeKey={config.ENV.STRIPE.STRIPE_PUBLIC_KEY}
-          token={handleSubscribe}
-          amount={SUBSCRIPTION_PRICE * 100}
-          currency="usd"
+        <Checkout
+          onCheckout={handleSubscribe}
+          price={SUBSCRIPTION_PRICE}
+          label="Subscribe"
         />
       </div>
     </div>
