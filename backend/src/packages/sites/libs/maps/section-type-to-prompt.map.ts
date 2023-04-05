@@ -28,15 +28,15 @@ const SectionTypeToPrompt: Record<
   },
   [SectionType.FEEDBACK]: {
     EXAMPLE:
-      'name: Annette Black\nphotoDescription: The woman in the photo has long, wavy hair and bright green eyes that sparkle with kindness. She is dressed in a flowing floral dress, standing in a lush green field with a peaceful and contented demeanor.\nprofession: Merchandising Associate\nfeedback: This interior design company offers impressive designs that are both practical and imaginative. They have a reliable team and a strong portfolio that demonstrates their skill in creating beautiful spaces. Highly recommended.',
+      'name: Annette Black\nphotoDescription: The woman on the photo has long, wavy hair and bright green eyes that sparkle with kindness. She is dressed in a flowing floral dress, standing in a lush green field with a peaceful and contented demeanor.\nprofession: Merchandising Associate\nfeedback: This interior design company offers impressive designs that are both practical and imaginative. They have a reliable team and a strong portfolio that demonstrates their skill in creating beautiful spaces. Highly recommended.',
     REQUEST:
       'Generate name for feedback section, photoDescription for feedback section, profession for feedback section, feedback for feedback section',
   },
   [SectionType.SERVICE]: {
     EXAMPLE:
-      'name: Space Planning\npictureDescription: sofa with pictures above it and high leg lamp on the left hand side .\ndescription: We create better interior experiences through our space planning services.',
+      'title: Space Planning\npictureDescription: sofa with pictures above it and high leg lamp on the left hand side .\ndescription: We create better interior experiences through our space planning services.',
     REQUEST:
-      'Generate name for service section, pictureDescription for feedback section, description for feedback section',
+      'Generate title for service section, pictureDescription for feedback section, description for feedback section',
   },
 } as const;
 

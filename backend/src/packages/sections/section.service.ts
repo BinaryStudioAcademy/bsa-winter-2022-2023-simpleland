@@ -157,14 +157,14 @@ class SectionService
     );
 
     const cards = cardsContent.map((cardContent) => ({
-      name: cardContent['name'] ?? '',
+      title: cardContent['title'] ?? '',
       picture: cardContent['pictureDescription'] ?? '',
       description: cardContent['description'] ?? '',
     }));
 
     await initAsyncItemsQueue(cards, async (card) => {
       const image = await openAI.createImage(
-        `Flat icon for site. colors: black and peach. bacground - white  ${card.picture}`,
+        `Flat icon for site with white background. icon image colors : black and peach.  ${card.picture}`,
       );
 
       const { url } = await this.file.upload({ file: image });

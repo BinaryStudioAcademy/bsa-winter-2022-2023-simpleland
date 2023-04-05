@@ -2,7 +2,7 @@ type SiteServiceContent = {
   title: string;
   cards: {
     picture: string;
-    name: string;
+    title: string;
     description: string;
   }[];
 };
