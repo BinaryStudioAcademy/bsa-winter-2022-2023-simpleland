@@ -19,9 +19,11 @@ const userUpdatePassword = joi.object<UserUpdatePasswordRequestDto, true>({
     .string()
     .pattern(UserValidationRule.PASSWORD_REGEX)
     .required()
+    .invalid(joi.ref('password'))
     .messages({
       'string.pattern.base': UserValidationMessage.PASSWORD_IS_INVALID,
       'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
+      'any.invalid': UserValidationMessage.NEW_PASSWORD_CANNOT_BE_SAME_AS_OLD,
     }),
   repeatNewPassword: joi
     .string()
