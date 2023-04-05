@@ -12,6 +12,7 @@ import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
   type ProjectCreateRequestDto,
   type ProjectUploadImageDto,
+  ProjectCategory,
   projectCreateValidationSchema,
 } from '~/packages/projects/projects.js';
 
@@ -56,7 +57,7 @@ const CreateProjectModal: React.FC<Properties> = ({
         onSubmit({
           name: payload.name,
           formData,
-          type: payload.type,
+          category: payload.category,
         });
       })(event_);
     },
@@ -82,12 +83,12 @@ const CreateProjectModal: React.FC<Properties> = ({
   );
 
   const options = [
-    { value: 'eCommercial', label: 'eCommercial' },
-    { value: 'Business', label: 'Business' },
-    { value: 'Blog', label: 'Blog' },
-    { value: 'Portfolio', label: 'Portfolio' },
-    { value: 'Personal', label: 'Personal' },
-    { value: 'Nonprofit', label: 'Nonprofit' },
+    { value: ProjectCategory.ECOMMERICAL, label: 'eCommercial' },
+    { value: ProjectCategory.BUSINESS, label: 'Business' },
+    { value: ProjectCategory.BLOG, label: 'Blog' },
+    { value: ProjectCategory.PORTFOLIO, label: 'Portfolio' },
+    { value: ProjectCategory.PERSONAL, label: 'Personal' },
+    { value: ProjectCategory.NONPROFIT, label: 'Nonprofit' },
   ];
 
   return (
@@ -119,10 +120,9 @@ const CreateProjectModal: React.FC<Properties> = ({
             <Select
               control={control}
               errors={errors}
-              name="type"
-              placeholder="Please select your type"
+              name="category"
+              placeholder="Please select your category"
               options={options}
-              isSearchable
             />
           </div>
           <Button
