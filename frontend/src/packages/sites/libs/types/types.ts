@@ -1,6 +1,7 @@
 export {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
+  type SiteCreateStepIndustry,
   type SiteCreateStepName,
   type SiteCreateStepTone,
   type SiteGetAllItemResponseDto,
