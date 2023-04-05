@@ -3,7 +3,7 @@ import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import { type SiteCreateStepTone } from '~/packages/sites/libs/types/types.js';
 import { siteCreateStepToneValidationSchema } from '~/packages/sites/libs/validation-schemas/validation-schemas.js';
 
-import { defaultPayload, options } from './libs/constants.js';
+import { defaultPayload, OPTIONS } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -14,7 +14,6 @@ const VoiceToneForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   const { control, errors, handleSubmit } = useAppForm({
     defaultValues: defaultPayload,
     validationSchema: siteCreateStepToneValidationSchema,
-    mode: 'onSubmit',
   });
 
   const handleFormSubmit = useCallback(
@@ -33,7 +32,7 @@ const VoiceToneForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
       <Select
         name="tone"
         placeholder="Please select your tone"
-        options={options}
+        options={OPTIONS}
         control={control}
         errors={errors}
       />
