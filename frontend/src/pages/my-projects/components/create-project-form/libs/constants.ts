@@ -1,4 +1,4 @@
-import { type SelectOption } from '~/libs/types/types.js';
+import { type SelectOption, type ValueOf } from '~/libs/types/types.js';
 import {
   type ProjectCreateRequestDto,
   ProjectCategory,
@@ -6,7 +6,7 @@ import {
 
 import { projectCategoryToReadable } from './types/types.js';
 
-const OPTIONS: SelectOption<string | number>[] = Object.values(
+const OPTIONS: SelectOption<ValueOf<typeof ProjectCategory>>[] = Object.values(
   ProjectCategory,
 ).map((it) => ({
   value: it,

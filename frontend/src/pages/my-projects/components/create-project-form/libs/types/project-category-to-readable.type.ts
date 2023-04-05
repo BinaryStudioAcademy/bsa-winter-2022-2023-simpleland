@@ -7,6 +7,6 @@ const projectCategoryToReadable = {
   [ProjectCategory.PORTFOLIO]: 'Portfolio',
   [ProjectCategory.PERSONAL]: 'Personal',
   [ProjectCategory.NONPROFIT]: 'Nonprofit',
-};
+} as const;
 
 export { projectCategoryToReadable };
