@@ -11,7 +11,7 @@ const projectsApi = new ProjectsApi({
 });
 
 export { projectsApi };
-export { ProjectType } from './libs/enums/enums.js';
+export { ProjectCategory } from './libs/enums/enums.js';
 export {
   type ProjectCreateRequestDto,
   type ProjectFilterQueryDto,

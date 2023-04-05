@@ -43,10 +43,10 @@ export {
   type ProjectGetAllResponseDto,
   type ProjectUploadImageDto,
   type ProjectUploadImageParametersDto,
+  ProjectCategory,
   projectCreateValidationSchema,
   projectFilterValidationSchema,
   ProjectsApiPath,
-  ProjectType,
 } from './packages/projects/projects.js';
 export {
   type SectionGetAllItemResponseDto,
