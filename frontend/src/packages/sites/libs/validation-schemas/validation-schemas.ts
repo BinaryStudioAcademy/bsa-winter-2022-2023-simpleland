@@ -1,5 +1,5 @@
 export {
   siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
-  siteCreateStepToneValidationSchema
+  siteCreateStepToneValidationSchema,
 } from 'shared/build/index.js';

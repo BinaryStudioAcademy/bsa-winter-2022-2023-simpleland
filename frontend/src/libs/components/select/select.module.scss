@@ -2,3 +2,9 @@
   display: block;
   min-height: 20px;
 }
+
+.select-icon {
+  position: absolute;
+  z-index: var(--z-index-level-one);
+  margin: 8px 10px;
+}
