@@ -1,6 +1,8 @@
 import { type SelectOption } from '~/libs/types/types.js';
-import { SiteToneType } from '~/packages/sites/libs/enums/enums.js';
-import { type SiteCreateStepTone } from '~/packages/sites/libs/types/types.js';
+import {
+  type SiteCreateStepTone,
+  SiteToneType,
+} from '~/packages/sites/sites.js';
 
 import { SiteToneTypeToReadable } from './site-tone-type-to-readable.enum.js';
 
