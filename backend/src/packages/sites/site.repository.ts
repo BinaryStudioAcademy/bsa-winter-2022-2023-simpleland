@@ -46,15 +46,6 @@ class SiteRepository
 
     return SiteEntity.initialize(site);
   }
-
-  // private getWhereName =
-  //   (query: string | undefined) =>
-  //   (builder: QueryBuilder<>): void => {
-  //     if (query) {
-  //       return;
-  //     }
-  //     builder.where('name', 'ilike', `%${query}%`);
-  //   };
 }
 
 export { SiteRepository };
