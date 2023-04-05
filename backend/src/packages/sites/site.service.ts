@@ -1,5 +1,7 @@
 import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
+import { type File } from '~/libs/packages/file/file.package.js';
+import { type OpenAI } from '~/libs/packages/open-ai/open-ai.package.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
   type SectionGetAllResponseDto,
@@ -17,11 +19,23 @@ import {
   type SiteGetAllResponseDto,
 } from './libs/types/types.js';
 
+type Constructor = {
+  siteRepository: SiteRepository;
+  file: File;
+  openAI: OpenAI;
+};
+
 class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   private siteRepository: SiteRepository;
 
-  public constructor(siteRepository: SiteRepository) {
+  private file: File;
+
+  private openAI: OpenAI;
+
+  public constructor({ siteRepository, file, openAI }: Constructor) {
     this.siteRepository = siteRepository;
+    this.file = file;
+    this.openAI = openAI;
   }
 
   public async findAll(): Promise<SiteGetAllResponseDto> {
@@ -47,10 +61,16 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
       projectId: number;
     },
   ): Promise<SiteCreateResponseDto> {
+    const siteImage = await this.openAI.createImage(
+      this.createSiteImagePrompt(payload),
+    );
+    const { url } = await this.file.upload({ file: siteImage });
+
     const entity = await this.siteRepository.create(
       SiteEntity.initializeNew({
         name: payload.name,
         projectId: payload.projectId,
+        image: url,
       }),
     );
     const site = entity.toObject();
@@ -138,6 +158,13 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     industry,
   }: SiteCreateRequestDto): string => {
     return `Generate content for website with name ${name}. It is site for ${industry} company.`;
+  };
+
+  private createSiteImagePrompt = ({
+    name,
+    industry,
+  }: SiteCreateRequestDto): string => {
+    return `Generate image for website with name ${name}. It is site for ${industry} company.`;
   };
 }
 
