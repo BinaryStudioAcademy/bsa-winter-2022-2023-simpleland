@@ -1,10 +1,12 @@
 import joi from 'joi';
 
-import { type SiteCreateStepTone } from '~/packages/sites/libs/types/types.js';
+import { SiteValidationMessage } from '~/packages/sites/libs/enums/enums.js';
+import {
+  type SiteCreateStepTone,
+  SiteToneType,
+} from '~/packages/sites/sites.js';
 
-import { SiteToneType, SiteValidationMessage } from '../enums/enums.js';
-
-const siteCreateStepTone = joi.object<SiteCreateStepTone>({
+const siteCreateStepTone = joi.object<SiteCreateStepTone, true>({
   tone: joi
     .string()
     .valid(...Object.values(SiteToneType))
