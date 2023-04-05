@@ -32,6 +32,12 @@ const SectionTypeToPrompt: Record<
     REQUEST:
       'Generate name for feedback section, photoDescription for feedback section, profession for feedback section, feedback for feedback section',
   },
+  [SectionType.SERVICE]: {
+    EXAMPLE:
+      'name: Space Planning\npictureDescription: sofa with pictures above it and high leg lamp on the left hand side .\ndescription: We create better interior experiences through our space planning services.',
+    REQUEST:
+      'Generate name for service section, pictureDescription for feedback section, description for feedback section',
+  },
 } as const;
 
 export { SectionTypeToPrompt };
