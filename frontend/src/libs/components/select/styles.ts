@@ -64,16 +64,6 @@ const getStyles = ({
     alignItems: 'center',
     flexDirection: 'row',
     gap: '10px',
-    '&::before': {
-      content: '""',
-      width: '18px',
-      height: '18px',
-      display: state.selectProps.menuIsOpen ? 'none' : 'inline-block',
-      backgroundImage: `url(${searchIcon})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      backgroundSize: 'contain',
-    },
   }),
   valueContainer: (provided) => ({
     ...provided,
