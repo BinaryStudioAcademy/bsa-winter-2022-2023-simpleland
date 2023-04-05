@@ -1,5 +1,4 @@
 import { type CSSObjectWithLabel, type StylesConfig } from 'react-select';
-import searchIcon from 'src/assets/img/loupe.svg';
 
 import { type SelectOption } from '~/libs/types/types.js';
 
@@ -58,7 +57,7 @@ const getStyles = ({
     ...provided,
     display: 'none',
   }),
-  placeholder: (provided, state) => ({
+  placeholder: (provided) => ({
     ...provided,
     display: 'flex',
     alignItems: 'center',

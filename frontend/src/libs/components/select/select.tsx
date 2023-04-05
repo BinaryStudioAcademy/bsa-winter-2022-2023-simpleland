@@ -14,8 +14,8 @@ import {
 } from '~/libs/hooks/hooks.js';
 import { type IconType, type SelectOption } from '~/libs/types/types.js';
 
-import styles from './select.module.scss';
 import { getStyles } from './styles.js';
+import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
   control: Control<T, null>;
