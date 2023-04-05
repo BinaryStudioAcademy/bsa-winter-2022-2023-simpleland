@@ -49,15 +49,24 @@ class OpenAI {
     prompt: string,
     size: ValueOf<typeof ImageSize> = ImageSize.SMALL,
   ): Promise<string> {
+    const [image] = await this.createImages(prompt, 1, size);
+
+    return image ?? '';
+  }
+
+  public async createImages(
+    prompt: string,
+    number: number,
+    size: ValueOf<typeof ImageSize> = ImageSize.SMALL,
+  ): Promise<string[]> {
     const { data } = await this.openAIApi.createImage({
       prompt,
+      n: number,
       size: imageSizeToResolutionMap[size],
       response_format: 'b64_json',
     });
 
-    const [image] = data.data;
-
-    return image?.b64_json ?? '';
+    return data.data.map((item) => item.b64_json ?? '');
   }
 
   private parseCompletionResponse(response: string): Record<string, string> {

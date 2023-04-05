@@ -3,6 +3,7 @@ import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useAppDispatch,
   useCallback,
+  useMemo,
   useParams,
   useState,
   useStepper,
@@ -10,11 +11,15 @@ import {
 import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
 import { actions as siteActions } from '~/slices/sites/sites.js';
 
-import { FinalForm, ProjectNameForm } from './libs/components/components.js';
+import {
+  FinalForm,
+  IndustryForm,
+  SiteNameForm,
+} from './libs/components/components.js';
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
 
-const steps = [ProjectNameForm, FinalForm] as const;
+const steps = [SiteNameForm, IndustryForm, FinalForm] as const;
 
 const Start: React.FC = () => {
   const { projectId } = useParams();
@@ -53,14 +58,17 @@ const Start: React.FC = () => {
     [dispatch, handleNextStep, isLastStep, projectId, sitePayload],
   );
 
-  const CurrentForm = steps[(currentStep - ONE_STEP_LENGTH) as 0];
+  const CurrentForm = useMemo(
+    () => steps[(currentStep - ONE_STEP_LENGTH) as 0],
+    [currentStep],
+  );
 
   return (
     <PageLayout style="black" className={styles['layout']}>
       <div className={styles['page-wrapper']}>
         <div className={styles['content']}>
           <div className={styles['content-text']}>
-            First, tell us about your project
+            First, tell us about your site
           </div>
           <div className={styles['content-info']}>
             <div className={styles['stepper']}>

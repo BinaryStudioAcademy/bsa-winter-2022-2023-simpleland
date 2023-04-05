@@ -2,8 +2,8 @@ import { Button, Input } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type SiteCreateRequestDto,
-  type SiteCreateStepName,
-  siteCreateStepNameValidationSchema,
+  type SiteCreateStepIndustry,
+  siteCreateStepIndustryValidationSchema,
 } from '~/packages/sites/sites.js';
 
 import { DEFAULT_STEP_PAYLOAD } from './libs/constants.js';
@@ -13,10 +13,10 @@ type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateRequestDto>) => void;
 };
 
-const ProjectNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
-  const { control, errors, handleSubmit } = useAppForm<SiteCreateStepName>({
+const IndustryForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+  const { control, errors, handleSubmit } = useAppForm<SiteCreateStepIndustry>({
     defaultValues: DEFAULT_STEP_PAYLOAD,
-    validationSchema: siteCreateStepNameValidationSchema,
+    validationSchema: siteCreateStepIndustryValidationSchema,
   });
 
   const handleFormSubmit = useCallback(
@@ -28,22 +28,20 @@ const ProjectNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 
   return (
     <>
-      <h2 className={styles['title']}>What is your project&apos;s name?</h2>
-      <div className={styles['subtitle']}>
-        Don&apos;t have one? Just enter your name.
-      </div>
+      <h2 className={styles['title']}>What is your industry?</h2>
+      <div className={styles['subtitle']}>Just enter your it.</div>
       <form className={styles['form']} onSubmit={handleFormSubmit}>
         <Input
           type="text"
-          label="Project name"
-          placeholder="Name"
-          name="name"
+          label="Project industry"
+          placeholder="Industry"
+          name="industry"
           control={control}
           errors={errors}
           isLabelVisuallyHidden
         />
         <Button
-          label="Next"
+          label="Go next"
           style="secondary"
           size="small"
           type="submit"
@@ -54,4 +52,4 @@ const ProjectNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   );
 };
 
-export { ProjectNameForm };
+export { IndustryForm };

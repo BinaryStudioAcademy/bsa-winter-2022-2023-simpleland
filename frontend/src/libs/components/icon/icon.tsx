@@ -4,7 +4,7 @@ import { iconNameToSvgIcon } from './common.js';
 
 type Properties = {
   iconName: IconType;
-  className?: string;
+  className?: string | undefined;
 };
 
 const Icon: React.FC<Properties> = ({ iconName, className }: Properties) => {
