@@ -19,7 +19,6 @@ type Properties<T extends FieldValues> = {
   placeholder?: string;
   errors: FieldErrors<T>;
   isMulti?: boolean;
-  isDisabled?: boolean;
 };
 
 const Select = <T extends FieldValues>({
@@ -28,7 +27,6 @@ const Select = <T extends FieldValues>({
   options,
   placeholder,
   errors,
-  isDisabled = false,
   isMulti = false,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
@@ -78,9 +76,7 @@ const Select = <T extends FieldValues>({
         placeholder={placeholder}
         name={name}
         styles={styles}
-        isDisabled={isDisabled}
       />
-
       <span className={style['error-message']}>
         {hasError && (error as string)}
       </span>

@@ -1,9 +1,9 @@
 export { SitesApiPath } from './libs/enums/sites-api-path.enum.js';
 export {
-  type SiteCreateIndustryName,
   type SiteCreateParametersDto,
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
+  type SiteCreateStepIndustry,
   type SiteCreateStepName,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,

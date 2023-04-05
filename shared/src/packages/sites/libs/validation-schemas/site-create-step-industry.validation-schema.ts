@@ -1,23 +1,17 @@
 import joi from 'joi';
 
 import { SiteValidationMessage, SiteValidationRule } from '../enums/enums.js';
-import { type SiteCreateIndustryName } from '../types/types.js';
+import { type SiteCreateStepIndustry } from '../types/types.js';
 
-const siteCreateStepIndustry = joi
-  .object<SiteCreateIndustryName, true>()
-  .keys({
-    selectIndustry: joi.string().empty('').messages({
+const siteCreateStepIndustry = joi.object<SiteCreateStepIndustry, true>({
+  industry: joi
+    .string()
+    .required()
+    .pattern(SiteValidationRule.SITE_INDUSTRY_REGEX)
+    .messages({
       'string.empty': SiteValidationMessage.SITE_INDUSTRY_REQUIRE,
+      'string.pattern.base': SiteValidationMessage.SITE_INDUSTRY_WRONG,
     }),
-    enterIndustry: joi
-      .string()
-      .empty('')
-      .pattern(SiteValidationRule.SITE_INDUSTRY_REGEX)
-      .messages({
-        'string.empty': SiteValidationMessage.SITE_INDUSTRY_REQUIRE,
-        'string.pattern.base': SiteValidationMessage.SITE_INDUSTRY_WRONG,
-      }),
-  })
-  .xor('selectIndustry', 'enterIndustry');
+});
 
 export { siteCreateStepIndustry };

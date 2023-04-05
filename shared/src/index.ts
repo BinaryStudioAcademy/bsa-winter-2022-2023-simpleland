@@ -62,18 +62,16 @@ export {
   type SiteCreateParametersDto,
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
+  type SiteCreateStepIndustry,
   type SiteCreateStepName,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
+  siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
   SitesApiPath,
-} from './packages/sites/sites.js';
-export {
-  type SiteCreateIndustryName,
-  siteCreateStepIndustryValidationSchema,
 } from './packages/sites/sites.js';
 export {
   type UserAuthResponse,
