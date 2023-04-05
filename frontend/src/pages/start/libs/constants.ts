@@ -4,7 +4,7 @@ const ONE_STEP_LENGTH = 1 as const;
 
 const DEFAULT_SITE_PAYLOAD: SiteCreateRequestDto = {
   name: '',
-  industry: 'Programming courses', // TODO: replace
+  industry: '',
   targetAudience: [],
 };
 

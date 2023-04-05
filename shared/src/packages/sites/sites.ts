@@ -3,6 +3,7 @@ export {
   type SiteCreateParametersDto,
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
+  type SiteCreateStepIndustry,
   type SiteCreateStepName,
   type SiteCreateStepTarget,
   type SiteGetAllItemResponseDto,
@@ -10,6 +11,7 @@ export {
   type SiteGetByProjectParametersDto,
 } from './libs/types/types.js';
 export {
+  siteCreateStepIndustry as siteCreateStepIndustryValidationSchema,
   siteCreateStepName as siteCreateStepNameValidationSchema,
   siteCreateStepTarget as siteCreateStepTargetValidationSchema,
   siteCreate as siteCreateValidationSchema,

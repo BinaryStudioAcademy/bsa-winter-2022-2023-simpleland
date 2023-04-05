@@ -1,2 +1,5 @@
-export { siteCreateStepNameValidationSchema } from 'shared/build/index.js';
-export { siteCreateStepTargetValidationSchema } from 'shared/build/index.js';
+export {
+  siteCreateStepIndustryValidationSchema,
+  siteCreateStepNameValidationSchema,
+  siteCreateStepTargetValidationSchema,
+} from 'shared/build/index.js';
