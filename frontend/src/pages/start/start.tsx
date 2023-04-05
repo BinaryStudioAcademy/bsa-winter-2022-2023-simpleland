@@ -11,11 +11,15 @@ import {
 import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
 import { actions as siteActions } from '~/slices/sites/sites.js';
 
-import { FinalForm, ProjectNameForm } from './libs/components/components.js';
+import {
+  FinalForm,
+  IndustryForm,
+  ProjectNameForm,
+} from './libs/components/components.js';
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
 
-const steps = [ProjectNameForm, FinalForm] as const;
+const steps = [ProjectNameForm, IndustryForm, FinalForm] as const;
 
 const Start: React.FC = () => {
   const { projectId } = useParams();

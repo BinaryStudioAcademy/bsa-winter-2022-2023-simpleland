@@ -14,9 +14,13 @@ export { sitesApi };
 export {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
+  type SiteCreateStepIndustry,
   type SiteCreateStepName,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
 } from './libs/types/types.js';
-export { siteCreateStepNameValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+export {
+  siteCreateStepIndustryValidationSchema,
+  siteCreateStepNameValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
