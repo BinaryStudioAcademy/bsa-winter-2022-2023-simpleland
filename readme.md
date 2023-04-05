@@ -81,7 +81,7 @@ erDiagram
     dateTime created_at
     dateTime updated_at
     varchar name
-    enum type "'header' | 'footer' | 'main' | 'about' | 'feedback'"
+    enum type "'header' | 'footer' | 'main' | 'about' | 'feedback' | 'service'"
     jsonb content
   }
 
