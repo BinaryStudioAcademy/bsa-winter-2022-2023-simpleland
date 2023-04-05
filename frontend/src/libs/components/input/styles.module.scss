@@ -26,8 +26,7 @@
 
 .input:focus {
   border-color: var(--yellow);
-  box-shadow: 0 4px 8px -2px rgb(16 24 40 / 16%),
-    0 2px 4px -2px rgb(16 24 40 / 6%);
+  box-shadow: 0 4px 8px -2px rgb(16 24 40 / 16%), 0 2px 4px -2px rgb(16 24 40 / 6%);
 }
 
 .input:disabled {
@@ -45,11 +44,6 @@
 
 .has-error {
   border-color: var(--red);
-}
-
-.error-message {
-  display: block;
-  height: 20px;
 }
 
 .search-input-icon {
