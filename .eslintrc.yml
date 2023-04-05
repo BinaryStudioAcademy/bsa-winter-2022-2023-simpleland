@@ -125,13 +125,13 @@ rules:
 
 overrides:
   - files:
-      - commitlint.config.ts
+    - commitlint.config.ts
     rules:
       'import/no-default-export':
         - off
   - files:
-      - commitlint.config.ts
-      - dangerfile.ts
+    - commitlint.config.ts
+    - dangerfile.ts
     rules:
       import/extensions:
         - off
