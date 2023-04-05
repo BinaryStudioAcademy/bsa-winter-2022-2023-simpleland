@@ -1,4 +1,4 @@
-export { SitesApiPath } from './libs/enums/sites-api-path.enum.js';
+export { SitesApiPath, SiteToneType } from './libs/enums/enums.js';
 export {
   type SiteCreateParametersDto,
   type SiteCreateRequestDto,
