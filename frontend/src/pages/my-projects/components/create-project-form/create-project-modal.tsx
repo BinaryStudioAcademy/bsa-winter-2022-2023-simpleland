@@ -12,11 +12,10 @@ import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
   type ProjectCreateRequestDto,
   type ProjectUploadImageDto,
-  ProjectCategory,
   projectCreateValidationSchema,
 } from '~/packages/projects/projects.js';
 
-import { DEFAULT_CREATE_PROJECT_PAYLOAD } from './libs/constants.js';
+import { DEFAULT_CREATE_PROJECT_PAYLOAD, options } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -81,15 +80,6 @@ const CreateProjectModal: React.FC<Properties> = ({
     },
     [setImage],
   );
-
-  const options = [
-    { value: ProjectCategory.ECOMMERICAL, label: 'eCommercial' },
-    { value: ProjectCategory.BUSINESS, label: 'Business' },
-    { value: ProjectCategory.BLOG, label: 'Blog' },
-    { value: ProjectCategory.PORTFOLIO, label: 'Portfolio' },
-    { value: ProjectCategory.PERSONAL, label: 'Personal' },
-    { value: ProjectCategory.NONPROFIT, label: 'Nonprofit' },
-  ];
 
   return (
     <Modal isOpen={isOpen} onClose={onCloseModal}>
