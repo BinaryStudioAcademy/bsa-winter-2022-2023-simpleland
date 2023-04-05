@@ -1,13 +1,14 @@
 import { type SelectOption } from '~/libs/types/types.js';
+import { SiteToneType } from '~/packages/sites/libs/enums/enums.js';
 import { type SiteCreateStepTone } from '~/packages/sites/libs/types/types.js';
 
-const OPTIONS_VALUE: SelectOption<string | number>[] = [
-  { value: 'official', label: 'Official' },
-  { value: 'notOfficial', label: 'not official' },
+const options: SelectOption<string | number>[] = [
+  { value: SiteToneType.OFFICIAL, label: 'Official' },
+  { value: SiteToneType.NOT_OFFICIAL, label: 'Not official' },
 ];
 
-const DEFAULT_STEP_PAYLOAD: SiteCreateStepTone = {
-  tone: '',
+const defaultPayload: SiteCreateStepTone = {
+  tone: SiteToneType.OFFICIAL,
 } as const;
 
-export { DEFAULT_STEP_PAYLOAD, OPTIONS_VALUE };
+export { defaultPayload, options };
