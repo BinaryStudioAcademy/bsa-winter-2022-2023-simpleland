@@ -42,10 +42,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     const sites = await this.siteRepository.findAll();
 
     return {
-      items: sites.map((site) => ({
-        ...site.toObject(),
-        targetAudience: [],
-      })),
+      items: sites.map((site) => site.toObject()),
     };
   }
 
@@ -55,10 +52,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     const sites = await this.siteRepository.findAllByProjectId(projectId);
 
     return {
-      items: sites.map((site) => ({
-        ...site.toObject(),
-        targetAudience: [],
-      })),
+      items: sites.map((site) => site.toObject()),
     };
   }
 
@@ -79,10 +73,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
         image: url,
       }),
     );
-    const site = {
-      ...entity.toObject(),
-      targetAudience: [],
-    };
+    const site = entity.toObject();
 
     await initAsyncItemsQueue(
       [
