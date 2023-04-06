@@ -1,5 +1,5 @@
 type SitesFilterQueryDto = {
-  pattern: string | null;
+  pattern: string;
 };
 
 export { type SitesFilterQueryDto };
