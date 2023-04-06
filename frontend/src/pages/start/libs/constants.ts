@@ -1,5 +1,6 @@
 import {
   type SiteCreateRequestDto,
+  SiteTargetType,
   SiteToneType,
 } from '~/packages/sites/sites.js';
 
@@ -9,6 +10,7 @@ const DEFAULT_SITE_PAYLOAD: SiteCreateRequestDto = {
   name: '',
   industry: '',
   tone: SiteToneType.OFFICIAL,
-} as const;
+  targetAudience: SiteTargetType.YOUNG_ADULT,
+};
 
 export { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH };
