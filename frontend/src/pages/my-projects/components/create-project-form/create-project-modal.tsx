@@ -1,5 +1,11 @@
 import img from '~/assets/img/project-mock-image.jpg';
-import { Button, Image, Input, Modal } from '~/libs/components/components.js';
+import {
+  Button,
+  Image,
+  Input,
+  Modal,
+  Select,
+} from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
 import { FormDataKey } from '~/libs/packages/file/file.js';
@@ -9,7 +15,7 @@ import {
   projectCreateValidationSchema,
 } from '~/packages/projects/projects.js';
 
-import { DEFAULT_CREATE_PROJECT_PAYLOAD } from './libs/constants.js';
+import { DEFAULT_CREATE_PROJECT_PAYLOAD, options } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -50,6 +56,7 @@ const CreateProjectModal: React.FC<Properties> = ({
         onSubmit({
           name: payload.name,
           formData,
+          category: payload.category,
         });
       })(event_);
     },
@@ -99,7 +106,15 @@ const CreateProjectModal: React.FC<Properties> = ({
             label="Enter your project name"
             name="name"
           />
-
+          <div className={styles['select-wrapper']}>
+            <Select
+              control={control}
+              errors={errors}
+              name="category"
+              placeholder="Please select your category"
+              options={options}
+            />
+          </div>
           <Button
             type="submit"
             style="primary"

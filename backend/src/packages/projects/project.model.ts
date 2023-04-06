@@ -6,6 +6,9 @@ import {
   getJoinRelationPath,
 } from '~/libs/packages/database/database.js';
 import { FileModel } from '~/libs/packages/file/file.js';
+import { type ValueOf } from '~/libs/types/types.js';
+
+import { type ProjectCategory } from './libs/enums/enums.js';
 
 class ProjectModel extends AbstractModel {
   public 'userId': number | null;
@@ -15,6 +18,8 @@ class ProjectModel extends AbstractModel {
   public 'avatarId': number | null;
 
   public 'avatar': FileModel | null;
+
+  public 'category': ValueOf<typeof ProjectCategory> | null;
 
   public 'count': number | null;
 

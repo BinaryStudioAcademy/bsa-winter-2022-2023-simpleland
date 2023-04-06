@@ -35,6 +35,15 @@ import { type ProjectUploadImageParametersDto } from './libs/types/types.js';
  *            type: number
  *            format: int64
  *            minimum: 1
+ *          projectType:
+ *          category: string
+ *          enum:
+ *          - e-commercial
+ *          - business
+ *          - blog
+ *          - portfolio
+ *          - personal
+ *          - nonprofit
  */
 
 class ProjectController extends Controller {
@@ -164,6 +173,7 @@ class ProjectController extends Controller {
       payload: await this.projectService.create({
         name: options.body.name,
         userId: options.user.id,
+        category: options.body.category,
       }),
     };
   }

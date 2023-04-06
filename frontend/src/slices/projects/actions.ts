@@ -23,10 +23,11 @@ const createProject = createAsyncThunk<
   async (createProjectPayload, { extra, dispatch }) => {
     const { projectsApi } = extra;
 
-    const { name, formData } = createProjectPayload;
+    const { name, formData, category } = createProjectPayload;
 
     const project = await projectsApi.createProject({
       name,
+      category,
     });
 
     if (formData) {
