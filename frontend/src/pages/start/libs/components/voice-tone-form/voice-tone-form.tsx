@@ -26,26 +26,26 @@ const VoiceToneForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   );
 
   return (
-    <form className={styles['form-wrapper']} onSubmit={handleFormSubmit}>
-      <div className={styles['form-caption']}>
-        <span className={styles['title']}>What is your tone of voice?</span>
-        <span className={styles['subtitle']}>Choose the type</span>
-      </div>
-      <Select
-        name="tone"
-        placeholder="Please select your tone"
-        options={OPTIONS}
-        control={control}
-        errors={errors}
-      />
-      <Button
-        label="Go next"
-        style="secondary"
-        size="small"
-        type="submit"
-        className={styles['button']}
-      />
-    </form>
+    <>
+      <h2 className={styles['title']}>What is your tone of voice?</h2>
+      <div className={styles['subtitle']}>Choose the type</div>
+      <form className={styles['form']} onSubmit={handleFormSubmit}>
+        <Select
+          name="tone"
+          placeholder="Please select your tone"
+          options={OPTIONS}
+          control={control}
+          errors={errors}
+        />
+        <Button
+          label="Go next"
+          style="secondary"
+          size="small"
+          type="submit"
+          className={styles['button']}
+        />
+      </form>
+    </>
   );
 };
 

@@ -1,27 +1,27 @@
-.form-wrapper {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.form-caption {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 .title {
-  color: var(--black);
+  margin-bottom: 8px;
+  color: var(--gray-600);
   font-weight: 600;
   font-size: 24px;
-  line-height: 32px;
 }
 
 .subtitle {
-  color: var(--black);
+  margin-top: 8px;
+  color: var(--gray-600);
+  font-weight: 400;
   font-size: 14px;
-  line-height: 20px;
+}
+
+.form {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  margin-top: 30px;
+  border-color: black;
+}
+
+.control {
+  width: "100%";
 }
 
 .button {
