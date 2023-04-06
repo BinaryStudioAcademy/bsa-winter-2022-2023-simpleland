@@ -15,11 +15,12 @@ import {
   FinalForm,
   IndustryForm,
   SiteNameForm,
+  VoiceToneForm,
 } from './libs/components/components.js';
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
 
-const steps = [SiteNameForm, IndustryForm, FinalForm] as const;
+const steps = [SiteNameForm, IndustryForm, VoiceToneForm, FinalForm] as const;
 
 const Start: React.FC = () => {
   const { projectId } = useParams();
