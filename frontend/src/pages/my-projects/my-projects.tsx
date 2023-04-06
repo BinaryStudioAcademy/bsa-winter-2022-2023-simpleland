@@ -3,6 +3,7 @@ import {
   Input,
   Loader,
   PageLayout,
+  Pagination,
 } from '~/libs/components/components.js';
 import { DataStatus } from '~/libs/enums/enums.js';
 import { initDebounce } from '~/libs/helpers/helpers.js';
@@ -12,6 +13,7 @@ import {
   useAppSelector,
   useCallback,
   useEffect,
+  usePagination,
   useState,
 } from '~/libs/hooks/hooks.js';
 import {
@@ -25,8 +27,14 @@ import { CreateProjectModal, ProjectCard } from './components/components.js';
 import { DEFAULT_PROJECT_FILTER_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
 
+const PROJECTS_PER_PAGE = 6;
+const PAGE_DEFAULT = 1;
+
 const MyProjects: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { page, handleChangePage } = usePagination({
+    pageDefault: PAGE_DEFAULT,
+  });
 
   const handleModalOpen = useCallback(() => {
     setIsOpen(true);
@@ -39,10 +47,17 @@ const MyProjects: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect((): void => {
-    void dispatch(projectActions.getUserProjects({ name: '' }));
-  }, [dispatch]);
+    void dispatch(
+      projectActions.getUserProjects({
+        name: '',
+        page,
+        limit: PROJECTS_PER_PAGE,
+      }),
+    );
+  }, [dispatch, page]);
 
-  const { projects, status } = useAppSelector((state) => ({
+  const { projects, status, projectsCount } = useAppSelector((state) => ({
+    projectsCount: state.projects.projectsCount,
     projects: state.projects.projects,
     status: state.projects.dataStatus,
   }));
@@ -68,9 +83,15 @@ const MyProjects: React.FC = () => {
 
   const handleSearch = useCallback(
     (data: ProjectGetAllParametersDto): void => {
-      void dispatch(projectActions.getUserProjects({ name: data.search }));
+      void dispatch(
+        projectActions.getUserProjects({
+          name: data.search,
+          page,
+          limit: PROJECTS_PER_PAGE,
+        }),
+      );
     },
-    [dispatch],
+    [dispatch, page],
   );
 
   const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
@@ -95,34 +116,46 @@ const MyProjects: React.FC = () => {
         <div className={styles['page-wrapper']}>
           {hasProjects ? (
             <>
-              <div className={styles['search-wrapper']}>
-                <form onChange={handleFormChange}>
-                  <Input
-                    label="search"
-                    type="search"
-                    placeholder="Search"
-                    name="search"
-                    control={control}
-                    errors={errors}
-                    className={styles['search-input']}
-                    icon="loupe"
-                    isLabelVisuallyHidden
+              <div>
+                <div className={styles['search-wrapper']}>
+                  <form onChange={handleFormChange}>
+                    <Input
+                      label="search"
+                      type="search"
+                      placeholder="Search"
+                      name="search"
+                      control={control}
+                      errors={errors}
+                      className={styles['search-input']}
+                      icon="loupe"
+                      isLabelVisuallyHidden
+                    />
+                  </form>
+                  <Button
+                    label="Add Project"
+                    icon="plus"
+                    className={styles['create-button']}
+                    size="small"
+                    onClick={handleModalOpen}
                   />
-                </form>
-                <Button
-                  label="Add Project"
-                  icon="plus"
-                  className={styles['create-button']}
-                  size="small"
-                  onClick={handleModalOpen}
-                />
+                </div>
+
+                <div className={styles['cards-wrapper']}>
+                  {projects.map((card) => (
+                    <ProjectCard key={card.id} project={card} />
+                  ))}
+                </div>
               </div>
 
-              <div className={styles['cards-wrapper']}>
-                {projects.map((card) => (
-                  <ProjectCard key={card.id} project={card} />
-                ))}
-              </div>
+              {projectsCount > PROJECTS_PER_PAGE && (
+                <Pagination
+                  currentPage={page}
+                  onChangePage={handleChangePage}
+                  count={projectsCount}
+                  rowsPerPage={PROJECTS_PER_PAGE}
+                  className={styles['pagination-wrapper']}
+                />
+              )}
             </>
           ) : (
             <div className={styles['placeholder']}>

@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { type AsyncThunkConfig } from '~/libs/types/async-thunk-config.type.js';
+import { AppRoute } from '~/libs/enums/app-route.enum';
+import { configureString } from '~/libs/helpers/helpers.js';
+import { type AsyncThunkConfig, type ValueOf } from '~/libs/types/types.js';
 import {
   type ProjectCreateRequestDto,
   type ProjectFilterQueryDto,
@@ -8,28 +10,41 @@ import {
   type ProjectGetAllResponseDto,
   type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
+import { actions as appActions } from '~/slices/app/app.js';
 
 import { name as sliceName } from './projects.slice.js';
 
 const createProject = createAsyncThunk<
-  ProjectGetAllItemResponseDto,
+  unknown,
   ProjectCreateRequestDto & ProjectUploadImageDto,
   AsyncThunkConfig
->(`${sliceName}/create-project`, async (createProjectPayload, { extra }) => {
-  const { projectsApi } = extra;
+>(
+  `${sliceName}/create-project`,
+  async (createProjectPayload, { extra, dispatch }) => {
+    const { projectsApi } = extra;
 
-  const { name, formData } = createProjectPayload;
+    const { name, formData } = createProjectPayload;
 
-  const project = await projectsApi.createProject({
-    name,
-  });
+    const project = await projectsApi.createProject({
+      name,
+    });
 
-  if (formData) {
-    return await projectsApi.uploadProjectImage(project.id, formData);
-  }
+    if (formData) {
+      await projectsApi.uploadProjectImage(project.id, formData);
+    }
 
-  return project;
-});
+    dispatch(
+      appActions.navigate(
+        configureString<ValueOf<typeof AppRoute>>(
+          AppRoute.PROJECTS_$PROJECT_ID_SITES,
+          {
+            projectId: project.id,
+          },
+        ),
+      ),
+    );
+  },
+);
 
 const getUserProjects = createAsyncThunk<
   ProjectGetAllResponseDto,
