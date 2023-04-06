@@ -1,3 +1,5 @@
+import { SiteTargetType } from 'shared/build/index.js';
+
 import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
@@ -129,7 +131,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     const EXAMPLE_COMPANY_NAME = 'id Studio';
     const EXAMPLE_INDUSTRY = 'interior design';
     const EXAMPLE_TONE = 'official';
-    const EXAMPLE_TARGET = 'young-adult';
+    const EXAMPLE_TARGET = SiteTargetType.YOUNG_ADULT;
 
     const exampleSiteDescription = this.createSiteDescription({
       name: EXAMPLE_COMPANY_NAME,
