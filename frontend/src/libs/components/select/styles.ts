@@ -1,9 +1,14 @@
-import { type StylesConfig } from 'react-select';
-import searchIcon from 'src/assets/img/loupe.svg';
+import { type CSSObjectWithLabel, type StylesConfig } from 'react-select';
 
 import { type SelectOption } from '~/libs/types/types.js';
 
-const styles: StylesConfig<SelectOption<string | number> | undefined> = {
+type Parameters = {
+  hasIcon: boolean;
+};
+
+const getStyles = ({
+  hasIcon,
+}: Parameters): StylesConfig<SelectOption<string | number> | undefined> => ({
   control: (provided) => ({
     ...provided,
     border: '2px solid #FFB61D',
@@ -39,7 +44,7 @@ const styles: StylesConfig<SelectOption<string | number> | undefined> = {
     ...provided,
     padding: '0',
   }),
-  dropdownIndicator: (provided, state) => {
+  dropdownIndicator: (provided, state): CSSObjectWithLabel => {
     const rotation = state.selectProps.menuIsOpen ? '180deg' : '0deg';
 
     return {
@@ -52,27 +57,18 @@ const styles: StylesConfig<SelectOption<string | number> | undefined> = {
     ...provided,
     display: 'none',
   }),
-  placeholder: (provided, state) => ({
+  placeholder: (provided) => ({
     ...provided,
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
     gap: '10px',
-    '&::before': {
-      content: '""',
-      width: '18px',
-      height: '18px',
-      display: state.selectProps.menuIsOpen ? 'none' : 'inline-block',
-      backgroundImage: `url(${searchIcon})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      backgroundSize: 'contain',
-    },
   }),
   valueContainer: (provided) => ({
     ...provided,
     caretColor: 'transparent',
+    paddingLeft: hasIcon ? '30px' : '10px',
   }),
-};
+});
 
-export { styles };
+export { getStyles };
