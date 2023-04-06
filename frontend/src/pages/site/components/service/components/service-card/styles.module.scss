@@ -27,7 +27,7 @@
 .service-card-text-wrapper {
   height: 100%;
   padding: 0 10px;
-  color: #161616;
+  color: var(--site-text-color);
   font-size: 15px;
   line-height: 25px;
   text-align: center;
@@ -35,7 +35,7 @@
 
 .service-card-title {
   margin-bottom: 10px;
-  color: #161616;
+  color: var(--site-text-color);
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
