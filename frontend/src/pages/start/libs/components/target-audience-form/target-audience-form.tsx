@@ -1,5 +1,4 @@
 import { Button, Select } from '~/libs/components/components.js';
-import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type SiteCreateStepTarget,
@@ -7,7 +6,7 @@ import {
 } from '~/packages/sites/sites.js';
 
 import { DEFAULT_STEP_TARGET_VALUE, OPTIONS } from './libs/constants.js';
-import style from './style.module.scss';
+import styles from './style.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateStepTarget>) => void;
@@ -31,13 +30,9 @@ const TargetAudienceForm: React.FC<Properties> = ({
 
   return (
     <>
-      <h2 className={getValidClassNames(style['title'])}>
-        What is your Target audience?
-      </h2>
-      <div className={getValidClassNames(style['subtitle'])}>
-        Choose the age
-      </div>
-      <form className={style['form']} onSubmit={handleFormSubmit}>
+      <h2 className={styles['title']}>What is your Target audience?</h2>
+      <div className={styles['subtitle']}>Choose the age</div>
+      <form className={styles['form']} onSubmit={handleFormSubmit}>
         <Select
           control={control}
           name="targetAudience"
@@ -50,7 +45,7 @@ const TargetAudienceForm: React.FC<Properties> = ({
           style="secondary"
           size="small"
           type="submit"
-          className={style['button']}
+          className={styles['button']}
         />
       </form>
     </>
