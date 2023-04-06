@@ -1,7 +1,9 @@
 import { IconButton, PageLayout } from '~/libs/components/components.js';
+import { DataStatus } from '~/libs/enums/enums.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useAppDispatch,
+  useAppSelector,
   useCallback,
   useMemo,
   useParams,
@@ -14,6 +16,7 @@ import { actions as siteActions } from '~/slices/sites/sites.js';
 import {
   FinalForm,
   IndustryForm,
+  SiteCreationLoader,
   SiteNameForm,
   TargetAudienceForm,
   VoiceToneForm,
@@ -66,10 +69,18 @@ const Start: React.FC = () => {
     [dispatch, handleNextStep, isLastStep, projectId, sitePayload],
   );
 
+  const { creationStatus } = useAppSelector((state) => ({
+    creationStatus: state.sites.dataSiteStatus,
+  }));
+
   const CurrentForm = useMemo(
     () => steps[(currentStep - ONE_STEP_LENGTH) as 0],
     [currentStep],
   );
+
+  if (creationStatus === DataStatus.PENDING) {
+    return <SiteCreationLoader />;
+  }
 
   return (
     <PageLayout style="black" className={styles['layout']}>
