@@ -41,12 +41,15 @@ export {
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllParametersDto,
   type ProjectGetAllResponseDto,
+  type ProjectUpdateRequestDto,
+  type ProjectUpdateResponseDto,
   type ProjectUploadImageDto,
   type ProjectUploadImageParametersDto,
   ProjectCategory,
   projectCreateValidationSchema,
   projectFilterValidationSchema,
   ProjectsApiPath,
+  projectUpdateValidationSchema,
 } from './packages/projects/projects.js';
 export {
   type SectionGetAllItemResponseDto,

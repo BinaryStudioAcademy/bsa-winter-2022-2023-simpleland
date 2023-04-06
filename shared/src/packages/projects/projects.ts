@@ -11,10 +11,13 @@ export {
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllParametersDto,
   type ProjectGetAllResponseDto,
+  type ProjectUpdateRequestDto,
+  type ProjectUpdateResponseDto,
   type ProjectUploadImageDto,
   type ProjectUploadImageParametersDto,
 } from './libs/types/types.js';
 export {
   projectCreate as projectCreateValidationSchema,
   projectFilter as projectFilterValidationSchema,
+  projectUpdate as projectUpdateValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

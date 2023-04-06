@@ -5,5 +5,7 @@ export { type ProjectFilterQueryDto } from './project-filter-query-dto.type.js';
 export { type ProjectGetAllItemResponseDto } from './project-get-all-item-response-dto.type.js';
 export { type ProjectGetAllParametersDto } from './project-get-all-parameters-dto.type.js';
 export { type ProjectGetAllResponseDto } from './project-get-all-response-dto.type.js';
+export { type ProjectUpdateRequestDto } from './project-update-request-dto.type.js';
+export { type ProjectUpdateResponseDto } from './project-update-response-dto.type.js';
 export { type ProjectUploadImageDto } from './project-upload-image-dto.type.js';
 export { type ProjectUploadImageParametersDto } from './project-upload-image-parameters-dto.type.js';
