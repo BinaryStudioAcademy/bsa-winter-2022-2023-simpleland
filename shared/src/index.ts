@@ -43,6 +43,7 @@ export {
   type ProjectGetAllResponseDto,
   type ProjectUploadImageDto,
   type ProjectUploadImageParametersDto,
+  ProjectCategory,
   projectCreateValidationSchema,
   projectFilterValidationSchema,
   ProjectsApiPath,
