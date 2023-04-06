@@ -1,3 +1,5 @@
+import { type Page } from 'objection';
+
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectModel } from '~/packages/projects/project.model.js';
@@ -33,8 +35,8 @@ class ProjectRepository
   public async findByUserId(
     id: number,
     { name, page, limit }: ProjectFilterQueryDto,
-  ): Promise<ProjectEntity[]> {
-    const projects = await this.projectModel
+  ): Promise<Page<ProjectModel>> {
+    return await this.projectModel
       .query()
       .where('userId', id)
       .andWhere((builder) => {
@@ -43,39 +45,9 @@ class ProjectRepository
         }
       })
       .orderBy('name')
-      .offset((page - 1) * limit)
-      .limit(limit)
+      .page(page - 1, limit)
       .withGraphFetched(this.defaultRelationExpression)
       .execute();
-
-    return projects.map((project) => {
-      return ProjectEntity.initialize({
-        id: project.id,
-        name: project.name,
-        userId: project.userId,
-        avatarId: project.avatarId,
-        avatarUrl: project.avatar?.url ?? null,
-        category: project.category,
-      });
-    });
-  }
-
-  public async countByUserId(
-    id: number,
-    { name }: ProjectFilterQueryDto,
-  ): Promise<number> {
-    const projectsCount = await this.projectModel
-      .query()
-      .where('userId', id)
-      .andWhere((builder) => {
-        if (name) {
-          void builder.where('name', 'ilike', `%${name}%`);
-        }
-      })
-      .count()
-      .first();
-
-    return +(projectsCount?.count as number);
   }
 
   public async create(entity: ProjectEntity): Promise<ProjectEntity> {

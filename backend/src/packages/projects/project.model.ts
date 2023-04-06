@@ -21,8 +21,6 @@ class ProjectModel extends AbstractModel {
 
   public 'category': ValueOf<typeof ProjectCategory> | null;
 
-  public 'count': number | null;
-
   public static override get tableName(): string {
     return DatabaseTableName.PROJECTS;
   }

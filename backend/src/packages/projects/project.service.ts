@@ -40,15 +40,21 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
     id: number,
     parameters: ProjectFilterQueryDto,
   ): Promise<ProjectGetAllResponseDto> {
-    const items = await this.projectRepository.findByUserId(id, parameters);
-    const totalCount = await this.projectRepository.countByUserId(
-      id,
-      parameters,
-    );
+    const pageModel = await this.projectRepository.findByUserId(id, parameters);
+    const items = pageModel.results.map((project) => {
+      return ProjectEntity.initialize({
+        id: project.id,
+        name: project.name,
+        userId: project.userId,
+        avatarId: project.avatarId,
+        avatarUrl: project.avatar?.url ?? null,
+        category: project.category,
+      });
+    });
 
     return {
       items: items.map((project) => project.toObject()),
-      totalCount: totalCount,
+      totalCount: pageModel.total,
     };
   }
 
