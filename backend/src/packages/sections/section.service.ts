@@ -67,6 +67,21 @@ class SectionService
     return section.toObject();
   }
 
+  public async update(payload: {
+    id: number;
+    content: unknown;
+  }): Promise<SectionGetAllItemResponseDto> {
+    const section = await this.sectionRepository.update(
+      SectionEntity.initialize({
+        id: payload.id,
+        content: payload.content,
+        type: null,
+      }),
+    );
+
+    return section.toObject();
+  }
+
   private async createSectionContent<T extends ValueOf<typeof SectionType>>(
     prompt: string,
     type: T,
