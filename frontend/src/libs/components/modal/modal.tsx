@@ -25,6 +25,20 @@ const Modal: React.FC<Properties> = ({
     if (isOpen && !reference.current.hasAttribute('open')) {
       return reference.current.showModal();
     }
+
+    const handleKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape' && reference.current?.hasAttribute('open')) {
+        event.preventDefault();
+      }
+    };
+
+    reference.current.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      if (reference.current) {
+        reference.current.removeEventListener('keydown', handleKeyDown);
+      }
+    };
   }, [isOpen, reference]);
 
   if (!isOpen) {
