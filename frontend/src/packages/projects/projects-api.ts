@@ -8,6 +8,7 @@ import {
   type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectUpdateRequestDto,
 } from '~/packages/projects/projects.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
@@ -76,6 +77,28 @@ class ProjectsApi extends HttpApi {
         contentType: ContentType.FORM_DATA,
         hasAuth: true,
         payload,
+      },
+    );
+
+    return await response.json<ProjectGetAllItemResponseDto>();
+  }
+
+  public async updateProject(
+    projectId: number,
+    payload: ProjectUpdateRequestDto,
+  ): Promise<ProjectGetAllItemResponseDto> {
+    const response = await this.load(
+      this.getFullEndpoint(
+        configureString(ProjectsApiPath.$PROJECT_ID, {
+          projectId,
+        }),
+        {},
+      ),
+      {
+        method: 'PUT',
+        contentType: ContentType.JSON,
+        hasAuth: true,
+        payload: JSON.stringify(payload),
       },
     );
 
