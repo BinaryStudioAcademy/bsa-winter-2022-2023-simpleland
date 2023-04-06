@@ -6,4 +6,4 @@ export { type SiteCreateStepName } from './site-create-step-name.type.js';
 export { type SiteGetAllItemResponseDto } from './site-get-all-item-response-dto.type.js';
 export { type SiteGetAllResponseDto } from './site-get-all-response-dto.type.js';
 export { type SiteGetByProjectParametersDto } from './site-get-by-project-parameters-dto.type.js';
-export { type SitesSearchRequestDto } from './sites-search-request-dto.type.js';
+export { type SitesFilterQueryDto } from './sites-search-request-dto.type.js';

@@ -19,8 +19,8 @@ import {
 } from '~/libs/hooks/hooks.js';
 import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook.js';
 import { type ValueOf } from '~/libs/types/types.js';
-import { type SitesSearchRequestDto } from '~/packages/sites/libs/types/types.js';
-import { sitesSearchValidationSchema } from '~/packages/sites/sites.js';
+import { type SitesFilterQueryDto } from '~/packages/sites/libs/types/types.js';
+import { sitesFilterValidationSchema } from '~/packages/sites/sites.js';
 import { SiteCard } from '~/pages/sites/components/components.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
@@ -35,7 +35,7 @@ const Sites: React.FC = () => {
       void dispatch(
         sitesActions.getSitesByProjectId({
           projectId: Number(projectId),
-          parameters: { pattern: null },
+          parameters: { pattern: '' },
         }),
       );
     }
@@ -46,13 +46,13 @@ const Sites: React.FC = () => {
     status: sites.dataStatus,
   }));
 
-  const { control, errors, handleSubmit } = useAppForm<SitesSearchRequestDto>({
+  const { control, errors, handleSubmit } = useAppForm<SitesFilterQueryDto>({
     defaultValues: { pattern: '' },
-    validationSchema: sitesSearchValidationSchema,
+    validationSchema: sitesFilterValidationSchema,
   });
 
   const onInputChange = useCallback(
-    async (data: SitesSearchRequestDto): Promise<void> => {
+    async (data: SitesFilterQueryDto): Promise<void> => {
       await dispatch(
         sitesActions.getSitesByProjectId({
           projectId: Number(projectId),
@@ -114,17 +114,18 @@ const Sites: React.FC = () => {
               </div>
               <h2>Landing</h2>
             </div>
-            <form className={styles['search-form']} onChange={handleFormChange}>
-              <div className={styles['search-input-wrapper']}>
-                <Input
-                  type="text"
-                  placeholder="Search"
-                  name="pattern"
-                  control={control}
-                  errors={errors}
-                  icon="loupe"
-                />
-              </div>
+            <form onChange={handleFormChange}>
+              <Input
+                label="search"
+                type="search"
+                placeholder="Search"
+                name="pattern"
+                control={control}
+                errors={errors}
+                className={styles['search-input']}
+                icon="loupe"
+                isLabelVisuallyHidden
+              />
             </form>
             <div className={styles['cards-wrapper']}>
               {sites.map((site) => (

@@ -17,7 +17,7 @@ import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteGetAllResponseDto,
-  type SitesSearchRequestDto,
+  type SitesFilterQueryDto,
 } from './libs/types/types.js';
 
 type Constructor = {
@@ -49,7 +49,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async findAllByProjectId(
     projectId: number,
-    parameters: SitesSearchRequestDto,
+    parameters: SitesFilterQueryDto,
   ): Promise<SiteGetAllResponseDto> {
     const sites = await this.siteRepository.findAllByProjectId(
       projectId,

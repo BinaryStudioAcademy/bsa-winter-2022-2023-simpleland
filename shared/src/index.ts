@@ -67,13 +67,13 @@ export {
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
-  type SitesSearchRequestDto,
+  type SitesFilterQueryDto,
   siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
   SitesApiPath,
-  sitesSearchValidationSchema,
+  sitesFilterValidationSchema,
 } from './packages/sites/sites.js';
 export {
   type UserAuthResponse,

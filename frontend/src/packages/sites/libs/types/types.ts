@@ -6,5 +6,5 @@ export {
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
-  type SitesSearchRequestDto,
+  type SitesFilterQueryDto,
 } from 'shared/build/index.js';

@@ -1,5 +1,5 @@
-type SitesSearchRequestDto = {
+type SitesFilterQueryDto = {
   pattern: string | null;
 };
 
-export { type SitesSearchRequestDto };
+export { type SitesFilterQueryDto };

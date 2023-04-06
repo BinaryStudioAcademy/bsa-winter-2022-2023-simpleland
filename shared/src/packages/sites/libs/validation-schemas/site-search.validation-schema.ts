@@ -1,8 +1,8 @@
 import joi from 'joi';
 
-import { type SitesSearchRequestDto } from '../types/types.js';
+import { type SitesFilterQueryDto } from '../types/types.js';
 
-const siteSearch = joi.object<SitesSearchRequestDto, true>({
+const siteSearch = joi.object<SitesFilterQueryDto, true>({
   pattern: joi.string().allow(null, ''),
 });
 

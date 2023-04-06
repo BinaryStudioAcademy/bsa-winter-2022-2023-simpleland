@@ -8,12 +8,12 @@ export {
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
-  type SitesSearchRequestDto,
+  type SitesFilterQueryDto,
 } from './libs/types/types.js';
 export {
   siteCreateStepIndustry as siteCreateStepIndustryValidationSchema,
   siteCreateStepName as siteCreateStepNameValidationSchema,
   siteCreate as siteCreateValidationSchema,
   siteGetByProjectParameters as siteGetByProjectValidationSchema,
-  siteSearch as sitesSearchValidationSchema,
+  siteSearch as sitesFilterValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

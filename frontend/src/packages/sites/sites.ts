@@ -23,5 +23,5 @@ export {
 export {
   siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
-  sitesSearchValidationSchema,
+  sitesFilterValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

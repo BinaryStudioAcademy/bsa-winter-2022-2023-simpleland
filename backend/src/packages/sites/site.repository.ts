@@ -2,7 +2,7 @@ import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteModel } from '~/packages/sites/site.model.js';
 
-import { type SitesSearchRequestDto } from './libs/types/types.js';
+import { type SitesFilterQueryDto } from './libs/types/types.js';
 
 class SiteRepository
   implements Omit<IRepository<SiteEntity>, 'find' | 'update' | 'delete'>
@@ -21,7 +21,7 @@ class SiteRepository
 
   public async findAllByProjectId(
     projectId: number,
-    { pattern }: SitesSearchRequestDto,
+    { pattern }: SitesFilterQueryDto,
   ): Promise<SiteEntity[]> {
     const sites = await this.siteModel
       .query()
@@ -46,15 +46,6 @@ class SiteRepository
 
     return SiteEntity.initialize(site);
   }
-
-  // private getWhereName =
-  //   (query: string | undefined) =>
-  //   (builder: QueryBuilder<>): void => {
-  //     if (query) {
-  //       return;
-  //     }
-  //     builder.where('name', 'ilike', `%${query}%`);
-  //   };
 }
 
 export { SiteRepository };

@@ -1,5 +1,5 @@
 export {
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
-  sitesSearchValidationSchema,
+  sitesFilterValidationSchema,
 } from 'shared/build/index.js';

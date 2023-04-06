@@ -13,12 +13,12 @@ import {
   type SiteCreateParametersDto,
   type SiteCreateRequestDto,
   type SiteGetByProjectParametersDto,
-  type SitesSearchRequestDto,
+  type SitesFilterQueryDto,
 } from './libs/types/types.js';
 import {
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
-  sitesSearchValidationSchema,
+  sitesFilterValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
 
 /**
@@ -73,13 +73,13 @@ class SiteController extends Controller {
       method: 'GET',
       validation: {
         params: siteGetByProjectValidationSchema,
-        query: sitesSearchValidationSchema,
+        query: sitesFilterValidationSchema,
       },
       handler: (options) =>
         this.findAllByProjectId(
           options as ApiHandlerOptions<{
             params: SiteGetByProjectParametersDto;
-            query: SitesSearchRequestDto;
+            query: SitesFilterQueryDto;
           }>,
         ),
     });
@@ -138,7 +138,7 @@ class SiteController extends Controller {
   private async findAllByProjectId(
     options: ApiHandlerOptions<{
       params: SiteGetByProjectParametersDto;
-      query: SitesSearchRequestDto;
+      query: SitesFilterQueryDto;
     }>,
   ): Promise<ApiHandlerResponse> {
     return {
