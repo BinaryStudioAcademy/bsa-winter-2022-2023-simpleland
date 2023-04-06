@@ -1,0 +1,39 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.buttons {
+  width: 28px;
+  padding: 10px;
+  background-color: var(--yellow);
+  border-radius: 50%;
+}
+
+.buttons svg path {
+  fill: var(--white);
+}
+
+.buttons[disabled] {
+  background-color: var(--gray-200);
+}
+
+.buttons[disabled] svg path {
+  fill: var(--gray-400);
+}
+
+.item-wrapper {
+  display: flex;
+  gap: 18px;
+}
+
+.item {
+  padding: 4px;
+  color: var(--gray-300);
+  background-color: transparent;
+}
+
+.item-yellow {
+  color: var(--yellow);
+}
