@@ -4,13 +4,18 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import ReactSelect, { components } from 'react-select';
+import ReactSelect from 'react-select';
 
-import { useCallback, useFormController } from '~/libs/hooks/hooks.js';
-import { type SelectOption } from '~/libs/types/types.js';
+import { Icon } from '~/libs/components/components.js';
+import {
+  useCallback,
+  useFormController,
+  useState,
+} from '~/libs/hooks/hooks.js';
+import { type IconType, type SelectOption } from '~/libs/types/types.js';
 
-import style from './select.module.scss';
-import { styles } from './styles.js';
+import { getStyles } from './styles.js';
+import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
   control: Control<T, null>;
@@ -19,8 +24,7 @@ type Properties<T extends FieldValues> = {
   placeholder?: string;
   errors: FieldErrors<T>;
   isMulti?: boolean;
-  hideSelectedOptions: boolean;
-  customComponents?: object;
+  icon?: IconType;
 };
 
 const Select = <T extends FieldValues>({
@@ -29,11 +33,28 @@ const Select = <T extends FieldValues>({
   options,
   placeholder,
   errors,
-  customComponents,
-  isMulti,
-  hideSelectedOptions,
+  isMulti = false,
+  icon,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
+
+  const [{ isMenuOpen, isOptionSelected }, setMenuState] = useState<{
+    isMenuOpen: boolean;
+    isOptionSelected: boolean;
+  }>({
+    isMenuOpen: false,
+    isOptionSelected: !!field.value,
+  });
+
+  const handleMenuOpenToggle = useCallback(
+    () =>
+      setMenuState((state) => ({ ...state, isMenuOpen: !state.isMenuOpen })),
+    [setMenuState],
+  );
+  const handleChooseMenuOption = useCallback(
+    () => setMenuState((state) => ({ ...state, isOptionSelected: true })),
+    [setMenuState],
+  );
 
   const handleSelectValue = (
     value: string | number | (string | number)[],
@@ -48,10 +69,6 @@ const Select = <T extends FieldValues>({
       : options.find((c) => c.value === value);
   };
 
-  const componentsToUse = customComponents
-    ? { ...components, ...customComponents }
-    : components;
-
   const handleChange = useCallback(
     (updatedOption: unknown): void => {
       const updatedValue = isMulti
@@ -65,8 +82,9 @@ const Select = <T extends FieldValues>({
         : (updatedOption as SelectOption<string | number>).value;
 
       field.onChange(updatedValue);
+      handleChooseMenuOption();
     },
-    [isMulti, field, options],
+    [isMulti, field, options, handleChooseMenuOption],
   );
 
   const error = errors[name]?.message;
@@ -74,20 +92,23 @@ const Select = <T extends FieldValues>({
 
   return (
     <div>
+      {icon && !isMenuOpen && !isOptionSelected && (
+        <Icon iconName={icon} className={styles['select-icon']} />
+      )}
       <ReactSelect
-        components={componentsToUse}
         defaultValue={handleSelectValue(field.value)}
         value={handleSelectValue(field.value)}
         onChange={handleChange}
         isMulti={isMulti}
-        hideSelectedOptions={hideSelectedOptions}
         classNamePrefix="react-select"
         options={options}
         placeholder={placeholder}
         name={name}
-        styles={styles}
+        onMenuOpen={handleMenuOpenToggle}
+        onMenuClose={handleMenuOpenToggle}
+        styles={getStyles({ hasIcon: !isMenuOpen && !isOptionSelected })}
       />
-      <span className={style['error-message']}>
+      <span className={styles['error-message']}>
         {hasError && (error as string)}
       </span>
     </div>

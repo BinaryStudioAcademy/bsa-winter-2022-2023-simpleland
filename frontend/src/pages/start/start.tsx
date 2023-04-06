@@ -16,6 +16,7 @@ import {
   IndustryForm,
   SiteNameForm,
   TargetAudienceForm,
+  VoiceToneForm,
 } from './libs/components/components.js';
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
@@ -24,6 +25,7 @@ const steps = [
   SiteNameForm,
   IndustryForm,
   TargetAudienceForm,
+  VoiceToneForm,
   FinalForm,
 ] as const;
 
