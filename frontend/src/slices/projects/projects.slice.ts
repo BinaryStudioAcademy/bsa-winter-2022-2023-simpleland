@@ -7,6 +7,7 @@ import { type ProjectGetAllItemResponseDto } from '~/packages/projects/projects.
 import {
   createProject,
   getUserProjects,
+  updateProject,
   uploadProjectImage,
 } from './actions.js';
 
@@ -46,6 +47,15 @@ const { reducer, actions, name } = createSlice({
       state.projects = state.projects.map((project) =>
         project.id === payload.id ? payload : project,
       );
+    });
+    builder.addCase(updateProject.fulfilled, (state, { payload }) => {
+      state.dataStatus = DataStatus.FULFILLED;
+      state.projects = state.projects.map((project) =>
+        project.id === payload.id ? payload : project,
+      );
+    });
+    builder.addCase(updateProject.rejected, (state) => {
+      state.dataStatus = DataStatus.REJECTED;
     });
   },
 });

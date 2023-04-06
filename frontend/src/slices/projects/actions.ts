@@ -6,6 +6,7 @@ import {
   type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectUpdateRequestDto,
   type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
 
@@ -57,4 +58,27 @@ const uploadProjectImage = createAsyncThunk<
   return await projectsApi.uploadProjectImage(projectId, formData);
 });
 
-export { createProject, getUserProjects, uploadProjectImage };
+const updateProject = createAsyncThunk<
+  ProjectGetAllItemResponseDto,
+  {
+    projectId: number;
+    payload: ProjectUpdateRequestDto & ProjectUploadImageDto;
+  },
+  AsyncThunkConfig
+>(`${sliceName}/update-project`, async (updateProjectPayload, { extra }) => {
+  const { projectsApi } = extra;
+
+  const { projectId, payload } = updateProjectPayload;
+
+  const { formData, ...updatedData } = payload;
+
+  const project = await projectsApi.updateProject(projectId, updatedData);
+
+  if (formData) {
+    return await projectsApi.uploadProjectImage(projectId, formData);
+  }
+
+  return project;
+});
+
+export { createProject, getUserProjects, updateProject, uploadProjectImage };
