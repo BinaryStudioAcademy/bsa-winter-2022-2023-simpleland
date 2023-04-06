@@ -69,7 +69,7 @@ class SiteController extends Controller {
     this.siteService = siteService;
 
     this.addRoute({
-      path: `${SitesApiPath.PROJECT_$PROJECT_ID}${SitesApiPath.ROOT}`,
+      path: SitesApiPath.PROJECT_$PROJECT_ID,
       method: 'GET',
       validation: {
         params: siteGetByProjectValidationSchema,
@@ -193,7 +193,7 @@ class SiteController extends Controller {
    * @swagger
    * /sites/{siteId}/sections:
    *   get:
-   *   description: Returns object with items property. Items - array of sections related to site
+   *     description: Returns object with items property. Items - array of sections related to site
    *     parameters:
    *       - in: path
    *         name: siteId
