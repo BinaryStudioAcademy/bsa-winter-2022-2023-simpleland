@@ -12,7 +12,7 @@ const ServiceCard: React.FC<Properties> = ({
   card: { title, picture, description },
 }: Properties) => {
   return (
-    <div className={styles['service-card']} key={title}>
+    <div className={styles['service-card']}>
       <div className={styles['service-card-icon-wrapper']}>
         <img src={picture} alt="icon" className={styles['service-card-icon']} />
       </div>
