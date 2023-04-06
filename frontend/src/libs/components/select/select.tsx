@@ -6,7 +6,7 @@ import {
 } from 'react-hook-form';
 import ReactSelect from 'react-select';
 
-import { Icon } from '~/libs/components/components.js';
+import { ErrorMessage, Icon } from '~/libs/components/components.js';
 import {
   useCallback,
   useFormController,
@@ -14,7 +14,6 @@ import {
 } from '~/libs/hooks/hooks.js';
 import { type IconType, type SelectOption } from '~/libs/types/types.js';
 
-import { ErrorMessage } from '../error-message/error-message.js';
 import { getStyles } from './styles.js';
 import styles from './styles.module.scss';
 

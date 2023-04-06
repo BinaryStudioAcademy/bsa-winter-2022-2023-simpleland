@@ -5,12 +5,11 @@ import {
   type FieldValues,
 } from 'react-hook-form';
 
-import { Icon } from '~/libs/components/components.js';
+import { ErrorMessage, Icon } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useFormController } from '~/libs/hooks/hooks.js';
 import { type IconType } from '~/libs/types/types.js';
 
-import { ErrorMessage } from '../error-message/error-message.js';
 import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
