@@ -4,17 +4,17 @@ import {
   SiteToneType,
 } from '~/packages/sites/sites.js';
 
-import { SiteToneTypeToReadable } from './site-tone-type-to-readable.enum.js';
+import { siteToneTypeToReadable } from './maps/maps.js';
 
 const OPTIONS: SelectOption<ValueOf<typeof SiteToneType>>[] = Object.values(
   SiteToneType,
 ).map((it) => ({
   value: it,
-  label: SiteToneTypeToReadable[it],
+  label: siteToneTypeToReadable[it],
 }));
 
-const defaultPayload: SiteCreateStepTone = {
+const DEFAULT_FORM_PAYLOAD: SiteCreateStepTone = {
   tone: SiteToneType.OFFICIAL,
 } as const;
 
-export { defaultPayload, OPTIONS };
+export { DEFAULT_FORM_PAYLOAD, OPTIONS };

@@ -5,7 +5,7 @@ import {
   siteCreateStepToneValidationSchema,
 } from '~/packages/sites/sites.js';
 
-import { defaultPayload, OPTIONS } from './libs/constants.js';
+import { DEFAULT_FORM_PAYLOAD, OPTIONS } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -14,7 +14,7 @@ type Properties = {
 
 const VoiceToneForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   const { control, errors, handleSubmit } = useAppForm({
-    defaultValues: defaultPayload,
+    defaultValues: DEFAULT_FORM_PAYLOAD,
     validationSchema: siteCreateStepToneValidationSchema,
   });
 
