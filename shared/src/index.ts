@@ -51,12 +51,15 @@ export {
 export {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SectionUpdateParametersDto,
+  type SectionUpdateRequestDto,
   type SiteAboutContent,
   type SiteFeedbackContent,
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
   type SitePortfolioContent,
+  SectionsApiPath,
   SectionType,
 } from './packages/sections/sections.js';
 export {
