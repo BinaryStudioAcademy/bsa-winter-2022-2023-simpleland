@@ -9,6 +9,8 @@ import {
   type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectUpdateRequestDto,
+  type ProjectUpdateResponseDto,
   type ProjectUploadImageParametersDto,
 } from './libs/types/types.js';
 
@@ -17,7 +19,7 @@ type Constructor = {
   file: File;
 };
 
-class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
+class ProjectService implements Omit<IService, 'find' | 'delete'> {
   private projectRepository: ProjectRepository;
 
   private file: File;
@@ -53,6 +55,24 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
       ProjectEntity.initializeNew({
         name: payload.name,
         userId: payload.userId,
+        category: payload.category,
+      }),
+    );
+
+    return project.toObject();
+  }
+
+  public async update(
+    id: number,
+    payload: ProjectUpdateRequestDto,
+  ): Promise<ProjectUpdateResponseDto> {
+    const project = await this.projectRepository.update(
+      ProjectEntity.initialize({
+        id,
+        name: payload.name,
+        userId: null,
+        avatarId: null,
+        avatarUrl: null,
         category: payload.category,
       }),
     );

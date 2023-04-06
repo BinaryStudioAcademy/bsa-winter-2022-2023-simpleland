@@ -4,9 +4,7 @@ import { type ProjectModel } from '~/packages/projects/project.model.js';
 
 import { type ProjectFilterQueryDto } from './libs/types/types.js';
 
-class ProjectRepository
-  implements Omit<IRepository, 'find' | 'update' | 'delete'>
-{
+class ProjectRepository implements Omit<IRepository, 'find' | 'delete'> {
   private projectModel: typeof ProjectModel;
 
   private defaultRelationExpression = 'avatar';
@@ -69,6 +67,27 @@ class ProjectRepository
       })
       .returning('*')
       .execute();
+
+    return ProjectEntity.initialize({
+      id: project.id,
+      name: project.name,
+      userId: project.userId,
+      avatarId: project.avatarId,
+      avatarUrl: project.avatar?.url ?? null,
+      category: project.category,
+    });
+  }
+
+  public async update(entity: ProjectEntity): Promise<ProjectEntity> {
+    const { id, name, category } = entity.toObject();
+
+    const project = await this.projectModel
+      .query()
+      .patchAndFetchById(id, {
+        name,
+        category,
+      })
+      .withGraphFetched(this.defaultRelationExpression);
 
     return ProjectEntity.initialize({
       id: project.id,

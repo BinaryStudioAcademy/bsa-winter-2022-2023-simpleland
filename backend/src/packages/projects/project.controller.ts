@@ -10,8 +10,10 @@ import { type ProjectService } from '~/packages/projects/project.service.js';
 import {
   type ProjectCreateRequestDto,
   type ProjectFilterQueryDto,
+  type ProjectUpdateRequestDto,
   projectCreateValidationSchema,
   projectFilterValidationSchema,
+  projectUpdateValidationSchema,
 } from '~/packages/projects/projects.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 
@@ -80,6 +82,19 @@ class ProjectController extends Controller {
           options as ApiHandlerOptions<{
             user: UserAuthResponse;
             body: ProjectCreateRequestDto;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: ProjectsApiPath.$PROJECT_ID,
+      method: 'PUT',
+      validation: { body: projectUpdateValidationSchema },
+      handler: (options) =>
+        this.update(
+          options as ApiHandlerOptions<{
+            params: { projectId: number };
+            body: ProjectUpdateRequestDto;
           }>,
         ),
     });
@@ -175,6 +190,45 @@ class ProjectController extends Controller {
         userId: options.user.id,
         category: options.body.category,
       }),
+    };
+  }
+
+  /**
+   * @swagger
+   * /projects/:projectId:
+   *    put:
+   *      description: Updating project name and category. Returning project
+   *      requestBody:
+   *        description: Project name and description
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                name: string;
+   *                category: string;
+   *      responses:
+   *        200:
+   *          description: Successful update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/Project'
+   */
+
+  private async update(
+    options: ApiHandlerOptions<{
+      params: { projectId: number };
+      body: ProjectUpdateRequestDto;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.projectService.update(
+        options.params.projectId,
+        options.body,
+      ),
     };
   }
 
