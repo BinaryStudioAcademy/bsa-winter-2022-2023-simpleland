@@ -4,7 +4,7 @@ const UserValidationMessage = {
   EMAIL_IS_INVALID: 'Incorrect email format',
   PASSWORD_IS_INVALID: 'Incorrect password',
   PASSWORD_REQUIRE: 'Password is required',
-  NEW_PASSWORD_IS_INVALID: 'Repeat password and new password must match',
+  NEW_PASSWORD_IS_INVALID: 'Repeat New password must match the New password',
   NEW_PASSWORD_CANNOT_BE_SAME_AS_OLD:
     'New password cannot be same as old password',
   FIRST_NAME_REQUIRE: 'First name is required',
@@ -12,7 +12,6 @@ const UserValidationMessage = {
   LAST_NAME_REQUIRE: 'Last name is required',
   LAST_NAME_IS_INVALID: 'Incorrect last name',
   ACCOUNT_NAME_IS_INVALID: 'Incorrect account name',
-  EMAIL_DO_NOT_MATCH: 'The email you entered do not match',
 } as const;
 
 export { UserValidationMessage };

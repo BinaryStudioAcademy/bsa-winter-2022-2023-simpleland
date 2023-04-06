@@ -12,6 +12,7 @@ import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteRepository } from '~/packages/sites/site.repository.js';
 
 import { PROMPT_HEADING } from './libs/constants/constants.js';
+import { SiteTargetType, SiteToneType } from './libs/enums/enums.js';
 import { SectionTypeToPrompt } from './libs/maps/maps.js';
 import {
   type SiteCreateRequestDto,
@@ -126,14 +127,11 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     type: ValueOf<typeof SectionType>,
     siteInfo: SiteCreateRequestDto,
   ): string {
-    const EXAMPLE_COMPANY_NAME = 'id Studio';
-    const EXAMPLE_INDUSTRY = 'interior design';
-    const EXAMPLE_TONE = 'official';
-
     const exampleSiteDescription = this.createSiteDescription({
-      name: EXAMPLE_COMPANY_NAME,
-      industry: EXAMPLE_INDUSTRY,
-      tone: EXAMPLE_TONE,
+      name: 'id Studio',
+      industry: 'interior design',
+      tone: SiteToneType.OFFICIAL,
+      targetAudience: SiteTargetType.YOUNG_ADULT,
     });
 
     const siteDescription = this.createSiteDescription(siteInfo);
@@ -156,15 +154,19 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   private createSiteDescription = ({
     name,
     industry,
+    tone,
+    targetAudience,
   }: SiteCreateRequestDto): string => {
-    return `Generate content for website with name ${name}. It is site for ${industry} company.`;
+    return `Generate content for a website with name ${name}. It is a site for a ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 
   private createSiteImagePrompt = ({
     name,
     industry,
+    tone,
+    targetAudience,
   }: SiteCreateRequestDto): string => {
-    return `Generate image for website with name ${name}. It is site for ${industry} company.`;
+    return `Generate content for a website with name ${name}. It is a site for ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 }
 

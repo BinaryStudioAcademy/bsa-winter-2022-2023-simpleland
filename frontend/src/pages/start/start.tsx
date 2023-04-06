@@ -1,7 +1,9 @@
 import { IconButton, PageLayout } from '~/libs/components/components.js';
+import { DataStatus } from '~/libs/enums/enums.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useAppDispatch,
+  useAppSelector,
   useCallback,
   useMemo,
   useParams,
@@ -15,13 +17,21 @@ import { actions as siteActions } from '~/slices/sites/sites.js';
 import {
   FinalForm,
   IndustryForm,
+  SiteCreationLoader,
   SiteNameForm,
+  TargetAudienceForm,
   VoiceToneForm,
 } from './libs/components/components.js';
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
 
-const steps = [SiteNameForm, IndustryForm, VoiceToneForm, FinalForm] as const;
+const steps = [
+  SiteNameForm,
+  IndustryForm,
+  TargetAudienceForm,
+  VoiceToneForm,
+  FinalForm,
+] as const;
 
 const Start: React.FC = () => {
   const { projectId } = useParams();
@@ -60,6 +70,10 @@ const Start: React.FC = () => {
     [dispatch, handleNextStep, isLastStep, projectId, sitePayload],
   );
 
+  const { creationStatus } = useAppSelector((state) => ({
+    creationStatus: state.sites.dataSiteStatus,
+  }));
+
   const CurrentForm = useMemo(
     () => steps[(currentStep - ONE_STEP_LENGTH) as 0],
     [currentStep],
@@ -70,6 +84,10 @@ const Start: React.FC = () => {
   const submitIconButton = useCallback(() => {
     return submitReference.current?.requestSubmit();
   }, []);
+
+  if (creationStatus === DataStatus.PENDING) {
+    return <SiteCreationLoader />;
+  }
 
   return (
     <PageLayout style="black" className={styles['layout']}>
