@@ -17,28 +17,9 @@
   flex-grow: 1;
   flex-direction: column;
   margin-top: 30px;
-  border-color: black;
 }
 
 .button {
   width: 152px;
   margin: auto auto 0;
-}
-
-.checkbox::before {
-  margin: -4px 9px 0 0;
-}
-
-.checkbox:checked::before {
-  display: inline-block;
-  width: 13px;
-  height: 13px;
-  color: var(--yellow);
-  font-size: 10px;
-  text-align: center;
-  vertical-align: middle;
-  background-color: var(--gray-600);
-  content: "\2714";
-  border-color: var(--gray-600);
-  border-radius: 2px;
 }
