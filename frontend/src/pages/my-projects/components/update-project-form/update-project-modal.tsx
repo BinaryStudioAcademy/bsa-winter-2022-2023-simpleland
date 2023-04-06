@@ -1,3 +1,4 @@
+import img from '~/assets/img/project-mock-image.jpg';
 import {
   Button,
   Image,
@@ -95,7 +96,7 @@ const UpdateProjectModal: React.FC<Properties> = ({
           <label className={styles['choose-image-wrapper']}>
             <Image
               className={styles['choose-image']}
-              src={String(image?.src ?? project.avatarUrl)}
+              src={String(image?.src ?? project.avatarUrl ?? img)}
               alt="project"
             />
             <input
