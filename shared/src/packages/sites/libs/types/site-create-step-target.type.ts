@@ -1,4 +1,7 @@
+import { type ValueOf } from '~/libs/types/value-of.type';
+import { type SiteTargetType } from '~/packages/sites/libs/enums/enums.js';
+
 type SiteCreateStepTarget = {
-  targetAudience: string[];
+  targetAudience: ValueOf<typeof SiteTargetType>;
 };
 export { type SiteCreateStepTarget };

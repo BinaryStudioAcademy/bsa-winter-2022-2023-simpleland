@@ -77,6 +77,7 @@ export {
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
   SitesApiPath,
+  SiteTargetType,
   SiteToneType,
 } from './packages/sites/sites.js';
 export {
