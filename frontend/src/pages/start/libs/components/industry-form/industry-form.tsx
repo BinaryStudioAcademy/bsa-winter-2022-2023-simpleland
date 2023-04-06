@@ -1,5 +1,3 @@
-import { type RefObject } from 'react';
-
 import { Button, Input } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
@@ -13,13 +11,9 @@ import styles from './styles.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateRequestDto>) => void;
-  submitRef: RefObject<HTMLFormElement>;
 };
 
-const IndustryForm: React.FC<Properties> = ({
-  onSubmit,
-  submitRef,
-}: Properties) => {
+const IndustryForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepIndustry>({
     defaultValues: DEFAULT_STEP_PAYLOAD,
     validationSchema: siteCreateStepIndustryValidationSchema,
@@ -36,11 +30,7 @@ const IndustryForm: React.FC<Properties> = ({
     <>
       <h2 className={styles['title']}>What is your industry?</h2>
       <div className={styles['subtitle']}>Just enter your it.</div>
-      <form
-        ref={submitRef}
-        className={styles['form']}
-        onSubmit={handleFormSubmit}
-      >
+      <form className={styles['form']} onSubmit={handleFormSubmit}>
         <Input
           type="text"
           label="Project industry"
