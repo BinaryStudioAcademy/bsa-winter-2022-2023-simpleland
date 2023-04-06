@@ -71,10 +71,24 @@ const AccountSettings: React.FC = () => {
           <div className={styles['container']}>
             <div className={styles['page-title']}>Account Settings</div>
             <div className={styles['page-nav']}>
-              <Link to={AppRoute.PROFILE} className={styles['profile-link']}>
+              <Link
+                to={AppRoute.PROFILE}
+                className={
+                  location.pathname === AppRoute.PROFILE
+                    ? styles['profile-link-active']
+                    : undefined
+                }
+              >
                 Profile
               </Link>
-              <Link to={AppRoute.LOGIN} className={styles['profile-link']}>
+              <Link
+                to={AppRoute.LOGIN}
+                className={
+                  location.pathname === AppRoute.LOGIN
+                    ? styles['profile-link-active']
+                    : undefined
+                }
+              >
                 Login
               </Link>
             </div>
