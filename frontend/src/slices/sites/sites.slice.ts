@@ -4,15 +4,17 @@ import { DataStatus } from '~/libs/enums/enums.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import { type SiteGetAllItemResponseDto } from '~/packages/sites/sites.js';
 
-import { getSitesByProjectId } from './actions.js';
+import { createSite, getSitesByProjectId } from './actions.js';
 
 type State = {
   dataStatus: ValueOf<typeof DataStatus>;
+  dataSiteStatus: ValueOf<typeof DataStatus>;
   sites: SiteGetAllItemResponseDto[];
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
+  dataSiteStatus: DataStatus.IDLE,
   sites: [],
 };
 
@@ -21,6 +23,15 @@ const { reducer, actions, name } = createSlice({
   name: 'sites',
   reducers: {},
   extraReducers(builder) {
+    builder.addCase(createSite.pending, (state) => {
+      state.dataSiteStatus = DataStatus.PENDING;
+    });
+    builder.addCase(createSite.fulfilled, (state) => {
+      state.dataSiteStatus = DataStatus.FULFILLED;
+    });
+    builder.addCase(createSite.rejected, (state) => {
+      state.dataSiteStatus = DataStatus.REJECTED;
+    });
     builder.addCase(getSitesByProjectId.pending, (state) => {
       state.dataStatus = DataStatus.PENDING;
     });
