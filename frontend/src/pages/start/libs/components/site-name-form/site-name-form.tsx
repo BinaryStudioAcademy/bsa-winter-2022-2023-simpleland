@@ -1,3 +1,5 @@
+import { type RefObject } from 'react';
+
 import { Button, Input } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
@@ -11,9 +13,13 @@ import styles from './styles.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateRequestDto>) => void;
+  submitRef: RefObject<HTMLFormElement>;
 };
 
-const SiteNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+const SiteNameForm: React.FC<Properties> = ({
+  onSubmit,
+  submitRef,
+}: Properties) => {
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepName>({
     defaultValues: DEFAULT_STEP_PAYLOAD,
     validationSchema: siteCreateStepNameValidationSchema,
@@ -32,7 +38,11 @@ const SiteNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
       <div className={styles['subtitle']}>
         Don&apos;t have one? Just enter your name.
       </div>
-      <form className={styles['form']} onSubmit={handleFormSubmit}>
+      <form
+        className={styles['form']}
+        onSubmit={handleFormSubmit}
+        ref={submitRef}
+      >
         <Input
           type="text"
           label="Project name"

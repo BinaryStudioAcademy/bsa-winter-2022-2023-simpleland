@@ -5,6 +5,7 @@ import {
   useCallback,
   useMemo,
   useParams,
+  useRef,
   useState,
   useStepper,
 } from '~/libs/hooks/hooks.js';
@@ -63,6 +64,12 @@ const Start: React.FC = () => {
     [currentStep],
   );
 
+  const submitReference = useRef<null | HTMLFormElement>(null);
+
+  const submitIconButton = useCallback(() => {
+    return submitReference.current?.requestSubmit();
+  }, []);
+
   return (
     <PageLayout style="black" className={styles['layout']}>
       <div className={styles['page-wrapper']}>
@@ -94,7 +101,7 @@ const Start: React.FC = () => {
                     <IconButton
                       icon="arrowRight"
                       label="Go to the next step"
-                      onClick={handleNextStep}
+                      onClick={submitIconButton}
                       isDisabled={isLastStep}
                     />
                   </div>
@@ -104,7 +111,10 @@ const Start: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <CurrentForm onSubmit={handleStepSubmit} />
+              <CurrentForm
+                onSubmit={handleStepSubmit}
+                submitRef={submitReference}
+              />
             </div>
           </div>
         </div>
