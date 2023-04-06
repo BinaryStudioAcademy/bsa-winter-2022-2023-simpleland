@@ -3,6 +3,7 @@ export {
   type SiteCreateResponseDto,
   type SiteCreateStepIndustry,
   type SiteCreateStepName,
+  type SiteCreateStepTarget,
   type SiteCreateStepTone,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,

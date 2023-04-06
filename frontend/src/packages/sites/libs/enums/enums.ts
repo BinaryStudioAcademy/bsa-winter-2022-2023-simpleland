@@ -1,1 +1,5 @@
-export { SitesApiPath, SiteToneType } from 'shared/build/index.js';
+export {
+  SitesApiPath,
+  SiteTargetType,
+  SiteToneType,
+} from 'shared/build/index.js';
