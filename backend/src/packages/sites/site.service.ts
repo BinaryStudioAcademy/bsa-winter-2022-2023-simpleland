@@ -1,5 +1,3 @@
-import { SiteTargetType } from 'shared/build/index.js';
-
 import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
@@ -14,6 +12,7 @@ import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteRepository } from '~/packages/sites/site.repository.js';
 
 import { PROMPT_HEADING } from './libs/constants/constants.js';
+import { SiteTargetType } from './libs/enums/enums.js';
 import { SectionTypeToPrompt } from './libs/maps/maps.js';
 import {
   type SiteCreateRequestDto,

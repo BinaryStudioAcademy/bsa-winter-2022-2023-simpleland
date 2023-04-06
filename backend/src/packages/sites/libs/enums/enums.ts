@@ -1,1 +1,1 @@
-export { SitesApiPath } from 'shared/build/index.js';
+export { SitesApiPath, SiteTargetType } from 'shared/build/index.js';
