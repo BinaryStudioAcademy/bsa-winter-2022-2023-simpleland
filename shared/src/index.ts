@@ -68,6 +68,7 @@ export {
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
   type SitesFilterQueryDto,
+  type SitesGetAllParametersDto,
   siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
   siteCreateValidationSchema,

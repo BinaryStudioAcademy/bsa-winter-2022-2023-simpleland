@@ -4,6 +4,7 @@ const SiteValidationMessage = {
   SITE_NAME_PATTERN: 'Incorrect project name',
   SITE_INDUSTRY_REQUIRE: 'Field is required',
   SITE_INDUSTRY_WRONG: 'Industry name is wrong',
+  FILTER_NAME_WRONG: 'The entered name is wrong',
 };
 
 export { SiteValidationMessage };
