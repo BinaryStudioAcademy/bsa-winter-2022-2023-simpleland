@@ -157,8 +157,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     tone,
     targetAudience,
   }: SiteCreateRequestDto): string => {
-    return `Generate content for a website with name ${name}. It is a site for a ${industry} company. The target audience is ${targetAudience}
-The tone and style should be ${tone}.`;
+    return `Generate content for a website with name ${name}. It is a site for a ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 
   private createSiteImagePrompt = ({
@@ -167,8 +166,7 @@ The tone and style should be ${tone}.`;
     tone,
     targetAudience,
   }: SiteCreateRequestDto): string => {
-    return `Generate content for a website with name ${name}. It is a site for ${industry} company. The target audience is ${targetAudience}
-The tone and style should be ${tone}.`;
+    return `Generate content for a website with name ${name}. It is a site for ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 }
 
