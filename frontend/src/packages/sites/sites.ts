@@ -19,6 +19,7 @@ export {
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
+  type SitesGetAllParametersDto,
 } from './libs/types/types.js';
 export {
   siteCreateStepIndustryValidationSchema,

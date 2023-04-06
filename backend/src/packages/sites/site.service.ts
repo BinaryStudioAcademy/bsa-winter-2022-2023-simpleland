@@ -49,11 +49,11 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async findAllByProjectId(
     projectId: number,
-    parameters: SitesFilterQueryDto,
+    queryParameters: SitesFilterQueryDto,
   ): Promise<SiteGetAllResponseDto> {
     const sites = await this.siteRepository.findAllByProjectId(
       projectId,
-      parameters,
+      queryParameters,
     );
 
     return {

@@ -21,14 +21,14 @@ class SiteRepository
 
   public async findAllByProjectId(
     projectId: number,
-    { pattern }: SitesFilterQueryDto,
+    { name }: SitesFilterQueryDto,
   ): Promise<SiteEntity[]> {
     const sites = await this.siteModel
       .query()
       .where({ projectId })
       .where((builder) => {
-        if (pattern) {
-          void builder.where('name', 'ilike', `%${pattern}%`);
+        if (name) {
+          void builder.where('name', 'ilike', `%${name}%`);
         }
       });
 
