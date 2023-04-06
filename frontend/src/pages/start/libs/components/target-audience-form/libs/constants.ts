@@ -1,16 +1,20 @@
-import { type SiteCreateStepTarget } from '~/packages/sites/sites.js';
+import { type SelectOption, type ValueOf } from '~/libs/types/types.js';
+import {
+  type SiteCreateStepTarget,
+  SiteTargetType,
+} from '~/packages/sites/sites.js';
+
+import { siteTargetTypeToReadable } from './maps/maps.js';
 
 const DEFAULT_STEP_TARGET_VALUE: SiteCreateStepTarget = {
-  targetAudience: [],
+  targetAudience: SiteTargetType.YOUNG_ADULT,
 };
 
-const options = [
-  { value: 'kids', label: 'Kids 8-14' },
-  { value: 'teenager', label: 'Teenager 14-18' },
-  { value: 'young-adult', label: 'Young adult 18-35' },
-  { value: 'adult', label: 'Adult 35-65' },
-  { value: 'elderly', label: 'Elderly 65-99' },
-];
+const OPTIONS: SelectOption<ValueOf<typeof SiteTargetType>>[] = Object.values(
+  SiteTargetType,
+).map((it) => ({
+  value: it,
+  label: siteTargetTypeToReadable[it],
+}));
 
-export { options };
-export { DEFAULT_STEP_TARGET_VALUE };
+export { DEFAULT_STEP_TARGET_VALUE, OPTIONS };

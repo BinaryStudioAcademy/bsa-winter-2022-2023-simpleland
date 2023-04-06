@@ -6,12 +6,10 @@ import {
   siteCreateStepTargetValidationSchema,
 } from '~/packages/sites/sites.js';
 
-import { DEFAULT_STEP_TARGET_VALUE, options } from './libs/constants.js';
+import { DEFAULT_STEP_TARGET_VALUE, OPTIONS } from './libs/constants.js';
 import style from './style.module.scss';
 
 type Properties = {
-  className?: string;
-  children?: React.ReactNode;
   onSubmit: (sitePayload: Partial<SiteCreateStepTarget>) => void;
 };
 
@@ -43,8 +41,7 @@ const TargetAudienceForm: React.FC<Properties> = ({
         <Select
           control={control}
           name="targetAudience"
-          isMulti
-          options={options}
+          options={OPTIONS}
           placeholder="Please select your industry"
           errors={errors}
         />
