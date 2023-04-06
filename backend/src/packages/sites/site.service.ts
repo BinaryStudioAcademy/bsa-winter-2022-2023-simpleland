@@ -133,10 +133,12 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   ): string {
     const EXAMPLE_COMPANY_NAME = 'id Studio';
     const EXAMPLE_INDUSTRY = 'interior design';
+    const EXAMPLE_TONE = 'official';
 
     const exampleSiteDescription = this.createSiteDescription({
       name: EXAMPLE_COMPANY_NAME,
       industry: EXAMPLE_INDUSTRY,
+      tone: EXAMPLE_TONE,
     });
 
     const siteDescription = this.createSiteDescription(siteInfo);
