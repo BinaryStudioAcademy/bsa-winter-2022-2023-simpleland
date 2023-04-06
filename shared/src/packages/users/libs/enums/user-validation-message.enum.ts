@@ -12,7 +12,6 @@ const UserValidationMessage = {
   LAST_NAME_REQUIRE: 'Last name is required',
   LAST_NAME_IS_INVALID: 'Incorrect last name',
   ACCOUNT_NAME_IS_INVALID: 'Incorrect account name',
-  EMAIL_DO_NOT_MATCH: 'The email you entered do not match',
 } as const;
 
 export { UserValidationMessage };

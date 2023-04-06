@@ -26,7 +26,6 @@ const UpdateLoginForm: React.FC<Properties> = ({
     useAppForm<UserUpdateLoginRequestDto>({
       defaultValues: {
         login: user.email,
-        repeatLogin: '',
       },
       validationSchema: userUpdateLoginValidationSchema,
     });
@@ -42,22 +41,13 @@ const UpdateLoginForm: React.FC<Properties> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <form className={styles['form-wrapper']} onSubmit={handleUpdateUserLogin}>
         <div className={styles['form-inner']}>
-          <span className={styles['form-title']}>Change login</span>
+          <div className={styles['form-title']}>Change login</div>
           <div className={styles['inputs']}>
             <Input
               type="email"
               label="E-mail"
               placeholder="name@gmail.com"
               name="login"
-              inputMode="email"
-              control={control}
-              errors={errors}
-            />
-            <Input
-              type="email"
-              label="Repeat e-mail"
-              placeholder="Enter your first name"
-              name="repeatLogin"
               inputMode="email"
               control={control}
               errors={errors}

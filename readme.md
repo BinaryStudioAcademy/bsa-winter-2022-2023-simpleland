@@ -103,6 +103,7 @@ erDiagram
     dateTime updated_at
     varchar name
     int user_id FK
+    enum category "'e-commercial' | 'business' | 'blog' | 'portfolio' | 'personal' | 'nonprofit'"
   }
 
   projects_sites }|--|| projects : project_id

@@ -25,6 +25,7 @@ class ProjectRepository
         userId: project.userId,
         avatarId: project.avatarId,
         avatarUrl: project.avatar?.url ?? null,
+        category: project.category,
       });
     });
   }
@@ -51,18 +52,20 @@ class ProjectRepository
         userId: project.userId,
         avatarId: project.avatarId,
         avatarUrl: project.avatar?.url ?? null,
+        category: project.category,
       });
     });
   }
 
   public async create(entity: ProjectEntity): Promise<ProjectEntity> {
-    const { name, userId } = entity.toNewObject();
+    const { name, userId, category } = entity.toNewObject();
 
     const project = await this.projectModel
       .query()
       .insert({
         name,
         userId,
+        category,
       })
       .returning('*')
       .execute();
@@ -73,6 +76,7 @@ class ProjectRepository
       userId: project.userId,
       avatarId: project.avatarId,
       avatarUrl: project.avatar?.url ?? null,
+      category: project.category,
     });
   }
 
@@ -90,6 +94,7 @@ class ProjectRepository
       userId: project.userId,
       avatarId: project.avatarId,
       avatarUrl: project.avatar?.url ?? null,
+      category: project.category,
     });
   }
 }

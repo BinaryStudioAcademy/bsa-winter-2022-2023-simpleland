@@ -1,0 +1,10 @@
+.error-message {
+  display: block;
+  min-height: 20px;
+}
+
+.select-icon {
+  position: absolute;
+  z-index: var(--z-index-level-one);
+  margin: 10px;
+}
