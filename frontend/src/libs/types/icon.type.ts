@@ -6,6 +6,7 @@ type IconType =
   | 'pencil'
   | 'search'
   | 'eye'
-  | 'eye-slash';
+  | 'eye-slash'
+  | 'loupe';
 
 export { type IconType };

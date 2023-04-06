@@ -27,7 +27,7 @@
 
 .main-description {
   margin-bottom: 55px;
-  color: #161616;
+  color: var(--site-text-color);
   font-size: 15px;
   line-height: 25px;
 }
@@ -35,13 +35,13 @@
 .main-button {
   width: 155px;
   height: 45px;
-  color: #161616;
+  color: var(--site-text-color);
   font-weight: 700;
   font-size: 15px;
   font-family: Gilroy, serif;
   line-height: 22px;
   background: transparent;
-  border: 2px solid #d3a265;
+  border: 2px solid var(--site-brown-color);
   border-radius: 7.5px;
   cursor: pointer;
 }

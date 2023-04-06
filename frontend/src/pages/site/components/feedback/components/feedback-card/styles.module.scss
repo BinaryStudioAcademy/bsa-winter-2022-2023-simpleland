@@ -38,7 +38,7 @@
 
 .feedback-card-person-name {
   margin-bottom: 7px;
-  color: #161616;
+  color: var(--site-text-color);
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
@@ -53,7 +53,7 @@
 
 .feedback-card-text {
   padding: 0 10px;
-  color: #161616;
+  color: var(--site-text-color);
   font-size: 15px;
   line-height: 25px;
 }
