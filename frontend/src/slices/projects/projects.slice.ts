@@ -13,11 +13,13 @@ import {
 type State = {
   dataStatus: ValueOf<typeof DataStatus>;
   projects: ProjectGetAllItemResponseDto[];
+  projectsCount: number;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   projects: [],
+  projectsCount: 0,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -38,6 +40,7 @@ const { reducer, actions, name } = createSlice({
     builder.addCase(getUserProjects.fulfilled, (state, action) => {
       state.dataStatus = DataStatus.FULFILLED;
       state.projects = action.payload.items;
+      state.projectsCount = action.payload.totalCount;
     });
     builder.addCase(getUserProjects.rejected, (state) => {
       state.dataStatus = DataStatus.REJECTED;

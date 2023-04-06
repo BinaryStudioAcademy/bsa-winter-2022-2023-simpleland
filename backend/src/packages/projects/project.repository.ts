@@ -31,7 +31,7 @@ class ProjectRepository
 
   public async findByUserId(
     id: number,
-    { name }: ProjectFilterQueryDto,
+    { name, page, limit }: ProjectFilterQueryDto,
   ): Promise<ProjectEntity[]> {
     const projects = await this.projectModel
       .query()
@@ -41,6 +41,9 @@ class ProjectRepository
           void builder.where('name', 'ilike', `%${name}%`);
         }
       })
+      .orderBy('name')
+      .offset((page - 1) * limit)
+      .limit(limit)
       .withGraphFetched(this.defaultRelationExpression)
       .execute();
 
@@ -53,6 +56,24 @@ class ProjectRepository
         avatarUrl: project.avatar?.url ?? null,
       });
     });
+  }
+
+  public async countByUserId(
+    id: number,
+    { name }: ProjectFilterQueryDto,
+  ): Promise<number> {
+    const projectsCount = await this.projectModel
+      .query()
+      .where('userId', id)
+      .andWhere((builder) => {
+        if (name) {
+          void builder.where('name', 'ilike', `%${name}%`);
+        }
+      })
+      .count()
+      .first();
+
+    return +(projectsCount?.count as number);
   }
 
   public async create(entity: ProjectEntity): Promise<ProjectEntity> {

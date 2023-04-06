@@ -32,6 +32,7 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
     return {
       items: items.map((project) => project.toObject()),
+      totalCount: items.length,
     };
   }
 
@@ -40,9 +41,14 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
     parameters: ProjectFilterQueryDto,
   ): Promise<ProjectGetAllResponseDto> {
     const items = await this.projectRepository.findByUserId(id, parameters);
+    const totalCount = await this.projectRepository.countByUserId(
+      id,
+      parameters,
+    );
 
     return {
       items: items.map((project) => project.toObject()),
+      totalCount: totalCount,
     };
   }
 

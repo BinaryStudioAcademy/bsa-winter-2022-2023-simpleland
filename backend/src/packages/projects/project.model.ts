@@ -16,6 +16,8 @@ class ProjectModel extends AbstractModel {
 
   public 'avatar': FileModel | null;
 
+  public 'count': number | null;
+
   public static override get tableName(): string {
     return DatabaseTableName.PROJECTS;
   }
