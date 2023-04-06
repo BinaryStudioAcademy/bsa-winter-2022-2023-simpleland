@@ -2,6 +2,7 @@ import joi from 'joi';
 
 import {
   type SiteCreateRequestDto,
+  SiteTargetType,
   SiteToneType,
 } from '~/packages/sites/sites.js';
 
@@ -11,6 +12,10 @@ const siteCreate = joi.object<SiteCreateRequestDto, true>({
   tone: joi
     .string()
     .valid(...Object.values(SiteToneType))
+    .required(),
+  targetAudience: joi
+    .string()
+    .valid(...Object.values(SiteTargetType))
     .required(),
 });
 
