@@ -108,8 +108,6 @@ class AuthController extends Controller {
    * /auth/sign-in:
    *    post:
    *      description: Sign in user into the system
-   *      security:
-   *        - bearerAuth: []
    *      requestBody:
    *        description: User auth data
    *        required: true
