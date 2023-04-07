@@ -8,10 +8,13 @@ import { SectionType } from './libs/enums/enums.js';
 import {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SectionUpdateParametersDto,
+  type SectionUpdateRequestDto,
   type SiteAboutContent,
   type SiteFeedbackContent,
   type SiteFooterContent,
   type SiteHeaderContent,
+  type SiteHeaderUpdateContentDto,
   type SiteMainContent,
   type SitePortfolioContent,
 } from './libs/types/types.js';
@@ -67,19 +70,38 @@ class SectionService
     return section.toObject();
   }
 
-  public async update(payload: {
-    id: number;
-    content: unknown;
-  }): Promise<SectionGetAllItemResponseDto> {
-    const section = await this.sectionRepository.update(
-      SectionEntity.initialize({
-        id: payload.id,
-        content: payload.content,
-        type: null,
-      }),
-    );
+  public async update(
+    payload: SectionUpdateParametersDto & SectionUpdateRequestDto,
+  ): Promise<SectionGetAllItemResponseDto | null> {
+    const id = Number(payload.id);
 
-    return section.toObject();
+    const entity = await this.sectionRepository.find(id);
+
+    if (!entity) {
+      return null;
+    }
+
+    const section = entity.toObject();
+
+    if (section.type !== payload.type) {
+      null;
+    }
+
+    if (payload.type === SectionType.HEADER) {
+      const content = section.content as SiteHeaderContent;
+      const { logo, phone } = payload.content as SiteHeaderUpdateContentDto;
+
+      content.logo = logo;
+      content.phone = phone;
+
+      const updatedSection = await this.sectionRepository.update(
+        SectionEntity.initialize({ id, content, type: null }),
+      );
+
+      return updatedSection.toObject();
+    }
+
+    return section;
   }
 
   private async createSectionContent<T extends ValueOf<typeof SectionType>>(

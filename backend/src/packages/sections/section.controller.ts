@@ -12,6 +12,7 @@ import {
   type SectionUpdateParametersDto,
   type SectionUpdateRequestDto,
 } from './libs/types/types.js';
+import { SectionUpdateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
 import { type SectionService } from './section.service.js';
 
 class SectionController extends Controller {
@@ -25,6 +26,7 @@ class SectionController extends Controller {
     this.addRoute({
       path: SectionsApiPath.$ID,
       method: 'PUT',
+      validation: { body: SectionUpdateValidationSchema },
       handler: (options) =>
         this.update(
           options as ApiHandlerOptions<{
@@ -45,8 +47,8 @@ class SectionController extends Controller {
     return {
       status: HttpCode.OK,
       payload: await this.sectionService.update({
-        id: Number(params.id),
-        content: body.content,
+        ...params,
+        ...body,
       }),
     };
   }

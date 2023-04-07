@@ -41,6 +41,16 @@ class SectionRepository
     return SectionEntity.initialize(section);
   }
 
+  public async find(id: number): Promise<SectionEntity | null> {
+    const section = await this.sectionModel.query().findById(id);
+
+    if (!section) {
+      return null;
+    }
+
+    return SectionEntity.initialize(section);
+  }
+
   public async update(entity: SectionEntity): Promise<SectionEntity> {
     const { id, content } = entity.toContentUpdate();
 
