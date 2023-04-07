@@ -71,6 +71,7 @@ export {
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
+  SiteCategoryType,
   siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
   siteCreateStepTargetValidationSchema,

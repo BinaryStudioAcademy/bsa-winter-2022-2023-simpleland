@@ -2,12 +2,18 @@ import joi from 'joi';
 
 import {
   type SiteCreateRequestDto,
+  SiteCategoryType,
   SiteTargetType,
   SiteToneType,
 } from '~/packages/sites/sites.js';
 
 const siteCreate = joi.object<SiteCreateRequestDto, true>({
   name: joi.string().required(),
+  category: joi
+    .string()
+    .trim()
+    .required()
+    .valid(...Object.values(SiteCategoryType)),
   industry: joi.string().required(),
   tone: joi
     .string()
