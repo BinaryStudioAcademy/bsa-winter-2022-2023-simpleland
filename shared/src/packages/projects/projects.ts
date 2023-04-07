@@ -5,13 +5,12 @@ export {
 } from './libs/enums/enums.js';
 export {
   type ProjectCreateDto,
-  type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllParametersDto,
   type ProjectGetAllResponseDto,
-  type ProjectUpdateRequestDto,
+  type ProjectRequestDto,
   type ProjectUpdateResponseDto,
   type ProjectUploadImageDto,
   type ProjectUploadImageParametersDto,

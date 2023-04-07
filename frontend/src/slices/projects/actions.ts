@@ -2,11 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/libs/types/async-thunk-config.type.js';
 import {
-  type ProjectCreateRequestDto,
   type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
-  type ProjectUpdateRequestDto,
+  type ProjectRequestDto,
   type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
 
@@ -14,7 +13,7 @@ import { name as sliceName } from './projects.slice.js';
 
 const createProject = createAsyncThunk<
   ProjectGetAllItemResponseDto,
-  ProjectCreateRequestDto & ProjectUploadImageDto,
+  ProjectRequestDto & ProjectUploadImageDto,
   AsyncThunkConfig
 >(`${sliceName}/create-project`, async (createProjectPayload, { extra }) => {
   const { projectsApi } = extra;
@@ -62,7 +61,7 @@ const updateProject = createAsyncThunk<
   ProjectGetAllItemResponseDto,
   {
     projectId: number;
-    payload: ProjectUpdateRequestDto & ProjectUploadImageDto;
+    payload: ProjectRequestDto & ProjectUploadImageDto;
   },
   AsyncThunkConfig
 >(`${sliceName}/update-project`, async (updateProjectPayload, { extra }) => {

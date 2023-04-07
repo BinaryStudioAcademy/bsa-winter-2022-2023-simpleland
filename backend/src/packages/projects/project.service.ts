@@ -9,7 +9,7 @@ import {
   type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
-  type ProjectUpdateRequestDto,
+  type ProjectRequestDto,
   type ProjectUpdateResponseDto,
   type ProjectUploadImageParametersDto,
 } from './libs/types/types.js';
@@ -64,7 +64,7 @@ class ProjectService implements Omit<IService, 'find' | 'delete'> {
 
   public async update(
     id: number,
-    payload: ProjectUpdateRequestDto,
+    payload: ProjectRequestDto,
   ): Promise<ProjectUpdateResponseDto> {
     const project = await this.projectRepository.update(
       ProjectEntity.initialize({

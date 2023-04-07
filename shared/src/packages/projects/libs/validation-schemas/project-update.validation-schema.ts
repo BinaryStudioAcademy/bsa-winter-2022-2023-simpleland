@@ -3,9 +3,9 @@ import joi from 'joi';
 import { ProjectCategory } from '~/packages/projects/libs/enums/enums.js';
 
 import { ProjectValidationMessage } from '../enums/enums.js';
-import { type ProjectUpdateRequestDto } from '../types/types.js';
+import { type ProjectRequestDto } from '../types/types.js';
 
-const projectUpdate = joi.object<ProjectUpdateRequestDto, true>({
+const projectUpdate = joi.object<ProjectRequestDto, true>({
   name: joi.string().trim().optional().messages({
     'string.name': ProjectValidationMessage.NAME_WRONG,
     'string.empty': ProjectValidationMessage.NAME_REQUIRE,
