@@ -5,6 +5,7 @@ import {
   useAppSelector,
   useEffect,
   useParams,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
 import {
   type SiteAboutContent,
@@ -31,6 +32,7 @@ import styles from './styles.module.scss';
 
 const Site: React.FC = () => {
   const dispatch = useAppDispatch();
+  useTitle('My site');
 
   const { sections, status } = useAppSelector((state) => ({
     sections: state.sections.sections,
