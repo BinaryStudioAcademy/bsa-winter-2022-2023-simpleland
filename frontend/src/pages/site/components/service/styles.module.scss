@@ -1,0 +1,46 @@
+.service {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--white);
+}
+
+.service-container {
+  width: 1085px;
+  padding-top: 55px;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+  color: var(--site-text-color);
+  font-size: 37px;
+  font-family: "BN Chester", sans-serif;
+  line-height: 36px;
+}
+
+.service-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.service-button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.service-button {
+  width: 206px;
+  height: 45px;
+  margin: 85px;
+  color: var(--site-text-color);
+  font-weight: 700;
+  font-size: 15px;
+  font-family: Gilroy, serif;
+  line-height: 22px;
+  background: transparent;
+  border: 2px solid var(--site-brown-color);
+  border-radius: 7.5px;
+  cursor: pointer;
+}
