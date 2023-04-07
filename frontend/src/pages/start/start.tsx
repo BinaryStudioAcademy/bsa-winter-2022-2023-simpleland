@@ -24,6 +24,11 @@ import {
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
 
+type CurrentFormProperties = {
+  onSubmit: (newSitePayload: Partial<SiteCreateRequestDto>) => void;
+  siteInfo: SiteCreateRequestDto;
+};
+
 const steps = [
   SiteNameForm,
   IndustryForm,
@@ -76,7 +81,7 @@ const Start: React.FC = () => {
   const CurrentForm = useMemo(
     () => steps[(currentStep - ONE_STEP_LENGTH) as 0],
     [currentStep],
-  );
+  ) as React.FC<CurrentFormProperties>;
 
   if (creationStatus === DataStatus.PENDING) {
     return <SiteCreationLoader />;
@@ -123,7 +128,7 @@ const Start: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <CurrentForm onSubmit={handleStepSubmit} />
+              <CurrentForm siteInfo={sitePayload} onSubmit={handleStepSubmit} />
             </div>
           </div>
         </div>
