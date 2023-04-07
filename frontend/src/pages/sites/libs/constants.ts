@@ -1,6 +1,6 @@
-import { type SitesGetAllParametersDto } from '~/packages/sites/sites.js';
+import { type SitesFilterQueryDto } from '~/packages/sites/sites.js';
 
-const DEFAULT_SITES_FILTER_PAYLOAD: SitesGetAllParametersDto = {
+const DEFAULT_SITES_FILTER_PAYLOAD: SitesFilterQueryDto = {
   name: '',
 };
 

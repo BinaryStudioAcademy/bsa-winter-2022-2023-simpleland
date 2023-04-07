@@ -1,28 +1,29 @@
-import React, { useCallback } from 'react';
-import { Link } from 'react-router-dom';
-
 import {
   Button,
   Icon,
   Input,
+  Link,
   Loader,
   PageLayout,
 } from '~/libs/components/components.js';
 import { AppRoute, DataStatus } from '~/libs/enums/enums.js';
 import { configureString, initDebounce } from '~/libs/helpers/helpers.js';
 import {
+  useAppDispatch,
   useAppForm,
   useAppSelector,
+  useCallback,
   useEffect,
   useParams,
 } from '~/libs/hooks/hooks.js';
-import { useAppDispatch } from '~/libs/hooks/use-app-dispatch/use-app-dispatch.hook.js';
 import { type ValueOf } from '~/libs/types/types.js';
-import { type SitesGetAllParametersDto } from '~/packages/sites/libs/types/types.js';
-import { sitesFilterValidationSchema } from '~/packages/sites/sites.js';
-import { SiteCard } from '~/pages/sites/components/components.js';
+import {
+  type SitesFilterQueryDto,
+  sitesFilterValidationSchema,
+} from '~/packages/sites/sites.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
+import { SiteCard } from './components/components.js';
 import { DEFAULT_SITES_FILTER_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
 
@@ -34,7 +35,7 @@ const Sites: React.FC = () => {
     if (projectId) {
       void dispatch(
         sitesActions.getSitesByProjectId({
-          projectId: Number(projectId),
+          parameters: { projectId: Number(projectId) },
           queryParameters: {
             name: '',
           },
@@ -48,17 +49,16 @@ const Sites: React.FC = () => {
     status: sites.dataStatus,
   }));
 
-  const { control, errors, handleSubmit } =
-    useAppForm<SitesGetAllParametersDto>({
-      defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
-      validationSchema: sitesFilterValidationSchema,
-    });
+  const { control, errors, handleSubmit } = useAppForm<SitesFilterQueryDto>({
+    defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
+    validationSchema: sitesFilterValidationSchema,
+  });
 
   const handleInputChange = useCallback(
-    async (data: SitesGetAllParametersDto): Promise<void> => {
+    async (data: SitesFilterQueryDto): Promise<void> => {
       await dispatch(
         sitesActions.getSitesByProjectId({
-          projectId: Number(projectId),
+          parameters: { projectId: Number(projectId) },
           queryParameters: data,
         }),
       );

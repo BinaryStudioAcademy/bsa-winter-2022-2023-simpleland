@@ -9,8 +9,7 @@ import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteGetAllResponseDto,
-  type SiteGetByProjectParametersDto,
-  type SitesFilterQueryDto,
+  type SitesGetByProjectIdRequestDto,
 } from './libs/types/types.js';
 
 type Constructor = {
@@ -46,28 +45,18 @@ class SitesApi extends HttpApi {
     return await response.json<SiteCreateResponseDto>();
   }
 
-  private isQueryParametersExist(
-    queryParameters: SitesFilterQueryDto,
-  ): boolean {
-    {
-      return Object.values(queryParameters).some((element) => element !== '');
-    }
-  }
-
   public async getByProjectId({
-    projectId,
+    parameters,
     queryParameters,
-  }: SiteGetByProjectParametersDto): Promise<SiteGetAllResponseDto> {
-    const searchParameters = this.isQueryParametersExist(queryParameters)
-      ? `?${new URLSearchParams(queryParameters).toString()}`
-      : '';
-
+  }: SitesGetByProjectIdRequestDto): Promise<SiteGetAllResponseDto> {
+    const searchParameters = new URLSearchParams(queryParameters).toString();
+    const { projectId } = parameters;
     const response = await this.load(
       this.getFullEndpoint(
         configureString(SitesApiPath.PROJECT_$PROJECT_ID, {
-          projectId: projectId.toString(),
+          projectId,
         }),
-        searchParameters,
+        `?${searchParameters}`,
         {},
       ),
       {

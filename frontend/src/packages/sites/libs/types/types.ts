@@ -7,7 +7,7 @@ export {
   type SiteCreateStepTone,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
-  type SiteGetByProjectParametersDto,
   type SitesFilterQueryDto,
-  type SitesGetAllParametersDto,
+  type SitesGetByProjectIdParametersDto,
+  type SitesGetByProjectIdRequestDto,
 } from 'shared/build/index.js';
