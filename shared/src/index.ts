@@ -47,6 +47,7 @@ export {
   type ProjectGetAllResponseDto,
   type ProjectUploadImageDto,
   type ProjectUploadImageParametersDto,
+  ProjectCategory,
   projectCreateValidationSchema,
   projectFilterValidationSchema,
   ProjectsApiPath,
@@ -60,6 +61,7 @@ export {
   type SiteHeaderContent,
   type SiteMainContent,
   type SitePortfolioContent,
+  type SiteServiceContent,
   SectionType,
 } from './packages/sections/sections.js';
 export {
@@ -68,14 +70,20 @@ export {
   type SiteCreateResponseDto,
   type SiteCreateStepIndustry,
   type SiteCreateStepName,
+  type SiteCreateStepTarget,
+  type SiteCreateStepTone,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
   siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
+  siteCreateStepTargetValidationSchema,
+  siteCreateStepToneValidationSchema,
   siteCreateValidationSchema,
   siteGetByProjectValidationSchema,
   SitesApiPath,
+  SiteTargetType,
+  SiteToneType,
 } from './packages/sites/sites.js';
 export {
   type SubscribeRequestDto,

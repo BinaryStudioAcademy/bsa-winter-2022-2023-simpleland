@@ -82,7 +82,7 @@ erDiagram
     dateTime created_at
     dateTime updated_at
     varchar name
-    enum type "'header' | 'footer' | 'main'| 'portfolio' | 'about' | 'feedback'"
+    enum type "'header' | 'footer' | 'main'| 'portfolio' | 'about' | 'feedback' | 'service'"
     jsonb content
   }
 
@@ -103,6 +103,7 @@ erDiagram
     dateTime updated_at
     varchar name
     int user_id FK
+    enum category "'e-commercial' | 'business' | 'blog' | 'portfolio' | 'personal' | 'nonprofit'"
   }
 
   projects_sites }|--|| projects : project_id

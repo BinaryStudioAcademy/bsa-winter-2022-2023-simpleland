@@ -1,10 +1,16 @@
-export { SitesApiPath } from './libs/enums/sites-api-path.enum.js';
+export {
+  SitesApiPath,
+  SiteTargetType,
+  SiteToneType,
+} from './libs/enums/enums.js';
 export {
   type SiteCreateParametersDto,
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteCreateStepIndustry,
   type SiteCreateStepName,
+  type SiteCreateStepTarget,
+  type SiteCreateStepTone,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SiteGetByProjectParametersDto,
@@ -12,6 +18,8 @@ export {
 export {
   siteCreateStepIndustry as siteCreateStepIndustryValidationSchema,
   siteCreateStepName as siteCreateStepNameValidationSchema,
+  siteCreateStepTarget as siteCreateStepTargetValidationSchema,
+  siteCreateStepTone as siteCreateStepToneValidationSchema,
   siteCreate as siteCreateValidationSchema,
   siteGetByProjectParameters as siteGetByProjectValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
