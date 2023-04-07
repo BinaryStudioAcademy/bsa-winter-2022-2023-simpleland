@@ -2,6 +2,7 @@ export { useAppDispatch } from './use-app-dispatch/use-app-dispatch.hook.js';
 export { useAppForm } from './use-app-form/use-app-form.hook.js';
 export { useAppSelector } from './use-app-selector/use-app-selector.hook.js';
 export { useStepper } from './use-app-stepper/use-app-stepper.hook.js';
+export { useTitle } from './use-app-title/use-app-title.hook.js';
 export { useModal } from './use-modal/use-modal.hook.js';
 export { usePagination } from './use-pagination/use-pagination.hook.js';
 export { useToggle } from './use-toggle/use-toggle.hook.js';

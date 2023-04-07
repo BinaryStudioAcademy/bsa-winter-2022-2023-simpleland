@@ -13,8 +13,10 @@ import {
   useAppSelector,
   useCallback,
   useEffect,
+  useMemo,
   usePagination,
   useState,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
 import {
   type ProjectCreateRequestDto,
@@ -32,6 +34,7 @@ const PAGE_DEFAULT = 1;
 
 const MyProjects: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const { page, handleChangePage } = usePagination({
     pageDefault: PAGE_DEFAULT,
   });
@@ -45,6 +48,7 @@ const MyProjects: React.FC = () => {
   }, []);
 
   const dispatch = useAppDispatch();
+  useTitle('My projects');
 
   useEffect((): void => {
     void dispatch(
@@ -81,6 +85,10 @@ const MyProjects: React.FC = () => {
     [dispatch, handleModalClose],
   );
 
+  const handleSearching = useCallback((value: string) => {
+    return setIsSearching(value.length > 0);
+  }, []);
+
   const handleSearch = useCallback(
     (data: ProjectGetAllParametersDto): void => {
       void dispatch(
@@ -90,13 +98,18 @@ const MyProjects: React.FC = () => {
           limit: PROJECTS_PER_PAGE,
         }),
       );
+      handleSearching(data.search);
     },
-    [dispatch, page],
+    [dispatch, page, handleSearching],
   );
 
   const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
     void handleSubmit(handleSearch)(event_);
   });
+
+  const isProjectShow = useMemo(() => {
+    return hasProjects || isSearching;
+  }, [hasProjects, isSearching]);
 
   if (status === DataStatus.PENDING) {
     return (
@@ -109,12 +122,11 @@ const MyProjects: React.FC = () => {
   return (
     <>
       <PageLayout
-        pageName="My Projects"
-        style={hasProjects ? 'white' : 'black'}
+        style={isProjectShow ? 'white' : 'black'}
         className={styles['page-layout']}
       >
         <div className={styles['page-wrapper']}>
-          {hasProjects ? (
+          {isProjectShow ? (
             <>
               <div>
                 <div className={styles['search-wrapper']}>
