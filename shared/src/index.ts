@@ -57,10 +57,12 @@ export {
   type SiteFeedbackContent,
   type SiteFooterContent,
   type SiteHeaderContent,
+  type SiteHeaderUpdateContentDto,
   type SiteMainContent,
   type SitePortfolioContent,
   SectionsApiPath,
   SectionType,
+  siteHeaderUpdateContentValidationSchema,
 } from './packages/sections/sections.js';
 export {
   type SiteCreateParametersDto,
