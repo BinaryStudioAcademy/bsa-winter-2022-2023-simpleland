@@ -34,7 +34,7 @@ const PAGE_DEFAULT = 1;
 
 const MyProjects: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
+  const [searchName, setSearchName] = useState('');
   const { page, handleChangePage } = usePagination({
     pageDefault: PAGE_DEFAULT,
   });
@@ -53,12 +53,12 @@ const MyProjects: React.FC = () => {
   useEffect((): void => {
     void dispatch(
       projectActions.getUserProjects({
-        name: '',
+        name: searchName,
         page,
         limit: PROJECTS_PER_PAGE,
       }),
     );
-  }, [dispatch, page]);
+  }, [dispatch, page, searchName]);
 
   const { projects, status, projectsCount } = useAppSelector((state) => ({
     projectsCount: state.projects.projectsCount,
@@ -85,22 +85,12 @@ const MyProjects: React.FC = () => {
     [dispatch, handleModalClose],
   );
 
-  const handleSearching = useCallback((value: string) => {
-    return setIsSearching(value.length > 0);
-  }, []);
-
   const handleSearch = useCallback(
     (data: ProjectGetAllParametersDto): void => {
-      void dispatch(
-        projectActions.getUserProjects({
-          name: data.search,
-          page,
-          limit: PROJECTS_PER_PAGE,
-        }),
-      );
-      handleSearching(data.search);
+      setSearchName(data.search);
+      handleChangePage(PAGE_DEFAULT);
     },
-    [dispatch, page, handleSearching],
+    [handleChangePage],
   );
 
   const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
@@ -108,8 +98,8 @@ const MyProjects: React.FC = () => {
   });
 
   const isProjectShow = useMemo(() => {
-    return hasProjects || isSearching;
-  }, [hasProjects, isSearching]);
+    return hasProjects || searchName.length > 0;
+  }, [hasProjects, searchName]);
 
   if (status === DataStatus.PENDING) {
     return (
