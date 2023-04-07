@@ -1,3 +1,5 @@
+import { type RefObject } from 'react';
+
 import { Button, Select } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
@@ -10,10 +12,12 @@ import styles from './style.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateStepTarget>) => void;
+  submitRef: RefObject<HTMLFormElement>;
 };
 
 const TargetAudienceForm: React.FC<Properties> = ({
   onSubmit,
+  submitRef,
 }: Properties): JSX.Element => {
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepTarget>({
     defaultValues: DEFAULT_STEP_TARGET_VALUE,
@@ -32,7 +36,11 @@ const TargetAudienceForm: React.FC<Properties> = ({
     <>
       <h2 className={styles['title']}>What is your Target audience?</h2>
       <div className={styles['subtitle']}>Choose the age</div>
-      <form className={styles['form']} onSubmit={handleFormSubmit}>
+      <form
+        className={styles['form']}
+        onSubmit={handleFormSubmit}
+        ref={submitRef}
+      >
         <Select
           control={control}
           name="targetAudience"

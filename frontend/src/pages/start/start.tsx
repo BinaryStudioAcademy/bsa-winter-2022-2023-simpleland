@@ -79,10 +79,10 @@ const Start: React.FC = () => {
     [currentStep],
   );
 
-  const submitReference = useRef<null | HTMLFormElement>(null);
+  const handleSubmitReference = useRef<null | HTMLFormElement>(null);
 
-  const submitIconButton = useCallback(() => {
-    return submitReference.current?.requestSubmit();
+  const handleSubmitIconButton = useCallback(() => {
+    return handleSubmitReference.current?.requestSubmit();
   }, []);
 
   if (creationStatus === DataStatus.PENDING) {
@@ -120,7 +120,7 @@ const Start: React.FC = () => {
                     <IconButton
                       icon="arrowRight"
                       label="Go to the next step"
-                      onClick={submitIconButton}
+                      onClick={handleSubmitIconButton}
                       isDisabled={isLastStep}
                     />
                   </div>
@@ -132,7 +132,7 @@ const Start: React.FC = () => {
               </div>
               <CurrentForm
                 onSubmit={handleStepSubmit}
-                submitRef={submitReference}
+                submitRef={handleSubmitReference}
               />
             </div>
           </div>

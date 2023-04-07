@@ -1,3 +1,5 @@
+import { type RefObject } from 'react';
+
 import { Button, Select } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
@@ -10,9 +12,13 @@ import styles from './styles.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateStepTone>) => void;
+  submitRef: RefObject<HTMLFormElement>;
 };
 
-const VoiceToneForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+const VoiceToneForm: React.FC<Properties> = ({
+  onSubmit,
+  submitRef,
+}: Properties) => {
   const { control, errors, handleSubmit } = useAppForm({
     defaultValues: DEFAULT_FORM_PAYLOAD,
     validationSchema: siteCreateStepToneValidationSchema,
@@ -29,7 +35,11 @@ const VoiceToneForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
     <>
       <h2 className={styles['title']}>What is your tone of voice?</h2>
       <div className={styles['subtitle']}>Choose the type</div>
-      <form className={styles['form']} onSubmit={handleFormSubmit}>
+      <form
+        ref={submitRef}
+        className={styles['form']}
+        onSubmit={handleFormSubmit}
+      >
         <Select
           name="tone"
           placeholder="Please select your tone"
