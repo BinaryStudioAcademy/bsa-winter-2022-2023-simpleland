@@ -5,7 +5,6 @@ import { useCallback, useMemo } from '~/libs/hooks/hooks.js';
 import styles from './styles.module.scss';
 
 const ONE_STEP_LENGTH = 1;
-const MAX_VISIBLE_PAGES = 3;
 const FIRST_PAGE = 1;
 
 type Properties = {
@@ -45,31 +44,36 @@ const Pagination: React.FC<Properties> = ({
   }, [count, rowsPerPage]);
 
   const visiblePages = useMemo(() => {
-    const pages = [];
-    for (let page = currentPage; page <= totalPages; page++) {
-      if (pages.length === 0) {
-        if (page === FIRST_PAGE) {
-          pages.push(page);
-        } else if (page === totalPages) {
-          if (page === FIRST_PAGE + ONE_STEP_LENGTH) {
-            pages.push(page - ONE_STEP_LENGTH, page);
-          } else {
-            pages.push(
-              page - 2 * ONE_STEP_LENGTH,
-              page - ONE_STEP_LENGTH,
-              page,
-            );
-          }
-        } else {
-          pages.push(page - ONE_STEP_LENGTH, page);
-        }
-        continue;
-      }
+    let pages;
 
-      if (pages.length === MAX_VISIBLE_PAGES) {
+    switch (currentPage) {
+      case FIRST_PAGE: {
+        pages = [
+          currentPage,
+          currentPage + ONE_STEP_LENGTH,
+          currentPage + 2 * ONE_STEP_LENGTH,
+        ];
         break;
       }
-      pages.push(page);
+      case totalPages: {
+        pages = [
+          currentPage - 2 * ONE_STEP_LENGTH,
+          currentPage - ONE_STEP_LENGTH,
+          currentPage,
+        ];
+        break;
+      }
+      default: {
+        pages = [
+          currentPage - ONE_STEP_LENGTH,
+          currentPage,
+          currentPage + ONE_STEP_LENGTH,
+        ];
+      }
+    }
+
+    if (pages.length > totalPages) {
+      pages = pages.filter((page) => page >= FIRST_PAGE && page <= totalPages);
     }
 
     return pages;
