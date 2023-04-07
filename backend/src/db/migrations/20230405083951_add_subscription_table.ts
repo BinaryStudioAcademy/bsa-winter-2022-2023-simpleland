@@ -4,7 +4,7 @@ const TABLE_NAME = 'subscriptions';
 
 const ColumnName = {
   ID: 'id',
-  SUBSCRIPTION_END: 'subscription_end',
+  END_DATE: 'end_date',
   CREATED_AT: 'created_at',
   UPDATED_AT: 'updated_at',
 };
@@ -12,7 +12,7 @@ const ColumnName = {
 function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(TABLE_NAME, (table) => {
     table.increments(ColumnName.ID).primary();
-    table.dateTime(ColumnName.SUBSCRIPTION_END).notNullable();
+    table.dateTime(ColumnName.END_DATE).notNullable();
     table
       .dateTime(ColumnName.CREATED_AT)
       .notNullable()

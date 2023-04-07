@@ -4,7 +4,7 @@ import {
 } from '~/libs/packages/database/database.js';
 
 class SubscriptionModel extends AbstractModel {
-  public 'subscriptionEnd': string;
+  public 'endDate': string;
 
   public static override get tableName(): string {
     return DatabaseTableName.SUBSCRIPTION;

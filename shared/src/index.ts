@@ -14,6 +14,10 @@ export {
   initAsyncItemsQueue,
   initDebounce,
 } from './libs/helpers/helpers.js';
+export {
+  CURRENCY,
+  MULTIPLIER_TO_SMALLEST_CURRENCY_UNIT,
+} from './libs/packages/billing/billing.js';
 export { type IConfig } from './libs/packages/config/config.js';
 export { FormDataKey } from './libs/packages/file/file.js';
 export {

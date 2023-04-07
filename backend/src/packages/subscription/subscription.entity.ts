@@ -3,58 +3,52 @@ import { type IEntity } from '~/libs/interfaces/interfaces.js';
 class SubscriptionEntity implements Omit<IEntity, 'toObject'> {
   private 'id': number | null;
 
-  private subscriptionEnd: string;
+  private 'endDate': string;
 
-  private constructor({
-    id,
-    subscriptionEnd,
-  }: {
-    id: number | null;
-    subscriptionEnd: string;
-  }) {
+  private constructor({ id, endDate }: { id: number | null; endDate: string }) {
     this.id = id;
-    this.subscriptionEnd = subscriptionEnd;
+    this.endDate = endDate;
   }
 
   public static initialize({
     id,
-    subscriptionEnd,
+    endDate,
   }: {
     id: number;
-    subscriptionEnd: string;
+    endDate: string;
   }): SubscriptionEntity {
     return new SubscriptionEntity({
       id,
-      subscriptionEnd,
+      endDate,
     });
   }
 
   public static initializeNew({
-    subscriptionEnd,
+    endDate,
   }: {
-    subscriptionEnd: string;
+    endDate: string;
   }): SubscriptionEntity {
     return new SubscriptionEntity({
       id: null,
-      subscriptionEnd,
+      endDate,
     });
   }
 
   public toObject(): {
     id: number;
-    subscriptionEnd: string;
+    endDate: string;
   } {
     return {
       id: this.id as number,
-      subscriptionEnd: this.subscriptionEnd,
+      endDate: this.endDate,
     };
   }
 
   public toNewObject(): {
-    subscriptionEnd: string;
+    endDate: string;
   } {
     return {
-      subscriptionEnd: this.subscriptionEnd,
+      endDate: this.endDate,
     };
   }
 }
