@@ -6,6 +6,7 @@ import {
   useAppSelector,
   useCallback,
   useLocation,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
 import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
@@ -22,6 +23,7 @@ const AccountSettings: React.FC = () => {
     return auth.user as UserAuthResponse;
   });
   const dispatch = useAppDispatch();
+  useTitle('Settings');
 
   const handleUpdateUser = useCallback(
     (payload: UserUpdateRequestDto): void => {
@@ -65,7 +67,7 @@ const AccountSettings: React.FC = () => {
 
   return (
     <>
-      <Header user={user} pageName="Account Settings" />
+      <Header user={user} />
       <div className={styles['page']}>
         <div className={styles['page-heading']}>
           <div className={styles['container']}>
