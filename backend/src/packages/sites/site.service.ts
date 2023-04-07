@@ -12,7 +12,11 @@ import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteRepository } from '~/packages/sites/site.repository.js';
 
 import { PROMPT_HEADING } from './libs/constants/constants.js';
-import { SiteTargetType, SiteToneType } from './libs/enums/enums.js';
+import {
+  SiteCategoryType,
+  SiteTargetType,
+  SiteToneType,
+} from './libs/enums/enums.js';
 import { SectionTypeToPrompt } from './libs/maps/maps.js';
 import {
   type SiteCreateRequestDto,
@@ -134,6 +138,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   ): string {
     const exampleSiteDescription = this.createSiteDescription({
       name: 'id Studio',
+      category: SiteCategoryType.BUSINESS,
       industry: 'interior design',
       tone: SiteToneType.OFFICIAL,
       targetAudience: SiteTargetType.YOUNG_ADULT,
@@ -158,20 +163,22 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   private createSiteDescription = ({
     name,
+    category,
     industry,
     tone,
     targetAudience,
   }: SiteCreateRequestDto): string => {
-    return `Generate content for a website with name ${name}. It is a site for a ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
+    return `Generate content for a website with name ${name} and category ${category}. It is a site for a ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 
   private createSiteImagePrompt = ({
     name,
+    category,
     industry,
     tone,
     targetAudience,
   }: SiteCreateRequestDto): string => {
-    return `Generate content for a website with name ${name}. It is a site for ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
+    return `Generate content for a website with name ${name} and category ${category}. It is a site for ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 }
 
