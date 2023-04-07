@@ -4,4 +4,4 @@ export { siteCreateStepName } from './site-create-step-name.validation-schema.js
 export { siteCreateStepTarget } from './site-create-step-target.validation-schema.js';
 export { siteCreateStepTone } from './site-create-step-tone.validation-schema.js';
 export { siteFilter } from './site-filter.validation-schema.js';
-export { siteGetByProjectParameters } from './site-get-by-project.validation-schema.js';
+export { sitesGetByProjectIdParameters } from './site-get-by-project-id-parameters.validation-schema.js';

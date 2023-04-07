@@ -13,9 +13,9 @@ export {
   type SiteCreateStepTone,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
-  type SiteGetByProjectParametersDto,
   type SitesFilterQueryDto,
-  type SitesGetAllParametersDto,
+  type SitesGetByProjectIdParametersDto,
+  type SitesGetByProjectIdRequestDto,
 } from './libs/types/types.js';
 export {
   siteCreateStepIndustry as siteCreateStepIndustryValidationSchema,
@@ -23,6 +23,6 @@ export {
   siteCreateStepTarget as siteCreateStepTargetValidationSchema,
   siteCreateStepTone as siteCreateStepToneValidationSchema,
   siteCreate as siteCreateValidationSchema,
-  siteGetByProjectParameters as siteGetByProjectValidationSchema,
+  sitesGetByProjectIdParameters as siteGetByProjectIdValidationSchema,
   siteFilter as sitesFilterValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
