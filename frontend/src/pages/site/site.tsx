@@ -13,6 +13,7 @@ import {
   type SiteHeaderContent,
   type SiteMainContent,
   type SitePortfolioContent,
+  type SiteServiceContent,
   SectionType,
 } from '~/packages/sections/sections.js';
 import { actions as sectionsActions } from '~/slices/sections/sections.js';
@@ -24,6 +25,7 @@ import {
   Header,
   Main,
   Portfolio,
+  Service,
 } from './components/components.js';
 import styles from './styles.module.scss';
 
@@ -73,6 +75,9 @@ const Site: React.FC = () => {
           return (
             <Feedback content={content as SiteFeedbackContent} key={type} />
           );
+        }
+        case SectionType.SERVICE: {
+          return <Service content={content as SiteServiceContent} key={type} />;
         }
       }
     });
