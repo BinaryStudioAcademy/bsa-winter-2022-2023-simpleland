@@ -10,10 +10,9 @@ import styles from './styles.module.scss';
 
 type Properties = {
   user: UserAuthResponse;
-  pageName?: string;
 };
 
-const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
+const Header: React.FC<Properties> = ({ user }: Properties) => {
   const { firstName, lastName, accountName, avatarUrl } = user;
   const profileName = accountName?.length
     ? accountName
@@ -34,7 +33,9 @@ const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
       <div className={styles['header-sidebar']}>
         <ul className={styles['header-nav-list']}>
           <li>
-            <span className={styles['section-title']}>{pageName}</span>
+            <Link to={AppRoute.MY_PROJECTS}>
+              <span className={styles['section-title']}>My projects</span>
+            </Link>
           </li>
         </ul>
         <Popover

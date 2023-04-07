@@ -6,6 +6,7 @@ import {
   useAppSelector,
   useEffect,
   useParams,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
@@ -16,6 +17,7 @@ import styles from './styles.module.scss';
 const Sites: React.FC = () => {
   const { projectId } = useParams();
   const dispatch = useAppDispatch();
+  useTitle('My sites');
 
   useEffect((): void => {
     if (projectId) {
@@ -48,7 +50,6 @@ const Sites: React.FC = () => {
 
   return (
     <PageLayout
-      pageName="My Sites"
       style={hasSites ? 'white' : 'black'}
       className={styles['page-layout']}
     >

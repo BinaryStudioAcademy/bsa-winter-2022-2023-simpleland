@@ -35,15 +35,17 @@ import {
  *          email:
  *            type: string
  *            format: email
- *          firstName: string;
- *          lastName: string;
+ *          firstName:
+ *             type: string
+ *          lastName:
+ *              type: string
  *          accountName:
- *            type: string;
- *            nullable: true;
+ *            type: string
+ *            nullable: true
  *          avatarUrl:
- *            type: string;
- *            format: uri;
- *            nullable: true;
+ *            type: string
+ *            format: uri
+ *            nullable: true
  */
 class UserController extends Controller {
   private userService: UserService;
@@ -146,9 +148,12 @@ class UserController extends Controller {
    *            schema:
    *              type: object
    *              properties:
-   *                firstName: string;
-   *                lastName: string;
-   *                accountName: string;
+   *                firstName:
+   *                  type: string
+   *                lastName:
+   *                  type: string
+   *                accountName:
+   *                  type: string
    *      responses:
    *        200:
    *          description: Successful update
@@ -182,8 +187,10 @@ class UserController extends Controller {
    *            schema:
    *              type: object
    *              properties:
-   *                password: string;
-   *                newPassword: string;
+   *                password:
+   *                  type: string
+   *                newPassword:
+   *                   type: string
    *      responses:
    *        200:
    *          description: Successful update
@@ -220,8 +227,10 @@ class UserController extends Controller {
    *            schema:
    *              type: object
    *              properties:
-   *                login: string;
-   *                repeatLogin: string;
+   *                login:
+   *                  type: string
+   *                repeatLogin:
+   *                   type: string
    *      responses:
    *        200:
    *          description: Successful update
