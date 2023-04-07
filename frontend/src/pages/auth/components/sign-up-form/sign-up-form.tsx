@@ -5,7 +5,12 @@ import {
   Link,
 } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum.js';
-import { useAppForm, useCallback, useTitle, useToggle } from '~/libs/hooks/hooks.js';
+import {
+  useAppForm,
+  useCallback,
+  useTitle,
+  useToggle,
+} from '~/libs/hooks/hooks.js';
 import {
   type UserSignUpRequestDto,
   userSignUpValidationSchema,
