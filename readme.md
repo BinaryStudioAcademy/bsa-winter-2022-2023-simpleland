@@ -64,7 +64,7 @@ erDiagram
     varchar first_name
     varchar last_name
     varchar account_name "may be null if user didn't provide account name"
-    int subscription_id FK
+    int subscription_id FK "may be null if user don't have active subscription"
     int avatar_id FK "may be null if user didn't upload avatar"
   }
 
@@ -82,7 +82,7 @@ erDiagram
     dateTime created_at
     dateTime updated_at
     varchar name
-    enum type "'header' | 'footer' | 'main'| 'portfolio' | 'about' | 'feedback'"
+    enum type "'header' | 'footer' | 'main'| 'portfolio' | 'about' | 'feedback' | 'service'"
     jsonb content
   }
 
@@ -103,6 +103,7 @@ erDiagram
     dateTime updated_at
     varchar name
     int user_id FK
+    enum category "'e-commercial' | 'business' | 'blog' | 'portfolio' | 'personal' | 'nonprofit'"
   }
 
   projects_sites }|--|| projects : project_id
@@ -119,8 +120,7 @@ erDiagram
     int id PK
     dateTime created_at
     dateTime updated_at
-    varchar name
-    float price "would be null for free plan?"
+    dateTime end_date
   }
 
   files {

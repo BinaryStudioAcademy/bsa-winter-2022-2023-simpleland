@@ -101,7 +101,7 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         avatarId: null,
         avatarUrl: null,
         subscriptionId: null,
-        subscriptionEnd: null,
+        subscriptionEndDate: null,
       }),
     );
 
@@ -143,7 +143,7 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         avatarId: null,
         avatarUrl: null,
         subscriptionId: null,
-        subscriptionEnd: null,
+        subscriptionEndDate: null,
       }),
     );
 
@@ -174,7 +174,7 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         avatarId: null,
         avatarUrl: null,
         subscriptionId: null,
-        subscriptionEnd: null,
+        subscriptionEndDate: null,
       }),
     );
 
@@ -209,7 +209,7 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         passwordSalt: null,
         avatarUrl: null,
         subscriptionId: null,
-        subscriptionEnd: null,
+        subscriptionEndDate: null,
       }),
     );
 
@@ -235,7 +235,7 @@ class UserService implements Omit<IService, 'find' | 'delete'> {
         passwordHash: null,
         passwordSalt: null,
         avatarUrl: null,
-        subscriptionEnd: null,
+        subscriptionEndDate: null,
       }),
     );
 

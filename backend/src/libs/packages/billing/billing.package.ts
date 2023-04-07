@@ -2,6 +2,11 @@ import Stripe from 'stripe';
 
 import { type IConfig } from '~/libs/packages/config/config.js';
 
+import {
+  CURRENCY,
+  MULTIPLIER_TO_SMALLEST_CURRENCY_UNIT,
+} from './libs/constants/constants.js';
+
 type Constructor = {
   config: IConfig;
 };
@@ -11,9 +16,9 @@ class Billing {
 
   private stripe: Stripe;
 
-  private currency = 'usd';
+  private currency = CURRENCY;
 
-  private multiplierToSmallestUnit = 100;
+  private multiplierToSmallestUnit = MULTIPLIER_TO_SMALLEST_CURRENCY_UNIT;
 
   public constructor({ config }: Constructor) {
     this.config = config;

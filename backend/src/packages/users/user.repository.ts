@@ -33,7 +33,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
       subscriptionId: user.userDetails.subscriptionId,
-      subscriptionEnd: user.userDetails.subscription?.subscriptionEnd ?? null,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -59,7 +59,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
       subscriptionId: user.userDetails.subscriptionId,
-      subscriptionEnd: user.userDetails.subscription?.subscriptionEnd ?? null,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -81,7 +81,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
         avatarId: user.userDetails.avatarId,
         avatarUrl: user.userDetails.avatar?.url ?? null,
         subscriptionId: user.userDetails.subscriptionId,
-        subscriptionEnd: user.userDetails.subscription?.subscriptionEnd ?? null,
+        subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
       });
     });
   }
@@ -115,7 +115,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
       subscriptionId: user.userDetails.subscriptionId,
-      subscriptionEnd: user.userDetails.subscription?.subscriptionEnd ?? null,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -143,7 +143,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
       subscriptionId: user.userDetails.subscriptionId,
-      subscriptionEnd: user.userDetails.subscription?.subscriptionEnd ?? null,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -171,7 +171,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
       subscriptionId: user.userDetails.subscriptionId,
-      subscriptionEnd: user.userDetails.subscription?.subscriptionEnd ?? null,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -199,7 +199,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
       subscriptionId: user.userDetails.subscriptionId,
-      subscriptionEnd: user.userDetails.subscription?.subscriptionEnd ?? null,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -222,7 +222,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
       subscriptionId: user.userDetails.subscriptionId,
-      subscriptionEnd: user.userDetails.subscription?.subscriptionEnd ?? null,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -251,7 +251,7 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
       subscriptionId: user.userDetails.subscriptionId,
-      subscriptionEnd: user.userDetails.subscription?.subscriptionEnd ?? null,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 }

@@ -17,17 +17,14 @@ class SubscriptionRepository
   }
 
   public async create(entity: SubscriptionEntity): Promise<SubscriptionEntity> {
-    const { subscriptionEnd } = entity.toNewObject();
+    const { endDate } = entity.toNewObject();
 
     const subscription = await this.subscriptionModel
       .query()
-      .insert({ subscriptionEnd })
+      .insert({ endDate })
       .returning('*');
 
-    return SubscriptionEntity.initialize({
-      id: subscription.id,
-      subscriptionEnd: subscriptionEnd,
-    });
+    return SubscriptionEntity.initialize(subscription);
   }
 
   public async deleteExpiredSubscriptions(): Promise<void> {

@@ -110,6 +110,13 @@ class SiteController extends Controller {
    * /project/:projectId/sites:
    *   get:
    *     description: Returns an object with items property. Items - array of sites by specific project.
+   *     parameters:
+   *        - in: path
+   *          name: projectId
+   *          schema:
+   *            type: integer
+   *          required: true
+   *          description: Numeric Project ID
    *     responses:
    *       200:
    *         description: Successful operation
@@ -140,16 +147,38 @@ class SiteController extends Controller {
    * /sites/project/:projectId:
    *   post:
    *     description: Create a site. Returns object with site info
+   *     parameters:
+   *        - in: path
+   *          name: projectId
+   *          schema:
+   *            type: integer
+   *          required: true
+   *          description: Numeric Project ID
    *     requestBody:
    *       description: Site payload
    *       required: true
    *       content:
    *         application/json:
    *           schema:
-   *             name:
-   *               type: string
-   *             industry:
-   *               type: string
+   *             type: object
+   *             properties:
+   *              name:
+   *                type: string
+   *              industry:
+   *                type: string
+   *              tone:
+   *                type: string
+   *                enum:
+   *                  - official
+   *                  - not official
+   *              targetAudience:
+   *                type: string
+   *                enum:
+   *                  - kids
+   *                  - teenager
+   *                  - young-adult
+   *                  - adult
+   *                  - elderly
    *     responses:
    *       201:
    *         description: Successful creation

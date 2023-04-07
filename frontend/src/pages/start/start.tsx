@@ -1,12 +1,15 @@
 import { IconButton, PageLayout } from '~/libs/components/components.js';
+import { DataStatus } from '~/libs/enums/enums.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useAppDispatch,
+  useAppSelector,
   useCallback,
   useMemo,
   useParams,
   useState,
   useStepper,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
 import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
 import { actions as siteActions } from '~/slices/sites/sites.js';
@@ -14,12 +17,21 @@ import { actions as siteActions } from '~/slices/sites/sites.js';
 import {
   FinalForm,
   IndustryForm,
+  SiteCreationLoader,
   SiteNameForm,
+  TargetAudienceForm,
+  VoiceToneForm,
 } from './libs/components/components.js';
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
 
-const steps = [SiteNameForm, IndustryForm, FinalForm] as const;
+const steps = [
+  SiteNameForm,
+  IndustryForm,
+  TargetAudienceForm,
+  VoiceToneForm,
+  FinalForm,
+] as const;
 
 const Start: React.FC = () => {
   const { projectId } = useParams();
@@ -27,6 +39,7 @@ const Start: React.FC = () => {
     useState<SiteCreateRequestDto>(DEFAULT_SITE_PAYLOAD);
 
   const dispatch = useAppDispatch();
+  useTitle('My sites');
 
   const {
     currentStep,
@@ -58,10 +71,18 @@ const Start: React.FC = () => {
     [dispatch, handleNextStep, isLastStep, projectId, sitePayload],
   );
 
+  const { creationStatus } = useAppSelector((state) => ({
+    creationStatus: state.sites.dataSiteStatus,
+  }));
+
   const CurrentForm = useMemo(
     () => steps[(currentStep - ONE_STEP_LENGTH) as 0],
     [currentStep],
   );
+
+  if (creationStatus === DataStatus.PENDING) {
+    return <SiteCreationLoader />;
+  }
 
   return (
     <PageLayout style="black" className={styles['layout']}>

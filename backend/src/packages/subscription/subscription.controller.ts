@@ -36,6 +36,29 @@ class SubscriptionController extends Controller {
     });
   }
 
+  /**
+   * @swagger
+   * /subscription/subscribe:
+   *    post:
+   *      description: Buy one month subscription
+   *      requestBody:
+   *        description: Object with Stripe generated tokenId
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                tokenId:
+   *                  type: string
+   *      responses:
+   *        200:
+   *          description: Successful operation
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/User'
+   */
   private async subscribe({
     user: { id },
     body: { tokenId },

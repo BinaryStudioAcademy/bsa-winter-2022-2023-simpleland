@@ -39,7 +39,7 @@ class SubscriptionService
 
     const subscriptionEntity = await this.subscriptionRepository.create(
       SubscriptionEntity.initializeNew({
-        subscriptionEnd: this.getSubscriptionEnd(),
+        endDate: this.getSubscriptionEndDate(),
       }),
     );
 
@@ -51,7 +51,7 @@ class SubscriptionService
     });
   }
 
-  private getSubscriptionEnd(): string {
+  private getSubscriptionEndDate(): string {
     const date = new Date();
     date.setMonth(date.getMonth() + 1);
 

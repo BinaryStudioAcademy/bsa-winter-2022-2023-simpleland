@@ -2,6 +2,10 @@ import './styles.scss';
 
 import StripeCheckout, { type Token } from 'react-stripe-checkout';
 
+import {
+  CURRENCY,
+  MULTIPLIER_TO_SMALLEST_CURRENCY_UNIT,
+} from '~/libs/packages/billing/billing.js';
 import { config } from '~/libs/packages/config/config.js';
 
 type Properties = {
@@ -19,9 +23,9 @@ const Checkout: React.FC<Properties> = ({
     <StripeCheckout
       stripeKey={config.ENV.STRIPE.STRIPE_PUBLIC_KEY}
       token={onCheckout}
-      amount={price * 100}
+      amount={price * MULTIPLIER_TO_SMALLEST_CURRENCY_UNIT}
       label={label}
-      currency="usd"
+      currency={CURRENCY}
     />
   );
 };

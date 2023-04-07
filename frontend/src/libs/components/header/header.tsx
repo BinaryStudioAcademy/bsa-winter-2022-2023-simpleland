@@ -10,10 +10,9 @@ import styles from './styles.module.scss';
 
 type Properties = {
   user: UserAuthResponse;
-  pageName?: string;
 };
 
-const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
+const Header: React.FC<Properties> = ({ user }: Properties) => {
   const { firstName, lastName, accountName, avatarUrl } = user;
   const profileName = accountName?.length
     ? accountName
@@ -27,17 +26,15 @@ const Header: React.FC<Properties> = ({ user, pageName = '' }: Properties) => {
 
   return (
     <header className={styles['header']}>
-      <div className={styles['logo-wrapper']}>
+      <Link to={AppRoute.ROOT} className={styles['logo-wrapper']}>
         <Image alt="logo" src={logo} />
-        <Link to={AppRoute.ROOT}>
-          <span className={styles['logo-text']}>SimpleLand</span>
-        </Link>
-      </div>
+        <span className={styles['logo-text']}>SimpleLand</span>
+      </Link>
       <div className={styles['header-sidebar']}>
         <ul className={styles['header-nav-list']}>
           <li>
-            <Link to={AppRoute.ROOT} className={styles['page-link']}>
-              <span className={styles['section-title']}>{pageName}</span>
+            <Link to={AppRoute.MY_PROJECTS}>
+              <span className={styles['section-title']}>My projects</span>
             </Link>
           </li>
         </ul>

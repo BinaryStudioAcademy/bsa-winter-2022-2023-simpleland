@@ -21,7 +21,7 @@ class UserEntity implements IEntity {
 
   private 'subscriptionId': number | null;
 
-  private 'subscriptionEnd': string | null;
+  private 'subscriptionEndDate': string | null;
 
   private constructor({
     id,
@@ -34,7 +34,7 @@ class UserEntity implements IEntity {
     avatarId,
     avatarUrl,
     subscriptionId,
-    subscriptionEnd,
+    subscriptionEndDate,
   }: {
     id: number | null;
     email: string | null;
@@ -46,7 +46,7 @@ class UserEntity implements IEntity {
     avatarId: number | null;
     avatarUrl: string | null;
     subscriptionId: number | null;
-    subscriptionEnd: string | null;
+    subscriptionEndDate: string | null;
   }) {
     this.id = id;
     this.email = email;
@@ -58,7 +58,7 @@ class UserEntity implements IEntity {
     this.avatarId = avatarId;
     this.avatarUrl = avatarUrl;
     this.subscriptionId = subscriptionId;
-    this.subscriptionEnd = subscriptionEnd;
+    this.subscriptionEndDate = subscriptionEndDate;
   }
 
   public get privateData(): {
@@ -82,7 +82,7 @@ class UserEntity implements IEntity {
     avatarId,
     avatarUrl,
     subscriptionId,
-    subscriptionEnd,
+    subscriptionEndDate,
   }: {
     id: number | null;
     email: string | null;
@@ -94,7 +94,7 @@ class UserEntity implements IEntity {
     avatarId: number | null;
     avatarUrl: string | null;
     subscriptionId: number | null;
-    subscriptionEnd: string | null;
+    subscriptionEndDate: string | null;
   }): UserEntity {
     return new UserEntity({
       id,
@@ -107,7 +107,7 @@ class UserEntity implements IEntity {
       avatarId,
       avatarUrl,
       subscriptionId,
-      subscriptionEnd,
+      subscriptionEndDate,
     });
   }
 
@@ -135,7 +135,7 @@ class UserEntity implements IEntity {
       avatarId: null,
       avatarUrl: null,
       subscriptionId: null,
-      subscriptionEnd: null,
+      subscriptionEndDate: null,
     });
   }
 
