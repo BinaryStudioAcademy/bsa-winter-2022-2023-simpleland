@@ -41,6 +41,19 @@ const Modal: React.FC<Properties> = ({
     };
   }, [isOpen, reference]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
   if (!isOpen) {
     return null;
   }
