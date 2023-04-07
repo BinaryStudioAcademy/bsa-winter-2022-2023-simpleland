@@ -164,6 +164,15 @@ class SiteController extends Controller {
    *             properties:
    *              name:
    *                type: string
+   *              category:
+   *                type: string
+   *                enum:
+   *                  - e-commercial
+   *                  - business
+   *                  - blog
+   *                  - portfolio
+   *                  - personal
+   *                  - nonprofit
    *              industry:
    *                type: string
    *              tone:
