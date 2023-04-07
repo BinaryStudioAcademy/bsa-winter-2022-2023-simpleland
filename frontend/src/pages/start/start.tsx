@@ -10,6 +10,7 @@ import {
   useState,
   useStepper,
 } from '~/libs/hooks/hooks.js';
+import { type CurrentStepFormProperties } from '~/libs/types/types.js';
 import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
 import { actions as siteActions } from '~/slices/sites/sites.js';
 
@@ -23,11 +24,6 @@ import {
 } from './libs/components/components.js';
 import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
 import styles from './styles.module.scss';
-
-type CurrentFormProperties = {
-  onSubmit: (newSitePayload: Partial<SiteCreateRequestDto>) => void;
-  siteInfo: SiteCreateRequestDto;
-};
 
 const steps = [
   SiteNameForm,
@@ -81,7 +77,7 @@ const Start: React.FC = () => {
   const CurrentForm = useMemo(
     () => steps[(currentStep - ONE_STEP_LENGTH) as 0],
     [currentStep],
-  ) as React.FC<CurrentFormProperties>;
+  ) as React.FC<CurrentStepFormProperties>;
 
   if (creationStatus === DataStatus.PENDING) {
     return <SiteCreationLoader />;
