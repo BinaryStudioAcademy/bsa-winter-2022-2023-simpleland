@@ -44,21 +44,13 @@ const Site: React.FC = () => {
   }, [dispatch, siteId]);
 
   const handleUpdate = useCallback(
-    (section: SectionGetAllItemResponseDto) => {
-      return (payload: unknown) => {
-        let updatedContent;
-
-        if (section.type == SectionType.HEADER) {
-          const content = section.content as SiteHeaderContent;
-          const updates = payload as Partial<SiteHeaderContent>;
-
-          updatedContent = { ...content, ...updates };
-        }
-
+    ({ id, type }: SectionGetAllItemResponseDto) => {
+      return (content: unknown) => {
         void dispatch(
           sectionsActions.updateContent({
-            id: section.id,
-            content: updatedContent,
+            id: id.toString(),
+            type,
+            content,
           }),
         );
       };
@@ -74,7 +66,7 @@ const Site: React.FC = () => {
         case SectionType.HEADER: {
           return (
             <Header
-              content={content}
+              content={content as SiteHeaderContent}
               key={type}
               onUpdate={handleUpdate(section)}
             />

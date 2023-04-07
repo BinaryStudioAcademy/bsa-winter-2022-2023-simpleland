@@ -7,7 +7,8 @@ import { SectionsApiPath, SitesApiPath } from './libs/enums/enums.js';
 import {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
-  type SiteHeaderContent,
+  type SectionUpdateParametersDto,
+  type SectionUpdateRequestDto,
 } from './libs/types/types.js';
 
 type Constructor = {
@@ -38,19 +39,20 @@ class SectionsApi extends HttpApi {
     return await response.json<SectionGetAllResponseDto>();
   }
 
-  public async updateContent(payload: {
-    id: number;
-    content: unknown;
-  }): Promise<SectionGetAllItemResponseDto> {
+  public async updateContent({
+    id,
+    ...body
+  }: SectionUpdateRequestDto &
+    SectionUpdateParametersDto): Promise<SectionGetAllItemResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(ApiPath.SECTIONS, SectionsApiPath.$ID, {
-        id: payload.id.toString(),
+        id,
       }),
       {
         method: 'PUT',
         contentType: ContentType.JSON,
         hasAuth: true,
-        payload: JSON.stringify({ content: payload.content }),
+        payload: JSON.stringify(body),
       },
     );
 

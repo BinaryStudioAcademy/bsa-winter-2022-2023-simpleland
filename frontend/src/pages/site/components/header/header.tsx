@@ -1,6 +1,12 @@
-import { IconButton, Input } from '~/libs/components/components.js';
+import { Input } from '~/libs/components/components.js';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
-import { type SiteHeaderContent } from '~/packages/sections/sections.js';
+import { siteHeaderUpdateContentValidationSchema } from '~/packages/sections/sections.js';
+import {
+  type SiteHeaderContent,
+  type SiteHeaderUpdateContentDto,
+} from '~/packages/sections/sections.js';
+import { Overlay } from '~/pages/site/components/overlay/overlay.js';
 
 import styles from './styles.module.scss';
 
@@ -13,9 +19,11 @@ const Header: React.FC<Properties> = ({
   content: { logo, phone },
   onUpdate,
 }: Properties) => {
-  const { control, errors, handleSubmit } = useAppForm({
-    defaultValues: { logo, phone },
-  });
+  const { control, errors, handleSubmit, handleReset } =
+    useAppForm<SiteHeaderUpdateContentDto>({
+      defaultValues: { logo, phone },
+      validationSchema: siteHeaderUpdateContentValidationSchema,
+    });
 
   const [showOverlay, setShowOverlay] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -28,13 +36,16 @@ const Header: React.FC<Properties> = ({
     setShowOverlay(false);
   }, [setShowOverlay]);
 
-  const handleEditing = useCallback((): void => {
+  const handleEdit = useCallback((): void => {
     setIsEditing(true);
   }, [setIsEditing]);
 
   const handleHeaderUpdate = useCallback(() => {
-    void handleSubmit(onUpdate)();
-  }, [handleSubmit, onUpdate]);
+    void handleSubmit(onUpdate, () => {
+      handleReset();
+    })();
+    setIsEditing(false);
+  }, [handleSubmit, onUpdate, handleReset]);
 
   const shouldShowOverlay = showOverlay && !isEditing;
 
@@ -44,18 +55,7 @@ const Header: React.FC<Properties> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {shouldShowOverlay && (
-        <div className={styles['overlay']}>
-          <div className={styles['overlay-buttons']}>
-            <IconButton
-              label="Edit"
-              icon="pencil"
-              className={styles['overlay-button']}
-              onClick={handleEditing}
-            />
-          </div>
-        </div>
-      )}
+      {shouldShowOverlay && <Overlay onEdit={handleEdit} />}
       <div className={styles['header-container']}>
         <div className={styles['header-logo']}>
           {isEditing ? (
@@ -65,7 +65,10 @@ const Header: React.FC<Properties> = ({
               name="logo"
               label="Header logo"
               isLabelVisuallyHidden
-              className={styles['edit-input']}
+              className={getValidClassNames(
+                styles['edit-input'],
+                styles['header-logo'],
+              )}
               onBlur={handleHeaderUpdate}
             />
           ) : (
@@ -80,7 +83,10 @@ const Header: React.FC<Properties> = ({
               name="phone"
               label="Phone"
               isLabelVisuallyHidden
-              className={styles['edit-input']}
+              className={getValidClassNames(
+                styles['edit-input'],
+                styles['header-phone'],
+              )}
               onBlur={handleHeaderUpdate}
             />
           ) : (
