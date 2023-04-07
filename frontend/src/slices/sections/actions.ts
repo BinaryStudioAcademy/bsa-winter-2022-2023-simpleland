@@ -17,4 +17,14 @@ const getSiteSections = createAsyncThunk<
   return items;
 });
 
-export { getSiteSections };
+const updateContent = createAsyncThunk<
+  SectionGetAllItemResponseDto,
+  { id: number; content: unknown },
+  AsyncThunkConfig
+>(`${sliceName}/update-header`, async (payload, { extra }) => {
+  const { sectionsApi } = extra;
+
+  return await sectionsApi.updateContent(payload);
+});
+
+export { getSiteSections, updateContent };

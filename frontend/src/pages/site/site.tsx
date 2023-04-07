@@ -3,18 +3,20 @@ import { DataStatus } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
+  useCallback,
   useEffect,
   useParams,
 } from '~/libs/hooks/hooks.js';
 import {
+  type SectionGetAllItemResponseDto,
   type SiteAboutContent,
   type SiteFeedbackContent,
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteMainContent,
   type SitePortfolioContent,
-  SectionType,
 } from '~/packages/sections/sections.js';
+import { SectionType } from '~/packages/sections/sections.js';
 import { actions as sectionsActions } from '~/slices/sections/sections.js';
 
 import {
@@ -41,19 +43,42 @@ const Site: React.FC = () => {
     void dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) }));
   }, [dispatch, siteId]);
 
-  if (status === DataStatus.PENDING) {
-    return (
-      <PageLayout style="black">
-        <Loader style="yellow" />
-      </PageLayout>
-    );
-  }
+  const handleUpdate = useCallback(
+    (section: SectionGetAllItemResponseDto) => {
+      return (payload: unknown) => {
+        let updatedContent;
+
+        if (section.type == SectionType.HEADER) {
+          const content = section.content as SiteHeaderContent;
+          const updates = payload as Partial<SiteHeaderContent>;
+
+          updatedContent = { ...content, ...updates };
+        }
+
+        void dispatch(
+          sectionsActions.updateContent({
+            id: section.id,
+            content: updatedContent,
+          }),
+        );
+      };
+    },
+    [dispatch],
+  );
 
   const renderSections = (): JSX.Element[] => {
-    return sections.map(({ type, content }) => {
+    return sections.map((section) => {
+      const { content, type } = section;
+
       switch (type) {
         case SectionType.HEADER: {
-          return <Header content={content as SiteHeaderContent} key={type} />;
+          return (
+            <Header
+              content={content}
+              key={type}
+              onUpdate={handleUpdate(section)}
+            />
+          );
         }
         case SectionType.MAIN: {
           return <Main content={content as SiteMainContent} key={type} />;
@@ -77,6 +102,14 @@ const Site: React.FC = () => {
       }
     });
   };
+
+  if (status === DataStatus.PENDING) {
+    return (
+      <PageLayout style="black">
+        <Loader style="yellow" />
+      </PageLayout>
+    );
+  }
 
   return <div className={styles['site']}>{renderSections()}</div>;
 };

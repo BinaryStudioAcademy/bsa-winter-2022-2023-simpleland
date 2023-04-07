@@ -24,6 +24,7 @@ type Properties<T extends FieldValues> = {
   isDisabled?: boolean;
   inputMode?: 'email' | 'text' | 'search';
   isLabelVisuallyHidden?: boolean;
+  onBlur?: () => void;
 };
 
 const Input = <T extends FieldValues>({
@@ -38,6 +39,7 @@ const Input = <T extends FieldValues>({
   className,
   inputMode = 'text',
   isLabelVisuallyHidden = false,
+  onBlur,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -69,6 +71,7 @@ const Input = <T extends FieldValues>({
         placeholder={placeholder}
         disabled={isDisabled}
         inputMode={inputMode}
+        onBlur={onBlur}
       />
       <span className={styles['error-message']}>
         {hasError && (error as string)}
