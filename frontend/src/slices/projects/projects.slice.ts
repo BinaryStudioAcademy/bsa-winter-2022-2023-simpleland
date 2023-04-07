@@ -31,28 +31,30 @@ const { reducer, actions, name } = createSlice({
     });
     builder.addCase(createProject.fulfilled, (state, action) => {
       state.dataStatus = DataStatus.FULFILLED;
-      state.projects = [...state.projects, action.payload];
+      state.projects = [...state.projects, action.payload].sort(
+        (a, b) => a.id - b.id,
+      );
     });
     builder.addCase(createProject.rejected, (state) => {
       state.dataStatus = DataStatus.REJECTED;
     });
     builder.addCase(getUserProjects.fulfilled, (state, action) => {
       state.dataStatus = DataStatus.FULFILLED;
-      state.projects = action.payload.items;
+      state.projects = action.payload.items.sort((a, b) => a.id - b.id);
     });
     builder.addCase(getUserProjects.rejected, (state) => {
       state.dataStatus = DataStatus.REJECTED;
     });
     builder.addCase(uploadProjectImage.fulfilled, (state, { payload }) => {
-      state.projects = state.projects.map((project) =>
-        project.id === payload.id ? payload : project,
-      );
+      state.projects = state.projects
+        .map((project) => (project.id === payload.id ? payload : project))
+        .sort((a, b) => a.id - b.id);
     });
     builder.addCase(updateProject.fulfilled, (state, { payload }) => {
       state.dataStatus = DataStatus.FULFILLED;
-      state.projects = state.projects.map((project) =>
-        project.id === payload.id ? payload : project,
-      );
+      state.projects = state.projects
+        .map((project) => (project.id === payload.id ? payload : project))
+        .sort((a, b) => a.id - b.id);
     });
     builder.addCase(updateProject.rejected, (state) => {
       state.dataStatus = DataStatus.REJECTED;
