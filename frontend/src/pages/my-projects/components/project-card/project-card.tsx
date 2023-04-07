@@ -26,17 +26,17 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
 
   const {
     isOpenModal: isConfigurateProject,
-    handleModalClose: handleUpdateProjectModalClose,
-    handleModalOpen: handleUpdateProjectModalOpen,
+    handleModalClose: handleProjectModalClose,
+    handleModalOpen: handleProjectModalOpen,
   } = useModal();
 
   const handleSubmitUpdateProject = useCallback(
     (payload: ProjectRequestDto & ProjectUploadImageDto): void => {
       void dispatch(projectActions.updateProject({ projectId: id, payload }))
         .unwrap()
-        .then(handleUpdateProjectModalClose);
+        .then(handleProjectModalClose);
     },
-    [dispatch, handleUpdateProjectModalClose, id],
+    [dispatch, handleProjectModalClose, id],
   );
 
   return (
@@ -46,7 +46,7 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
           <CreatePopup
             onSubmit={handleSubmitUpdateProject}
             isOpen={isConfigurateProject}
-            onClose={handleUpdateProjectModalClose}
+            onClose={handleProjectModalClose}
             project={project}
           />,
           document.body,
@@ -75,7 +75,7 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
             icon="pencil"
             label="edit-project"
             className={styles['edit-project-icon']}
-            onClick={handleUpdateProjectModalOpen}
+            onClick={handleProjectModalOpen}
           />
         </div>
       )}
