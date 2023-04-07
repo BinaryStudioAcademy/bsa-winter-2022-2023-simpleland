@@ -14,6 +14,7 @@ import {
   useEffect,
   useMemo,
   useState,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
 import {
   type ProjectCreateRequestDto,
@@ -39,6 +40,7 @@ const MyProjects: React.FC = () => {
   }, []);
 
   const dispatch = useAppDispatch();
+  useTitle('My projects');
 
   useEffect((): void => {
     void dispatch(projectActions.getUserProjects({ name: '' }));

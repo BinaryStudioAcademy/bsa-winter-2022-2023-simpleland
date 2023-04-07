@@ -5,7 +5,7 @@ import {
   Link,
 } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/app-route.enum.js';
-import { useAppForm, useCallback, useToggle } from '~/libs/hooks/hooks.js';
+import { useAppForm, useCallback, useTitle, useToggle } from '~/libs/hooks/hooks.js';
 import {
   type UserSignUpRequestDto,
   userSignUpValidationSchema,
@@ -23,6 +23,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
     defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
     validationSchema: userSignUpValidationSchema,
   });
+
+  useTitle('Sign up');
 
   const handleFormSubmit = useCallback(
     (event_: React.BaseSyntheticEvent): void => {

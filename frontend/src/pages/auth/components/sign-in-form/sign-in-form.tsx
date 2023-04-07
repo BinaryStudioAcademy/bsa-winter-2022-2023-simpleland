@@ -5,7 +5,7 @@ import {
   Link,
 } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
-import { useAppForm, useCallback, useToggle } from '~/libs/hooks/hooks.js';
+import { useAppForm, useCallback, useTitle, useToggle } from '~/libs/hooks/hooks.js';
 import {
   type UserSignInRequestDto,
   userSignInValidationSchema,
@@ -23,6 +23,8 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
     defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
     validationSchema: userSignInValidationSchema,
   });
+
+  useTitle('Log in');
 
   const handleFormSubmit = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
