@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import img from 'src/assets/img/project-mock-image.jpg';
 
 import { IconButton, Image, Link } from '~/libs/components/components.js';
@@ -7,10 +8,10 @@ import { useAppDispatch, useCallback, useModal } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
   type ProjectGetAllItemResponseDto,
-  type ProjectUpdateRequestDto,
+  type ProjectRequestDto,
   type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
-import { UpdateProjectModal } from '~/pages/my-projects/components/components.js';
+import { CreatePopup } from '~/pages/my-projects/components/components.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
 import styles from './styles.module.scss';
@@ -24,13 +25,13 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
   const { id, name, avatarUrl, category } = project;
 
   const {
-    isOpenModal: isOpenUpdateProjectModal,
+    isOpenModal: isConfigurateProject,
     handleModalClose: handleUpdateProjectModalClose,
     handleModalOpen: handleUpdateProjectModalOpen,
   } = useModal();
 
   const handleSubmitUpdateProject = useCallback(
-    (payload: ProjectUpdateRequestDto & ProjectUploadImageDto): void => {
+    (payload: ProjectRequestDto & ProjectUploadImageDto): void => {
       void dispatch(projectActions.updateProject({ projectId: id, payload }))
         .unwrap()
         .then(handleUpdateProjectModalClose);
@@ -40,15 +41,17 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
 
   return (
     <>
-      {isOpenUpdateProjectModal && (
-        <UpdateProjectModal
-          isOpen={isOpenUpdateProjectModal}
-          onSubmit={handleSubmitUpdateProject}
-          onClose={handleUpdateProjectModalClose}
-          project={project}
-        />
-      )}
-      {!isOpenUpdateProjectModal && (
+      {isConfigurateProject &&
+        createPortal(
+          <CreatePopup
+            onSubmit={handleSubmitUpdateProject}
+            isOpen={isConfigurateProject}
+            onClose={handleUpdateProjectModalClose}
+            project={project}
+          />,
+          document.body,
+        )}
+      {!isConfigurateProject && (
         <div className={styles['card']}>
           <Image
             className={styles['card-image']}

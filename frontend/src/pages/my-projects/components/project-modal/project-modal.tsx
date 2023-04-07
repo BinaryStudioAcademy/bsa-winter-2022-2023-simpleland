@@ -10,9 +10,11 @@ import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
 import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
-  type ProjectCreateRequestDto,
+  type ProjectGetAllItemResponseDto,
+  type ProjectRequestDto,
   type ProjectUploadImageDto,
   projectCreateValidationSchema,
+  projectUpdateValidationSchema,
 } from '~/packages/projects/projects.js';
 
 import { DEFAULT_CREATE_PROJECT_PAYLOAD, options } from './libs/constants.js';
@@ -21,22 +23,30 @@ import styles from './styles.module.scss';
 type Properties = {
   isOpen: boolean;
   onCloseModal: () => void;
-  onSubmit: (payload: ProjectCreateRequestDto & ProjectUploadImageDto) => void;
+  onSubmit: (payload: ProjectRequestDto & ProjectUploadImageDto) => void;
+  isUpdate?: boolean;
   className?: string;
+  project?: ProjectGetAllItemResponseDto | undefined;
 };
 
-const CreateProjectModal: React.FC<Properties> = ({
+const ProjectModal: React.FC<Properties> = ({
   isOpen = false,
   onCloseModal,
   onSubmit,
+  isUpdate = false,
   className = '',
+  project,
 }: Properties) => {
-  const { control, errors, handleSubmit } = useAppForm<ProjectCreateRequestDto>(
-    {
-      defaultValues: DEFAULT_CREATE_PROJECT_PAYLOAD,
-      validationSchema: projectCreateValidationSchema,
-    },
-  );
+  const projectValidationSchema = isUpdate
+    ? projectUpdateValidationSchema
+    : projectCreateValidationSchema;
+
+  const { control, errors, handleSubmit } = useAppForm<ProjectRequestDto>({
+    defaultValues: isUpdate
+      ? { name: project?.name ?? '', category: project?.category ?? project }
+      : DEFAULT_CREATE_PROJECT_PAYLOAD,
+    validationSchema: projectValidationSchema,
+  });
 
   const [image, setImage] = useState<{
     src: string;
@@ -60,7 +70,7 @@ const CreateProjectModal: React.FC<Properties> = ({
         });
       })(event_);
     },
-    [handleSubmit, image, onSubmit],
+    [handleSubmit, onSubmit, image],
   );
 
   const handleImageChange = useCallback(
@@ -81,16 +91,19 @@ const CreateProjectModal: React.FC<Properties> = ({
     [setImage],
   );
 
+  const modalTitle = isUpdate ? 'Update project' : 'Create a new project';
+  const submitButtonLabel = isUpdate ? 'Update project' : 'Create project';
+
   return (
     <Modal isOpen={isOpen} onClose={onCloseModal}>
       <div className={getValidClassNames(styles['form-wrapper'], className)}>
-        <h2>Create a new project</h2>
+        <h2>{modalTitle}</h2>
 
         <form className={styles['form-wrapper']} onSubmit={handleFormSubmit}>
           <label className={styles['choose-image-wrapper']}>
             <Image
               className={styles['choose-image']}
-              src={image?.src ?? img}
+              src={image?.src ?? project?.avatarUrl ?? img}
               alt="project"
             />
             <input
@@ -110,22 +123,24 @@ const CreateProjectModal: React.FC<Properties> = ({
             <Select
               control={control}
               errors={errors}
+              placeholder="Select your project category"
               name="category"
-              placeholder="Please select your category"
               options={options}
             />
           </div>
-          <Button
-            type="submit"
-            style="primary"
-            size="small"
-            label="Create Project"
-            className={styles['submit-button']}
-          />
+          <div className={styles['button-wrapper']}>
+            <Button
+              type="submit"
+              className={styles['submit-button']}
+              style="primary"
+              size="small"
+              label={submitButtonLabel}
+            />
+          </div>
         </form>
       </div>
     </Modal>
   );
 };
 
-export { CreateProjectModal };
+export { ProjectModal };

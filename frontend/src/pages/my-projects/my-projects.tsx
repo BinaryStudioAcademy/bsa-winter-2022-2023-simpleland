@@ -15,13 +15,13 @@ import {
   useState,
 } from '~/libs/hooks/hooks.js';
 import {
-  type ProjectCreateRequestDto,
   type ProjectGetAllParametersDto,
+  type ProjectRequestDto,
   type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
-import { CreateProjectModal, ProjectCard } from './components/components.js';
+import { CreatePopup, ProjectCard } from './components/components.js';
 import { DEFAULT_PROJECT_FILTER_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
 
@@ -56,7 +56,7 @@ const MyProjects: React.FC = () => {
   const hasProjects = projects.length > 0;
 
   const handleProjectSubmit = useCallback(
-    (payload: ProjectCreateRequestDto & ProjectUploadImageDto): void => {
+    (payload: ProjectRequestDto & ProjectUploadImageDto): void => {
       void dispatch(projectActions.createProject(payload))
         .unwrap()
         .then(() => {
@@ -143,10 +143,10 @@ const MyProjects: React.FC = () => {
           )}
         </div>
       </PageLayout>
-      <CreateProjectModal
+      <CreatePopup
         onSubmit={handleProjectSubmit}
         isOpen={isOpen}
-        onCloseModal={handleModalClose}
+        onClose={handleModalClose}
       />
     </>
   );
