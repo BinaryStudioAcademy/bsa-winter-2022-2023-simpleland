@@ -6,7 +6,7 @@ import { type IStorage } from '~/libs/packages/storage/storage.js';
 
 import { SitesApiPath } from './libs/enums/enums.js';
 import {
-  type SiteCreateDto,
+  type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteGetAllResponseDto,
   type SitesGetByProjectIdRequestDto,
@@ -25,7 +25,7 @@ class SitesApi extends HttpApi {
 
   public async createSite(
     projectId: number,
-    payload: SiteCreateDto,
+    payload: SiteCreateRequestDto,
   ): Promise<SiteCreateResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(

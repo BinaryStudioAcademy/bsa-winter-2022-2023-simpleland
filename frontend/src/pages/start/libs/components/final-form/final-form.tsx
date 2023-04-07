@@ -1,12 +1,12 @@
 import { Button } from '~/libs/components/components.js';
 import { useCallback } from '~/libs/hooks/hooks.js';
-import { type SiteCreateDto } from '~/packages/sites/sites.js';
+import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
   onSubmit: () => void;
-  siteInfo: SiteCreateDto;
+  siteInfo: SiteCreateRequestDto;
 };
 
 const FinalForm: React.FC<Properties> = ({

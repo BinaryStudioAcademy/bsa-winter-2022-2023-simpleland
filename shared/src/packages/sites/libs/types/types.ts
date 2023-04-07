@@ -1,4 +1,3 @@
-export { type SiteCreateDto } from './site-create-dto.type.js';
 export { type SiteCreateParametersDto } from './site-create-parameters-dto.type.js';
 export { type SiteCreateRequestDto } from './site-create-request-dto.type.js';
 export { type SiteCreateResponseDto } from './site-create-response-dto.type.js';

@@ -3,7 +3,6 @@ import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
 import { type OpenAI } from '~/libs/packages/open-ai/open-ai.package.js';
 import { type ValueOf } from '~/libs/types/types.js';
-import { ProjectCategory } from '~/packages/projects/libs/enums/enums.js';
 import {
   type SectionGetAllResponseDto,
   sectionService,
@@ -140,7 +139,6 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   ): string {
     const exampleSiteDescription = this.createSiteDescription({
       name: 'id Studio',
-      category: ProjectCategory.BUSINESS,
       industry: 'interior design',
       tone: SiteToneType.OFFICIAL,
       targetAudience: SiteTargetType.YOUNG_ADULT,
@@ -165,22 +163,20 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   private createSiteDescription = ({
     name,
-    category,
     industry,
     tone,
     targetAudience,
   }: SiteCreateRequestDto): string => {
-    return `Generate content for a website with name ${name} and category ${category}. It is a site for a ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
+    return `Generate content for a website with name ${name}. It is a site for a ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 
   private createSiteImagePrompt = ({
     name,
-    category,
     industry,
     tone,
     targetAudience,
   }: SiteCreateRequestDto): string => {
-    return `Generate content for a website with name ${name} and category ${category}. It is a site for ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
+    return `Generate content for a website with name ${name}. It is a site for ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 }
 

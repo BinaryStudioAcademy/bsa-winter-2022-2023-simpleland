@@ -1,8 +1,8 @@
-import { type SiteCreateDto } from '~/packages/sites/sites.js';
+import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
 
 type CurrentStepFormProperties = {
-  onSubmit: (newSitePayload: Partial<SiteCreateDto>) => void;
-  siteInfo: SiteCreateDto;
+  onSubmit: (newSitePayload: Partial<SiteCreateRequestDto>) => void;
+  siteInfo: SiteCreateRequestDto;
 };
 
 export { type CurrentStepFormProperties };

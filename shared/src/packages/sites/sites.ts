@@ -4,7 +4,6 @@ export {
   SiteToneType,
 } from './libs/enums/enums.js';
 export {
-  type SiteCreateDto,
   type SiteCreateParametersDto,
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,

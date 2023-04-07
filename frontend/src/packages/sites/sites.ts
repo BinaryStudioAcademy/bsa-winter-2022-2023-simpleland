@@ -13,7 +13,7 @@ const sitesApi = new SitesApi({
 export { sitesApi };
 export { SiteTargetType, SiteToneType } from './libs/enums/enums.js';
 export {
-  type SiteCreateDto,
+  type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteCreateStepIndustry,
   type SiteCreateStepName,

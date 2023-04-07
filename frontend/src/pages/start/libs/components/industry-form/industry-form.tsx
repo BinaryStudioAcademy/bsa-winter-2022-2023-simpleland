@@ -1,7 +1,7 @@
 import { Button, Input } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
-  type SiteCreateDto,
+  type SiteCreateRequestDto,
   type SiteCreateStepIndustry,
   siteCreateStepIndustryValidationSchema,
 } from '~/packages/sites/sites.js';
@@ -10,7 +10,7 @@ import { DEFAULT_STEP_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-  onSubmit: (sitePayload: Partial<SiteCreateDto>) => void;
+  onSubmit: (sitePayload: Partial<SiteCreateRequestDto>) => void;
 };
 
 const IndustryForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
