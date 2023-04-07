@@ -43,7 +43,7 @@ const ProjectModal: React.FC<Properties> = ({
 
   const { control, errors, handleSubmit } = useAppForm<ProjectRequestDto>({
     defaultValues: isUpdate
-      ? { name: project?.name ?? '', category: project?.category ?? project }
+      ? { name: project?.name ?? '', category: project?.category ?? 'business' }
       : DEFAULT_CREATE_PROJECT_PAYLOAD,
     validationSchema: projectValidationSchema,
   });
