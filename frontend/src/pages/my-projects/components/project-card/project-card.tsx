@@ -15,6 +15,11 @@ type Properties = {
 const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
   const { id, name, avatarUrl, category } = project;
 
+  const capitalizedCategory =
+    typeof category === 'string'
+      ? category.replace(/^\w/, (c) => c.toUpperCase())
+      : '';
+
   return (
     <div className={styles['card']}>
       <Image className={styles['card-image']} src={avatarUrl ?? img} alt="" />
@@ -28,7 +33,7 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
           )}
         >
           <h2>{name}</h2>
-          <p>{category}</p>
+          <p>{capitalizedCategory}</p>
         </Link>
       </div>
     </div>
