@@ -9,6 +9,7 @@ import {
   useParams,
   useState,
   useStepper,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
 import { type CurrentStepFormProperties } from '~/libs/types/types.js';
 import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
@@ -39,6 +40,7 @@ const Start: React.FC = () => {
     useState<SiteCreateRequestDto>(DEFAULT_SITE_PAYLOAD);
 
   const dispatch = useAppDispatch();
+  useTitle('My sites');
 
   const {
     currentStep,
@@ -84,7 +86,7 @@ const Start: React.FC = () => {
   }
 
   return (
-    <PageLayout style="black" className={styles['layout']} pageName="My Sites">
+    <PageLayout style="black" className={styles['layout']}>
       <div className={styles['page-wrapper']}>
         <div className={styles['content']}>
           <div className={styles['content-text']}>
