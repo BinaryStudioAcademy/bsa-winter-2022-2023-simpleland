@@ -9,13 +9,9 @@ const siteHeaderUpdateContent = joi.object<SiteHeaderUpdateContentDto, true>({
     .trim()
     .required()
     .messages({ 'string.empty': SectionValidationMessage.HEADER_LOGO_REQUIRE }),
-  phone: joi
-    .string()
-    .trim()
-    .required()
-    .messages({
-      'string.empty': SectionValidationMessage.HEADER_PHONE_REQUIRE,
-    }),
+  phone: joi.string().trim().required().messages({
+    'string.empty': SectionValidationMessage.HEADER_PHONE_REQUIRE,
+  }),
 });
 
 export { siteHeaderUpdateContent };

@@ -60,6 +60,7 @@ export {
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
   type SitePortfolioContent,
+  type SiteServiceContent,
   SectionsApiPath,
   SectionType,
   siteHeaderUpdateContentValidationSchema,

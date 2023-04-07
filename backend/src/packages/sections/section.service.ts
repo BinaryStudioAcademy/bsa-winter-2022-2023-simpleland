@@ -17,6 +17,7 @@ import {
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
   type SitePortfolioContent,
+  type SiteServiceContent,
 } from './libs/types/types.js';
 import { SectionEntity } from './section.entity.js';
 import { type SectionRepository } from './section.repository.js';
@@ -36,6 +37,8 @@ class SectionService
   private static feedbackCardsQuantity = 2;
 
   private static portfolioCategoryImagesQuantity = 2;
+
+  private static serviceCardsQuantity = 4;
 
   public constructor({ sectionRepository, file }: Constructor) {
     this.sectionRepository = sectionRepository;
@@ -114,6 +117,7 @@ class SectionService
     | SiteAboutContent
     | SiteFeedbackContent
     | SiteFooterContent
+    | SiteServiceContent
   > {
     switch (type) {
       case SectionType.HEADER: {
@@ -133,6 +137,9 @@ class SectionService
       }
       case SectionType.FEEDBACK: {
         return await this.createFeedbackContent(prompt);
+      }
+      case SectionType.SERVICE: {
+        return await this.createServiceContent(prompt);
       }
       default: {
         throw new Error('Should not reach here');
@@ -241,6 +248,37 @@ class SectionService
     });
 
     return portfolioContent;
+  }
+
+  private async createServiceContent(
+    prompt: string,
+  ): Promise<SiteServiceContent> {
+    const cardsContent = await Promise.all(
+      Array.from({ length: SectionService.serviceCardsQuantity }, () =>
+        openAI.createCompletion(prompt),
+      ),
+    );
+
+    const cards = cardsContent.map((cardContent) => ({
+      title: cardContent['title'] ?? '',
+      picture: cardContent['pictureDescription'] ?? '',
+      description: cardContent['description'] ?? '',
+    }));
+
+    await initAsyncItemsQueue(cards, async (card) => {
+      const image = await openAI.createImage(
+        `Flat icon for site with white background. Icon image colors: black and peach  ${card.picture}`,
+      );
+
+      const { url } = await this.file.upload({ file: image });
+
+      card.picture = url;
+    });
+
+    return {
+      title: 'Our Services',
+      cards,
+    };
   }
 }
 

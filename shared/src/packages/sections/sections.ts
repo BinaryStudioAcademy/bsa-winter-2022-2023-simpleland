@@ -12,5 +12,6 @@ export {
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
   type SitePortfolioContent,
+  type SiteServiceContent,
 } from './libs/types/types.js';
 export { siteHeaderUpdateContent as siteHeaderUpdateContentValidationSchema } from './libs/validation-schemas/validation-schemas.js';
