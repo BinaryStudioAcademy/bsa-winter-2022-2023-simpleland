@@ -101,7 +101,6 @@ const MyProjects: React.FC = () => {
   return (
     <>
       <PageLayout
-        pageName="My Projects"
         style={isProjectShow ? 'white' : 'black'}
         className={styles['page-layout']}
       >

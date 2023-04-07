@@ -50,7 +50,6 @@ const Sites: React.FC = () => {
 
   return (
     <PageLayout
-      pageName="My Sites"
       style={hasSites ? 'white' : 'black'}
       className={styles['page-layout']}
     >

@@ -85,7 +85,7 @@ const Start: React.FC = () => {
   }
 
   return (
-    <PageLayout style="black" className={styles['layout']} pageName="My Sites">
+    <PageLayout style="black" className={styles['layout']}>
       <div className={styles['page-wrapper']}>
         <div className={styles['content']}>
           <div className={styles['content-text']}>

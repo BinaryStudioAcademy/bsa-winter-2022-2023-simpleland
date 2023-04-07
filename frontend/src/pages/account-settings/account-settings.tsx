@@ -67,7 +67,7 @@ const AccountSettings: React.FC = () => {
 
   return (
     <>
-      <Header user={user} pageName="Account Settings" />
+      <Header user={user} />
       <div className={styles['page']}>
         <div className={styles['page-heading']}>
           <div className={styles['container']}>
