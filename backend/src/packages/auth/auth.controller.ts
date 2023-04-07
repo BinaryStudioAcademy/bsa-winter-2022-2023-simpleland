@@ -76,8 +76,10 @@ class AuthController extends Controller {
    *                  format: email
    *                password:
    *                  type: string
-   *                firstName: string;
-   *                lastName: string;
+   *                firstName:
+   *                  type: string
+   *                lastName:
+   *                   type: string
    *      responses:
    *        201:
    *          description: Successful operation
@@ -106,6 +108,8 @@ class AuthController extends Controller {
    * /auth/sign-in:
    *    post:
    *      description: Sign in user into the system
+   *      security:
+   *        - bearerAuth: []
    *      requestBody:
    *        description: User auth data
    *        required: true
@@ -147,20 +151,6 @@ class AuthController extends Controller {
    * /auth/current:
    *    get:
    *      description: Get authenticated user
-   *      content:
-   *        application/json:
-   *          schema:
-   *            type: object
-   *            properties:
-   *              id:
-   *                type: number
-   *                format: int64
-   *                minimum: 1
-   *              email:
-   *                type: string
-   *                format: email
-   *              firstName: string;
-   *              lastName: string;
    *      responses:
    *        200:
    *          description: Successful operation
