@@ -7,13 +7,14 @@
   --card-width: 294px;
   --card-height: 296px;
   --card-gap: 20px;
+  --header-height: 62px;
 
   display: flex;
   flex-grow: 1;
   flex-direction: column;
   justify-content: space-between;
   width: calc(var(--card-width) * 3 + var(--card-gap) * 2);
-  margin: 50px auto 24px;
+  margin: calc(var(--header-height) + 50px) auto 24px;
 }
 
 .search-wrapper {
