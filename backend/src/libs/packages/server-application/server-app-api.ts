@@ -39,6 +39,21 @@ class ServerAppApi implements IServerAppApi {
           title: 'Hello World',
           version: `${this.version}.0.0`,
         },
+        servers: [{ url: '/api/v1' }],
+        components: {
+          securitySchemes: {
+            bearerAuth: {
+              type: 'http',
+              scheme: 'bearer',
+              bearerFormat: 'JWT',
+            },
+          },
+        },
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
       },
       apis: [`src/packages/**/*.controller.${controllerExtension}`],
     });
