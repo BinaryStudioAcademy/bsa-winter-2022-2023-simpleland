@@ -8,8 +8,8 @@ import { HttpCode } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type ProjectService } from '~/packages/projects/project.service.js';
 import {
+  type ProjectCreateRequestDto,
   type ProjectFilterQueryDto,
-  type ProjectRequestDto,
   projectCreateValidationSchema,
   projectFilterValidationSchema,
   projectUpdateValidationSchema,
@@ -84,7 +84,7 @@ class ProjectController extends Controller {
         this.create(
           options as ApiHandlerOptions<{
             user: UserAuthResponse;
-            body: ProjectRequestDto;
+            body: ProjectCreateRequestDto;
           }>,
         ),
     });
@@ -97,7 +97,7 @@ class ProjectController extends Controller {
         this.update(
           options as ApiHandlerOptions<{
             params: { projectId: number };
-            body: ProjectRequestDto;
+            body: ProjectCreateRequestDto;
           }>,
         ),
     });
@@ -194,7 +194,7 @@ class ProjectController extends Controller {
   private async create(
     options: ApiHandlerOptions<{
       user: UserAuthResponse;
-      body: ProjectRequestDto;
+      body: ProjectCreateRequestDto;
     }>,
   ): Promise<ApiHandlerResponse> {
     return {
@@ -234,7 +234,7 @@ class ProjectController extends Controller {
   private async update(
     options: ApiHandlerOptions<{
       params: { projectId: number };
-      body: ProjectRequestDto;
+      body: ProjectCreateRequestDto;
     }>,
   ): Promise<ApiHandlerResponse> {
     return {

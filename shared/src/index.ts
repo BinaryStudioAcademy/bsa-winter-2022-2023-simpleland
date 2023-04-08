@@ -39,12 +39,12 @@ export {
 export { AuthApiPath } from './packages/auth/auth.js';
 export {
   type ProjectCreateDto,
+  type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllParametersDto,
   type ProjectGetAllResponseDto,
-  type ProjectRequestDto,
   type ProjectUpdateResponseDto,
   type ProjectUploadImageDto,
   type ProjectUploadImageParametersDto,

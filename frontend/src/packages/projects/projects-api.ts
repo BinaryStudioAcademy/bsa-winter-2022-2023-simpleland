@@ -4,10 +4,10 @@ import { HttpApi } from '~/libs/packages/api/api.js';
 import { type IHttp } from '~/libs/packages/http/http.js';
 import { type IStorage } from '~/libs/packages/storage/storage.js';
 import {
+  type ProjectCreateRequestDto,
   type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
-  type ProjectRequestDto,
 } from '~/packages/projects/projects.js';
 
 import { ProjectsApiPath } from './libs/enums/enums.js';
@@ -24,7 +24,7 @@ class ProjectsApi extends HttpApi {
   }
 
   public async createProject(
-    payload: ProjectRequestDto,
+    payload: ProjectCreateRequestDto,
   ): Promise<ProjectGetAllItemResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(ProjectsApiPath.ROOT, {}),
@@ -84,7 +84,7 @@ class ProjectsApi extends HttpApi {
 
   public async updateProject(
     projectId: number,
-    payload: ProjectRequestDto,
+    payload: ProjectCreateRequestDto,
   ): Promise<ProjectGetAllItemResponseDto> {
     const response = await this.load(
       this.getFullEndpoint(

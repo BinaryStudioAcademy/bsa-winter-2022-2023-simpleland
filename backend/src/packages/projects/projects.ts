@@ -12,10 +12,10 @@ const projectController = new ProjectController(logger, projectService);
 
 export { projectController, projectService };
 export {
+  type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectFilterQueryDto,
   type ProjectGetAllResponseDto,
-  type ProjectRequestDto,
   type ProjectUpdateResponseDto,
 } from './libs/types/types.js';
 export {
