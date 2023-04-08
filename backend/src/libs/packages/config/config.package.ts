@@ -128,6 +128,14 @@ class Config implements IConfig {
           default: null,
         },
       },
+      STRIPE: {
+        STRIPE_SECRET_KEY: {
+          doc: 'Stripe secret key',
+          format: String,
+          env: 'STRIPE_SECRET_KEY',
+          default: null,
+        },
+      },
     });
   }
 

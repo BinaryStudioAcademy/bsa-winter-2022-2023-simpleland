@@ -6,6 +6,7 @@ import {
   useAppSelector,
   useCallback,
   useLocation,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
 import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
@@ -14,7 +15,7 @@ import {
 } from '~/packages/users/users.js';
 import { actions as usersActions } from '~/slices/users/users.js';
 
-import { Login, Profile } from './components/components.js';
+import { Login, Profile, Subscription } from './components/components.js';
 import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
@@ -22,6 +23,7 @@ const AccountSettings: React.FC = () => {
     return auth.user as UserAuthResponse;
   });
   const dispatch = useAppDispatch();
+  useTitle('Settings');
 
   const handleUpdateUser = useCallback(
     (payload: UserUpdateRequestDto): void => {
@@ -60,23 +62,23 @@ const AccountSettings: React.FC = () => {
       case AppRoute.LOGIN: {
         return <Login user={user} />;
       }
+      case AppRoute.SUBSCRIPTION: {
+        return <Subscription />;
+      }
     }
   };
 
   return (
     <>
-      <Header user={user} pageName="Account Settings" />
+      <Header user={user} />
       <div className={styles['page']}>
         <div className={styles['page-heading']}>
           <div className={styles['container']}>
             <div className={styles['page-title']}>Account Settings</div>
             <div className={styles['page-nav']}>
-              <Link to={AppRoute.PROFILE} className={styles['profile-link']}>
-                Profile
-              </Link>
-              <Link to={AppRoute.LOGIN} className={styles['profile-link']}>
-                Login
-              </Link>
+              <Link to={AppRoute.PROFILE}>Profile</Link>
+              <Link to={AppRoute.LOGIN}>Login</Link>
+              <Link to={AppRoute.SUBSCRIPTION}>Subscription</Link>
             </div>
           </div>
         </div>

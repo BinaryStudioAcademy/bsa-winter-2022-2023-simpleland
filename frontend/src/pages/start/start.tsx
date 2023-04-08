@@ -9,7 +9,9 @@ import {
   useParams,
   useState,
   useStepper,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
+import { type CurrentStepFormProperties } from '~/libs/types/types.js';
 import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
 import { actions as siteActions } from '~/slices/sites/sites.js';
 
@@ -38,6 +40,7 @@ const Start: React.FC = () => {
     useState<SiteCreateRequestDto>(DEFAULT_SITE_PAYLOAD);
 
   const dispatch = useAppDispatch();
+  useTitle('My sites');
 
   const {
     currentStep,
@@ -76,14 +79,14 @@ const Start: React.FC = () => {
   const CurrentForm = useMemo(
     () => steps[(currentStep - ONE_STEP_LENGTH) as 0],
     [currentStep],
-  );
+  ) as React.FC<CurrentStepFormProperties>;
 
   if (creationStatus === DataStatus.PENDING) {
     return <SiteCreationLoader />;
   }
 
   return (
-    <PageLayout style="black" className={styles['layout']} pageName="My Sites">
+    <PageLayout style="black" className={styles['layout']}>
       <div className={styles['page-wrapper']}>
         <div className={styles['content']}>
           <div className={styles['content-text']}>
@@ -123,7 +126,7 @@ const Start: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <CurrentForm onSubmit={handleStepSubmit} />
+              <CurrentForm siteInfo={sitePayload} onSubmit={handleStepSubmit} />
             </div>
           </div>
         </div>

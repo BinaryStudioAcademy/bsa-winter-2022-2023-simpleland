@@ -4,7 +4,7 @@ import { DataStatus } from '~/libs/enums/enums.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import { type SiteGetAllItemResponseDto } from '~/packages/sites/sites.js';
 
-import { createSite, getSitesByProject } from './actions.js';
+import { createSite, getSitesByProjectId } from './actions.js';
 
 type State = {
   dataStatus: ValueOf<typeof DataStatus>;
@@ -32,14 +32,14 @@ const { reducer, actions, name } = createSlice({
     builder.addCase(createSite.rejected, (state) => {
       state.dataSiteStatus = DataStatus.REJECTED;
     });
-    builder.addCase(getSitesByProject.pending, (state) => {
+    builder.addCase(getSitesByProjectId.pending, (state) => {
       state.dataStatus = DataStatus.PENDING;
     });
-    builder.addCase(getSitesByProject.fulfilled, (state, action) => {
+    builder.addCase(getSitesByProjectId.fulfilled, (state, action) => {
       state.dataStatus = DataStatus.FULFILLED;
       state.sites = action.payload.items;
     });
-    builder.addCase(getSitesByProject.rejected, (state) => {
+    builder.addCase(getSitesByProjectId.rejected, (state) => {
       state.dataStatus = DataStatus.REJECTED;
     });
   },
