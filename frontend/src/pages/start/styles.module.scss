@@ -52,6 +52,11 @@
   background-color: var(--yellow);
 }
 
+.stepper-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .img-wrapper {
   display: flex;
   align-items: center;
