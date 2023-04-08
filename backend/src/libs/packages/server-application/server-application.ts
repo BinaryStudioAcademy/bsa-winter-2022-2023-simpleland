@@ -5,6 +5,7 @@ import { authController } from '~/packages/auth/auth.js';
 import { projectController } from '~/packages/projects/projects.js';
 import { sectionController } from '~/packages/sections/sections.js';
 import { siteController } from '~/packages/sites/sites.js';
+import { subscriptionController } from '~/packages/subscription/subscription.js';
 import { userController } from '~/packages/users/users.js';
 
 import { ServerApp } from './server-app.js';
@@ -17,6 +18,7 @@ const apiV1 = new ServerAppApi(
   ...userController.routes,
   ...siteController.routes,
   ...projectController.routes,
+  ...subscriptionController.routes,
   ...sectionController.routes,
 );
 const serverApp = new ServerApp({

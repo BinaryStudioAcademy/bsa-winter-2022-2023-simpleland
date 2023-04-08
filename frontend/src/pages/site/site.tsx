@@ -6,6 +6,7 @@ import {
   useCallback,
   useEffect,
   useParams,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
 import {
   type SectionGetAllItemResponseDto,
@@ -33,6 +34,7 @@ import styles from './styles.module.scss';
 
 const Site: React.FC = () => {
   const dispatch = useAppDispatch();
+  useTitle('My site');
 
   const { sections, status } = useAppSelector((state) => ({
     sections: state.sections.sections,
