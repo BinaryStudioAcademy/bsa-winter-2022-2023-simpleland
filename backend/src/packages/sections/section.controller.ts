@@ -37,6 +37,44 @@ class SectionController extends Controller {
     });
   }
 
+  /**
+   * @swagger
+   * /sections/:id:
+   *   put:
+   *     description: Updates section content
+   *     parameters:
+   *        - in: path
+   *          name: id
+   *          schema:
+   *            type: integer
+   *          required: true
+   *          description: Numeric Section ID
+   *     requestBody:
+   *       description: Section update payload
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *              type:
+   *                $ref: '#/components/schemas/SectionType'
+   *              content:
+   *                oneOf:
+   *                  - type: object
+   *                    properties:
+   *                      logo:
+   *                        type: string
+   *                      phone:
+   *                        type: string
+   *     responses:
+   *       200:
+   *         description: Successful update
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Section'
+   */
   private async update({
     body,
     params,
