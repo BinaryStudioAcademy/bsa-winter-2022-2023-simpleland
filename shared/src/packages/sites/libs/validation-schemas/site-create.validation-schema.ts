@@ -12,7 +12,6 @@ const siteCreate = joi.object<SiteCreateRequestDto, true>({
   category: joi
     .string()
     .trim()
-    .required()
     .valid(...Object.values(SiteCategoryType)),
   industry: joi.string().required(),
   tone: joi
