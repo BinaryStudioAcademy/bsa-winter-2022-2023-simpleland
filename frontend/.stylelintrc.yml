@@ -4,3 +4,9 @@ extends:
 
 plugins:
   - stylelint-scss
+
+overrides:
+  - files: './src/libs/components/checkout/styles.scss'
+    rules:
+      selector-class-pattern: null
+      declaration-no-important: null

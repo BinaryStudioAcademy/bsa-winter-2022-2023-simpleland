@@ -5,7 +5,7 @@ import { type UserModel } from '~/packages/users/user.model.js';
 class UserRepository implements Omit<IRepository, 'delete'> {
   private userModel: typeof UserModel;
 
-  private defaultRelationExpression = 'userDetails.avatar';
+  private defaultRelationExpression = 'userDetails.[avatar, subscription]';
 
   public constructor(userModel: typeof UserModel) {
     this.userModel = userModel;
@@ -32,6 +32,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       accountName: user.userDetails.accountName,
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
+      subscriptionId: user.userDetails.subscriptionId,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -56,6 +58,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       accountName: user.userDetails.accountName,
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
+      subscriptionId: user.userDetails.subscriptionId,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -76,6 +80,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
         accountName: user.userDetails.accountName,
         avatarId: user.userDetails.avatarId,
         avatarUrl: user.userDetails.avatar?.url ?? null,
+        subscriptionId: user.userDetails.subscriptionId,
+        subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
       });
     });
   }
@@ -108,6 +114,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       accountName: user.userDetails.accountName,
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
+      subscriptionId: user.userDetails.subscriptionId,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -134,6 +142,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       accountName: user.userDetails.accountName,
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
+      subscriptionId: user.userDetails.subscriptionId,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -160,6 +170,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       accountName: user.userDetails.accountName,
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
+      subscriptionId: user.userDetails.subscriptionId,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -186,6 +198,8 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       accountName: user.userDetails.accountName,
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
+      subscriptionId: user.userDetails.subscriptionId,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 
@@ -207,6 +221,37 @@ class UserRepository implements Omit<IRepository, 'delete'> {
       accountName: user.userDetails.accountName,
       avatarId: user.userDetails.avatarId,
       avatarUrl: user.userDetails.avatar?.url ?? null,
+      subscriptionId: user.userDetails.subscriptionId,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
+    });
+  }
+
+  public async updateSubscription(entity: UserEntity): Promise<UserEntity> {
+    const { id, subscriptionId } = entity.toSubscription();
+
+    await this.userModel
+      .relatedQuery('userDetails')
+      .for(id)
+      .patch({ subscriptionId })
+      .execute();
+
+    const user = (await this.userModel
+      .query()
+      .findById(id)
+      .withGraphFetched(this.defaultRelationExpression)) as UserModel;
+
+    return UserEntity.initialize({
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
+      firstName: user.userDetails.firstName,
+      lastName: user.userDetails.lastName,
+      accountName: user.userDetails.accountName,
+      avatarId: user.userDetails.avatarId,
+      avatarUrl: user.userDetails.avatar?.url ?? null,
+      subscriptionId: user.userDetails.subscriptionId,
+      subscriptionEndDate: user.userDetails.subscription?.endDate ?? null,
     });
   }
 }
