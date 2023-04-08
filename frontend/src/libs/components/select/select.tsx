@@ -23,7 +23,7 @@ type Properties<T extends FieldValues> = {
   name: FieldPath<T>;
   options: SelectOption<string | number>[];
   placeholder?: string;
-  label?: string;
+  label: string;
   errors: FieldErrors<T>;
   isMulti?: boolean;
   icon?: IconType;
