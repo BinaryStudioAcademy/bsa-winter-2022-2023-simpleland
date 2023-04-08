@@ -3,6 +3,7 @@ import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
 import { type OpenAI } from '~/libs/packages/open-ai/open-ai.package.js';
 import { type ValueOf } from '~/libs/types/types.js';
+import { ProjectCategory } from '~/packages/projects/libs/enums/enums.js';
 import {
   type SectionGetAllResponseDto,
   sectionService,
@@ -12,11 +13,7 @@ import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteRepository } from '~/packages/sites/site.repository.js';
 
 import { PROMPT_HEADING } from './libs/constants/constants.js';
-import {
-  SiteCategoryType,
-  SiteTargetType,
-  SiteToneType,
-} from './libs/enums/enums.js';
+import { SiteTargetType, SiteToneType } from './libs/enums/enums.js';
 import { SectionTypeToPrompt } from './libs/maps/maps.js';
 import {
   type SiteCreateRequestDto,
@@ -143,7 +140,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   ): string {
     const exampleSiteDescription = this.createSiteDescription({
       name: 'id Studio',
-      category: SiteCategoryType.BUSINESS,
+      category: ProjectCategory.BUSINESS,
       industry: 'interior design',
       tone: SiteToneType.OFFICIAL,
       targetAudience: SiteTargetType.YOUNG_ADULT,

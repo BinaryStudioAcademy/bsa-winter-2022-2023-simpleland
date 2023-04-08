@@ -78,7 +78,6 @@ export {
   type SitesFilterQueryDto,
   type SitesGetByProjectIdParametersDto,
   type SitesGetByProjectIdRequestDto,
-  SiteCategoryType,
   siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
   siteCreateStepTargetValidationSchema,

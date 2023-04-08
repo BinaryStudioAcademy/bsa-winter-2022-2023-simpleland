@@ -1,8 +1,8 @@
 import joi from 'joi';
 
+import { ProjectCategory } from '~/packages/projects/projects.js';
 import {
   type SiteCreateRequestDto,
-  SiteCategoryType,
   SiteTargetType,
   SiteToneType,
 } from '~/packages/sites/sites.js';
@@ -12,7 +12,7 @@ const siteCreate = joi.object<SiteCreateRequestDto, true>({
   category: joi
     .string()
     .trim()
-    .valid(...Object.values(SiteCategoryType)),
+    .valid(...Object.values(ProjectCategory)),
   industry: joi.string().required(),
   tone: joi
     .string()

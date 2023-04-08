@@ -1,5 +1,4 @@
 export {
-  SiteCategoryType,
   SitesApiPath,
   SiteTargetType,
   SiteToneType,

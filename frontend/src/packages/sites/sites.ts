@@ -11,11 +11,7 @@ const sitesApi = new SitesApi({
 });
 
 export { sitesApi };
-export {
-  SiteCategoryType,
-  SiteTargetType,
-  SiteToneType,
-} from './libs/enums/enums.js';
+export { SiteTargetType, SiteToneType } from './libs/enums/enums.js';
 export {
   type SiteCreateDto,
   type SiteCreateResponseDto,
