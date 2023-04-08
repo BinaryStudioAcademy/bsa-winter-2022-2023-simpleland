@@ -12,11 +12,13 @@ import { SitesApiPath } from './libs/enums/enums.js';
 import {
   type SiteCreateParametersDto,
   type SiteCreateRequestDto,
-  type SiteGetByProjectParametersDto,
+  type SitesFilterQueryDto,
+  type SitesGetByProjectIdParametersDto,
 } from './libs/types/types.js';
 import {
   siteCreateValidationSchema,
-  siteGetByProjectValidationSchema,
+  siteGetByProjectIdValidationSchema,
+  sitesFilterValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
 
 /**
@@ -70,12 +72,14 @@ class SiteController extends Controller {
       path: SitesApiPath.PROJECT_$PROJECT_ID,
       method: 'GET',
       validation: {
-        params: siteGetByProjectValidationSchema,
+        params: siteGetByProjectIdValidationSchema,
+        query: sitesFilterValidationSchema,
       },
       handler: (options) =>
         this.findAllByProjectId(
           options as ApiHandlerOptions<{
-            params: SiteGetByProjectParametersDto;
+            params: SitesGetByProjectIdParametersDto;
+            query: SitesFilterQueryDto;
           }>,
         ),
     });
@@ -132,12 +136,16 @@ class SiteController extends Controller {
    *                   minItems: 0
    */
   private async findAllByProjectId(
-    options: ApiHandlerOptions<{ params: SiteGetByProjectParametersDto }>,
+    options: ApiHandlerOptions<{
+      params: SitesGetByProjectIdParametersDto;
+      query: SitesFilterQueryDto;
+    }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
       payload: await this.siteService.findAllByProjectId(
         options.params.projectId,
+        options.query,
       ),
     };
   }

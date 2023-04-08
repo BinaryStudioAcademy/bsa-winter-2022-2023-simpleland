@@ -1,10 +1,10 @@
-import { createSite, getSitesByProject } from './actions.js';
+import { createSite, getSitesByProjectId } from './actions.js';
 import { actions } from './sites.slice.js';
 
 const allActions = {
   ...actions,
   createSite,
-  getSitesByProject,
+  getSitesByProjectId,
 };
 
 export { allActions as actions };
