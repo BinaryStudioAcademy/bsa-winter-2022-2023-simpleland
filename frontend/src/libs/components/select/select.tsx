@@ -6,7 +6,7 @@ import {
 } from 'react-hook-form';
 import ReactSelect from 'react-select';
 
-import { Icon } from '~/libs/components/components.js';
+import { ErrorMessage, Icon } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useCallback,
@@ -93,7 +93,6 @@ const Select = <T extends FieldValues>({
   );
 
   const error = errors[name]?.message;
-  const hasError = Boolean(error);
 
   return (
     <label className={styles['label']}>
@@ -121,9 +120,7 @@ const Select = <T extends FieldValues>({
         onMenuClose={handleMenuOpenToggle}
         styles={getStyles({ hasIcon: !isMenuOpen && !isOptionSelected })}
       />
-      <span className={styles['error-message']}>
-        {hasError && (error as string)}
-      </span>
+      <ErrorMessage error={error as string} />
     </label>
   );
 };
