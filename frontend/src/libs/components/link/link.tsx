@@ -11,7 +11,6 @@ type Properties = {
   to: ValueOf<typeof AppRoute>;
   className?: string | undefined;
   children: React.ReactNode;
-  isActive?: (match: string, location: string) => boolean;
   activeClassName?: string | undefined;
 };
 
@@ -21,18 +20,18 @@ const Link: React.FC<Properties> = ({
   className,
   activeClassName,
 }: Properties): React.ReactElement => {
-  const getLinkClassNames = useCallback(
+  const handleLinkClassNamesGet = useCallback(
     ({ isActive }: { isActive: boolean }): string =>
       getValidClassNames(
         styles['link'],
         className,
-        isActive ? activeClassName : undefined,
+        isActive && activeClassName,
       ),
     [className, activeClassName],
   );
 
   return (
-    <NavLink to={to} className={getLinkClassNames}>
+    <NavLink to={to} className={handleLinkClassNamesGet}>
       {children}
     </NavLink>
   );
