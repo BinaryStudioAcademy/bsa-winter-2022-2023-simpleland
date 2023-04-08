@@ -4,7 +4,7 @@ import { AppRoute } from '~/libs/enums/enums.js';
 import { configureString } from '~/libs/helpers/helpers.js';
 import { type AsyncThunkConfig, type ValueOf } from '~/libs/types/types.js';
 import {
-  type SiteCreateRequestDto,
+  type SiteCreateDto,
   type SiteGetAllResponseDto,
   type SitesGetByProjectIdRequestDto,
 } from '~/packages/sites/sites.js';
@@ -14,7 +14,7 @@ import { name as sliceName } from './sites.slice.js';
 
 const createSite = createAsyncThunk<
   unknown,
-  SiteCreateRequestDto & {
+  SiteCreateDto & {
     projectId: number;
   },
   AsyncThunkConfig

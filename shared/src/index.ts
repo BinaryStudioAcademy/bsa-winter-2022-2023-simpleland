@@ -65,6 +65,7 @@ export {
   SectionType,
 } from './packages/sections/sections.js';
 export {
+  type SiteCreateDto,
   type SiteCreateParametersDto,
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,

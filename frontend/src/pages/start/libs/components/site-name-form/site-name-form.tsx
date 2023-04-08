@@ -1,7 +1,7 @@
 import { Button, Input } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
-  type SiteCreateRequestDto,
+  type SiteCreateDto,
   type SiteCreateStepName,
   siteCreateStepNameValidationSchema,
 } from '~/packages/sites/sites.js';
@@ -10,7 +10,7 @@ import { DEFAULT_STEP_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-  onSubmit: (sitePayload: Partial<SiteCreateRequestDto>) => void;
+  onSubmit: (sitePayload: Partial<SiteCreateDto>) => void;
 };
 
 const SiteNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {

@@ -12,7 +12,7 @@ import {
   useTitle,
 } from '~/libs/hooks/hooks.js';
 import { type CurrentStepFormProperties } from '~/libs/types/types.js';
-import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
+import { type SiteCreateDto } from '~/packages/sites/sites.js';
 import { actions as siteActions } from '~/slices/sites/sites.js';
 
 import {
@@ -37,7 +37,7 @@ const steps = [
 const Start: React.FC = () => {
   const { projectId } = useParams();
   const [sitePayload, setSitePayload] =
-    useState<SiteCreateRequestDto>(DEFAULT_SITE_PAYLOAD);
+    useState<SiteCreateDto>(DEFAULT_SITE_PAYLOAD);
 
   const dispatch = useAppDispatch();
   useTitle('My sites');
@@ -52,7 +52,7 @@ const Start: React.FC = () => {
   } = useStepper({ length: steps.length });
 
   const handleStepSubmit = useCallback(
-    (newSitePayload: Partial<SiteCreateRequestDto>) => {
+    (newSitePayload: Partial<SiteCreateDto>) => {
       if (isLastStep) {
         return void dispatch(
           siteActions.createSite({
