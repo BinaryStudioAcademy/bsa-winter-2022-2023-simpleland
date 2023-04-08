@@ -23,6 +23,7 @@ import {
   type ServerValidationErrorResponse,
   type ValidationSchema,
 } from '~/libs/types/types.js';
+import { subscriptionService } from '~/packages/subscription/subscription.js';
 import { userService } from '~/packages/users/users.js';
 
 import { WHITE_ROUTES } from './libs/constants/constants.js';
@@ -196,6 +197,10 @@ class ServerApp implements IServerApp {
     );
   }
 
+  private initCrons(): void {
+    subscriptionService.initCrone();
+  }
+
   public async init(): Promise<void> {
     this.logger.info('Application initialization…');
 
@@ -210,6 +215,8 @@ class ServerApp implements IServerApp {
     this.initErrorHandler();
 
     this.initRoutes();
+
+    this.initCrons();
 
     this.database.connect();
 
