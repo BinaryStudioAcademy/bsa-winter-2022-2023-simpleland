@@ -90,18 +90,41 @@ class SectionService
       null;
     }
 
-    if (payload.type === SectionType.HEADER) {
-      const content = section.content as SiteHeaderContent;
-      const { logo, phone } = payload.content as SiteHeaderUpdateContentDto;
+    switch (payload.type) {
+      case SectionType.HEADER: {
+        const content = section.content as SiteHeaderContent;
+        const { logo, phone } = payload.content as SiteHeaderUpdateContentDto;
 
-      content.logo = logo;
-      content.phone = phone;
+        content.logo = logo;
+        content.phone = phone;
 
-      const updatedSection = await this.sectionRepository.update(
-        SectionEntity.initialize({ id, content, type: null }),
-      );
+        const updatedSection = await this.sectionRepository.update(
+          SectionEntity.initialize({ id, content, type: null }),
+        );
 
-      return updatedSection.toObject();
+        return updatedSection.toObject();
+      }
+      case SectionType.MAIN: {
+        break;
+      }
+      case SectionType.ABOUT: {
+        break;
+      }
+      case SectionType.PORTFOLIO: {
+        break;
+      }
+      case SectionType.FEEDBACK: {
+        break;
+      }
+      case SectionType.SERVICE: {
+        break;
+      }
+      case SectionType.FOOTER: {
+        break;
+      }
+      default: {
+        throw new Error('Should not reach here');
+      }
     }
 
     return section;
