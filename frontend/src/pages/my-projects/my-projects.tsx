@@ -33,11 +33,20 @@ const PROJECTS_PER_PAGE = 6;
 const PAGE_DEFAULT = 1;
 
 const MyProjects: React.FC = () => {
+  const { projects, status, projectsCount } = useAppSelector((state) => ({
+    projectsCount: state.projects.projectsCount,
+    projects: state.projects.projects,
+    status: state.projects.dataStatus,
+  }));
+
   const [isOpen, setIsOpen] = useState(false);
   const [searchName, setSearchName] = useState('');
-  const { page, handleChangePage } = usePagination({
-    pageDefault: PAGE_DEFAULT,
-  });
+  const { page, handleChangePage, totalPages, isShowPagination } =
+    usePagination({
+      pageDefault: PAGE_DEFAULT,
+      totalCount: projectsCount,
+      rowsPerPage: PROJECTS_PER_PAGE,
+    });
 
   const handleModalOpen = useCallback(() => {
     setIsOpen(true);
@@ -60,19 +69,11 @@ const MyProjects: React.FC = () => {
     );
   }, [dispatch, page, searchName]);
 
-  const { projects, status, projectsCount } = useAppSelector((state) => ({
-    projectsCount: state.projects.projectsCount,
-    projects: state.projects.projects,
-    status: state.projects.dataStatus,
-  }));
-
   const { control, errors, handleSubmit } =
     useAppForm<ProjectGetAllParametersDto>({
       defaultValues: DEFAULT_PROJECT_FILTER_PAYLOAD,
       mode: 'onChange',
     });
-
-  const hasProjects = projects.length > 0;
 
   const handleProjectSubmit = useCallback(
     (payload: ProjectCreateRequestDto & ProjectUploadImageDto): void => {
@@ -97,9 +98,9 @@ const MyProjects: React.FC = () => {
     void handleSubmit(handleSearch)(event_);
   });
 
-  const isProjectShow = useMemo(() => {
-    return hasProjects || searchName.length > 0;
-  }, [hasProjects, searchName]);
+  const hasProjects = useMemo(() => {
+    return projects.length > 0 || searchName.length > 0;
+  }, [projects, searchName]);
 
   if (status === DataStatus.PENDING) {
     return (
@@ -112,11 +113,11 @@ const MyProjects: React.FC = () => {
   return (
     <>
       <PageLayout
-        style={isProjectShow ? 'white' : 'black'}
+        style={hasProjects ? 'white' : 'black'}
         className={styles['page-layout']}
       >
         <div className={styles['page-wrapper']}>
-          {isProjectShow ? (
+          {hasProjects ? (
             <>
               <div>
                 <div className={styles['search-wrapper']}>
@@ -149,12 +150,11 @@ const MyProjects: React.FC = () => {
                 </div>
               </div>
 
-              {projectsCount > PROJECTS_PER_PAGE && (
+              {isShowPagination && (
                 <Pagination
                   currentPage={page}
                   onChangePage={handleChangePage}
-                  count={projectsCount}
-                  rowsPerPage={PROJECTS_PER_PAGE}
+                  totalPages={totalPages}
                   className={styles['pagination-wrapper']}
                 />
               )}

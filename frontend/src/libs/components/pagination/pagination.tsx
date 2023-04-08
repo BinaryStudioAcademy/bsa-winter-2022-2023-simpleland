@@ -10,16 +10,14 @@ const FIRST_PAGE = 1;
 type Properties = {
   currentPage: number;
   onChangePage: (value: number) => void;
-  count: number;
-  rowsPerPage: number;
+  totalPages: number;
   className?: string | undefined;
 };
 
 const Pagination: React.FC<Properties> = ({
   currentPage,
   onChangePage,
-  count,
-  rowsPerPage,
+  totalPages,
   className = '',
 }: Properties) => {
   const handlePreviousPage = useCallback(() => {
@@ -38,10 +36,6 @@ const Pagination: React.FC<Properties> = ({
     },
     [onChangePage],
   );
-
-  const totalPages = useMemo(() => {
-    return Math.ceil(count / rowsPerPage);
-  }, [count, rowsPerPage]);
 
   const visiblePages = useMemo(() => {
     let pages;
