@@ -18,6 +18,7 @@ import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteGetAllResponseDto,
+  type SitesFilterQueryDto,
 } from './libs/types/types.js';
 
 type Constructor = {
@@ -49,8 +50,12 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async findAllByProjectId(
     projectId: number,
+    queryParameters: SitesFilterQueryDto,
   ): Promise<SiteGetAllResponseDto> {
-    const sites = await this.siteRepository.findAllByProjectId(projectId);
+    const sites = await this.siteRepository.findAllByProjectId(
+      projectId,
+      queryParameters,
+    );
 
     return {
       items: sites.map((site) => site.toObject()),
@@ -97,6 +102,11 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
           siteId: site.id,
           prompt: this.createPrompt(SectionType.ABOUT, payload),
           type: SectionType.ABOUT,
+        },
+        {
+          siteId: site.id,
+          prompt: this.createPrompt(SectionType.SERVICE, payload),
+          type: SectionType.SERVICE,
         },
         {
           siteId: site.id,
@@ -154,15 +164,19 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   private createSiteDescription = ({
     name,
     industry,
+    tone,
+    targetAudience,
   }: SiteCreateRequestDto): string => {
-    return `Generate content for website with name ${name}. It is site for ${industry} company.`;
+    return `Generate content for a website with name ${name}. It is a site for a ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 
   private createSiteImagePrompt = ({
     name,
     industry,
+    tone,
+    targetAudience,
   }: SiteCreateRequestDto): string => {
-    return `Generate image for website with name ${name}. It is site for ${industry} company.`;
+    return `Generate content for a website with name ${name}. It is a site for ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 }
 

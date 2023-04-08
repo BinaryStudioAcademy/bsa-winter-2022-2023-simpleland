@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 16px;
+  color: var(--gray-600);
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.info-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.item-name {
+  font-weight: 700;
+}
+
+.button {
+  width: 152px;
+  margin: auto auto 0;
+}

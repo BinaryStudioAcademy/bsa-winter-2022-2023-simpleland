@@ -25,6 +25,9 @@ type EnvironmentSchema = {
     AWS_REGION: string;
     AWS_BUCKET_NAME: string;
   };
+  STRIPE: {
+    STRIPE_SECRET_KEY: string;
+  };
 };
 
 export { type EnvironmentSchema };

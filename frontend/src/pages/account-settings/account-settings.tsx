@@ -6,6 +6,7 @@ import {
   useAppSelector,
   useCallback,
   useLocation,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
 import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
@@ -14,7 +15,7 @@ import {
 } from '~/packages/users/users.js';
 import { actions as usersActions } from '~/slices/users/users.js';
 
-import { Login, Profile } from './components/components.js';
+import { Login, Profile, Subscription } from './components/components.js';
 import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
@@ -22,6 +23,7 @@ const AccountSettings: React.FC = () => {
     return auth.user as UserAuthResponse;
   });
   const dispatch = useAppDispatch();
+  useTitle('Settings');
 
   const handleUpdateUser = useCallback(
     (payload: UserUpdateRequestDto): void => {
@@ -46,6 +48,8 @@ const AccountSettings: React.FC = () => {
 
   const location = useLocation();
 
+  const PROFILE_LINK_ACTIVE_CLASS = styles['profile-link-active'];
+
   const handleScreenRender = (): React.ReactNode => {
     switch (location.pathname) {
       case AppRoute.PROFILE: {
@@ -60,12 +64,15 @@ const AccountSettings: React.FC = () => {
       case AppRoute.LOGIN: {
         return <Login user={user} />;
       }
+      case AppRoute.SUBSCRIPTION: {
+        return <Subscription />;
+      }
     }
   };
 
   return (
     <>
-      <Header user={user} pageName="Account Settings" />
+      <Header user={user} />
       <div className={styles['page']}>
         <div className={styles['page-heading']}>
           <div className={styles['container']}>
@@ -73,15 +80,21 @@ const AccountSettings: React.FC = () => {
             <div className={styles['page-nav']}>
               <Link
                 to={AppRoute.PROFILE}
-                activeClassName={styles['profile-link-active']}
+                activeClassName={PROFILE_LINK_ACTIVE_CLASS}
               >
                 Profile
               </Link>
               <Link
                 to={AppRoute.LOGIN}
-                activeClassName={styles['profile-link-active']}
+                activeClassName={PROFILE_LINK_ACTIVE_CLASS}
               >
                 Login
+              </Link>
+              <Link
+                to={AppRoute.SUBSCRIPTION}
+                activeClassName={PROFILE_LINK_ACTIVE_CLASS}
+              >
+                Subscription
               </Link>
             </div>
           </div>
