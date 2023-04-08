@@ -36,6 +36,8 @@ class ProjectRepository
     id: number,
     { name, page, limit }: ProjectFilterQueryDto,
   ): Promise<Page<ProjectModel>> {
+    const offset = page - 1;
+
     return await this.projectModel
       .query()
       .where('userId', id)
@@ -44,8 +46,8 @@ class ProjectRepository
           void builder.where('name', 'ilike', `%${name}%`);
         }
       })
-      .orderBy('name')
-      .page(page - 1, limit)
+      .orderBy('created_at')
+      .page(offset, limit)
       .withGraphFetched(this.defaultRelationExpression)
       .execute();
   }
