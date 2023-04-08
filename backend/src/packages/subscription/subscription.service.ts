@@ -1,5 +1,9 @@
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { billing } from '~/libs/packages/billing/billing.js';
+import {
+  type TaskScheduler,
+  CronExpression,
+} from '~/libs/packages/task-scheduler/task-scheduler.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 import { userService } from '~/packages/users/users.js';
 
@@ -13,8 +17,14 @@ class SubscriptionService
 {
   private subscriptionRepository: SubscriptionRepository;
 
-  public constructor(subscriptionRepository: SubscriptionRepository) {
+  private taskScheduler: TaskScheduler;
+
+  public constructor(
+    subscriptionRepository: SubscriptionRepository,
+    taskScheduler: TaskScheduler,
+  ) {
     this.subscriptionRepository = subscriptionRepository;
+    this.taskScheduler = taskScheduler;
   }
 
   public async subscribe({
@@ -48,6 +58,16 @@ class SubscriptionService
     date.setMonth(date.getMonth() + 1);
 
     return date.toISOString();
+  }
+
+  private async deleteExpiredSubscriptions(): Promise<void> {
+    await this.subscriptionRepository.deleteExpiredSubscriptions();
+  }
+
+  public initCrone(): void {
+    this.taskScheduler.schedule(CronExpression.EVERY_MIDNIGHT, () => {
+      void this.deleteExpiredSubscriptions();
+    });
   }
 }
 
