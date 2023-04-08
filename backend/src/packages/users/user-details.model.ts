@@ -6,6 +6,7 @@ import {
   getJoinRelationPath,
 } from '~/libs/packages/database/database.js';
 import { FileModel } from '~/libs/packages/file/file.js';
+import { SubscriptionModel } from '~/packages/subscription/subscription.js';
 import { UserModel } from '~/packages/users/user.model.js';
 
 class UserDetailsModel extends AbstractModel {
@@ -20,6 +21,10 @@ class UserDetailsModel extends AbstractModel {
   public 'avatarId': number | null;
 
   public 'avatar': FileModel | null;
+
+  public 'subscriptionId': number | null;
+
+  public 'subscription': SubscriptionModel | null;
 
   public static override get tableName(): string {
     return DatabaseTableName.USER_DETAILS;
@@ -47,6 +52,17 @@ class UserDetailsModel extends AbstractModel {
             'avatarId',
           ),
           to: getJoinRelationPath(DatabaseTableName.FILES, 'id'),
+        },
+      },
+      subscription: {
+        relation: Model.HasOneRelation,
+        modelClass: SubscriptionModel,
+        join: {
+          from: getJoinRelationPath<UserDetailsModel>(
+            DatabaseTableName.USER_DETAILS,
+            'subscriptionId',
+          ),
+          to: getJoinRelationPath(DatabaseTableName.SUBSCRIPTION, 'id'),
         },
       },
     };
