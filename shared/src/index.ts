@@ -67,6 +67,7 @@ export {
   type SiteServiceContent,
   SectionsApiPath,
   SectionType,
+  sectionUpdateValidationSchema,
   siteHeaderUpdateContentValidationSchema,
 } from './packages/sections/sections.js';
 export {

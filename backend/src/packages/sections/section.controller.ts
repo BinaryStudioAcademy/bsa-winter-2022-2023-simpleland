@@ -12,7 +12,7 @@ import {
   type SectionUpdateParametersDto,
   type SectionUpdateRequestDto,
 } from './libs/types/types.js';
-import { SectionUpdateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+import { sectionUpdateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
 import { type SectionService } from './section.service.js';
 
 class SectionController extends Controller {
@@ -26,7 +26,7 @@ class SectionController extends Controller {
     this.addRoute({
       path: SectionsApiPath.$ID,
       method: 'PUT',
-      validation: { body: SectionUpdateValidationSchema },
+      validation: { body: sectionUpdateValidationSchema },
       handler: (options) =>
         this.update(
           options as ApiHandlerOptions<{

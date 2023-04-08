@@ -14,4 +14,7 @@ export {
   type SitePortfolioContent,
   type SiteServiceContent,
 } from './libs/types/types.js';
-export { siteHeaderUpdateContent as siteHeaderUpdateContentValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+export {
+  sectionUpdate as sectionUpdateValidationSchema,
+  siteHeaderUpdateContent as siteHeaderUpdateContentValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
