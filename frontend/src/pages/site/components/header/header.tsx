@@ -1,6 +1,6 @@
 import { Input } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
+import { useAppForm, useSectionUpdate } from '~/libs/hooks/hooks.js';
 import { siteHeaderUpdateContentValidationSchema } from '~/packages/sections/sections.js';
 import {
   type SiteHeaderContent,
@@ -12,7 +12,7 @@ import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteHeaderContent;
-  onUpdate: (payload: { logo: string; phone: string }) => void;
+  onUpdate: (payload: unknown) => void;
 };
 
 const Header: React.FC<Properties> = ({
@@ -25,75 +25,55 @@ const Header: React.FC<Properties> = ({
       validationSchema: siteHeaderUpdateContentValidationSchema,
     });
 
-  const [showOverlay, setShowOverlay] = useState<boolean>(false);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-
-  const handleMouseEnter = useCallback((): void => {
-    setShowOverlay(true);
-  }, [setShowOverlay]);
-
-  const handleMouseLeave = useCallback((): void => {
-    setShowOverlay(false);
-  }, [setShowOverlay]);
-
-  const handleEdit = useCallback((): void => {
-    setIsEditing(true);
-  }, [setIsEditing]);
-
-  const handleHeaderUpdate = useCallback(() => {
-    void handleSubmit(onUpdate, () => {
-      handleReset();
-    })();
-    setIsEditing(false);
-  }, [handleSubmit, onUpdate, handleReset]);
-
-  const shouldShowOverlay = showOverlay && !isEditing;
+  const { isEditing, handleEditingStart, handleSectionUpdate } =
+    useSectionUpdate<SiteHeaderUpdateContentDto>({
+      onUpdate,
+      handleReset,
+      handleSubmit,
+    });
 
   return (
-    <div
-      className={styles['header']}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {shouldShowOverlay && <Overlay onEdit={handleEdit} />}
-      <div className={styles['header-container']}>
-        <div className={styles['header-logo']}>
-          {isEditing ? (
-            <Input
-              control={control}
-              errors={errors}
-              name="logo"
-              label="Header logo"
-              isLabelVisuallyHidden
-              className={getValidClassNames(
-                styles['edit-input'],
-                styles['header-logo'],
-              )}
-              onBlur={handleHeaderUpdate}
-            />
-          ) : (
-            logo
-          )}
+    <div className={styles['header']}>
+      <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+        <div className={styles['header-container']}>
+          <div className={styles['header-logo']}>
+            {isEditing ? (
+              <Input
+                control={control}
+                errors={errors}
+                name="logo"
+                label="Header logo"
+                isLabelVisuallyHidden
+                className={getValidClassNames(
+                  styles['edit-input'],
+                  styles['header-logo'],
+                )}
+                onBlur={handleSectionUpdate}
+              />
+            ) : (
+              logo
+            )}
+          </div>
+          <div className={styles['header-phone']}>
+            {isEditing ? (
+              <Input
+                control={control}
+                errors={errors}
+                name="phone"
+                label="Phone"
+                isLabelVisuallyHidden
+                className={getValidClassNames(
+                  styles['edit-input'],
+                  styles['header-phone'],
+                )}
+                onBlur={handleSectionUpdate}
+              />
+            ) : (
+              phone
+            )}
+          </div>
         </div>
-        <div className={styles['header-phone']}>
-          {isEditing ? (
-            <Input
-              control={control}
-              errors={errors}
-              name="phone"
-              label="Phone"
-              isLabelVisuallyHidden
-              className={getValidClassNames(
-                styles['edit-input'],
-                styles['header-phone'],
-              )}
-              onBlur={handleHeaderUpdate}
-            />
-          ) : (
-            phone
-          )}
-        </div>
-      </div>
+      </Overlay>
     </div>
   );
 };

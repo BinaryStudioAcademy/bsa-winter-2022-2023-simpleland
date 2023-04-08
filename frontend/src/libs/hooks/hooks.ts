@@ -4,6 +4,7 @@ export { useAppSelector } from './use-app-selector/use-app-selector.hook.js';
 export { useStepper } from './use-app-stepper/use-app-stepper.hook.js';
 export { useTitle } from './use-app-title/use-app-title.hook.js';
 export { useModal } from './use-modal/use-modal.hook.js';
+export { useSectionUpdate } from './use-section-update/use-section-update.hook.js';
 export { useToggle } from './use-toggle/use-toggle.hook.js';
 export { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 export { useController as useFormController } from 'react-hook-form';
