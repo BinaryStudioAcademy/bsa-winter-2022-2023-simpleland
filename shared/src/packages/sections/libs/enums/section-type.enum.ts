@@ -5,6 +5,7 @@ const SectionType = {
   ABOUT: 'about',
   FEEDBACK: 'feedback',
   PORTFOLIO: 'portfolio',
+  SERVICE: 'service',
 } as const;
 
 export { SectionType };

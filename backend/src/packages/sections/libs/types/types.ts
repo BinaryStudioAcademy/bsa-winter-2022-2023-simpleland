@@ -7,4 +7,5 @@ export {
   type SiteHeaderContent,
   type SiteMainContent,
   type SitePortfolioContent,
+  type SiteServiceContent,
 } from 'shared/build/index.js';

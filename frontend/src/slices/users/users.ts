@@ -1,4 +1,5 @@
 import {
+  subscribe,
   updateUser,
   updateUserAvatar,
   updateUserLogin,
@@ -12,6 +13,7 @@ const allActions = {
   updateUserPassword,
   updateUserLogin,
   updateUserAvatar,
+  subscribe,
 };
 
 export { allActions as actions };

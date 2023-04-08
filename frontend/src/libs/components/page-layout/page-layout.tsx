@@ -8,14 +8,12 @@ type Properties = {
   children: React.ReactNode;
   style?: 'yellow' | 'black' | 'white';
   className?: string | undefined;
-  pageName?: string;
 };
 
 const PageLayout: React.FC<Properties> = ({
   children,
   style = 'yellow',
   className = '',
-  pageName = '',
 }: Properties) => {
   const { user } = useAppSelector(({ auth }) => ({
     user: auth.user,
@@ -29,7 +27,7 @@ const PageLayout: React.FC<Properties> = ({
         className,
       )}
     >
-      {user && <Header user={user} pageName={pageName} />}
+      {user && <Header user={user} />}
       {children}
     </div>
   );

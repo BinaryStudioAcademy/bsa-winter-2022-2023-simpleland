@@ -53,6 +53,7 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
       ProjectEntity.initializeNew({
         name: payload.name,
         userId: payload.userId,
+        category: payload.category,
       }),
     );
 
@@ -74,6 +75,7 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
         name: null,
         userId: id,
         avatarUrl: null,
+        category: null,
       }),
     );
 

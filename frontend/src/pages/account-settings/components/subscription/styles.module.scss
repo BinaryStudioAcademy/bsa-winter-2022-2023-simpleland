@@ -1,0 +1,61 @@
+.subscription {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 320px;
+  padding: 41px 0;
+}
+
+.subscription-heading {
+  color: #2c2c2c;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.subscription-info-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+  color: var(--gray-600);
+  font-weight: 700;
+  background-color: var(--yellow);
+}
+
+.subscription-info-period {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.subscription-info-price {
+  position: relative;
+  font-size: 24px;
+  line-height: 35px;
+}
+
+.subscription-info-per {
+  position: absolute;
+  right: 0;
+  bottom: 7px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  transform: translateX(100%);
+}
+
+.subscription-info-benefits {
+  height: 185px;
+  background-color: var(--gray-100);
+}
+
+.subscription-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.button {
+  width: 100%;
+}

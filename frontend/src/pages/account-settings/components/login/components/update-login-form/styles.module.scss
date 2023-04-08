@@ -6,14 +6,12 @@
 }
 
 .form-inner {
-  display: flex;
-  flex-direction: column;
-  width: 321px;
-  padding: 48px 0;
+  width: 324px;
+  margin: 0 auto;
 }
 
 .form-title {
-  margin-bottom: 35px;
+  margin-bottom: 34px;
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
@@ -23,15 +21,15 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
-  gap: 13px;
 }
 
 .button {
+  margin: 30px auto 0 0;
   padding: 5px 58.5px;
 }

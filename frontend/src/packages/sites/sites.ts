@@ -11,16 +11,24 @@ const sitesApi = new SitesApi({
 });
 
 export { sitesApi };
+export { SiteTargetType, SiteToneType } from './libs/enums/enums.js';
 export {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteCreateStepIndustry,
   type SiteCreateStepName,
+  type SiteCreateStepTarget,
+  type SiteCreateStepTone,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
-  type SiteGetByProjectParametersDto,
+  type SitesFilterQueryDto,
+  type SitesGetByProjectIdParametersDto,
+  type SitesGetByProjectIdRequestDto,
 } from './libs/types/types.js';
 export {
   siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
+  siteCreateStepTargetValidationSchema,
+  siteCreateStepToneValidationSchema,
+  sitesFilterValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
