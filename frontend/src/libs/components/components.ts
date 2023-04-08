@@ -3,6 +3,7 @@ export { Button } from './button/button.js';
 export { Carousel } from './carousel/carousel.js';
 export { Checkout } from './checkout/checkout.js';
 export { Divider } from './divider/divider.js';
+export { ErrorMessage } from './error-message/error-message.js';
 export { Header } from './header/header.js';
 export { Icon } from './icon/icon.js';
 export { IconButton } from './icon-button/icon-button.js';
