@@ -26,6 +26,25 @@ class SubscriptionRepository
 
     return SubscriptionEntity.initialize(subscription);
   }
+
+  public async deleteExpiredSubscriptions(): Promise<void> {
+    const currentDate = new Date().toISOString();
+
+    const expiredSubscriptions = await this.subscriptionModel
+      .query()
+      .select('id')
+      .where('subscriptionEnd', '<', currentDate)
+      .execute();
+
+    const ids = expiredSubscriptions.map(({ id }) => id);
+
+    await this.subscriptionModel
+      .relatedQuery('userDetails')
+      .for(ids)
+      .patch({ subscriptionId: null });
+
+    await this.subscriptionModel.query().delete().whereIn('id', ids);
+  }
 }
 
 export { SubscriptionRepository };
