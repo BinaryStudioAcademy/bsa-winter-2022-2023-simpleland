@@ -1,6 +1,9 @@
 import mockImage from 'src/assets/img/site-mock-image.jpg';
 
 import { Divider, IconButton } from '~/libs/components/components.js';
+import { AppRoute } from '~/libs/enums/enums.js';
+import { configureString } from '~/libs/helpers/helpers.js';
+import { type ValueOf } from '~/libs/types/types.js';
 import { type SiteGetAllItemResponseDto } from '~/packages/sites/sites.js';
 
 import styles from './styles.module.scss';
@@ -10,8 +13,15 @@ type Properties = {
 };
 
 const SiteCard: React.FC<Properties> = ({ site }: Properties) => {
-  const { name, image } = site;
+  const { name, image, id: siteId } = site;
   const imgUrl = image ?? mockImage;
+
+  const createSiteLink = configureString<ValueOf<typeof AppRoute>>(
+    AppRoute.SITES_$SITE_ID,
+    {
+      siteId,
+    },
+  );
 
   return (
     <div className={styles['card']}>
@@ -27,6 +37,7 @@ const SiteCard: React.FC<Properties> = ({ site }: Properties) => {
               icon="arrowRight"
               label="Go to site"
               className={styles['yellow']}
+              to={createSiteLink}
             />
           </div>
 
