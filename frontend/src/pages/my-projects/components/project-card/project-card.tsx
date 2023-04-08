@@ -1,4 +1,3 @@
-import { createPortal } from 'react-dom';
 import img from 'src/assets/img/project-mock-image.jpg';
 
 import { IconButton, Image, Link } from '~/libs/components/components.js';
@@ -7,11 +6,11 @@ import { configureString } from '~/libs/helpers/helpers.js';
 import { useAppDispatch, useCallback, useModal } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
+  type ProjectCreateRequestDto,
   type ProjectGetAllItemResponseDto,
-  type ProjectRequestDto,
   type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
-import { CreatePopup } from '~/pages/my-projects/components/components.js';
+import { ConfigurateProjectPopup } from '~/pages/my-projects/components/components.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
 import styles from './styles.module.scss';
@@ -31,7 +30,7 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
   } = useModal();
 
   const handleSubmitUpdateProject = useCallback(
-    (payload: ProjectRequestDto & ProjectUploadImageDto): void => {
+    (payload: ProjectCreateRequestDto & ProjectUploadImageDto): void => {
       void dispatch(projectActions.updateProject({ projectId: id, payload }))
         .unwrap()
         .then(handleProjectModalClose);
@@ -41,16 +40,14 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
 
   return (
     <>
-      {isConfigurateProject &&
-        createPortal(
-          <CreatePopup
-            onSubmit={handleSubmitUpdateProject}
-            isOpen={isConfigurateProject}
-            onClose={handleProjectModalClose}
-            project={project}
-          />,
-          document.body,
-        )}
+      {isConfigurateProject && (
+        <ConfigurateProjectPopup
+          onSubmit={handleSubmitUpdateProject}
+          isOpen={isConfigurateProject}
+          onClose={handleProjectModalClose}
+          project={project}
+        />
+      )}
       {!isConfigurateProject && (
         <div className={styles['card']}>
           <Image

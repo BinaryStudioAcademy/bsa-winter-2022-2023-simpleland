@@ -10,8 +10,8 @@ import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
 import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
+  type ProjectCreateRequestDto,
   type ProjectGetAllItemResponseDto,
-  type ProjectRequestDto,
   type ProjectUploadImageDto,
   projectCreateValidationSchema,
   projectUpdateValidationSchema,
@@ -22,31 +22,34 @@ import styles from './styles.module.scss';
 
 type Properties = {
   isOpen: boolean;
-  onCloseModal: () => void;
-  onSubmit: (payload: ProjectRequestDto & ProjectUploadImageDto) => void;
+  onClose: () => void;
+  onSubmit: (payload: ProjectCreateRequestDto & ProjectUploadImageDto) => void;
   isUpdate?: boolean;
   className?: string;
   project?: ProjectGetAllItemResponseDto | undefined;
 };
 
-const ProjectModal: React.FC<Properties> = ({
-  isOpen = false,
-  onCloseModal,
-  onSubmit,
-  isUpdate = false,
-  className = '',
+const ConfigurateProjectPopup: React.FC<Properties> = ({
   project,
+  isOpen = false,
+  onClose,
+  onSubmit,
+  isUpdate = Boolean(project),
+  className = '',
 }: Properties) => {
-  const projectValidationSchema = isUpdate
-    ? projectUpdateValidationSchema
-    : projectCreateValidationSchema;
-
-  const { control, errors, handleSubmit } = useAppForm<ProjectRequestDto>({
-    defaultValues: isUpdate
-      ? { name: project?.name ?? '', category: project?.category ?? 'business' }
-      : DEFAULT_CREATE_PROJECT_PAYLOAD,
-    validationSchema: projectValidationSchema,
-  });
+  const { control, errors, handleSubmit } = useAppForm<ProjectCreateRequestDto>(
+    {
+      defaultValues: isUpdate
+        ? {
+            name: project?.name ?? '',
+            category: project?.category ?? 'business',
+          }
+        : DEFAULT_CREATE_PROJECT_PAYLOAD,
+      validationSchema: isUpdate
+        ? projectUpdateValidationSchema
+        : projectCreateValidationSchema,
+    },
+  );
 
   const [image, setImage] = useState<{
     src: string;
@@ -95,7 +98,7 @@ const ProjectModal: React.FC<Properties> = ({
   const submitButtonLabel = isUpdate ? 'Update project' : 'Create project';
 
   return (
-    <Modal isOpen={isOpen} onClose={onCloseModal}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <div className={getValidClassNames(styles['form-wrapper'], className)}>
         <h2>{modalTitle}</h2>
 
@@ -143,4 +146,4 @@ const ProjectModal: React.FC<Properties> = ({
   );
 };
 
-export { ProjectModal };
+export { ConfigurateProjectPopup };

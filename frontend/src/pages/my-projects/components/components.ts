@@ -1,3 +1,2 @@
-export { CreatePopup } from './create-popup/create-popup.js';
+export { ConfigurateProjectPopup } from './configurate-project-popup/configurate-project-popup.js';
 export { ProjectCard } from './project-card/project-card.js';
-export { ProjectModal } from './project-modal/project-modal.js';
