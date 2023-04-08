@@ -73,19 +73,13 @@ const AccountSettings: React.FC = () => {
             <div className={styles['page-nav']}>
               <Link
                 to={AppRoute.PROFILE}
-                className={getValidClassNames(
-                  location.pathname === AppRoute.PROFILE &&
-                    styles['profile-link-active'],
-                )}
+                activeClassName={styles['profile-link-active']}
               >
                 Profile
               </Link>
               <Link
                 to={AppRoute.LOGIN}
-                className={getValidClassNames(
-                  location.pathname === AppRoute.LOGIN &&
-                    styles['profile-link-active'],
-                )}
+                activeClassName={styles['profile-link-active']}
               >
                 Login
               </Link>
