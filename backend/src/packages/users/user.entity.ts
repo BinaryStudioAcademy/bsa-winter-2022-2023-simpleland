@@ -155,7 +155,7 @@ class UserEntity implements IEntity {
       lastName: this.lastName as string,
       accountName: this.accountName,
       avatarUrl: this.avatarUrl,
-      isSubscribed: this.checkSubscription(),
+      isSubscribed: Boolean(this.subscriptionId),
     };
   }
 
@@ -207,16 +207,6 @@ class UserEntity implements IEntity {
       id: this.id as number,
       subscriptionId: this.subscriptionId as number,
     };
-  }
-
-  public checkSubscription(): boolean {
-    if (!this.subscriptionId) {
-      return false;
-    }
-
-    return Boolean(
-      new Date(this.subscriptionEndDate as string) > new Date(Date.now()),
-    );
   }
 }
 
