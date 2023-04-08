@@ -1,0 +1,34 @@
+button.StripeCheckout {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: var(--yellow) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+}
+
+button.StripeCheckout:hover {
+  background: var(--black) !important;
+}
+
+button.StripeCheckout span {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  color: var(--gray-600) !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  font-family: Roboto, serif !important;
+  line-height: 16px !important;
+  letter-spacing: 0.5px !important;
+  text-shadow: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+button.StripeCheckout:hover span {
+  color: var(--white) !important;
+}

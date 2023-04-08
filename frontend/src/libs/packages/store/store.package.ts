@@ -13,6 +13,7 @@ import { authApi } from '~/packages/auth/auth.js';
 import { projectsApi } from '~/packages/projects/projects.js';
 import { sectionsApi } from '~/packages/sections/sections.js';
 import { sitesApi } from '~/packages/sites/sites.js';
+import { subscriptionApi } from '~/packages/subscription/subscription.js';
 import { userApi } from '~/packages/users/users.js';
 import { reducer as appReducer } from '~/slices/app/app.js';
 import { reducer as authReducer } from '~/slices/auth/auth.js';
@@ -40,6 +41,7 @@ type ExtraArguments = {
   storage: typeof storage;
   notification: typeof notification;
   sectionsApi: typeof sectionsApi;
+  subscriptionApi: typeof subscriptionApi;
 };
 
 class Store {
@@ -84,6 +86,7 @@ class Store {
       sitesApi,
       storage,
       sectionsApi,
+      subscriptionApi,
     };
   }
 }

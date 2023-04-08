@@ -1,6 +1,6 @@
 const SiteValidationMessage = {
-  SITE_NAME_REQUIRE: 'Project name is required',
-  SITE_NAME_WRONG: 'Project name is wrong',
+  SITE_NAME_REQUIRE: 'Site name is required',
+  SITE_NAME_WRONG: 'Site name is wrong',
   SITE_CATEGORY_REQUIRE: 'Project category is required',
   SITE_CATEGORY_WRONG: 'Project category is wrong',
   SITE_NAME_PATTERN: 'Incorrect project name',
