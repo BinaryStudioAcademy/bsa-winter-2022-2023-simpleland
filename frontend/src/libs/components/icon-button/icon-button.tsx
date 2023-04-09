@@ -18,6 +18,7 @@ const IconButton: React.FC<Properties> = ({
   onClick,
   isDisabled = false,
   className,
+  to,
 }: Properties) => (
   <Button
     icon={icon}
@@ -25,6 +26,7 @@ const IconButton: React.FC<Properties> = ({
     onClick={onClick}
     style="plain"
     isDisabled={isDisabled}
+    to={to}
     className={getValidClassNames(styles['icon-button'], className)}
     isLabelVisuallyHidden
   />
