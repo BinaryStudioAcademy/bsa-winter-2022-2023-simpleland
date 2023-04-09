@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   align-items: center;
-  gap: 48px;
+  gap: 32px;
 }
 
 .buttons {
@@ -23,18 +23,9 @@
   fill: var(--gray-400);
 }
 
-.item-wrapper {
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
-}
-
 .item {
   padding: 4px;
-  color: var(--gray-300);
+  color: var(--gray-600);
+  word-spacing: 8px;
   background-color: transparent;
-}
-
-.item-yellow {
-  color: var(--yellow);
 }
