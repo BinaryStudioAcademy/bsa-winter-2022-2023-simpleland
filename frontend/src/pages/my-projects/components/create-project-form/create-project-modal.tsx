@@ -106,15 +106,13 @@ const CreateProjectModal: React.FC<Properties> = ({
             label="Enter your project name"
             name="name"
           />
-          <div className={styles['select-wrapper']}>
-            <Select
-              control={control}
-              errors={errors}
-              name="category"
-              placeholder="Please select your category"
-              options={options}
-            />
-          </div>
+          <Select
+            control={control}
+            errors={errors}
+            name="category"
+            options={options}
+            label="Select your project type"
+          />
           <Button
             type="submit"
             style="primary"
