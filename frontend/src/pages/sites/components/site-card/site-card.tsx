@@ -1,6 +1,6 @@
 import mockImage from 'src/assets/img/site-mock-image.jpg';
 
-import { Divider, IconButton } from '~/libs/components/components.js';
+import { Divider, IconButton, Link } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import { configureString } from '~/libs/helpers/helpers.js';
 import { type ValueOf } from '~/libs/types/types.js';
@@ -31,26 +31,18 @@ const SiteCard: React.FC<Properties> = ({ site }: Properties) => {
         <h2 className={styles['title']}>{name}</h2>
 
         <div className={styles['content']}>
-          <div className={styles['text-wrapper']}>
-            <p className={styles['text']}>Go to site</p>
-            <IconButton
-              icon="arrowRight"
-              label="Go to site"
-              className={styles['yellow']}
-              to={createSiteLink}
-            />
-          </div>
+          <Link to={createSiteLink}>
+            <div className={styles['text-wrapper']}>
+              <p className={styles['text']}>Go to site</p>
+              <IconButton
+                icon="arrowRight"
+                label="Go to site"
+                className={styles['yellow']}
+              />
+            </div>
+          </Link>
 
           <Divider />
-
-          <div className={styles['text-wrapper']}>
-            <p className={styles['text']}>Make your website public</p>
-            <IconButton
-              icon="arrowRight"
-              label="Make your website public"
-              className={styles['yellow']}
-            />
-          </div>
         </div>
       </div>
     </div>
