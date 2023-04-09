@@ -37,8 +37,10 @@ const TargetAudienceForm: React.FC<Properties> = ({
           control={control}
           name="targetAudience"
           options={OPTIONS}
+          label="Select your industry"
           placeholder="Please select your industry"
           errors={errors}
+          isLabelVisuallyHidden
         />
         <Button
           label="Go next"

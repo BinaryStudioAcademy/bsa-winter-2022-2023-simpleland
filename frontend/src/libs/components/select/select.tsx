@@ -7,6 +7,7 @@ import {
 import ReactSelect from 'react-select';
 
 import { ErrorMessage, Icon } from '~/libs/components/components.js';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useCallback,
   useFormController,
@@ -22,9 +23,11 @@ type Properties<T extends FieldValues> = {
   name: FieldPath<T>;
   options: SelectOption<string | number>[];
   placeholder?: string;
+  label: string;
   errors: FieldErrors<T>;
   isMulti?: boolean;
   icon?: IconType;
+  isLabelVisuallyHidden?: boolean;
 };
 
 const Select = <T extends FieldValues>({
@@ -32,9 +35,11 @@ const Select = <T extends FieldValues>({
   name,
   options,
   placeholder,
+  label,
   errors,
   isMulti = false,
   icon,
+  isLabelVisuallyHidden = false,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -90,7 +95,15 @@ const Select = <T extends FieldValues>({
   const error = errors[name]?.message;
 
   return (
-    <div>
+    <label className={styles['label']}>
+      <span
+        className={getValidClassNames(
+          styles['input-label'],
+          isLabelVisuallyHidden && 'visually-hidden',
+        )}
+      >
+        {label}
+      </span>
       {icon && !isMenuOpen && !isOptionSelected && (
         <Icon iconName={icon} className={styles['select-icon']} />
       )}
@@ -108,7 +121,7 @@ const Select = <T extends FieldValues>({
         styles={getStyles({ hasIcon: !isMenuOpen && !isOptionSelected })}
       />
       <ErrorMessage error={error as string} />
-    </div>
+    </label>
   );
 };
 
