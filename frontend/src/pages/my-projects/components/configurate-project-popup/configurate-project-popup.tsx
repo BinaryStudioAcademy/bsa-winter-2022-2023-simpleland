@@ -137,9 +137,9 @@ const ConfigurateProjectPopup: React.FC<Properties> = ({
             <Select
               control={control}
               errors={errors}
-              placeholder="Select your project category"
               name="category"
               options={options}
+              label="Select your project type"
             />
           </div>
           <div className={styles['button-wrapper']}>

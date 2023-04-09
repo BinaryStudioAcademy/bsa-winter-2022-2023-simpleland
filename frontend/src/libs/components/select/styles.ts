@@ -17,7 +17,7 @@ const getStyles = ({
     },
     borderRadius: '0',
     boxShadow: 'none',
-    width: '324px',
+    width: '100%',
     cursor: 'pointer',
   }),
   option: (provided, state) => ({
@@ -37,7 +37,7 @@ const getStyles = ({
     borderRadius: '0',
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
     cursor: 'pointer',
-    width: '324px',
+    width: '100%',
     margin: '0px',
   }),
   menuList: (provided) => ({
