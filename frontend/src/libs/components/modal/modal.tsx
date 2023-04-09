@@ -18,41 +18,28 @@ const Modal: React.FC<Properties> = ({
 }: Properties) => {
   const reference = useRef<null | HTMLDialogElement>(null);
   useEffect(() => {
-    if (!reference.current) {
+    const modal = reference.current;
+
+    if (!modal) {
       return;
     }
 
-    if (isOpen && !reference.current.hasAttribute('open')) {
-      return reference.current.showModal();
+    if (isOpen && !modal.hasAttribute('open')) {
+      modal.showModal();
     }
 
     const handleKeyDown = (event: KeyboardEvent): void => {
-      if (event.key === 'Escape' && reference.current?.hasAttribute('open')) {
+      if (event.key === 'Escape' && modal.hasAttribute('open')) {
         event.preventDefault();
       }
     };
 
-    reference.current.addEventListener('keydown', handleKeyDown);
+    modal.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      if (reference.current) {
-        reference.current.removeEventListener('keydown', handleKeyDown);
-      }
+      modal.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, reference]);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent): void => {
-      if (event.key === 'Escape') {
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [onClose]);
 
   if (!isOpen) {
     return null;
