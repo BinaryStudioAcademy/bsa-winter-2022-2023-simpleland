@@ -18,6 +18,7 @@ import {
 } from '~/libs/hooks/hooks.js';
 import {
   type ProjectCreateRequestDto,
+  type ProjectGetAllItemResponseDto,
   type ProjectGetAllParametersDto,
   type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
@@ -33,14 +34,26 @@ import styles from './styles.module.scss';
 const MyProjects: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [currentProject, setCurrentProject] =
+    useState<ProjectGetAllItemResponseDto | null>(null);
 
   const handleModalOpen = useCallback(() => {
     setIsOpen(true);
+    setCurrentProject(null);
   }, []);
 
   const handleModalClose = useCallback(() => {
     setIsOpen(false);
+    setCurrentProject(null);
   }, []);
+
+  const handleProjectEdit = useCallback(
+    (project: ProjectGetAllItemResponseDto) => {
+      setIsOpen(true);
+      setCurrentProject(project);
+    },
+    [],
+  );
 
   const dispatch = useAppDispatch();
   useTitle('My projects');
@@ -64,13 +77,27 @@ const MyProjects: React.FC = () => {
 
   const handleProjectSubmit = useCallback(
     (payload: ProjectCreateRequestDto & ProjectUploadImageDto): void => {
-      void dispatch(projectActions.createProject(payload))
-        .unwrap()
-        .then(() => {
-          handleModalClose();
-        });
+      if (currentProject) {
+        void dispatch(
+          projectActions.updateProject({
+            projectId: currentProject.id,
+            payload,
+          }),
+        )
+          .unwrap()
+          .then(() => {
+            handleModalClose();
+            setCurrentProject(null);
+          });
+      } else {
+        void dispatch(projectActions.createProject(payload))
+          .unwrap()
+          .then(() => {
+            handleModalClose();
+          });
+      }
     },
-    [dispatch, handleModalClose],
+    [currentProject, dispatch, handleModalClose],
   );
 
   const handleSearching = useCallback((value: string) => {
@@ -135,7 +162,11 @@ const MyProjects: React.FC = () => {
 
               <div className={styles['cards-wrapper']}>
                 {projects.map((card) => (
-                  <ProjectCard key={card.id} project={card} />
+                  <ProjectCard
+                    key={card.id}
+                    project={card}
+                    onEdit={handleProjectEdit}
+                  />
                 ))}
               </div>
             </>
@@ -159,6 +190,7 @@ const MyProjects: React.FC = () => {
         </div>
       </PageLayout>
       <ConfigurateProjectPopup
+        project={currentProject}
         onSubmit={handleProjectSubmit}
         isOpen={isOpen}
         onClose={handleModalClose}

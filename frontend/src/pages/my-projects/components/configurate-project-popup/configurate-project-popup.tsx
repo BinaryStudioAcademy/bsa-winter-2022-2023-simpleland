@@ -7,7 +7,12 @@ import {
   Select,
 } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
+import {
+  useAppForm,
+  useCallback,
+  useEffect,
+  useState,
+} from '~/libs/hooks/hooks.js';
 import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
   type ProjectCreateRequestDto,
@@ -26,7 +31,7 @@ type Properties = {
   onSubmit: (payload: ProjectCreateRequestDto & ProjectUploadImageDto) => void;
   isUpdate?: boolean;
   className?: string;
-  project?: ProjectGetAllItemResponseDto | undefined;
+  project?: ProjectGetAllItemResponseDto | null;
 };
 
 const ConfigurateProjectPopup: React.FC<Properties> = ({
@@ -37,8 +42,8 @@ const ConfigurateProjectPopup: React.FC<Properties> = ({
   isUpdate = Boolean(project),
   className = '',
 }: Properties) => {
-  const { control, errors, handleSubmit } = useAppForm<ProjectCreateRequestDto>(
-    {
+  const { control, errors, handleSubmit, handleReset } =
+    useAppForm<ProjectCreateRequestDto>({
       defaultValues: isUpdate
         ? {
             name: project?.name ?? '',
@@ -48,8 +53,14 @@ const ConfigurateProjectPopup: React.FC<Properties> = ({
       validationSchema: isUpdate
         ? projectUpdateValidationSchema
         : projectCreateValidationSchema,
-    },
-  );
+    });
+
+  useEffect(() => {
+    handleReset({
+      name: project?.name ?? '',
+      category: project?.category ?? 'business',
+    });
+  }, [project, handleReset]);
 
   const [image, setImage] = useState<{
     src: string;
