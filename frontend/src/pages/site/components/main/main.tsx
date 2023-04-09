@@ -1,3 +1,4 @@
+import { Image } from '~/libs/components/components.js';
 import { type SiteMainContent } from '~/packages/sections/sections.js';
 
 import styles from './styles.module.scss';
@@ -7,7 +8,7 @@ type Properties = {
 };
 
 const Main: React.FC<Properties> = ({
-  content: { description, title },
+  content: { description, title, picture },
 }: Properties) => {
   return (
     <div className={styles['main']}>
@@ -19,7 +20,12 @@ const Main: React.FC<Properties> = ({
           <button className={styles['main-button']}>Get started</button>
         </div>
       </div>
-      <div className={styles['main-picture']} />
+
+      <Image
+        src={picture}
+        alt="SimpleLand"
+        className={styles['main-picture']}
+      />
     </div>
   );
 };
