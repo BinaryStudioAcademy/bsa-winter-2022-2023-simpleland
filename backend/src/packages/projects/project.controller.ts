@@ -74,6 +74,17 @@ class ProjectController extends Controller {
     });
 
     this.addRoute({
+      path: ProjectsApiPath.$PROJECT_ID,
+      method: 'GET',
+      handler: (options) =>
+        this.find(
+          options as ApiHandlerOptions<{
+            params: { projectId: number };
+          }>,
+        ),
+    });
+
+    this.addRoute({
       path: ProjectsApiPath.ROOT,
       method: 'POST',
       validation: {
@@ -136,6 +147,39 @@ class ProjectController extends Controller {
         options.user.id,
         options.query,
       ),
+    };
+  }
+  /**
+   * @swagger
+   * /projects/{projectId}:
+   *   get:
+   *     description: Get a project by ID
+   *     parameters:
+   *       - in: path
+   *         name: projectId
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: ID of the project to retrieve
+   *     responses:
+   *       '200':
+   *         description: OK
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Project'
+   */
+
+  private async find(
+    options: ApiHandlerOptions<{
+      params: { projectId: number };
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    const { projectId } = options.params;
+
+    return {
+      status: HttpCode.OK,
+      payload: await this.projectService.find(projectId),
     };
   }
 
