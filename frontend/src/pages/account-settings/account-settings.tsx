@@ -48,8 +48,6 @@ const AccountSettings: React.FC = () => {
 
   const location = useLocation();
 
-  const PROFILE_LINK_ACTIVE_CLASS = styles['profile-link-active'];
-
   const handleScreenRender = (): React.ReactNode => {
     switch (location.pathname) {
       case AppRoute.PROFILE: {
@@ -80,19 +78,19 @@ const AccountSettings: React.FC = () => {
             <div className={styles['page-nav']}>
               <Link
                 to={AppRoute.PROFILE}
-                activeClassName={PROFILE_LINK_ACTIVE_CLASS}
+                activeClassName={styles['profile-link-active']}
               >
                 Profile
               </Link>
               <Link
                 to={AppRoute.LOGIN}
-                activeClassName={PROFILE_LINK_ACTIVE_CLASS}
+                activeClassName={styles['profile-link-active']}
               >
                 Login
               </Link>
               <Link
                 to={AppRoute.SUBSCRIPTION}
-                activeClassName={PROFILE_LINK_ACTIVE_CLASS}
+                activeClassName={styles['active-link']}
               >
                 Subscription
               </Link>
