@@ -4,5 +4,5 @@ import { OpenAI } from './open-ai.package.js';
 
 const openAI = new OpenAI({ config });
 
-export {  openAI };
+export { openAI };
 export { ImageSize } from './libs/enums/enums.js';
