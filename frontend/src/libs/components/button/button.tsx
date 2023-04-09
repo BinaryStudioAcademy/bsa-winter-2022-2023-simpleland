@@ -15,7 +15,7 @@ type Properties = {
   className?: string | undefined;
   onClick?: (() => void) | undefined;
   isLabelVisuallyHidden?: boolean;
-  to?: ValueOf<typeof AppRoute>;
+  to?: ValueOf<typeof AppRoute> | undefined;
 };
 
 const Button: React.FC<Properties> = ({
