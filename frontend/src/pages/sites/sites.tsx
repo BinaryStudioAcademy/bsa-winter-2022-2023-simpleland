@@ -51,11 +51,15 @@ const Sites: React.FC = () => {
     status: sites.dataStatus,
   }));
 
+  const projectName =
+    useAppSelector(({ projects }) => projects.projects).find(
+      (project) => project.id === Number(projectId),
+    )?.name ?? 'My sites';
+
   const { control, errors, handleSubmit } = useAppForm<SitesFilterQueryDto>({
     defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
     validationSchema: sitesFilterValidationSchema,
   });
-
   const handleInputChange = useCallback(
     async (data: SitesFilterQueryDto): Promise<void> => {
       await dispatch(
@@ -116,7 +120,7 @@ const Sites: React.FC = () => {
                   </span>
                 </Link>
               </div>
-              <h2>Landing</h2>
+              <h2>{projectName}</h2>
             </div>
             <form onChange={handleFormChange}>
               <Input
