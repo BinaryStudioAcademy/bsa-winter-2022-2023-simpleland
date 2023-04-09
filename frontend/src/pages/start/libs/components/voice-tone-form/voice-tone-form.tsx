@@ -33,9 +33,11 @@ const VoiceToneForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
         <Select
           name="tone"
           placeholder="Please select your tone"
+          label="Select your tone"
           options={OPTIONS}
           control={control}
           errors={errors}
+          isLabelVisuallyHidden
         />
         <Button
           label="Go next"
