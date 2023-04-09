@@ -5,7 +5,7 @@ import {
   type FieldValues,
 } from 'react-hook-form';
 
-import { Icon } from '~/libs/components/components.js';
+import { ErrorMessage, Icon } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useFormController } from '~/libs/hooks/hooks.js';
 import { type IconType } from '~/libs/types/types.js';
@@ -70,9 +70,7 @@ const Input = <T extends FieldValues>({
         disabled={isDisabled}
         inputMode={inputMode}
       />
-      <span className={styles['error-message']}>
-        {hasError && (error as string)}
-      </span>
+      <ErrorMessage error={error as string} />
     </label>
   );
 };
