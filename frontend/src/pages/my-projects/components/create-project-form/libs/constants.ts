@@ -4,7 +4,7 @@ import {
   ProjectCategory,
 } from '~/packages/projects/projects.js';
 
-import { projectCategoryToReadable } from './maps/maps.js';
+import { projectCategoryToReadable } from '../../libs/maps/maps.js';
 
 const OPTIONS: SelectOption<ValueOf<typeof ProjectCategory>>[] = Object.values(
   ProjectCategory,
