@@ -1,8 +1,7 @@
 import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
-import { ImageSize } from '~/libs/packages/open-ai/libs/enums/enums.js';
-import { openAI } from '~/libs/packages/open-ai/open-ai.js';
+import { ImageSize, openAI } from '~/libs/packages/open-ai/open-ai.js';
 import { type ValueOf } from '~/libs/types/types.js';
 
 import { SectionType } from './libs/enums/enums.js';
