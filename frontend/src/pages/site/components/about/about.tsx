@@ -4,13 +4,15 @@ import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteAboutContent;
+  type: string;
 };
 
 const About: React.FC<Properties> = ({
   content: { description, title },
+  type,
 }: Properties) => {
   return (
-    <div className={styles['about']}>
+    <div id={type} className={styles['about']}>
       <div className={styles['about-container']}>
         <div className={styles['about-content']}>
           <div className={styles['about-content-left']} />

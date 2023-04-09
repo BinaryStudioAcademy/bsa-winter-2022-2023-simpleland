@@ -8,10 +8,12 @@ const MAX_IMAGES_COUNT = 8;
 
 type Properties = {
   content: SitePortfolioContent;
+  type: string;
 };
 
 const Portfolio: React.FC<Properties> = ({
   content: { title, categories },
+  type,
 }: Properties) => {
   const [titleFirstWord, ...titleRest] = title.split(' ');
   const [selectedCategory, setSelectedCategory] = useState<null | number>(null);
@@ -57,7 +59,7 @@ const Portfolio: React.FC<Properties> = ({
   }, [selectedImages]);
 
   return (
-    <div className={styles['section-wrapper']}>
+    <div id={type} className={styles['section-wrapper']}>
       <div className={styles['portfolio-wrapper']}>
         <div className={styles['title']}>
           {titleFirstWord}

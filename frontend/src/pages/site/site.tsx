@@ -4,6 +4,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
+  useMemo,
   useParams,
   useTitle,
 } from '~/libs/hooks/hooks.js';
@@ -41,6 +42,14 @@ const Site: React.FC = () => {
 
   const { siteId } = useParams() as { siteId: string };
 
+  const navigationSections = useMemo(() => {
+    return sections.filter(
+      (section) =>
+        section.type !== SectionType.HEADER &&
+        section.type !== SectionType.FOOTER,
+    );
+  }, [sections]);
+
   useEffect(() => {
     void dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) }));
   }, [dispatch, siteId]);
@@ -60,26 +69,54 @@ const Site: React.FC = () => {
           return <Header content={content as SiteHeaderContent} key={type} />;
         }
         case SectionType.MAIN: {
-          return <Main content={content as SiteMainContent} key={type} />;
+          return (
+            <Main content={content as SiteMainContent} type={type} key={type} />
+          );
         }
         case SectionType.ABOUT: {
-          return <About content={content as SiteAboutContent} key={type} />;
+          return (
+            <About
+              content={content as SiteAboutContent}
+              type={type}
+              key={type}
+            />
+          );
         }
         case SectionType.PORTFOLIO: {
           return (
-            <Portfolio content={content as SitePortfolioContent} key={type} />
+            <Portfolio
+              content={content as SitePortfolioContent}
+              type={type}
+              key={type}
+            />
           );
         }
         case SectionType.FOOTER: {
-          return <Footer content={content as SiteFooterContent} key={type} />;
+          return (
+            <Footer
+              content={content as SiteFooterContent}
+              navigationSections={navigationSections}
+              key={type}
+            />
+          );
         }
         case SectionType.FEEDBACK: {
           return (
-            <Feedback content={content as SiteFeedbackContent} key={type} />
+            <Feedback
+              content={content as SiteFeedbackContent}
+              type={type}
+              key={type}
+            />
           );
         }
         case SectionType.SERVICE: {
-          return <Service content={content as SiteServiceContent} key={type} />;
+          return (
+            <Service
+              content={content as SiteServiceContent}
+              type={type}
+              key={type}
+            />
+          );
         }
       }
     });

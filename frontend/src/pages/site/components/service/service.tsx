@@ -5,13 +5,15 @@ import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteServiceContent;
+  type: string;
 };
 
 const Service: React.FC<Properties> = ({
   content: { title, cards },
+  type,
 }: Properties) => {
   return (
-    <div className={styles['service']}>
+    <div id={type} className={styles['service']}>
       <div className={styles['service-container']}>
         <div className={styles['title']}>{title}</div>
         <div className={styles['service-cards']}>

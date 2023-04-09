@@ -6,15 +6,17 @@ import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteFeedbackContent;
+  type: string;
 };
 
 const Feedback: React.FC<Properties> = ({
   content: { title, cards },
+  type,
 }: Properties) => {
   const [titleFirstWord, ...titleRest] = title.split(' ');
 
   return (
-    <div className={styles['feedback']}>
+    <div id={type} className={styles['feedback']}>
       <div className={styles['feedback-container']}>
         <div className={styles['title']}>
           {titleFirstWord}
