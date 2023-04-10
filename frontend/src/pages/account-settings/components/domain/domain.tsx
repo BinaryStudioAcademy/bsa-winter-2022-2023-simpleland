@@ -11,7 +11,7 @@ const Domain: React.FC = () => {
           data-tooltip-content="Coming soon"
           className={styles['item-text']}
         >
-          By a new domain name
+          Buy a new domain name
         </div>
         <IconButton
           label="By a new domain name"
