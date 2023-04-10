@@ -14,7 +14,9 @@ import {
   useAppSelector,
   useCallback,
   useEffect,
+  useMemo,
   useParams,
+  useState,
   useTitle,
 } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
@@ -32,6 +34,8 @@ const Sites: React.FC = () => {
   const { projectId } = useParams();
   const dispatch = useAppDispatch();
   useTitle('My sites');
+
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   useEffect((): void => {
     if (projectId) {
@@ -56,6 +60,10 @@ const Sites: React.FC = () => {
     validationSchema: sitesFilterValidationSchema,
   });
 
+  const handleSearching = useCallback((value: string) => {
+    return setIsSearching(value.length > 0);
+  }, []);
+
   const handleInputChange = useCallback(
     async (data: SitesFilterQueryDto): Promise<void> => {
       await dispatch(
@@ -64,8 +72,9 @@ const Sites: React.FC = () => {
           queryParameters: data,
         }),
       );
+      handleSearching(data.name);
     },
-    [dispatch, projectId],
+    [dispatch, projectId, handleSearching],
   );
 
   const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
@@ -80,9 +89,13 @@ const Sites: React.FC = () => {
     },
   );
 
+  const isSitesShow = useMemo(() => {
+    return hasSites || isSearching;
+  }, [hasSites, isSearching]);
+
   if (status === DataStatus.PENDING) {
     return (
-      <PageLayout style="black">
+      <PageLayout style={isSitesShow ? 'white' : 'black'}>
         <Loader style="yellow" />
       </PageLayout>
     );
@@ -90,11 +103,11 @@ const Sites: React.FC = () => {
 
   return (
     <PageLayout
-      style={hasSites ? 'white' : 'black'}
+      style={isSitesShow ? 'white' : 'black'}
       className={styles['page-layout']}
     >
       <div className={styles['page-wrapper']}>
-        {hasSites ? (
+        {isSitesShow ? (
           <>
             <div className={styles['search-wrapper']}>
               <Button
