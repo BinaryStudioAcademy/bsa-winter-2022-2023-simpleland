@@ -20,6 +20,7 @@ import {
   useTitle,
 } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
+import { type ProjectGetAllItemResponseDto } from '~/packages/projects/libs/types/types.js';
 import {
   type SitesFilterQueryDto,
   sitesFilterValidationSchema,
@@ -140,7 +141,7 @@ const Sites: React.FC = () => {
                   </span>
                 </Link>
               </div>
-              <h2>{project?.name}</h2>
+              <h2>{(project as ProjectGetAllItemResponseDto).name}</h2>
             </div>
             <form onChange={handleFormChange}>
               <Input
