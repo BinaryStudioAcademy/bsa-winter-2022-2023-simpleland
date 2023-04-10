@@ -1,10 +1,12 @@
+import { type Page } from 'objection';
+
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectModel } from '~/packages/projects/project.model.js';
 
 import { type ProjectFilterQueryDto } from './libs/types/types.js';
 
-class ProjectRepository implements Omit<IRepository, 'find' | 'delete'> {
+class ProjectRepository implements Omit<IRepository, 'update' | 'delete'> {
   private projectModel: typeof ProjectModel;
 
   private defaultRelationExpression = 'avatar';
@@ -28,11 +30,34 @@ class ProjectRepository implements Omit<IRepository, 'find' | 'delete'> {
     });
   }
 
+  public async find(id: number): Promise<ProjectEntity | null> {
+    const project = await this.projectModel
+      .query()
+      .findById(id)
+      .withGraphFetched(this.defaultRelationExpression)
+      .execute();
+
+    if (!project) {
+      return null;
+    }
+
+    return ProjectEntity.initialize({
+      id: project.id,
+      name: project.name,
+      userId: project.userId,
+      avatarId: project.avatarId,
+      avatarUrl: project.avatar?.url ?? null,
+      category: project.category,
+    });
+  }
+
   public async findByUserId(
     id: number,
-    { name }: ProjectFilterQueryDto,
-  ): Promise<ProjectEntity[]> {
-    const projects = await this.projectModel
+    { name, page, limit }: ProjectFilterQueryDto,
+  ): Promise<Page<ProjectModel>> {
+    const offset = page - 1;
+
+    return await this.projectModel
       .query()
       .where('userId', id)
       .andWhere((builder) => {
@@ -40,19 +65,10 @@ class ProjectRepository implements Omit<IRepository, 'find' | 'delete'> {
           void builder.where('name', 'ilike', `%${name}%`);
         }
       })
+      .orderBy('created_at')
+      .page(offset, limit)
       .withGraphFetched(this.defaultRelationExpression)
       .execute();
-
-    return projects.map((project) => {
-      return ProjectEntity.initialize({
-        id: project.id,
-        name: project.name,
-        userId: project.userId,
-        avatarId: project.avatarId,
-        avatarUrl: project.avatar?.url ?? null,
-        category: project.category,
-      });
-    });
   }
 
   public async create(entity: ProjectEntity): Promise<ProjectEntity> {

@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { type AsyncThunkConfig } from '~/libs/types/async-thunk-config.type.js';
+import { AppRoute } from '~/libs/enums/enums.js';
+import { configureString } from '~/libs/helpers/helpers.js';
+import { type AsyncThunkConfig, type ValueOf } from '~/libs/types/types.js';
 import {
   type ProjectCreateRequestDto,
   type ProjectFilterQueryDto,
@@ -8,29 +10,42 @@ import {
   type ProjectGetAllResponseDto,
   type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
+import { actions as appActions } from '~/slices/app/app.js';
 
 import { name as sliceName } from './projects.slice.js';
 
 const createProject = createAsyncThunk<
-  ProjectGetAllItemResponseDto,
+  unknown,
   ProjectCreateRequestDto & ProjectUploadImageDto,
   AsyncThunkConfig
->(`${sliceName}/create-project`, async (createProjectPayload, { extra }) => {
-  const { projectsApi } = extra;
+>(
+  `${sliceName}/create-project`,
+  async (createProjectPayload, { extra, dispatch }) => {
+    const { projectsApi } = extra;
 
-  const { name, formData, category } = createProjectPayload;
+    const { name, formData, category } = createProjectPayload;
 
-  const project = await projectsApi.createProject({
-    name,
-    category,
-  });
+    const project = await projectsApi.createProject({
+      name,
+      category,
+    });
 
-  if (formData) {
-    return await projectsApi.uploadProjectImage(project.id, formData);
-  }
+    if (formData) {
+      await projectsApi.uploadProjectImage(project.id, formData);
+    }
 
-  return project;
-});
+    dispatch(
+      appActions.navigate(
+        configureString<ValueOf<typeof AppRoute>>(
+          AppRoute.PROJECTS_$PROJECT_ID_SITES,
+          {
+            projectId: project.id,
+          },
+        ),
+      ),
+    );
+  },
+);
 
 const getUserProjects = createAsyncThunk<
   ProjectGetAllResponseDto,
@@ -60,21 +75,21 @@ const uploadProjectImage = createAsyncThunk<
 const updateProject = createAsyncThunk<
   ProjectGetAllItemResponseDto,
   {
-    projectId: number;
+    id: number;
     payload: ProjectCreateRequestDto & ProjectUploadImageDto;
   },
   AsyncThunkConfig
 >(`${sliceName}/update-project`, async (updateProjectPayload, { extra }) => {
   const { projectsApi } = extra;
 
-  const { projectId, payload } = updateProjectPayload;
+  const { id, payload } = updateProjectPayload;
 
   const { formData, ...updatedData } = payload;
 
-  const project = await projectsApi.updateProject(projectId, updatedData);
+  const project = await projectsApi.updateProject(id, updatedData);
 
   if (formData) {
-    return await projectsApi.uploadProjectImage(projectId, formData);
+    return await projectsApi.uploadProjectImage(id, formData);
   }
 
   return project;
