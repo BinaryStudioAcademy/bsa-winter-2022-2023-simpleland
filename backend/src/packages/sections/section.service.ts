@@ -87,7 +87,7 @@ class SectionService
     const section = entity.toObject();
 
     if (section.type !== payload.type) {
-      null;
+      return null;
     }
 
     const updatedContent = sectionTypeToUpdateSectionHandler[section.type](
