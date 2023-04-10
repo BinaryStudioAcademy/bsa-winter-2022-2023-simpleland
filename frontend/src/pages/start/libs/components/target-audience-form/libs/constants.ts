@@ -1,8 +1,5 @@
 import { type SelectOption, type ValueOf } from '~/libs/types/types.js';
-import {
-  type SiteCreateStepTarget,
-  SiteTargetType,
-} from '~/packages/sites/sites.js';
+import { SiteTargetType } from '~/packages/sites/sites.js';
 
 import { siteTargetTypeToReadable } from './maps/maps.js';
 

@@ -1,8 +1,5 @@
 import { type SelectOption, type ValueOf } from '~/libs/types/types.js';
-import {
-  type SiteCreateStepTone,
-  SiteToneType,
-} from '~/packages/sites/sites.js';
+import { SiteToneType } from '~/packages/sites/sites.js';
 
 import { siteToneTypeToReadable } from './maps/maps.js';
 
