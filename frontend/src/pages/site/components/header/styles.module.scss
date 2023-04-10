@@ -16,9 +16,33 @@
   width: 1085px;
 }
 
+.header-navigation {
+  display: flex;
+  align-items: center;
+  gap: 52px;
+}
+
 .header-logo {
   color: var(--site-text-color);
   font-size: 22px;
+}
+
+.navigation-links {
+  display: flex;
+  gap: 18px;
+}
+
+.navigation-link,
+.navigation-link:active {
+  color: var(--site-text-color);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 42px;
+  text-decoration: none;
+}
+
+.navigation-link::first-letter {
+  text-transform: uppercase;
 }
 
 .header-phone {
