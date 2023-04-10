@@ -24,6 +24,7 @@ import {
   type SitesFilterQueryDto,
   sitesFilterValidationSchema,
 } from '~/packages/sites/sites.js';
+import { actions as projectsActions } from '~/slices/projects/projects.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
 import { SiteCard } from './components/components.js';
@@ -46,19 +47,23 @@ const Sites: React.FC = () => {
             name: '',
           },
         }),
-      );
+      )
+        .unwrap()
+        .then(() => {
+          void dispatch(
+            projectsActions.getCurrentProject({ id: Number(projectId) }),
+          );
+        });
     }
   }, [dispatch, projectId]);
 
-  const { sites, status } = useAppSelector(({ sites }) => ({
+  const { sites, status, project } = useAppSelector(({ sites, projects }) => ({
     sites: sites.sites,
     status: sites.dataStatus,
+    project: projects.currentProject,
   }));
 
-  const projectName =
-    useAppSelector(({ projects }) => projects.projects).find(
-      (project) => project.id === Number(projectId),
-    )?.name ?? 'My sites';
+  const projectName = project?.name ?? 'My sites';
 
   const { control, errors, handleSubmit } = useAppForm<SitesFilterQueryDto>({
     defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
