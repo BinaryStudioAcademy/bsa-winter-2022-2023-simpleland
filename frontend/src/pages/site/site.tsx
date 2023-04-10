@@ -28,6 +28,8 @@ import {
   Portfolio,
   Service,
 } from './components/components.js';
+import { sortSectionsByPosition } from './libs/helpers/helpers.js';
+import { sectionTypeToPosition } from './libs/maps/maps.js';
 import styles from './styles.module.scss';
 
 const Site: React.FC = () => {
@@ -54,35 +56,39 @@ const Site: React.FC = () => {
   }
 
   const renderSections = (): JSX.Element[] => {
-    return sections.map(({ type, content }) => {
-      switch (type) {
-        case SectionType.HEADER: {
-          return <Header content={content as SiteHeaderContent} key={type} />;
+    return sortSectionsByPosition(sections, sectionTypeToPosition).map(
+      ({ type, content }) => {
+        switch (type) {
+          case SectionType.HEADER: {
+            return <Header content={content as SiteHeaderContent} key={type} />;
+          }
+          case SectionType.MAIN: {
+            return <Main content={content as SiteMainContent} key={type} />;
+          }
+          case SectionType.ABOUT: {
+            return <About content={content as SiteAboutContent} key={type} />;
+          }
+          case SectionType.PORTFOLIO: {
+            return (
+              <Portfolio content={content as SitePortfolioContent} key={type} />
+            );
+          }
+          case SectionType.FOOTER: {
+            return <Footer content={content as SiteFooterContent} key={type} />;
+          }
+          case SectionType.FEEDBACK: {
+            return (
+              <Feedback content={content as SiteFeedbackContent} key={type} />
+            );
+          }
+          case SectionType.SERVICE: {
+            return (
+              <Service content={content as SiteServiceContent} key={type} />
+            );
+          }
         }
-        case SectionType.MAIN: {
-          return <Main content={content as SiteMainContent} key={type} />;
-        }
-        case SectionType.ABOUT: {
-          return <About content={content as SiteAboutContent} key={type} />;
-        }
-        case SectionType.PORTFOLIO: {
-          return (
-            <Portfolio content={content as SitePortfolioContent} key={type} />
-          );
-        }
-        case SectionType.FOOTER: {
-          return <Footer content={content as SiteFooterContent} key={type} />;
-        }
-        case SectionType.FEEDBACK: {
-          return (
-            <Feedback content={content as SiteFeedbackContent} key={type} />
-          );
-        }
-        case SectionType.SERVICE: {
-          return <Service content={content as SiteServiceContent} key={type} />;
-        }
-      }
-    });
+      },
+    );
   };
 
   return <div className={styles['site']}>{renderSections()}</div>;
