@@ -39,6 +39,26 @@ class ProjectsApi extends HttpApi {
     return await response.json<ProjectGetAllItemResponseDto>();
   }
 
+  public async getProject(parameters: {
+    id: number;
+  }): Promise<ProjectGetAllItemResponseDto | null> {
+    const response = await this.load(
+      this.getFullEndpoint(
+        configureString(ProjectsApiPath.$ID, {
+          id: parameters.id,
+        }),
+        {},
+      ),
+      {
+        method: 'GET',
+        contentType: ContentType.JSON,
+        hasAuth: true,
+      },
+    );
+
+    return await response.json<ProjectGetAllItemResponseDto | null>();
+  }
+
   public async getProjects(
     parameters: ProjectFilterQueryDto,
   ): Promise<ProjectGetAllResponseDto> {
