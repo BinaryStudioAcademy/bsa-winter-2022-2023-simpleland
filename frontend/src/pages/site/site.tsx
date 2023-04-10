@@ -3,11 +3,13 @@ import { DataStatus } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
+  useCallback,
   useEffect,
   useParams,
   useTitle,
 } from '~/libs/hooks/hooks.js';
 import {
+  type SectionGetAllItemResponseDto,
   type SiteAboutContent,
   type SiteFeedbackContent,
   type SiteFooterContent,
@@ -45,19 +47,34 @@ const Site: React.FC = () => {
     void dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) }));
   }, [dispatch, siteId]);
 
-  if (status === DataStatus.PENDING) {
-    return (
-      <PageLayout style="black">
-        <Loader style="yellow" />
-      </PageLayout>
-    );
-  }
+  const handleUpdate = useCallback(
+    ({ id, type }: SectionGetAllItemResponseDto) => {
+      return (content: unknown) => {
+        void dispatch(
+          sectionsActions.updateContent({
+            id: id.toString(),
+            type,
+            content,
+          }),
+        );
+      };
+    },
+    [dispatch],
+  );
 
   const renderSections = (): JSX.Element[] => {
-    return sections.map(({ type, content }) => {
+    return sections.map((section) => {
+      const { content, type } = section;
+
       switch (type) {
         case SectionType.HEADER: {
-          return <Header content={content as SiteHeaderContent} key={type} />;
+          return (
+            <Header
+              content={content as SiteHeaderContent}
+              key={type}
+              onUpdate={handleUpdate(section)}
+            />
+          );
         }
         case SectionType.MAIN: {
           return <Main content={content as SiteMainContent} key={type} />;
@@ -104,6 +121,14 @@ const Site: React.FC = () => {
       }
     });
   };
+
+  if (status === DataStatus.PENDING) {
+    return (
+      <PageLayout style="black">
+        <Loader style="yellow" />
+      </PageLayout>
+    );
+  }
 
   return <div className={styles['site']}>{renderSections()}</div>;
 };
