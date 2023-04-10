@@ -64,7 +64,7 @@ const getCurrentProject = createAsyncThunk<
 >(`${sliceName}/get-current-project`, async (parameters, { extra }) => {
   const { projectsApi } = extra;
 
-  return await projectsApi.getProject(parameters);
+  return await projectsApi.getById(parameters);
 });
 
 const uploadProjectImage = createAsyncThunk<

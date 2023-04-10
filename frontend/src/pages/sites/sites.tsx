@@ -20,6 +20,7 @@ import {
   useTitle,
 } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
+import { type ProjectGetAllItemResponseDto } from '~/packages/projects/libs/types/types.js';
 import {
   type SitesFilterQueryDto,
   sitesFilterValidationSchema,
@@ -40,30 +41,28 @@ const Sites: React.FC = () => {
 
   useEffect((): void => {
     if (projectId) {
-      void dispatch(
-        sitesActions.getSitesByProjectId({
-          parameters: { projectId: Number(projectId) },
-          queryParameters: {
-            name: '',
-          },
-        }),
-      )
-        .unwrap()
-        .then(() => {
-          void dispatch(
-            projectsActions.getCurrentProject({ id: Number(projectId) }),
-          );
-        });
+      void Promise.all([
+        dispatch(
+          sitesActions.getSitesByProjectId({
+            parameters: { projectId: Number(projectId) },
+            queryParameters: {
+              name: '',
+            },
+          }),
+        ),
+        dispatch(projectsActions.getCurrentProject({ id: Number(projectId) })),
+      ]);
     }
   }, [dispatch, projectId]);
 
-  const { sites, status, project } = useAppSelector(({ sites, projects }) => ({
-    sites: sites.sites,
-    status: sites.dataStatus,
-    project: projects.currentProject,
-  }));
-
-  const projectName = project?.name ?? 'My sites';
+  const { sites, sitesStatus, project, projectStatus } = useAppSelector(
+    ({ sites, projects }) => ({
+      sites: sites.sites,
+      sitesStatus: sites.dataStatus,
+      project: projects.currentProject,
+      projectStatus: projects.dataStatus,
+    }),
+  );
 
   const { control, errors, handleSubmit } = useAppForm<SitesFilterQueryDto>({
     defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
@@ -103,7 +102,10 @@ const Sites: React.FC = () => {
     return hasSites || isSearching;
   }, [hasSites, isSearching]);
 
-  if (status === DataStatus.PENDING) {
+  const isLoading =
+    sitesStatus === DataStatus.PENDING && projectStatus === DataStatus.PENDING;
+
+  if (isLoading) {
     return (
       <PageLayout style={isSitesShow ? 'white' : 'black'}>
         <Loader style="yellow" />
@@ -139,7 +141,7 @@ const Sites: React.FC = () => {
                   </span>
                 </Link>
               </div>
-              <h2>{projectName}</h2>
+              <h2>{(project as ProjectGetAllItemResponseDto).name}</h2>
             </div>
             <form onChange={handleFormChange}>
               <Input

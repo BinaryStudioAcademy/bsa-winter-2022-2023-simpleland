@@ -4,6 +4,7 @@ const ApiPath = {
   SITES: '/sites',
   PROJECTS: '/projects',
   SUBSCRIPTION: '/subscription',
+  SECTIONS: '/sections',
 } as const;
 
 export { ApiPath };

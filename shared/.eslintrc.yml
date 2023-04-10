@@ -3,3 +3,8 @@ env:
 
 extends:
   - ../.eslintrc.yml
+
+overrides:
+  - files: '*.validation-schema.ts'
+    rules:
+      unicorn/no-thenable: off

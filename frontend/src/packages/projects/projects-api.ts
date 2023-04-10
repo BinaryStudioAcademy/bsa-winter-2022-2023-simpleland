@@ -39,7 +39,7 @@ class ProjectsApi extends HttpApi {
     return await response.json<ProjectGetAllItemResponseDto>();
   }
 
-  public async getProject(parameters: {
+  public async getById(parameters: {
     id: number;
   }): Promise<ProjectGetAllItemResponseDto | null> {
     const response = await this.load(
