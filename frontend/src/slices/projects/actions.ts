@@ -57,6 +57,16 @@ const getUserProjects = createAsyncThunk<
   return await projectsApi.getProjects(parameters);
 });
 
+const getCurrentProject = createAsyncThunk<
+  ProjectGetAllItemResponseDto | null,
+  { id: number },
+  AsyncThunkConfig
+>(`${sliceName}/get-current-project`, async (parameters, { extra }) => {
+  const { projectsApi } = extra;
+
+  return await projectsApi.getProject(parameters);
+});
+
 const uploadProjectImage = createAsyncThunk<
   ProjectGetAllItemResponseDto,
   {
@@ -95,4 +105,10 @@ const updateProject = createAsyncThunk<
   return project;
 });
 
-export { createProject, getUserProjects, updateProject, uploadProjectImage };
+export {
+  createProject,
+  getCurrentProject,
+  getUserProjects,
+  updateProject,
+  uploadProjectImage,
+};
