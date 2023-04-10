@@ -76,9 +76,24 @@ const AccountSettings: React.FC = () => {
           <div className={styles['container']}>
             <div className={styles['page-title']}>Account Settings</div>
             <div className={styles['page-nav']}>
-              <Link to={AppRoute.PROFILE}>Profile</Link>
-              <Link to={AppRoute.LOGIN}>Login</Link>
-              <Link to={AppRoute.SUBSCRIPTION}>Subscription</Link>
+              <Link
+                to={AppRoute.PROFILE}
+                activeClassName={styles['profile-link-active']}
+              >
+                Profile
+              </Link>
+              <Link
+                to={AppRoute.LOGIN}
+                activeClassName={styles['profile-link-active']}
+              >
+                Login
+              </Link>
+              <Link
+                to={AppRoute.SUBSCRIPTION}
+                activeClassName={styles['active-link']}
+              >
+                Subscription
+              </Link>
             </div>
           </div>
         </div>

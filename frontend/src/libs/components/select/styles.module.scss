@@ -1,3 +1,17 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--gray-600);
+  font-size: 14px;
+  line-height: 16px;
+}
+
 .select-icon {
   position: absolute;
   z-index: var(--z-index-level-one);

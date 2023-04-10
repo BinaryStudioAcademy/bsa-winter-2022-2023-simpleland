@@ -3,8 +3,7 @@ import {
   type ProjectCreateRequestDto,
   ProjectCategory,
 } from '~/packages/projects/projects.js';
-
-import { projectCategoryToReadable } from './maps/maps.js';
+import { projectCategoryToReadable } from '~/pages/my-projects/libs/maps/maps.js';
 
 const OPTIONS: SelectOption<ValueOf<typeof ProjectCategory>>[] = Object.values(
   ProjectCategory,

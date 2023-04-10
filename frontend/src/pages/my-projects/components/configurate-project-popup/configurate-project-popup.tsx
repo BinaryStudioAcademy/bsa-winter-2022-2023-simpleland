@@ -7,12 +7,19 @@ import {
   Select,
 } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
+import {
+  useAppForm,
+  useCallback,
+  useEffect,
+  useState,
+} from '~/libs/hooks/hooks.js';
 import { FormDataKey } from '~/libs/packages/file/file.js';
 import {
   type ProjectCreateRequestDto,
+  type ProjectGetAllItemResponseDto,
   type ProjectUploadImageDto,
   projectCreateValidationSchema,
+  projectUpdateValidationSchema,
 } from '~/packages/projects/projects.js';
 
 import { DEFAULT_CREATE_PROJECT_PAYLOAD, options } from './libs/constants.js';
@@ -20,23 +27,40 @@ import styles from './styles.module.scss';
 
 type Properties = {
   isOpen: boolean;
-  onCloseModal: () => void;
+  onClose: () => void;
   onSubmit: (payload: ProjectCreateRequestDto & ProjectUploadImageDto) => void;
   className?: string;
+  project?: ProjectGetAllItemResponseDto | null;
 };
 
-const CreateProjectModal: React.FC<Properties> = ({
+const ConfigurateProjectPopup: React.FC<Properties> = ({
+  project,
   isOpen = false,
-  onCloseModal,
+  onClose,
   onSubmit,
   className = '',
 }: Properties) => {
-  const { control, errors, handleSubmit } = useAppForm<ProjectCreateRequestDto>(
-    {
-      defaultValues: DEFAULT_CREATE_PROJECT_PAYLOAD,
-      validationSchema: projectCreateValidationSchema,
-    },
-  );
+  const isUpdate = Boolean(project);
+
+  const { control, errors, handleSubmit, handleReset } =
+    useAppForm<ProjectCreateRequestDto>({
+      defaultValues: isUpdate
+        ? {
+            name: project?.name ?? '',
+            category: project?.category ?? 'business',
+          }
+        : DEFAULT_CREATE_PROJECT_PAYLOAD,
+      validationSchema: isUpdate
+        ? projectUpdateValidationSchema
+        : projectCreateValidationSchema,
+    });
+
+  useEffect(() => {
+    handleReset({
+      name: project?.name ?? '',
+      category: project?.category ?? 'business',
+    });
+  }, [project, handleReset]);
 
   const [image, setImage] = useState<{
     src: string;
@@ -60,7 +84,7 @@ const CreateProjectModal: React.FC<Properties> = ({
         });
       })(event_);
     },
-    [handleSubmit, image, onSubmit],
+    [handleSubmit, onSubmit, image],
   );
 
   const handleImageChange = useCallback(
@@ -81,16 +105,19 @@ const CreateProjectModal: React.FC<Properties> = ({
     [setImage],
   );
 
+  const modalTitle = isUpdate ? 'Update project' : 'Create a new project';
+  const submitButtonLabel = isUpdate ? 'Update project' : 'Create project';
+
   return (
-    <Modal isOpen={isOpen} onClose={onCloseModal}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <div className={getValidClassNames(styles['form-wrapper'], className)}>
-        <h2>Create a new project</h2>
+        <h2>{modalTitle}</h2>
 
         <form className={styles['form-wrapper']} onSubmit={handleFormSubmit}>
           <label className={styles['choose-image-wrapper']}>
             <Image
               className={styles['choose-image']}
-              src={image?.src ?? img}
+              src={image?.src ?? project?.avatarUrl ?? img}
               alt="project"
             />
             <input
@@ -111,21 +138,23 @@ const CreateProjectModal: React.FC<Properties> = ({
               control={control}
               errors={errors}
               name="category"
-              placeholder="Please select your category"
               options={options}
+              label="Select your project type"
             />
           </div>
-          <Button
-            type="submit"
-            style="primary"
-            size="small"
-            label="Create Project"
-            className={styles['submit-button']}
-          />
+          <div className={styles['button-wrapper']}>
+            <Button
+              type="submit"
+              className={styles['submit-button']}
+              style="primary"
+              size="small"
+              label={submitButtonLabel}
+            />
+          </div>
         </form>
       </div>
     </Modal>
   );
 };
 
-export { CreateProjectModal };
+export { ConfigurateProjectPopup };

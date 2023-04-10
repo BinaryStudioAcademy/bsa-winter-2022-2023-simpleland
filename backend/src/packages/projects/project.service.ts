@@ -1,3 +1,4 @@
+import { ApplicationError } from '~/libs/exceptions/exceptions.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
@@ -5,10 +6,12 @@ import { type ProjectRepository } from '~/packages/projects/project.repository.j
 
 import {
   type ProjectCreateDto,
+  type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectUpdateResponseDto,
   type ProjectUploadImageParametersDto,
 } from './libs/types/types.js';
 
@@ -17,7 +20,7 @@ type Constructor = {
   file: File;
 };
 
-class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
+class ProjectService implements Omit<IService, 'update' | 'delete'> {
   private projectRepository: ProjectRepository;
 
   private file: File;
@@ -32,17 +35,41 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
     return {
       items: items.map((project) => project.toObject()),
+      totalCount: items.length,
     };
+  }
+
+  public async find(id: number): Promise<ProjectGetAllItemResponseDto> {
+    const project = await this.projectRepository.find(id);
+
+    if (!project) {
+      throw new ApplicationError({
+        message: `Project with id ${id} not found`,
+      });
+    }
+
+    return project.toObject();
   }
 
   public async findByUserId(
     id: number,
     parameters: ProjectFilterQueryDto,
   ): Promise<ProjectGetAllResponseDto> {
-    const items = await this.projectRepository.findByUserId(id, parameters);
+    const pageModel = await this.projectRepository.findByUserId(id, parameters);
+    const items = pageModel.results.map((project) => {
+      return ProjectEntity.initialize({
+        id: project.id,
+        name: project.name,
+        userId: project.userId,
+        avatarId: project.avatarId,
+        avatarUrl: project.avatar?.url ?? null,
+        category: project.category,
+      });
+    });
 
     return {
       items: items.map((project) => project.toObject()),
+      totalCount: pageModel.total,
     };
   }
 
@@ -53,6 +80,24 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
       ProjectEntity.initializeNew({
         name: payload.name,
         userId: payload.userId,
+        category: payload.category,
+      }),
+    );
+
+    return project.toObject();
+  }
+
+  public async update(
+    id: number,
+    payload: ProjectCreateRequestDto,
+  ): Promise<ProjectUpdateResponseDto> {
+    const project = await this.projectRepository.update(
+      ProjectEntity.initialize({
+        id,
+        name: payload.name,
+        userId: null,
+        avatarId: null,
+        avatarUrl: null,
         category: payload.category,
       }),
     );
