@@ -67,7 +67,13 @@ const Site: React.FC = () => {
     return sections.map(({ type, content }) => {
       switch (type) {
         case SectionType.HEADER: {
-          return <Header content={content as SiteHeaderContent} key={type} />;
+          return (
+            <Header
+              content={content as SiteHeaderContent}
+              navigationSections={navigationSections}
+              key={type}
+            />
+          );
         }
         case SectionType.MAIN: {
           return <Main content={content as SiteMainContent} key={type} />;
