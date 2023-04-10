@@ -16,9 +16,11 @@ export {
   type ProjectCreateResponseDto,
   type ProjectFilterQueryDto,
   type ProjectGetAllResponseDto,
+  type ProjectUpdateResponseDto,
 } from './libs/types/types.js';
 export {
   projectCreateValidationSchema,
   projectFilterValidationSchema,
+  projectUpdateValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
 export { ProjectModel } from './project.model.js';

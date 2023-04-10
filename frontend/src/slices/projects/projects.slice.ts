@@ -4,7 +4,11 @@ import { DataStatus } from '~/libs/enums/enums.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import { type ProjectGetAllItemResponseDto } from '~/packages/projects/projects.js';
 
-import { getUserProjects, uploadProjectImage } from './actions.js';
+import {
+  getUserProjects,
+  updateProject,
+  uploadProjectImage,
+} from './actions.js';
 
 type State = {
   dataStatus: ValueOf<typeof DataStatus>;
@@ -35,6 +39,15 @@ const { reducer, actions, name } = createSlice({
       state.projects = state.projects.map((project) =>
         project.id === payload.id ? payload : project,
       );
+    });
+    builder.addCase(updateProject.fulfilled, (state, { payload }) => {
+      state.dataStatus = DataStatus.FULFILLED;
+      state.projects = state.projects.map((project) =>
+        project.id === payload.id ? payload : project,
+      );
+    });
+    builder.addCase(updateProject.rejected, (state) => {
+      state.dataStatus = DataStatus.REJECTED;
     });
   },
 });
