@@ -35,7 +35,7 @@ const Sites: React.FC = () => {
   const dispatch = useAppDispatch();
   useTitle('My sites');
 
-  const [isSearching, setIsSearching] = useState(false);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   useEffect((): void => {
     if (projectId) {
