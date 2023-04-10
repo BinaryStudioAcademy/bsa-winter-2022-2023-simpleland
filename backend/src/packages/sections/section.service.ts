@@ -4,9 +4,12 @@ import { ImageSize, openAI } from '~/libs/packages/open-ai/open-ai.js';
 import { type ValueOf } from '~/libs/types/types.js';
 
 import { SectionType } from './libs/enums/enums.js';
+import { sectionTypeToUpdateSectionHandler } from './libs/maps/maps.js';
 import {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SectionUpdateParametersDto,
+  type SectionUpdateRequestDto,
   type SiteAboutContent,
   type SiteFeedbackContent,
   type SiteFooterContent,
@@ -67,6 +70,39 @@ class SectionService
     });
 
     return section.toObject();
+  }
+
+  public async update(
+    payload: SectionUpdateParametersDto & SectionUpdateRequestDto,
+  ): Promise<SectionGetAllItemResponseDto | null> {
+    const id = Number(payload.id);
+
+    const entity = await this.sectionRepository.find(id);
+
+    if (!entity) {
+      return null;
+    }
+
+    const section = entity.toObject();
+
+    if (section.type !== payload.type) {
+      return null;
+    }
+
+    const updatedContent = sectionTypeToUpdateSectionHandler[section.type](
+      section.content,
+      payload.content,
+    );
+
+    const updatedSection = await this.sectionRepository.update(
+      SectionEntity.initialize({
+        id,
+        content: updatedContent,
+        type: null,
+      }),
+    );
+
+    return updatedSection.toObject();
   }
 
   private async createSectionContent<T extends ValueOf<typeof SectionType>>(
