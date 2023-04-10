@@ -1,12 +1,16 @@
 import { Carousel } from '~/libs/components/components.js';
-import { type SiteFeedbackContent } from '~/packages/sections/sections.js';
+import { type ValueOf } from '~/libs/types/types.js';
+import {
+  type SectionType,
+  type SiteFeedbackContent,
+} from '~/packages/sections/sections.js';
 
 import { FeedbackCard } from './components/components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteFeedbackContent;
-  type: string;
+  type: ValueOf<typeof SectionType>;
 };
 
 const Feedback: React.FC<Properties> = ({

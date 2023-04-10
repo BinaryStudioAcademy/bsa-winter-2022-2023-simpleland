@@ -46,6 +46,7 @@ const Site: React.FC = () => {
     return sections.filter(
       (section) =>
         section.type !== SectionType.HEADER &&
+        section.type !== SectionType.MAIN &&
         section.type !== SectionType.FOOTER,
     );
   }, [sections]);
@@ -69,9 +70,7 @@ const Site: React.FC = () => {
           return <Header content={content as SiteHeaderContent} key={type} />;
         }
         case SectionType.MAIN: {
-          return (
-            <Main content={content as SiteMainContent} type={type} key={type} />
-          );
+          return <Main content={content as SiteMainContent} key={type} />;
         }
         case SectionType.ABOUT: {
           return (

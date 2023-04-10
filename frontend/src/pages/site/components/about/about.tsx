@@ -1,10 +1,14 @@
-import { type SiteAboutContent } from '~/packages/sections/sections.js';
+import { type ValueOf } from '~/libs/types/types.js';
+import {
+  type SectionType,
+  type SiteAboutContent,
+} from '~/packages/sections/sections.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteAboutContent;
-  type: string;
+  type: ValueOf<typeof SectionType>;
 };
 
 const About: React.FC<Properties> = ({
