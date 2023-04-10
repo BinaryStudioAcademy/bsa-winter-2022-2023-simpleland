@@ -1,18 +1,14 @@
-import {
-  type SectionGetAllItemResponseDto,
-  type SiteFooterContent,
-} from '~/packages/sections/sections.js';
+import { type SiteFooterContent } from '~/packages/sections/sections.js';
+import { navigationSections } from '~/pages/site/libs/constants.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteFooterContent;
-  navigationSections: SectionGetAllItemResponseDto[];
 };
 
 const Footer: React.FC<Properties> = ({
   content: { logo, description },
-  navigationSections,
 }: Properties) => {
   return (
     <div className={styles['footer']}>
@@ -28,10 +24,10 @@ const Footer: React.FC<Properties> = ({
             {navigationSections.map((section) => (
               <a
                 className={styles['navigation-link']}
-                href={`#${section.type}`}
-                key={section.id}
+                href={`#${section}`}
+                key={section}
               >
-                {section.type}
+                {section}
               </a>
             ))}
           </div>

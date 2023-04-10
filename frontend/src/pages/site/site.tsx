@@ -4,7 +4,6 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
-  useMemo,
   useParams,
   useTitle,
 } from '~/libs/hooks/hooks.js';
@@ -42,15 +41,6 @@ const Site: React.FC = () => {
 
   const { siteId } = useParams() as { siteId: string };
 
-  const navigationSections = useMemo(() => {
-    return sections.filter(
-      (section) =>
-        section.type !== SectionType.HEADER &&
-        section.type !== SectionType.MAIN &&
-        section.type !== SectionType.FOOTER,
-    );
-  }, [sections]);
-
   useEffect(() => {
     void dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) }));
   }, [dispatch, siteId]);
@@ -67,13 +57,7 @@ const Site: React.FC = () => {
     return sections.map(({ type, content }) => {
       switch (type) {
         case SectionType.HEADER: {
-          return (
-            <Header
-              content={content as SiteHeaderContent}
-              navigationSections={navigationSections}
-              key={type}
-            />
-          );
+          return <Header content={content as SiteHeaderContent} key={type} />;
         }
         case SectionType.MAIN: {
           return <Main content={content as SiteMainContent} key={type} />;
@@ -97,13 +81,7 @@ const Site: React.FC = () => {
           );
         }
         case SectionType.FOOTER: {
-          return (
-            <Footer
-              content={content as SiteFooterContent}
-              navigationSections={navigationSections}
-              key={type}
-            />
-          );
+          return <Footer content={content as SiteFooterContent} key={type} />;
         }
         case SectionType.FEEDBACK: {
           return (
