@@ -94,6 +94,27 @@ class ProjectRepository implements Omit<IRepository, 'update' | 'delete'> {
     });
   }
 
+  public async update(entity: ProjectEntity): Promise<ProjectEntity> {
+    const { id, name, category } = entity.toObject();
+
+    const project = await this.projectModel
+      .query()
+      .patchAndFetchById(id, {
+        name,
+        category,
+      })
+      .withGraphFetched(this.defaultRelationExpression);
+
+    return ProjectEntity.initialize({
+      id: project.id,
+      name: project.name,
+      userId: project.userId,
+      avatarId: project.avatarId,
+      avatarUrl: project.avatar?.url ?? null,
+      category: project.category,
+    });
+  }
+
   public async uploadImage(entity: ProjectEntity): Promise<ProjectEntity> {
     const { id, avatarId } = entity.toProjectAvatar();
 

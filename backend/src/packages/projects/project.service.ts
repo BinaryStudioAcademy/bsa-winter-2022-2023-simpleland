@@ -6,10 +6,12 @@ import { type ProjectRepository } from '~/packages/projects/project.repository.j
 
 import {
   type ProjectCreateDto,
+  type ProjectCreateRequestDto,
   type ProjectCreateResponseDto,
   type ProjectFilterQueryDto,
   type ProjectGetAllItemResponseDto,
   type ProjectGetAllResponseDto,
+  type ProjectUpdateResponseDto,
   type ProjectUploadImageParametersDto,
 } from './libs/types/types.js';
 
@@ -78,6 +80,24 @@ class ProjectService implements Omit<IService, 'update' | 'delete'> {
       ProjectEntity.initializeNew({
         name: payload.name,
         userId: payload.userId,
+        category: payload.category,
+      }),
+    );
+
+    return project.toObject();
+  }
+
+  public async update(
+    id: number,
+    payload: ProjectCreateRequestDto,
+  ): Promise<ProjectUpdateResponseDto> {
+    const project = await this.projectRepository.update(
+      ProjectEntity.initialize({
+        id,
+        name: payload.name,
+        userId: null,
+        avatarId: null,
+        avatarUrl: null,
         category: payload.category,
       }),
     );
