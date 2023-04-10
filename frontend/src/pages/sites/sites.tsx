@@ -40,20 +40,17 @@ const Sites: React.FC = () => {
 
   useEffect((): void => {
     if (projectId) {
-      void dispatch(
-        sitesActions.getSitesByProjectId({
-          parameters: { projectId: Number(projectId) },
-          queryParameters: {
-            name: '',
-          },
-        }),
-      )
-        .unwrap()
-        .then(() => {
-          void dispatch(
-            projectsActions.getCurrentProject({ id: Number(projectId) }),
-          );
-        });
+      void Promise.all([
+        dispatch(
+          sitesActions.getSitesByProjectId({
+            parameters: { projectId: Number(projectId) },
+            queryParameters: {
+              name: '',
+            },
+          }),
+        ),
+        dispatch(projectsActions.getCurrentProject({ id: Number(projectId) })),
+      ]);
     }
   }, [dispatch, projectId]);
 
