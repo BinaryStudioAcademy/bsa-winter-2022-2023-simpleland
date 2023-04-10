@@ -6,6 +6,7 @@ import { configureString } from '~/libs/helpers/helpers.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import { type ProjectGetAllItemResponseDto } from '~/packages/projects/projects.js';
 
+import { projectCategoryToReadable } from '../../libs/maps/maps.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -28,7 +29,7 @@ const ProjectCard: React.FC<Properties> = ({ project }: Properties) => {
           )}
         >
           <h2>{name}</h2>
-          <p>{category}</p>
+          <p>{projectCategoryToReadable[category]}</p>
         </Link>
       </div>
     </div>
