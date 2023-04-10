@@ -13,8 +13,4 @@ const OPTIONS: SelectOption<ValueOf<typeof SiteToneType>>[] = Object.values(
   label: siteToneTypeToReadable[it],
 }));
 
-const DEFAULT_FORM_PAYLOAD: SiteCreateStepTone = {
-  tone: SiteToneType.OFFICIAL,
-} as const;
-
-export { DEFAULT_FORM_PAYLOAD, OPTIONS };
+export { OPTIONS };
