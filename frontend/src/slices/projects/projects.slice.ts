@@ -55,6 +55,12 @@ const { reducer, actions, name } = createSlice({
     builder.addCase(getCurrentProject.fulfilled, (state, { payload }) => {
       state.currentProject = payload;
     });
+    builder.addCase(getCurrentProject.pending, (state) => {
+        state.dataStatus = DataStatus.PENDING;
+    });
+    builder.addCase(getCurrentProject.rejected, (state) => {
+        state.dataStatus = DataStatus.REJECTED;
+    });
   },
 });
 

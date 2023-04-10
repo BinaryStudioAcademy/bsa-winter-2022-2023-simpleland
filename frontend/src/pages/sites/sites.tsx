@@ -54,13 +54,12 @@ const Sites: React.FC = () => {
     }
   }, [dispatch, projectId]);
 
-  const { sites, status, project } = useAppSelector(({ sites, projects }) => ({
+  const { sites, sitesStatus, project, projectStatus } = useAppSelector(({ sites, projects }) => ({
     sites: sites.sites,
-    status: sites.dataStatus,
+    sitesStatus: sites.dataStatus,
     project: projects.currentProject,
+    projectStatus: projects.dataStatus,
   }));
-
-  const projectName = project?.name ?? 'My sites';
 
   const { control, errors, handleSubmit } = useAppForm<SitesFilterQueryDto>({
     defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
@@ -100,7 +99,9 @@ const Sites: React.FC = () => {
     return hasSites || isSearching;
   }, [hasSites, isSearching]);
 
-  if (status === DataStatus.PENDING) {
+  const isLoading = sitesStatus === DataStatus.PENDING && projectStatus === DataStatus.PENDING;
+
+  if (isLoading) {
     return (
       <PageLayout style={isSitesShow ? 'white' : 'black'}>
         <Loader style="yellow" />
@@ -136,7 +137,7 @@ const Sites: React.FC = () => {
                   </span>
                 </Link>
               </div>
-              <h2>{projectName}</h2>
+              <h2>{project?.name}</h2>
             </div>
             <form onChange={handleFormChange}>
               <Input
