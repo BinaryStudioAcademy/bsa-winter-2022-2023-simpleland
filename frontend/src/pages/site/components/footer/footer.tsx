@@ -1,14 +1,19 @@
-import { type SiteFooterContent } from '~/packages/sections/sections.js';
-import { navigationSections } from '~/pages/site/libs/constants.js';
+import { type ValueOf } from '~/libs/types/types.js';
+import {
+  type SectionType,
+  type SiteFooterContent,
+} from '~/packages/sections/sections.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteFooterContent;
+  navigationSections: readonly ValueOf<typeof SectionType>[];
 };
 
 const Footer: React.FC<Properties> = ({
   content: { logo, description },
+  navigationSections,
 }: Properties) => {
   return (
     <div className={styles['footer']}>

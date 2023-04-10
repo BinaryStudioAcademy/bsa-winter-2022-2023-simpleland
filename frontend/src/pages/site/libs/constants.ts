@@ -1,11 +1,10 @@
-import { type ValueOf } from '~/libs/types/types.js';
 import { SectionType } from '~/packages/sections/sections.js';
 
-const navigationSections: ValueOf<typeof SectionType>[] = [
+const NAVIGATION_SECTION_TYPES = [
   SectionType.PORTFOLIO,
   SectionType.ABOUT,
   SectionType.SERVICE,
   SectionType.FEEDBACK,
-];
+] as const;
 
-export { navigationSections };
+export { NAVIGATION_SECTION_TYPES };

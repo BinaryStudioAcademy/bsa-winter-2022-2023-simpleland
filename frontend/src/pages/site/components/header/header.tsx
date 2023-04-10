@@ -1,13 +1,14 @@
 import { Input } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm } from '~/libs/hooks/hooks.js';
-import { siteHeaderUpdateContentValidationSchema } from '~/packages/sections/sections.js';
+import { type ValueOf } from '~/libs/types/types.js';
 import {
+  type SectionType,
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
+  siteHeaderUpdateContentValidationSchema,
 } from '~/packages/sections/sections.js';
 import { Overlay } from '~/pages/site/components/overlay/overlay.js';
-import { navigationSections } from '~/pages/site/libs/constants.js';
 import { useSectionUpdate } from '~/pages/site/libs/hooks/hooks.js';
 
 import styles from './styles.module.scss';
@@ -15,11 +16,13 @@ import styles from './styles.module.scss';
 type Properties = {
   content: SiteHeaderContent;
   onUpdate: (payload: unknown) => void;
+  navigationSections: readonly ValueOf<typeof SectionType>[];
 };
 
 const Header: React.FC<Properties> = ({
   content: { logo, phone },
   onUpdate,
+  navigationSections,
 }: Properties) => {
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<SiteHeaderUpdateContentDto>({
