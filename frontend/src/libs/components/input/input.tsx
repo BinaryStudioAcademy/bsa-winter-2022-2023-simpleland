@@ -75,7 +75,6 @@ const Input = <T extends FieldValues>({
           disabled={isDisabled}
           onBlur={onBlur}
           rows={rows}
-          cols={50}
         />
       ) : (
         <input
