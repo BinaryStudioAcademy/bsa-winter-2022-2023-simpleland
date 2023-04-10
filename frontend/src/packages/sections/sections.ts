@@ -23,7 +23,11 @@ export {
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
   type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
 } from './libs/types/types.js';
-export { siteHeaderUpdateContentValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+export {
+  siteHeaderUpdateContentValidationSchema,
+  sitePortfolioUpdateContentValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 export { sectionsApi };
