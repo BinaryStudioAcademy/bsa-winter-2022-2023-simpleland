@@ -18,13 +18,19 @@ const IconButton: React.FC<Properties> = ({
   onClick,
   isDisabled = false,
   className,
+  to,
+  form,
+  type,
 }: Properties) => (
   <Button
+    form={form}
+    type={type}
     icon={icon}
     label={label}
     onClick={onClick}
     style="plain"
     isDisabled={isDisabled}
+    to={to}
     className={getValidClassNames(styles['icon-button'], className)}
     isLabelVisuallyHidden
   />

@@ -7,10 +7,11 @@ import {
   useCallback,
   useMemo,
   useParams,
-  useRef,
   useState,
   useStepper,
+  useTitle,
 } from '~/libs/hooks/hooks.js';
+import { type CurrentStepFormProperties } from '~/libs/types/types.js';
 import { type SiteCreateRequestDto } from '~/packages/sites/sites.js';
 import { actions as siteActions } from '~/slices/sites/sites.js';
 
@@ -22,7 +23,11 @@ import {
   TargetAudienceForm,
   VoiceToneForm,
 } from './libs/components/components.js';
-import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
+import {
+  DEFAULT_SITE_PAYLOAD,
+  FORM_STEPPER_ID,
+  ONE_STEP_LENGTH,
+} from './libs/constants.js';
 import styles from './styles.module.scss';
 
 const steps = [
@@ -39,6 +44,7 @@ const Start: React.FC = () => {
     useState<SiteCreateRequestDto>(DEFAULT_SITE_PAYLOAD);
 
   const dispatch = useAppDispatch();
+  useTitle('My sites');
 
   const {
     currentStep,
@@ -77,20 +83,14 @@ const Start: React.FC = () => {
   const CurrentForm = useMemo(
     () => steps[(currentStep - ONE_STEP_LENGTH) as 0],
     [currentStep],
-  );
-
-  const handleSubmitReference = useRef<null | HTMLFormElement>(null);
-
-  const handleSubmitIconButton = useCallback(() => {
-    return handleSubmitReference.current?.requestSubmit();
-  }, []);
+  ) as React.FC<CurrentStepFormProperties>;
 
   if (creationStatus === DataStatus.PENDING) {
     return <SiteCreationLoader />;
   }
 
   return (
-    <PageLayout style="black" className={styles['layout']} pageName="My Sites">
+    <PageLayout style="black" className={styles['layout']}>
       <div className={styles['page-wrapper']}>
         <div className={styles['content']}>
           <div className={styles['content-text']}>
@@ -118,9 +118,10 @@ const Start: React.FC = () => {
                       isDisabled={isFirstStep}
                     />
                     <IconButton
+                      type="submit"
+                      form={FORM_STEPPER_ID}
                       icon="arrowRight"
                       label="Go to the next step"
-                      onClick={handleSubmitIconButton}
                       isDisabled={isLastStep}
                     />
                   </div>
@@ -130,10 +131,7 @@ const Start: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <CurrentForm
-                onSubmit={handleStepSubmit}
-                submitRef={handleSubmitReference}
-              />
+              <CurrentForm siteInfo={sitePayload} onSubmit={handleStepSubmit} />
             </div>
           </div>
         </div>

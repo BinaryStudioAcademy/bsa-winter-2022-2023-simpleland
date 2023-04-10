@@ -1,23 +1,20 @@
-import { type RefObject } from 'react';
-
 import { Button, Select } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type SiteCreateStepTarget,
   siteCreateStepTargetValidationSchema,
 } from '~/packages/sites/sites.js';
+import { FORM_STEPPER_ID } from '~/pages/start/libs/constants.js';
 
 import { DEFAULT_STEP_TARGET_VALUE, OPTIONS } from './libs/constants.js';
 import styles from './style.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateStepTarget>) => void;
-  submitRef: RefObject<HTMLFormElement>;
 };
 
 const TargetAudienceForm: React.FC<Properties> = ({
   onSubmit,
-  submitRef,
 }: Properties): JSX.Element => {
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepTarget>({
     defaultValues: DEFAULT_STEP_TARGET_VALUE,
@@ -39,14 +36,16 @@ const TargetAudienceForm: React.FC<Properties> = ({
       <form
         className={styles['form']}
         onSubmit={handleFormSubmit}
-        ref={submitRef}
+        id={FORM_STEPPER_ID}
       >
         <Select
           control={control}
           name="targetAudience"
           options={OPTIONS}
+          label="Select your industry"
           placeholder="Please select your industry"
           errors={errors}
+          isLabelVisuallyHidden
         />
         <Button
           label="Go next"

@@ -1,24 +1,19 @@
-import { type RefObject } from 'react';
-
 import { Button, Select } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type SiteCreateStepTone,
   siteCreateStepToneValidationSchema,
 } from '~/packages/sites/sites.js';
+import { FORM_STEPPER_ID } from '~/pages/start/libs/constants.js';
 
 import { DEFAULT_FORM_PAYLOAD, OPTIONS } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateStepTone>) => void;
-  submitRef: RefObject<HTMLFormElement>;
 };
 
-const VoiceToneForm: React.FC<Properties> = ({
-  onSubmit,
-  submitRef,
-}: Properties) => {
+const VoiceToneForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
   const { control, errors, handleSubmit } = useAppForm({
     defaultValues: DEFAULT_FORM_PAYLOAD,
     validationSchema: siteCreateStepToneValidationSchema,
@@ -36,16 +31,18 @@ const VoiceToneForm: React.FC<Properties> = ({
       <h2 className={styles['title']}>What is your tone of voice?</h2>
       <div className={styles['subtitle']}>Choose the type</div>
       <form
-        ref={submitRef}
         className={styles['form']}
         onSubmit={handleFormSubmit}
+        id={FORM_STEPPER_ID}
       >
         <Select
           name="tone"
           placeholder="Please select your tone"
+          label="Select your tone"
           options={OPTIONS}
           control={control}
           errors={errors}
+          isLabelVisuallyHidden
         />
         <Button
           label="Go next"

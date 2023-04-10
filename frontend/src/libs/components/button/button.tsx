@@ -10,12 +10,13 @@ type Properties = {
   icon?: IconType;
   size?: 'big' | 'small';
   style?: 'primary' | 'secondary' | 'plain';
-  type?: 'button' | 'submit';
+  type?: 'button' | 'submit' | undefined;
   isDisabled?: boolean;
   className?: string | undefined;
   onClick?: (() => void) | undefined;
   isLabelVisuallyHidden?: boolean;
-  to?: ValueOf<typeof AppRoute>;
+  to?: ValueOf<typeof AppRoute> | undefined;
+  form?: string | undefined;
 };
 
 const Button: React.FC<Properties> = ({
@@ -29,6 +30,7 @@ const Button: React.FC<Properties> = ({
   icon,
   isLabelVisuallyHidden = false,
   to,
+  form,
 }: Properties) => {
   const content = (
     <>
@@ -56,6 +58,7 @@ const Button: React.FC<Properties> = ({
     </Link>
   ) : (
     <button
+      form={form}
       onClick={onClick}
       type={type}
       disabled={isDisabled}
