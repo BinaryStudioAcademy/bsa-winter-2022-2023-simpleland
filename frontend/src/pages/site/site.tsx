@@ -43,44 +43,44 @@ const Site: React.FC = () => {
   const dispatch = useAppDispatch();
   useTitle('My site');
 
-  const { sections, status, siteName, projectId } = useAppSelector((state) => ({
+  const { sections, status, projectId } = useAppSelector((state) => ({
     sections: state.sections.sections,
     status: state.sections.dataStatus,
-    siteName: state.sites.currentSite?.name,
     projectId: state.sites.currentSite?.projectId,
   }));
 
   const { siteId } = useParams() as { siteId: string };
 
   useEffect(() => {
-    void dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) }))
-      .unwrap()
-      .then(() => {
-        void dispatch(sitesActionss.getCurrentSite({ id: Number(siteId) }));
-      });
+    void Promise.all([
+      dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) })),
+      dispatch(sitesActionss.getCurrentSite({ id: Number(siteId) })),
+    ]);
   }, [dispatch, siteId]);
 
   const renderReturnButton = useCallback((): JSX.Element => {
     return (
-      <div className={styles['button-wrapper']}>
-        <div>
-          <Link
-            to={configureString<ValueOf<typeof AppRoute>>(
-              AppRoute.PROJECTS_$PROJECT_ID_SITES,
-              {
-                projectId,
-              },
-            )}
-          >
-            <span className={styles['link-to-projects']}>
-              <Icon iconName="arrowLeft" className={styles['back-icon']} />
-            </span>
-          </Link>
+      <div className={styles['button-container']}>
+        <div className={styles['button-wrapper']}>
+          <div>
+            <Link
+              to={configureString<ValueOf<typeof AppRoute>>(
+                AppRoute.PROJECTS_$PROJECT_ID_SITES,
+                {
+                  projectId,
+                },
+              )}
+            >
+              <span className={styles['link-to-projects']}>
+                <Icon iconName="arrowLeft" className={styles['back-icon']} />
+              </span>
+            </Link>
+          </div>
+          <h2>Back to all sites</h2>
         </div>
-        <h2>{siteName}</h2>
       </div>
     );
-  }, [siteName, projectId]);
+  }, [projectId]);
 
   if (status === DataStatus.PENDING) {
     return (
@@ -97,13 +97,7 @@ const Site: React.FC = () => {
           return <Header content={content as SiteHeaderContent} key={type} />;
         }
         case SectionType.MAIN: {
-          return (
-            <Main
-              content={content as SiteMainContent}
-              key={type}
-              renderButton={renderReturnButton}
-            />
-          );
+          return <Main content={content as SiteMainContent} key={type} />;
         }
         case SectionType.ABOUT: {
           return <About content={content as SiteAboutContent} key={type} />;
@@ -128,7 +122,12 @@ const Site: React.FC = () => {
     });
   };
 
-  return <div className={styles['site']}>{renderSections()}</div>;
+  return (
+    <div className={styles['site']}>
+      {renderReturnButton()}
+      {renderSections()}
+    </div>
+  );
 };
 
 export { Site };

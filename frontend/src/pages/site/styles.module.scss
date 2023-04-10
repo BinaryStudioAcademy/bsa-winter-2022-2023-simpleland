@@ -2,9 +2,18 @@
   font-family: Gilroy, serif;
 }
 
+.button-container {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  display: flex;
+  width: 1085px;
+  transform: translateX(-50%);
+}
+
 .button-wrapper {
   position: absolute;
-  top: 8%;
+  left: -15%;
 }
 
 .link-to-projects {
