@@ -49,6 +49,10 @@ const { reducer, actions, name } = createSlice({
         state.currentUserDataStatus = DataStatus.FULFILLED;
       },
     );
+    builder.addCase(usersActions.subscribe.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.currentUserDataStatus = DataStatus.FULFILLED;
+    });
   },
 });
 

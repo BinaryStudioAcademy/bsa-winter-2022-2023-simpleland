@@ -19,6 +19,7 @@ export {
   type SiteCreateResponseDto,
   type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
+  type SitesFilterQueryDto,
 } from './libs/types/types.js';
 export { siteCreateValidationSchema } from './libs/validation-schemas/validation-schemas.js';
 export { SiteModel } from './site.model.js';

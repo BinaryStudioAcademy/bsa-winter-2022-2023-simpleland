@@ -6,7 +6,7 @@ import { type AsyncThunkConfig, type ValueOf } from '~/libs/types/types.js';
 import {
   type SiteCreateRequestDto,
   type SiteGetAllResponseDto,
-  type SiteGetByProjectParametersDto,
+  type SitesGetByProjectIdRequestDto,
 } from '~/packages/sites/sites.js';
 import { actions as appActions } from '~/slices/app/app.js';
 
@@ -33,14 +33,14 @@ const createSite = createAsyncThunk<
   );
 });
 
-const getSitesByProject = createAsyncThunk<
+const getSitesByProjectId = createAsyncThunk<
   SiteGetAllResponseDto,
-  SiteGetByProjectParametersDto,
+  SitesGetByProjectIdRequestDto,
   AsyncThunkConfig
 >(`${sliceName}/sites`, async (payload, { extra }) => {
   const { sitesApi } = extra;
 
-  return await sitesApi.getByProjectId(payload.projectId);
+  return await sitesApi.getByProjectId(payload);
 });
 
-export { createSite, getSitesByProject };
+export { createSite, getSitesByProjectId };

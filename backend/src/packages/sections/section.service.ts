@@ -1,7 +1,7 @@
 import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
-import { openAI } from '~/libs/packages/open-ai/open-ai.js';
+import { ImageSize, openAI } from '~/libs/packages/open-ai/open-ai.js';
 import { type ValueOf } from '~/libs/types/types.js';
 
 import { SectionType } from './libs/enums/enums.js';
@@ -124,10 +124,19 @@ class SectionService
   private async createMainContent(prompt: string): Promise<SiteMainContent> {
     const content = await openAI.createCompletion(prompt);
 
+    const image = await openAI.createImage(
+      `Main site image with light background color without text. This image connected with ${
+        content['title'] ?? ''
+      }`,
+      ImageSize.LARGE,
+    );
+
+    const { url } = await this.file.upload({ file: image });
+
     return {
       title: content['title'] ?? '',
       description: content['description'] ?? '',
-      picture: '',
+      picture: url,
     };
   }
 

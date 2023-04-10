@@ -1,6 +1,15 @@
-.error-message {
+.label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-label {
   display: block;
-  min-height: 20px;
+  margin-bottom: 6px;
+  color: var(--gray-600);
+  font-size: 14px;
+  line-height: 16px;
 }
 
 .select-icon {

@@ -42,7 +42,11 @@ class ProjectsApi extends HttpApi {
   public async getProjects(
     parameters: ProjectFilterQueryDto,
   ): Promise<ProjectGetAllResponseDto> {
-    const searchParameters = new URLSearchParams(parameters);
+    const searchParameters = new URLSearchParams({
+      name: parameters.name,
+      page: parameters.page.toString(),
+      limit: parameters.limit.toString(),
+    });
 
     const response = await this.load(
       this.getFullEndpoint(

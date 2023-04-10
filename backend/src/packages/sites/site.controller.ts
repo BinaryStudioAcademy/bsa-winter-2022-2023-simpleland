@@ -12,11 +12,13 @@ import { SitesApiPath } from './libs/enums/enums.js';
 import {
   type SiteCreateParametersDto,
   type SiteCreateRequestDto,
-  type SiteGetByProjectParametersDto,
+  type SitesFilterQueryDto,
+  type SitesGetByProjectIdParametersDto,
 } from './libs/types/types.js';
 import {
   siteCreateValidationSchema,
-  siteGetByProjectValidationSchema,
+  siteGetByProjectIdValidationSchema,
+  sitesFilterValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
 
 /**
@@ -70,12 +72,14 @@ class SiteController extends Controller {
       path: SitesApiPath.PROJECT_$PROJECT_ID,
       method: 'GET',
       validation: {
-        params: siteGetByProjectValidationSchema,
+        params: siteGetByProjectIdValidationSchema,
+        query: sitesFilterValidationSchema,
       },
       handler: (options) =>
         this.findAllByProjectId(
           options as ApiHandlerOptions<{
-            params: SiteGetByProjectParametersDto;
+            params: SitesGetByProjectIdParametersDto;
+            query: SitesFilterQueryDto;
           }>,
         ),
     });
@@ -110,6 +114,13 @@ class SiteController extends Controller {
    * /project/:projectId/sites:
    *   get:
    *     description: Returns an object with items property. Items - array of sites by specific project.
+   *     parameters:
+   *        - in: path
+   *          name: projectId
+   *          schema:
+   *            type: integer
+   *          required: true
+   *          description: Numeric Project ID
    *     responses:
    *       200:
    *         description: Successful operation
@@ -125,12 +136,16 @@ class SiteController extends Controller {
    *                   minItems: 0
    */
   private async findAllByProjectId(
-    options: ApiHandlerOptions<{ params: SiteGetByProjectParametersDto }>,
+    options: ApiHandlerOptions<{
+      params: SitesGetByProjectIdParametersDto;
+      query: SitesFilterQueryDto;
+    }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
       payload: await this.siteService.findAllByProjectId(
         options.params.projectId,
+        options.query,
       ),
     };
   }
@@ -140,16 +155,38 @@ class SiteController extends Controller {
    * /sites/project/:projectId:
    *   post:
    *     description: Create a site. Returns object with site info
+   *     parameters:
+   *        - in: path
+   *          name: projectId
+   *          schema:
+   *            type: integer
+   *          required: true
+   *          description: Numeric Project ID
    *     requestBody:
    *       description: Site payload
    *       required: true
    *       content:
    *         application/json:
    *           schema:
-   *             name:
-   *               type: string
-   *             industry:
-   *               type: string
+   *             type: object
+   *             properties:
+   *              name:
+   *                type: string
+   *              industry:
+   *                type: string
+   *              tone:
+   *                type: string
+   *                enum:
+   *                  - official
+   *                  - not official
+   *              targetAudience:
+   *                type: string
+   *                enum:
+   *                  - kids
+   *                  - teenager
+   *                  - young-adult
+   *                  - adult
+   *                  - elderly
    *     responses:
    *       201:
    *         description: Successful creation

@@ -3,6 +3,7 @@ import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
 import { type OpenAI } from '~/libs/packages/open-ai/open-ai.package.js';
 import { type ValueOf } from '~/libs/types/types.js';
+import { projectService } from '~/packages/projects/projects.js';
 import {
   type SectionGetAllResponseDto,
   sectionService,
@@ -18,6 +19,7 @@ import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
   type SiteGetAllResponseDto,
+  type SitesFilterQueryDto,
 } from './libs/types/types.js';
 
 type Constructor = {
@@ -49,8 +51,12 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   public async findAllByProjectId(
     projectId: number,
+    queryParameters: SitesFilterQueryDto,
   ): Promise<SiteGetAllResponseDto> {
-    const sites = await this.siteRepository.findAllByProjectId(projectId);
+    const sites = await this.siteRepository.findAllByProjectId(
+      projectId,
+      queryParameters,
+    );
 
     return {
       items: sites.map((site) => site.toObject()),
@@ -62,6 +68,8 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
       projectId: number;
     },
   ): Promise<SiteCreateResponseDto> {
+    const { category } = await projectService.find(payload.projectId);
+
     const siteImage = await this.openAI.createImage(
       this.createSiteImagePrompt(payload),
     );
@@ -80,37 +88,58 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
       [
         {
           siteId: site.id,
-          prompt: this.createPrompt(SectionType.HEADER, payload),
+          prompt: this.createPrompt(SectionType.HEADER, {
+            ...payload,
+            category,
+          }),
           type: SectionType.HEADER,
         },
         {
           siteId: site.id,
-          prompt: this.createPrompt(SectionType.MAIN, payload),
+          prompt: this.createPrompt(SectionType.MAIN, {
+            ...payload,
+            category,
+          }),
           type: SectionType.MAIN,
         },
         {
           siteId: site.id,
-          prompt: this.createPrompt(SectionType.PORTFOLIO, payload),
+          prompt: this.createPrompt(SectionType.PORTFOLIO, {
+            ...payload,
+            category,
+          }),
           type: SectionType.PORTFOLIO,
         },
         {
           siteId: site.id,
-          prompt: this.createPrompt(SectionType.ABOUT, payload),
+          prompt: this.createPrompt(SectionType.ABOUT, {
+            ...payload,
+            category,
+          }),
           type: SectionType.ABOUT,
         },
         {
           siteId: site.id,
-          prompt: this.createPrompt(SectionType.SERVICE, payload),
+          prompt: this.createPrompt(SectionType.SERVICE, {
+            ...payload,
+            category,
+          }),
           type: SectionType.SERVICE,
         },
         {
           siteId: site.id,
-          prompt: this.createPrompt(SectionType.FEEDBACK, payload),
+          prompt: this.createPrompt(SectionType.FEEDBACK, {
+            ...payload,
+            category,
+          }),
           type: SectionType.FEEDBACK,
         },
         {
           siteId: site.id,
-          prompt: this.createPrompt(SectionType.FOOTER, payload),
+          prompt: this.createPrompt(SectionType.FOOTER, {
+            ...payload,
+            category,
+          }),
           type: SectionType.FOOTER,
         },
       ],
@@ -130,16 +159,20 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
   private createPrompt(
     type: ValueOf<typeof SectionType>,
-    siteInfo: SiteCreateRequestDto,
+    siteInfo: SiteCreateRequestDto & { category: string },
   ): string {
     const exampleSiteDescription = this.createSiteDescription({
       name: 'id Studio',
       industry: 'interior design',
       tone: SiteToneType.OFFICIAL,
       targetAudience: SiteTargetType.YOUNG_ADULT,
+      category: siteInfo.category,
     });
 
-    const siteDescription = this.createSiteDescription(siteInfo);
+    const siteDescription = this.createSiteDescription({
+      ...siteInfo,
+      category: siteInfo.category,
+    });
 
     const { EXAMPLE, REQUEST } = SectionTypeToPrompt[type];
 
@@ -161,8 +194,9 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     industry,
     tone,
     targetAudience,
-  }: SiteCreateRequestDto): string => {
-    return `Generate content for a website with name ${name}. It is a site for a ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
+    category,
+  }: SiteCreateRequestDto & { category: string }): string => {
+    return `Generate content for a website with name ${name} and ${category}. It is a site for a ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 
   private createSiteImagePrompt = ({

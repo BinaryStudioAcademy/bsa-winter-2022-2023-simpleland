@@ -35,15 +35,19 @@ import { type ProjectUploadImageParametersDto } from './libs/types/types.js';
  *            type: number
  *            format: int64
  *            minimum: 1
- *          projectType:
- *          category: string
- *          enum:
- *          - e-commercial
- *          - business
- *          - blog
- *          - portfolio
- *          - personal
- *          - nonprofit
+ *          avatarUrl:
+ *            type: string
+ *            format: uri
+ *            nullable: true
+ *          category:
+ *            type: string
+ *            enum:
+ *              - e-commercial
+ *              - business
+ *              - blog
+ *              - portfolio
+ *              - personal
+ *              - nonprofit
  */
 
 class ProjectController extends Controller {
@@ -65,6 +69,17 @@ class ProjectController extends Controller {
           options as ApiHandlerOptions<{
             user: UserAuthResponse;
             query: ProjectFilterQueryDto;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: ProjectsApiPath.$ID,
+      method: 'GET',
+      handler: (options) =>
+        this.find(
+          options as ApiHandlerOptions<{
+            params: { id: number };
           }>,
         ),
     });
@@ -134,12 +149,47 @@ class ProjectController extends Controller {
       ),
     };
   }
+  /**
+   * @swagger
+   * /projects/{id}:
+   *   get:
+   *     description: Get a project by ID
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: ID of the project to retrieve
+   *     responses:
+   *       '200':
+   *         description: OK
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Project'
+   */
+
+  private async find(
+    options: ApiHandlerOptions<{
+      params: { id: number };
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    const { id } = options.params;
+
+    return {
+      status: HttpCode.OK,
+      payload: await this.projectService.find(id),
+    };
+  }
 
   /**
    * @swagger
    * /projects:
    *    post:
    *      description: Creates a new project
+   *      security:
+   *        - bearerAuth: []
    *      requestBody:
    *        description: Object containing the user ID and project name
    *        required: true
@@ -150,6 +200,15 @@ class ProjectController extends Controller {
    *              properties:
    *                name:
    *                  type: string
+   *                category:
+   *                  type: string
+   *                  enum:
+   *                    - e-commercial
+   *                    - business
+   *                    - blog
+   *                    - portfolio
+   *                    - personal
+   *                    - nonprofit
    *      responses:
    *        201:
    *          description: Successful operation
@@ -183,6 +242,13 @@ class ProjectController extends Controller {
    * /projects/:projectId/avatar:
    *    put:
    *      description: Updating project image. Returning project
+   *      parameters:
+   *        - in: path
+   *          name: projectId
+   *          schema:
+   *            type: integer
+   *          required: true
+   *          description: Numeric Project ID
    *      requestBody:
    *        description: Project image and project id
    *        required: true

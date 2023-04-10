@@ -1,7 +1,9 @@
 export { App } from './app/app.js';
 export { Button } from './button/button.js';
 export { Carousel } from './carousel/carousel.js';
+export { Checkout } from './checkout/checkout.js';
 export { Divider } from './divider/divider.js';
+export { ErrorMessage } from './error-message/error-message.js';
 export { Header } from './header/header.js';
 export { Icon } from './icon/icon.js';
 export { IconButton } from './icon-button/icon-button.js';
@@ -11,6 +13,7 @@ export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
 export { Modal } from './modal/modal.js';
 export { PageLayout } from './page-layout/page-layout.js';
+export { Pagination } from './pagination/pagination.js';
 export { Popover } from './popover/popover.js';
 export { ProtectedRoute } from './protected-route/protected-route.js';
 export { RouterProvider } from './router-provider/router-provider.jsx';
