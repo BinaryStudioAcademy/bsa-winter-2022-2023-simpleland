@@ -14,9 +14,9 @@ const getSiteSections = createAsyncThunk<
   { siteId: number },
   AsyncThunkConfig
 >(`${sliceName}/get-sections-by-site-id`, async ({ siteId }, { extra }) => {
-  const { sectionsApi } = extra;
+  const { sitesApi } = extra;
 
-  const { items } = await sectionsApi.getSectionsBySiteId(siteId);
+  const { items } = await sitesApi.getSectionsBySiteId(siteId);
 
   return items;
 });

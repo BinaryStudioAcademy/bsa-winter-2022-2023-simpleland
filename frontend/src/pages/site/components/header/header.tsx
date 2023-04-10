@@ -1,12 +1,13 @@
 import { Input } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useAppForm, useSectionUpdate } from '~/libs/hooks/hooks.js';
+import { useAppForm } from '~/libs/hooks/hooks.js';
 import { siteHeaderUpdateContentValidationSchema } from '~/packages/sections/sections.js';
 import {
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
 } from '~/packages/sections/sections.js';
 import { Overlay } from '~/pages/site/components/overlay/overlay.js';
+import { useSectionUpdate } from '~/pages/site/libs/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
