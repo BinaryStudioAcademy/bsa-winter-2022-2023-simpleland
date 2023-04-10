@@ -1,1 +1,5 @@
-export { SectionType, SitesApiPath } from 'shared/build/index.js';
+export {
+  SectionsApiPath,
+  SectionType,
+  SitesApiPath,
+} from 'shared/build/index.js';

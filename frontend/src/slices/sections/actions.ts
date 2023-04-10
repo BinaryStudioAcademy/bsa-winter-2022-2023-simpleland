@@ -1,7 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/libs/types/async-thunk-config.type.js';
-import { type SectionGetAllItemResponseDto } from '~/packages/sections/sections.js';
+import {
+  type SectionGetAllItemResponseDto,
+  type SectionUpdateParametersDto,
+  type SectionUpdateRequestDto,
+} from '~/packages/sections/sections.js';
 
 import { name as sliceName } from './sections.slice.js';
 
@@ -10,11 +14,21 @@ const getSiteSections = createAsyncThunk<
   { siteId: number },
   AsyncThunkConfig
 >(`${sliceName}/get-sections-by-site-id`, async ({ siteId }, { extra }) => {
-  const { sectionsApi } = extra;
+  const { sitesApi } = extra;
 
-  const { items } = await sectionsApi.getSectionsBySiteId(siteId);
+  const { items } = await sitesApi.getSectionsBySiteId(siteId);
 
   return items;
 });
 
-export { getSiteSections };
+const updateContent = createAsyncThunk<
+  SectionGetAllItemResponseDto,
+  SectionUpdateRequestDto & SectionUpdateParametersDto,
+  AsyncThunkConfig
+>(`${sliceName}/update-header`, async (payload, { extra }) => {
+  const { sectionsApi } = extra;
+
+  return await sectionsApi.updateContent(payload);
+});
+
+export { getSiteSections, updateContent };

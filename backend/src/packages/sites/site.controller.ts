@@ -45,6 +45,9 @@ import {
  *         - footer
  *         - main
  *         - about
+ *         - feedback
+ *         - services
+ *         - portfolio
  *     Section:
  *       type: object
  *       properties:
@@ -52,8 +55,6 @@ import {
  *           type: number
  *           format: int64
  *           minimum: 1
- *         name:
- *           type: string
  *         type:
  *           $ref: '#/components/schemas/SectionType'
  *         content:

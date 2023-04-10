@@ -3,11 +3,13 @@ import { DataStatus } from '~/libs/enums/enums.js';
 import {
   useAppDispatch,
   useAppSelector,
+  useCallback,
   useEffect,
   useParams,
   useTitle,
 } from '~/libs/hooks/hooks.js';
 import {
+  type SectionGetAllItemResponseDto,
   type SiteAboutContent,
   type SiteFeedbackContent,
   type SiteFooterContent,
@@ -17,6 +19,7 @@ import {
   type SiteServiceContent,
   SectionType,
 } from '~/packages/sections/sections.js';
+import { NAVIGATION_SECTION_TYPES } from '~/pages/site/libs/constants.js';
 import { actions as sectionsActions } from '~/slices/sections/sections.js';
 
 import {
@@ -28,6 +31,8 @@ import {
   Portfolio,
   Service,
 } from './components/components.js';
+import { sortSectionsByPosition } from './libs/helpers/helpers.js';
+import { sectionTypeToPosition } from './libs/maps/maps.js';
 import styles from './styles.module.scss';
 
 const Site: React.FC = () => {
@@ -45,6 +50,90 @@ const Site: React.FC = () => {
     void dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) }));
   }, [dispatch, siteId]);
 
+  const handleUpdate = useCallback(
+    ({ id, type }: SectionGetAllItemResponseDto) => {
+      return (content: unknown) => {
+        void dispatch(
+          sectionsActions.updateContent({
+            id: id.toString(),
+            type,
+            content,
+          }),
+        );
+      };
+    },
+    [dispatch],
+  );
+
+  const renderSections = (): JSX.Element[] => {
+    return sortSectionsByPosition(sections, sectionTypeToPosition).map(
+      (section) => {
+        const { content, type } = section;
+
+        switch (type) {
+          case SectionType.HEADER: {
+            return (
+              <Header
+                content={content as SiteHeaderContent}
+                key={type}
+                onUpdate={handleUpdate(section)}
+                navigationSections={NAVIGATION_SECTION_TYPES}
+              />
+            );
+          }
+          case SectionType.MAIN: {
+            return <Main content={content as SiteMainContent} key={type} />;
+          }
+          case SectionType.ABOUT: {
+            return (
+              <About
+                content={content as SiteAboutContent}
+                type={type}
+                key={type}
+              />
+            );
+          }
+          case SectionType.PORTFOLIO: {
+            return (
+              <Portfolio
+                content={content as SitePortfolioContent}
+                type={type}
+                key={type}
+              />
+            );
+          }
+          case SectionType.FOOTER: {
+            return (
+              <Footer
+                content={content as SiteFooterContent}
+                navigationSections={NAVIGATION_SECTION_TYPES}
+                key={type}
+              />
+            );
+          }
+          case SectionType.FEEDBACK: {
+            return (
+              <Feedback
+                content={content as SiteFeedbackContent}
+                type={type}
+                key={type}
+              />
+            );
+          }
+          case SectionType.SERVICE: {
+            return (
+              <Service
+                content={content as SiteServiceContent}
+                type={type}
+                key={type}
+              />
+            );
+          }
+        }
+      },
+    );
+  };
+
   if (status === DataStatus.PENDING) {
     return (
       <PageLayout style="black">
@@ -52,38 +141,6 @@ const Site: React.FC = () => {
       </PageLayout>
     );
   }
-
-  const renderSections = (): JSX.Element[] => {
-    return sections.map(({ type, content }) => {
-      switch (type) {
-        case SectionType.HEADER: {
-          return <Header content={content as SiteHeaderContent} key={type} />;
-        }
-        case SectionType.MAIN: {
-          return <Main content={content as SiteMainContent} key={type} />;
-        }
-        case SectionType.ABOUT: {
-          return <About content={content as SiteAboutContent} key={type} />;
-        }
-        case SectionType.PORTFOLIO: {
-          return (
-            <Portfolio content={content as SitePortfolioContent} key={type} />
-          );
-        }
-        case SectionType.FOOTER: {
-          return <Footer content={content as SiteFooterContent} key={type} />;
-        }
-        case SectionType.FEEDBACK: {
-          return (
-            <Feedback content={content as SiteFeedbackContent} key={type} />
-          );
-        }
-        case SectionType.SERVICE: {
-          return <Service content={content as SiteServiceContent} key={type} />;
-        }
-      }
-    });
-  };
 
   return <div className={styles['site']}>{renderSections()}</div>;
 };
