@@ -79,7 +79,7 @@ class ProjectController extends Controller {
       handler: (options) =>
         this.find(
           options as ApiHandlerOptions<{
-            params: { projectId: number };
+            params: { id: number };
           }>,
         ),
     });
@@ -151,12 +151,12 @@ class ProjectController extends Controller {
   }
   /**
    * @swagger
-   * /projects/{projectId}:
+   * /projects/{id}:
    *   get:
    *     description: Get a project by ID
    *     parameters:
    *       - in: path
-   *         name: projectId
+   *         name: id
    *         required: true
    *         schema:
    *           type: integer
@@ -172,14 +172,14 @@ class ProjectController extends Controller {
 
   private async find(
     options: ApiHandlerOptions<{
-      params: { projectId: number };
+      params: { id: number };
     }>,
   ): Promise<ApiHandlerResponse> {
-    const { projectId } = options.params;
+    const { id } = options.params;
 
     return {
       status: HttpCode.OK,
-      payload: await this.projectService.find(projectId),
+      payload: await this.projectService.find(id),
     };
   }
 
