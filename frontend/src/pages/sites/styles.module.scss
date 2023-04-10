@@ -10,9 +10,8 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  gap: 24px;
   width: calc(var(--card-width) * 3 + var(--card-gap) * 2);
-  margin: 108px auto 24px;
+  margin: 96px auto 24px;
 }
 
 .search-wrapper {
@@ -30,7 +29,6 @@
   gap: var(--card-gap);
   width: calc(var(--card-width) * 3 + var(--card-gap) * 2);
   height: max-content;
-  margin-top: 18px;
 }
 
 .placeholder {
