@@ -1,4 +1,3 @@
-import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
 import { ImageSize, openAI } from '~/libs/packages/open-ai/open-ai.js';
@@ -214,15 +213,17 @@ class SectionService
       photo: cardContent['photoDescription'] ?? '',
     }));
 
-    await initAsyncItemsQueue(cards, async (card) => {
-      const image = await openAI.createImage(
-        `Portrait with sigma 85mm f/1.4. ${card.photo}`,
-      );
+    await Promise.all(
+      cards.map(async (card) => {
+        const image = await openAI.createImage(
+          `Portrait with sigma 85mm f/1.4. ${card.photo}`,
+        );
 
-      const { url } = await this.file.upload({ file: image });
+        const { url } = await this.file.upload({ file: image });
 
-      card.photo = url;
-    });
+        card.photo = url;
+      }),
+    );
 
     return {
       title: 'What people say',
@@ -242,18 +243,20 @@ class SectionService
         }) ?? [],
     } as SitePortfolioContent;
 
-    await initAsyncItemsQueue(portfolioContent.categories, async (category) => {
-      const rawImages = await openAI.createImages(
-        `Find website portfolio images for the ${category.name} category.`,
-        SectionService.portfolioCategoryImagesQuantity,
-      );
-      const images = await Promise.all(
-        rawImages.map((image) => {
-          return this.file.upload({ file: image });
-        }),
-      );
-      category.images = images.map((image) => image.url);
-    });
+    await Promise.all(
+      portfolioContent.categories.map(async (category) => {
+        const rawImages = await openAI.createImages(
+          `Find website portfolio images for the ${category.name} category.`,
+          SectionService.portfolioCategoryImagesQuantity,
+        );
+        const images = await Promise.all(
+          rawImages.map((image) => {
+            return this.file.upload({ file: image });
+          }),
+        );
+        category.images = images.map((image) => image.url);
+      }),
+    );
 
     return portfolioContent;
   }
@@ -273,15 +276,17 @@ class SectionService
       description: cardContent['description'] ?? '',
     }));
 
-    await initAsyncItemsQueue(cards, async (card) => {
-      const image = await openAI.createImage(
-        `Flat icon for site with white background. Icon image colors: black and peach  ${card.picture}`,
-      );
+    await Promise.all(
+      cards.map(async (card) => {
+        const image = await openAI.createImage(
+          `Flat icon for site with white background. Icon image colors: black and peach  ${card.picture}`,
+        );
 
-      const { url } = await this.file.upload({ file: image });
+        const { url } = await this.file.upload({ file: image });
 
-      card.picture = url;
-    });
+        card.picture = url;
+      }),
+    );
 
     return {
       title: 'Our Services',
