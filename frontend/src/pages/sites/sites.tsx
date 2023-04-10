@@ -89,13 +89,13 @@ const Sites: React.FC = () => {
     },
   );
 
-  const showSites = useMemo(() => {
+  const isSitesShow = useMemo(() => {
     return hasSites || isSearching;
   }, [hasSites, isSearching]);
 
   if (status === DataStatus.PENDING) {
     return (
-      <PageLayout style={showSites ? 'white' : 'black'}>
+      <PageLayout style={isSitesShow ? 'white' : 'black'}>
         <Loader style="yellow" />
       </PageLayout>
     );
@@ -103,11 +103,11 @@ const Sites: React.FC = () => {
 
   return (
     <PageLayout
-      style={showSites ? 'white' : 'black'}
+      style={isSitesShow ? 'white' : 'black'}
       className={styles['page-layout']}
     >
       <div className={styles['page-wrapper']}>
-        {showSites ? (
+        {isSitesShow ? (
           <>
             <div className={styles['search-wrapper']}>
               <Button
