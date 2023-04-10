@@ -89,6 +89,7 @@ const Site: React.FC = () => {
               <About
                 content={content as SiteAboutContent}
                 key={type}
+                type={type}
                 onUpdate={handleUpdate(section)}
               />
             );

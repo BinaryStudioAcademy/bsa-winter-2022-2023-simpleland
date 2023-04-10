@@ -25,6 +25,7 @@ type Properties<T extends FieldValues> = {
   inputMode?: 'email' | 'text' | 'search';
   isLabelVisuallyHidden?: boolean;
   onBlur?: () => void;
+  rows?: number;
 };
 
 const Input = <T extends FieldValues>({
@@ -40,6 +41,7 @@ const Input = <T extends FieldValues>({
   inputMode = 'text',
   isLabelVisuallyHidden = false,
   onBlur,
+  rows,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -50,6 +52,7 @@ const Input = <T extends FieldValues>({
     styles['input'],
     hasError && styles['has-error'],
     icon && styles['search-input'],
+    rows && styles['textarea'],
     className,
   );
 
@@ -64,15 +67,27 @@ const Input = <T extends FieldValues>({
         {label}
       </span>
       {icon && <Icon iconName={icon} className={styles['search-input-icon']} />}
-      <input
-        {...field}
-        className={validClassNames}
-        type={type}
-        placeholder={placeholder}
-        disabled={isDisabled}
-        inputMode={inputMode}
-        onBlur={onBlur}
-      />
+      {rows ? (
+        <textarea
+          {...field}
+          className={validClassNames}
+          placeholder={placeholder}
+          disabled={isDisabled}
+          onBlur={onBlur}
+          rows={rows}
+          cols={50}
+        />
+      ) : (
+        <input
+          {...field}
+          className={validClassNames}
+          type={type}
+          placeholder={placeholder}
+          disabled={isDisabled}
+          inputMode={inputMode}
+          onBlur={onBlur}
+        />
+      )}
       <ErrorMessage error={error as string} />
     </label>
   );

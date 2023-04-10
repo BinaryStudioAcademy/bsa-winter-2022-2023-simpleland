@@ -8,10 +8,9 @@ import {
   type SiteAboutUpdateContentDto,
 } from '~/packages/sections/sections.js';
 import { siteAboutUpdateContentValidationSchema } from '~/packages/sections/sections.js';
-import { Overlay } from '~/pages/site/components/overlay/overlay.js';
-import { useSectionUpdate } from '~/pages/site/libs/hooks/hooks.js';
 
-import { Textarea } from './components/components.js';
+import { useSectionUpdate } from '../../libs/hooks/hooks.js';
+import { Overlay } from '../overlay/overlay.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -64,14 +63,17 @@ const About: React.FC<Properties> = ({
             <div className={styles['about-content-right']}>
               <div className={styles['about-description']}>
                 {isEditing ? (
-                  <Textarea
+                  <Input
                     control={control}
                     errors={errors}
                     name="description"
+                    label="About section description"
+                    isLabelVisuallyHidden
                     className={getValidClassNames(
                       styles['edit-about-section-content'],
                     )}
                     onBlur={handleSectionUpdate}
+                    rows={10}
                   />
                 ) : (
                   description
