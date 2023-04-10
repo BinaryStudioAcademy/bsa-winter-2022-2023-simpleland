@@ -1,5 +1,3 @@
-import { type Page } from 'objection';
-
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectModel } from '~/packages/projects/project.model.js';
@@ -54,10 +52,13 @@ class ProjectRepository implements Omit<IRepository, 'update' | 'delete'> {
   public async findByUserId(
     id: number,
     { name, page, limit }: ProjectFilterQueryDto,
-  ): Promise<Page<ProjectModel>> {
+  ): Promise<{
+    totalCount: number;
+    items: ProjectEntity[];
+  }> {
     const offset = page - 1;
 
-    return await this.projectModel
+    const { total, results } = await this.projectModel
       .query()
       .where('userId', id)
       .andWhere((builder) => {
@@ -69,6 +70,20 @@ class ProjectRepository implements Omit<IRepository, 'update' | 'delete'> {
       .page(offset, limit)
       .withGraphFetched(this.defaultRelationExpression)
       .execute();
+
+    return {
+      totalCount: total,
+      items: results.map((project) => {
+        return ProjectEntity.initialize({
+          id: project.id,
+          name: project.name,
+          userId: project.userId,
+          avatarId: project.avatarId,
+          avatarUrl: project.avatar?.url ?? null,
+          category: project.category,
+        });
+      }),
+    };
   }
 
   public async create(entity: ProjectEntity): Promise<ProjectEntity> {
