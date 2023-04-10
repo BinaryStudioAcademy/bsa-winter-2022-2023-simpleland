@@ -10,12 +10,14 @@ type State = {
   dataStatus: ValueOf<typeof DataStatus>;
   dataSiteStatus: ValueOf<typeof DataStatus>;
   sites: SiteGetAllItemResponseDto[];
+  sitesCount: number;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   dataSiteStatus: DataStatus.IDLE,
   sites: [],
+  sitesCount: 0,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -38,6 +40,7 @@ const { reducer, actions, name } = createSlice({
     builder.addCase(getSitesByProjectId.fulfilled, (state, action) => {
       state.dataStatus = DataStatus.FULFILLED;
       state.sites = action.payload.items;
+      state.sitesCount = action.payload.totalCount;
     });
     builder.addCase(getSitesByProjectId.rejected, (state) => {
       state.dataStatus = DataStatus.REJECTED;

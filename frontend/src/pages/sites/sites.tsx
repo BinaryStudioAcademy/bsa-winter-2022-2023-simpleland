@@ -5,6 +5,7 @@ import {
   Link,
   Loader,
   PageLayout,
+  Pagination,
 } from '~/libs/components/components.js';
 import { AppRoute, DataStatus } from '~/libs/enums/enums.js';
 import { configureString, initDebounce } from '~/libs/helpers/helpers.js';
@@ -15,19 +16,21 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  usePagination,
   useParams,
   useState,
   useTitle,
 } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
-  type SitesFilterQueryDto,
-  sitesFilterValidationSchema,
+  type SitesSearchDto,
+  sitesSearchValidationSchema,
 } from '~/packages/sites/sites.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
 import { SiteCard } from './components/components.js';
 import { DEFAULT_SITES_FILTER_PAYLOAD } from './libs/constants.js';
+import { DEFAULT_PAGE, SITES_PER_PAGE } from './libs/pagination.constants.js';
 import styles from './styles.module.scss';
 
 const Sites: React.FC = () => {
@@ -36,6 +39,20 @@ const Sites: React.FC = () => {
   useTitle('My sites');
 
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>('');
+
+  const { sites, status, sitesCount } = useAppSelector(({ sites }) => ({
+    sites: sites.sites,
+    status: sites.dataStatus,
+    sitesCount: sites.sitesCount,
+  }));
+
+  const { page, handleChangePage, totalPages, isShowPagination } =
+    usePagination({
+      pageDefault: DEFAULT_PAGE,
+      rowsPerPage: SITES_PER_PAGE,
+      totalCount: sitesCount,
+    });
 
   useEffect((): void => {
     if (projectId) {
@@ -43,38 +60,42 @@ const Sites: React.FC = () => {
         sitesActions.getSitesByProjectId({
           parameters: { projectId: Number(projectId) },
           queryParameters: {
-            name: '',
+            name: search,
+            page,
+            limit: SITES_PER_PAGE,
           },
         }),
       );
     }
-  }, [dispatch, projectId]);
+  }, [dispatch, projectId, page, search]);
 
-  const { sites, status } = useAppSelector(({ sites }) => ({
-    sites: sites.sites,
-    status: sites.dataStatus,
-  }));
-
-  const { control, errors, handleSubmit } = useAppForm<SitesFilterQueryDto>({
+  const { control, errors, handleSubmit } = useAppForm<SitesSearchDto>({
     defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
-    validationSchema: sitesFilterValidationSchema,
+    validationSchema: sitesSearchValidationSchema,
   });
 
-  const handleSearching = useCallback((value: string) => {
-    return setIsSearching(value.length > 0);
-  }, []);
+  const handleSearching = useCallback(
+    (value: string) => {
+      setSearch(value);
+
+      return setIsSearching(value.length > 0);
+    },
+    [setSearch],
+  );
 
   const handleInputChange = useCallback(
-    async (data: SitesFilterQueryDto): Promise<void> => {
+    async (data: SitesSearchDto): Promise<void> => {
+      handleChangePage(DEFAULT_PAGE);
+
       await dispatch(
         sitesActions.getSitesByProjectId({
           parameters: { projectId: Number(projectId) },
-          queryParameters: data,
+          queryParameters: { name: data.name, page, limit: SITES_PER_PAGE },
         }),
       );
       handleSearching(data.name);
     },
-    [dispatch, projectId, handleSearching],
+    [dispatch, projectId, handleSearching, handleChangePage, page],
   );
 
   const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
@@ -149,6 +170,14 @@ const Sites: React.FC = () => {
                 <SiteCard key={site.id} site={site} />
               ))}
             </div>
+            {isShowPagination && (
+              <Pagination
+                currentPage={page}
+                onChangePage={handleChangePage}
+                totalPages={totalPages}
+                className={styles['pagination-wrapper']}
+              />
+            )}
           </>
         ) : (
           <div className={styles['placeholder']}>

@@ -50,14 +50,19 @@ class SitesApi extends HttpApi {
     parameters,
     queryParameters,
   }: SitesGetByProjectIdRequestDto): Promise<SiteGetAllResponseDto> {
-    const searchParameters = new URLSearchParams(queryParameters).toString();
+    const searchParameters = new URLSearchParams();
     const { projectId } = parameters;
+
+    for (const [key, value] of Object.entries(queryParameters)) {
+      searchParameters.append(key, value.toString());
+    }
+
     const response = await this.load(
       this.getFullEndpoint(
         configureString(SitesApiPath.PROJECT_$PROJECT_ID, {
           projectId,
         }),
-        `?${searchParameters}`,
+        `?${searchParameters.toString()}`,
         {},
       ),
       {
