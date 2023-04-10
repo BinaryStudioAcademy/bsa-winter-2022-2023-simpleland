@@ -29,7 +29,7 @@ import {
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
 import { SiteCard } from './components/components.js';
-import { DEFAULT_SITES_FILTER_PAYLOAD } from './libs/constants.js';
+import { DEFAULT_SITES_SEARCH_PAYLOAD } from './libs/constants.js';
 import { DEFAULT_PAGE, SITES_PER_PAGE } from './libs/pagination.constants.js';
 import styles from './styles.module.scss';
 
@@ -70,7 +70,7 @@ const Sites: React.FC = () => {
   }, [dispatch, projectId, page, search]);
 
   const { control, errors, handleSubmit } = useAppForm<SitesSearchDto>({
-    defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
+    defaultValues: DEFAULT_SITES_SEARCH_PAYLOAD,
     validationSchema: sitesSearchValidationSchema,
   });
 
