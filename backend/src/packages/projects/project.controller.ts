@@ -74,7 +74,7 @@ class ProjectController extends Controller {
     });
 
     this.addRoute({
-      path: ProjectsApiPath.$PROJECT_ID,
+      path: ProjectsApiPath.$ID,
       method: 'GET',
       handler: (options) =>
         this.find(
