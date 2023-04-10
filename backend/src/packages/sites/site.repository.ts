@@ -1,5 +1,3 @@
-import { type Page } from 'objection';
-
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteModel } from '~/packages/sites/site.model.js';
@@ -24,10 +22,13 @@ class SiteRepository
   public async findAllByProjectId(
     projectId: number,
     { name, page, limit }: SitesFilterQueryDto,
-  ): Promise<Page<SiteModel>> {
+  ): Promise<{
+    totalCount: number;
+    items: SiteEntity[];
+  }> {
     const offset = page - 1;
 
-    return await this.siteModel
+    const { total, results } = await this.siteModel
       .query()
       .where({ projectId })
       .where((builder) => {
@@ -36,6 +37,11 @@ class SiteRepository
         }
       })
       .page(offset, limit);
+
+    return {
+      totalCount: total,
+      items: results.map((site) => SiteEntity.initialize(site)),
+    };
   }
 
   public async create(entity: SiteEntity): Promise<SiteEntity> {
