@@ -29,7 +29,6 @@ type Properties = {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (payload: ProjectCreateRequestDto & ProjectUploadImageDto) => void;
-  isUpdate?: boolean;
   className?: string;
   project?: ProjectGetAllItemResponseDto | null;
 };
@@ -39,9 +38,10 @@ const ConfigurateProjectPopup: React.FC<Properties> = ({
   isOpen = false,
   onClose,
   onSubmit,
-  isUpdate = Boolean(project),
   className = '',
 }: Properties) => {
+  const isUpdate = Boolean(project);
+
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<ProjectCreateRequestDto>({
       defaultValues: isUpdate
