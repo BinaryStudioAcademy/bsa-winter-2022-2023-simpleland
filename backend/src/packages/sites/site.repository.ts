@@ -1,3 +1,5 @@
+import { type Page } from 'objection';
+
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteModel } from '~/packages/sites/site.model.js';
@@ -21,18 +23,19 @@ class SiteRepository
 
   public async findAllByProjectId(
     projectId: number,
-    { name }: SitesFilterQueryDto,
-  ): Promise<SiteEntity[]> {
-    const sites = await this.siteModel
+    { name, page, limit }: SitesFilterQueryDto,
+  ): Promise<Page<SiteModel>> {
+    const offset = page - 1;
+
+    return await this.siteModel
       .query()
       .where({ projectId })
       .where((builder) => {
         if (name) {
           void builder.where('name', 'ilike', `%${name}%`);
         }
-      });
-
-    return sites.map((site) => SiteEntity.initialize(site));
+      })
+      .page(offset, limit);
   }
 
   public async create(entity: SiteEntity): Promise<SiteEntity> {

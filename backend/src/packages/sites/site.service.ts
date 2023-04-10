@@ -46,6 +46,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
     return {
       items: sites.map((site) => site.toObject()),
+      totalCount: sites.length,
     };
   }
 
@@ -53,13 +54,18 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     projectId: number,
     queryParameters: SitesFilterQueryDto,
   ): Promise<SiteGetAllResponseDto> {
-    const sites = await this.siteRepository.findAllByProjectId(
+    const page = await this.siteRepository.findAllByProjectId(
       projectId,
       queryParameters,
     );
 
+    const sites = page.results.map((site) => {
+      return SiteEntity.initialize(site);
+    });
+
     return {
       items: sites.map((site) => site.toObject()),
+      totalCount: page.total,
     };
   }
 
