@@ -6,9 +6,7 @@ import { type ProjectModel } from '~/packages/projects/project.model.js';
 
 import { type ProjectFilterQueryDto } from './libs/types/types.js';
 
-class ProjectRepository
-  implements Omit<IRepository, 'find' | 'update' | 'delete'>
-{
+class ProjectRepository implements Omit<IRepository, 'update' | 'delete'> {
   private projectModel: typeof ProjectModel;
 
   private defaultRelationExpression = 'avatar';
@@ -29,6 +27,27 @@ class ProjectRepository
         avatarUrl: project.avatar?.url ?? null,
         category: project.category,
       });
+    });
+  }
+
+  public async find(id: number): Promise<ProjectEntity | null> {
+    const project = await this.projectModel
+      .query()
+      .findById(id)
+      .withGraphFetched(this.defaultRelationExpression)
+      .execute();
+
+    if (!project) {
+      return null;
+    }
+
+    return ProjectEntity.initialize({
+      id: project.id,
+      name: project.name,
+      userId: project.userId,
+      avatarId: project.avatarId,
+      avatarUrl: project.avatar?.url ?? null,
+      category: project.category,
     });
   }
 

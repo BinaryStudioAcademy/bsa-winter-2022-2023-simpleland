@@ -1,3 +1,4 @@
+import { ApplicationError } from '~/libs/exceptions/exceptions.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
@@ -17,7 +18,7 @@ type Constructor = {
   file: File;
 };
 
-class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
+class ProjectService implements Omit<IService, 'update' | 'delete'> {
   private projectRepository: ProjectRepository;
 
   private file: File;
@@ -34,6 +35,18 @@ class ProjectService implements Omit<IService, 'find' | 'update' | 'delete'> {
       items: items.map((project) => project.toObject()),
       totalCount: items.length,
     };
+  }
+
+  public async find(id: number): Promise<ProjectGetAllItemResponseDto> {
+    const project = await this.projectRepository.find(id);
+
+    if (!project) {
+      throw new ApplicationError({
+        message: `Project with id ${id} not found`,
+      });
+    }
+
+    return project.toObject();
   }
 
   public async findByUserId(
