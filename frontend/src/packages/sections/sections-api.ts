@@ -3,8 +3,12 @@ import { HttpApi } from '~/libs/packages/api/api.js';
 import { type IHttp } from '~/libs/packages/http/http.js';
 import { type IStorage } from '~/libs/packages/storage/storage.js';
 
-import { SitesApiPath } from './libs/enums/enums.js';
-import { type SectionGetAllResponseDto } from './libs/types/types.js';
+import { SectionsApiPath } from './libs/enums/enums.js';
+import {
+  type SectionGetAllItemResponseDto,
+  type SectionUpdateParametersDto,
+  type SectionUpdateRequestDto,
+} from './libs/types/types.js';
 
 type Constructor = {
   baseUrl: string;
@@ -14,24 +18,27 @@ type Constructor = {
 
 class SectionsApi extends HttpApi {
   public constructor({ baseUrl, http, storage }: Constructor) {
-    super({ path: ApiPath.SITES, baseUrl, http, storage });
+    super({ path: ApiPath.SECTIONS, baseUrl, http, storage });
   }
 
-  public async getSectionsBySiteId(
-    siteId: number,
-  ): Promise<SectionGetAllResponseDto> {
+  public async updateContent({
+    id,
+    ...body
+  }: SectionUpdateRequestDto &
+    SectionUpdateParametersDto): Promise<SectionGetAllItemResponseDto> {
     const response = await this.load(
-      this.getFullEndpoint(SitesApiPath.$SITE_ID_SECTIONS, {
-        siteId: siteId.toString(),
+      this.getFullEndpoint(SectionsApiPath.$ID, {
+        id,
       }),
       {
-        method: 'GET',
+        method: 'PUT',
         contentType: ContentType.JSON,
-        hasAuth: false,
+        hasAuth: true,
+        payload: JSON.stringify(body),
       },
     );
 
-    return await response.json<SectionGetAllResponseDto>();
+    return await response.json<SectionGetAllItemResponseDto>();
   }
 }
 

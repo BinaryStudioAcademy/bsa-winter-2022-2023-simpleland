@@ -1,0 +1,43 @@
+.overlay-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(34 34 34 / 40%);
+  outline: 3px solid var(--yellow);
+}
+
+.overlay-buttons {
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 162px;
+  height: 68px;
+  background: var(--gray-100);
+  border-radius: 34px;
+}
+
+.overlay-button {
+  padding: 13px;
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.overlay-button:hover {
+  background-color: var(--yellow);
+}
+
+.overlay-button svg path {
+  fill: var(--black);
+}

@@ -6,7 +6,7 @@ import { type SectionType } from './libs/enums/enums.js';
 class SectionEntity implements IEntity {
   private 'id': number | null;
 
-  private 'type': ValueOf<typeof SectionType>;
+  private 'type': ValueOf<typeof SectionType> | null;
 
   private 'content': unknown;
 
@@ -16,7 +16,7 @@ class SectionEntity implements IEntity {
     content,
   }: {
     id: number | null;
-    type: ValueOf<typeof SectionType>;
+    type: ValueOf<typeof SectionType> | null;
     content: unknown;
   }) {
     this.id = id;
@@ -30,7 +30,7 @@ class SectionEntity implements IEntity {
     content,
   }: {
     id: number;
-    type: ValueOf<typeof SectionType>;
+    type: ValueOf<typeof SectionType> | null;
     content: unknown;
   }): SectionEntity {
     return new SectionEntity({ id, type, content });
@@ -57,7 +57,7 @@ class SectionEntity implements IEntity {
   } {
     return {
       id: this.id as number,
-      type: this.type,
+      type: this.type as ValueOf<typeof SectionType>,
       content: this.content,
     };
   }
@@ -67,7 +67,17 @@ class SectionEntity implements IEntity {
     content: unknown;
   } {
     return {
-      type: this.type,
+      type: this.type as ValueOf<typeof SectionType>,
+      content: this.content,
+    };
+  }
+
+  public toContentUpdate(): {
+    id: number;
+    content: unknown;
+  } {
+    return {
+      id: this.id as number,
       content: this.content,
     };
   }
