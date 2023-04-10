@@ -18,9 +18,9 @@ const TargetAudienceForm: React.FC<Properties> = ({
   onSubmit,
   siteInfo,
 }: Properties): JSX.Element => {
-  const [targetAudience] = useState(siteInfo.targetAudience || '');
+  const [targetAudience] = useState(siteInfo.targetAudience);
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepTarget>({
-    defaultValues: { targetAudience: siteInfo.targetAudience || '' },
+    defaultValues: { targetAudience: siteInfo.targetAudience },
     mode: 'onSubmit',
     validationSchema: siteCreateStepTargetValidationSchema,
   });
@@ -44,7 +44,7 @@ const TargetAudienceForm: React.FC<Properties> = ({
           name="targetAudience"
           options={OPTIONS}
           label="Select your industry"
-          placeholder={targetAudience || 'Please select your industry'}
+          placeholder={targetAudience}
           errors={errors}
           isLabelVisuallyHidden
         />

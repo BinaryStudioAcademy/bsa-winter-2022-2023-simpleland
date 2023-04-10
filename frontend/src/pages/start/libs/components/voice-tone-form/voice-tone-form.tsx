@@ -18,9 +18,9 @@ const VoiceToneForm: React.FC<Properties> = ({
   onSubmit,
   siteInfo,
 }: Properties) => {
-  const [tone] = useState(siteInfo.tone || '');
+  const [tone] = useState(siteInfo.tone);
   const { control, errors, handleSubmit } = useAppForm({
-    defaultValues: { tone: siteInfo.tone || '' },
+    defaultValues: { tone: siteInfo.tone },
     validationSchema: siteCreateStepToneValidationSchema,
   });
 
@@ -40,7 +40,7 @@ const VoiceToneForm: React.FC<Properties> = ({
       <form className={styles['form']} onSubmit={handleFormSubmit}>
         <Select
           name="tone"
-          placeholder={tone || 'Please select your tone'}
+          placeholder={tone}
           label="Select your tone"
           options={OPTIONS}
           control={control}
