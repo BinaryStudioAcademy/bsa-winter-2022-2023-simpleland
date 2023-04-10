@@ -1,7 +1,9 @@
 import { Input } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm } from '~/libs/hooks/hooks.js';
+import { type ValueOf } from '~/libs/types/types.js';
 import {
+  type SectionType,
   type SiteAboutContent,
   type SiteAboutUpdateContentDto,
 } from '~/packages/sections/sections.js';
@@ -14,11 +16,13 @@ import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteAboutContent;
+  type: ValueOf<typeof SectionType>;
   onUpdate: (payload: unknown) => void;
 };
 
 const About: React.FC<Properties> = ({
   content: { description, title },
+  type,
   onUpdate,
 }: Properties) => {
   const { control, errors, handleSubmit, handleReset } =
@@ -35,7 +39,7 @@ const About: React.FC<Properties> = ({
     });
 
   return (
-    <div className={styles['about']}>
+    <div id={type} className={styles['about']}>
       <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
         <div className={styles['about-container']}>
           <div className={styles['about-content']}>

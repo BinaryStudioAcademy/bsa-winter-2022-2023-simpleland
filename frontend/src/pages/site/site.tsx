@@ -19,6 +19,7 @@ import {
   type SiteServiceContent,
   SectionType,
 } from '~/packages/sections/sections.js';
+import { NAVIGATION_SECTION_TYPES } from '~/pages/site/libs/constants.js';
 import { actions as sectionsActions } from '~/slices/sections/sections.js';
 
 import {
@@ -76,6 +77,7 @@ const Site: React.FC = () => {
                 content={content as SiteHeaderContent}
                 key={type}
                 onUpdate={handleUpdate(section)}
+                navigationSections={NAVIGATION_SECTION_TYPES}
               />
             );
           }
@@ -93,20 +95,38 @@ const Site: React.FC = () => {
           }
           case SectionType.PORTFOLIO: {
             return (
-              <Portfolio content={content as SitePortfolioContent} key={type} />
+              <Portfolio
+                content={content as SitePortfolioContent}
+                type={type}
+                key={type}
+              />
             );
           }
           case SectionType.FOOTER: {
-            return <Footer content={content as SiteFooterContent} key={type} />;
+            return (
+              <Footer
+                content={content as SiteFooterContent}
+                navigationSections={NAVIGATION_SECTION_TYPES}
+                key={type}
+              />
+            );
           }
           case SectionType.FEEDBACK: {
             return (
-              <Feedback content={content as SiteFeedbackContent} key={type} />
+              <Feedback
+                content={content as SiteFeedbackContent}
+                type={type}
+                key={type}
+              />
             );
           }
           case SectionType.SERVICE: {
             return (
-              <Service content={content as SiteServiceContent} key={type} />
+              <Service
+                content={content as SiteServiceContent}
+                type={type}
+                key={type}
+              />
             );
           }
         }
