@@ -3,6 +3,7 @@ import {
   Input,
   Loader,
   PageLayout,
+  Pagination,
 } from '~/libs/components/components.js';
 import { DataStatus } from '~/libs/enums/enums.js';
 import { initDebounce } from '~/libs/helpers/helpers.js';
@@ -13,43 +14,76 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  usePagination,
   useState,
   useTitle,
 } from '~/libs/hooks/hooks.js';
 import {
   type ProjectCreateRequestDto,
+  type ProjectGetAllItemResponseDto,
   type ProjectGetAllParametersDto,
   type ProjectUploadImageDto,
 } from '~/packages/projects/projects.js';
 import { actions as projectActions } from '~/slices/projects/projects.js';
 
-import { CreateProjectModal, ProjectCard } from './components/components.js';
+import {
+  ConfigurateProjectPopup,
+  ProjectCard,
+} from './components/components.js';
 import { DEFAULT_PROJECT_FILTER_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
 
+const PROJECTS_PER_PAGE = 6;
+const PAGE_DEFAULT = 1;
+
 const MyProjects: React.FC = () => {
+  const { projects, status, projectsCount } = useAppSelector((state) => ({
+    projectsCount: state.projects.projectsCount,
+    projects: state.projects.projects,
+    status: state.projects.dataStatus,
+  }));
+
   const [isOpen, setIsOpen] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
+  const [searchName, setSearchName] = useState('');
+  const { page, handleChangePage, totalPages, isShowPagination } =
+    usePagination({
+      pageDefault: PAGE_DEFAULT,
+      totalCount: projectsCount,
+      rowsPerPage: PROJECTS_PER_PAGE,
+    });
+  const [currentProject, setCurrentProject] =
+    useState<ProjectGetAllItemResponseDto | null>(null);
 
   const handleModalOpen = useCallback(() => {
     setIsOpen(true);
+    setCurrentProject(null);
   }, []);
 
   const handleModalClose = useCallback(() => {
     setIsOpen(false);
+    setCurrentProject(null);
   }, []);
+
+  const handleProjectEdit = useCallback(
+    (project: ProjectGetAllItemResponseDto) => {
+      setIsOpen(true);
+      setCurrentProject(project);
+    },
+    [],
+  );
 
   const dispatch = useAppDispatch();
   useTitle('My projects');
 
   useEffect((): void => {
-    void dispatch(projectActions.getUserProjects({ name: '' }));
-  }, [dispatch]);
-
-  const { projects, status } = useAppSelector((state) => ({
-    projects: state.projects.projects,
-    status: state.projects.dataStatus,
-  }));
+    void dispatch(
+      projectActions.getUserProjects({
+        name: searchName,
+        page,
+        limit: PROJECTS_PER_PAGE,
+      }),
+    );
+  }, [dispatch, page, searchName]);
 
   const { control, errors, handleSubmit } =
     useAppForm<ProjectGetAllParametersDto>({
@@ -57,38 +91,46 @@ const MyProjects: React.FC = () => {
       mode: 'onChange',
     });
 
-  const hasProjects = projects.length > 0;
-
   const handleProjectSubmit = useCallback(
     (payload: ProjectCreateRequestDto & ProjectUploadImageDto): void => {
-      void dispatch(projectActions.createProject(payload))
-        .unwrap()
-        .then(() => {
-          handleModalClose();
-        });
+      if (currentProject) {
+        void dispatch(
+          projectActions.updateProject({
+            id: currentProject.id,
+            payload,
+          }),
+        )
+          .unwrap()
+          .then(() => {
+            handleModalClose();
+            setCurrentProject(null);
+          });
+      } else {
+        void dispatch(projectActions.createProject(payload))
+          .unwrap()
+          .then(() => {
+            handleModalClose();
+          });
+      }
     },
-    [dispatch, handleModalClose],
+    [currentProject, dispatch, handleModalClose],
   );
-
-  const handleSearching = useCallback((value: string) => {
-    return setIsSearching(value.length > 0);
-  }, []);
 
   const handleSearch = useCallback(
     (data: ProjectGetAllParametersDto): void => {
-      void dispatch(projectActions.getUserProjects({ name: data.search }));
-      handleSearching(data.search);
+      setSearchName(data.search);
+      handleChangePage(PAGE_DEFAULT);
     },
-    [dispatch, handleSearching],
+    [handleChangePage],
   );
 
   const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
     void handleSubmit(handleSearch)(event_);
   });
 
-  const isProjectShow = useMemo(() => {
-    return hasProjects || isSearching;
-  }, [hasProjects, isSearching]);
+  const hasProjects = useMemo(() => {
+    return projects.length > 0 || searchName.length > 0;
+  }, [projects, searchName]);
 
   if (status === DataStatus.PENDING) {
     return (
@@ -101,40 +143,55 @@ const MyProjects: React.FC = () => {
   return (
     <>
       <PageLayout
-        style={isProjectShow ? 'white' : 'black'}
+        style={hasProjects ? 'white' : 'black'}
         className={styles['page-layout']}
       >
         <div className={styles['page-wrapper']}>
-          {isProjectShow ? (
+          {hasProjects ? (
             <>
-              <div className={styles['search-wrapper']}>
-                <form onChange={handleFormChange}>
-                  <Input
-                    label="search"
-                    type="search"
-                    placeholder="Search"
-                    name="search"
-                    control={control}
-                    errors={errors}
-                    className={styles['search-input']}
-                    icon="loupe"
-                    isLabelVisuallyHidden
+              <div>
+                <div className={styles['search-wrapper']}>
+                  <form onChange={handleFormChange}>
+                    <Input
+                      label="search"
+                      type="search"
+                      placeholder="Search"
+                      name="search"
+                      control={control}
+                      errors={errors}
+                      className={styles['search-input']}
+                      icon="loupe"
+                      isLabelVisuallyHidden
+                    />
+                  </form>
+                  <Button
+                    label="Add Project"
+                    icon="plus"
+                    className={styles['create-button']}
+                    size="small"
+                    onClick={handleModalOpen}
                   />
-                </form>
-                <Button
-                  label="Add Project"
-                  icon="plus"
-                  className={styles['create-button']}
-                  size="small"
-                  onClick={handleModalOpen}
-                />
+                </div>
+
+                <div className={styles['cards-wrapper']}>
+                  {projects.map((card) => (
+                    <ProjectCard
+                      key={card.id}
+                      project={card}
+                      onEdit={handleProjectEdit}
+                    />
+                  ))}
+                </div>
               </div>
 
-              <div className={styles['cards-wrapper']}>
-                {projects.map((card) => (
-                  <ProjectCard key={card.id} project={card} />
-                ))}
-              </div>
+              {isShowPagination && (
+                <Pagination
+                  currentPage={page}
+                  onChangePage={handleChangePage}
+                  totalPages={totalPages}
+                  className={styles['pagination-wrapper']}
+                />
+              )}
             </>
           ) : (
             <div className={styles['placeholder']}>
@@ -155,10 +212,11 @@ const MyProjects: React.FC = () => {
           )}
         </div>
       </PageLayout>
-      <CreateProjectModal
+      <ConfigurateProjectPopup
+        project={currentProject}
         onSubmit={handleProjectSubmit}
         isOpen={isOpen}
-        onCloseModal={handleModalClose}
+        onClose={handleModalClose}
       />
     </>
   );

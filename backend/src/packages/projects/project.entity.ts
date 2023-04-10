@@ -88,6 +88,7 @@ class ProjectEntity implements IEntity {
     name: string;
     userId: number;
     avatarUrl: string | null;
+    avatarId: number | null;
     category: ValueOf<typeof ProjectCategory>;
   } {
     return {
@@ -95,6 +96,7 @@ class ProjectEntity implements IEntity {
       name: this.name as string,
       userId: this.userId as number,
       avatarUrl: this.avatarUrl,
+      avatarId: this.avatarId as number,
       category: this.category as ValueOf<typeof ProjectCategory>,
     };
   }

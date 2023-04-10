@@ -42,7 +42,11 @@ class ProjectsApi extends HttpApi {
   public async getProjects(
     parameters: ProjectFilterQueryDto,
   ): Promise<ProjectGetAllResponseDto> {
-    const searchParameters = new URLSearchParams(parameters);
+    const searchParameters = new URLSearchParams({
+      name: parameters.name,
+      page: parameters.page.toString(),
+      limit: parameters.limit.toString(),
+    });
 
     const response = await this.load(
       this.getFullEndpoint(
@@ -76,6 +80,28 @@ class ProjectsApi extends HttpApi {
         contentType: ContentType.FORM_DATA,
         hasAuth: true,
         payload,
+      },
+    );
+
+    return await response.json<ProjectGetAllItemResponseDto>();
+  }
+
+  public async updateProject(
+    id: number,
+    payload: ProjectCreateRequestDto,
+  ): Promise<ProjectGetAllItemResponseDto> {
+    const response = await this.load(
+      this.getFullEndpoint(
+        configureString(ProjectsApiPath.$ID, {
+          id,
+        }),
+        {},
+      ),
+      {
+        method: 'PUT',
+        contentType: ContentType.JSON,
+        hasAuth: true,
+        payload: JSON.stringify(payload),
       },
     );
 

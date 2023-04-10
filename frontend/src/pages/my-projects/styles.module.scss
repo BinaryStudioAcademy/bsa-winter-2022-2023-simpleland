@@ -1,5 +1,6 @@
 .page-layout {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .page-wrapper {
@@ -11,7 +12,7 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  gap: 24px;
+  justify-content: space-between;
   width: calc(var(--card-width) * 3 + var(--card-gap) * 2);
   margin: calc(var(--header-height) + 50px) auto 24px;
 }
@@ -29,6 +30,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: var(--card-gap);
+}
+
+.pagination-wrapper {
+  align-self: end;
 }
 
 .placeholder {
