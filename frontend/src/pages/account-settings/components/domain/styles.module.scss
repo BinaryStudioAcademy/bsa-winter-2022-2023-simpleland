@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 40px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  width: 318px;
+  padding: 32px 28px;
+  background-color: var(--gray-100);
+}
+
+.item-text {
+  color: var(--gray-600);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.item-icon {
+  background-color: var(--gray-100);
+  cursor: auto;
+}
+
+.item-icon svg path {
+  fill: var(--yellow);
+}
