@@ -54,12 +54,14 @@ const Sites: React.FC = () => {
     }
   }, [dispatch, projectId]);
 
-  const { sites, sitesStatus, project, projectStatus } = useAppSelector(({ sites, projects }) => ({
-    sites: sites.sites,
-    sitesStatus: sites.dataStatus,
-    project: projects.currentProject,
-    projectStatus: projects.dataStatus,
-  }));
+  const { sites, sitesStatus, project, projectStatus } = useAppSelector(
+    ({ sites, projects }) => ({
+      sites: sites.sites,
+      sitesStatus: sites.dataStatus,
+      project: projects.currentProject,
+      projectStatus: projects.dataStatus,
+    }),
+  );
 
   const { control, errors, handleSubmit } = useAppForm<SitesFilterQueryDto>({
     defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
@@ -99,7 +101,8 @@ const Sites: React.FC = () => {
     return hasSites || isSearching;
   }, [hasSites, isSearching]);
 
-  const isLoading = sitesStatus === DataStatus.PENDING && projectStatus === DataStatus.PENDING;
+  const isLoading =
+    sitesStatus === DataStatus.PENDING && projectStatus === DataStatus.PENDING;
 
   if (isLoading) {
     return (
