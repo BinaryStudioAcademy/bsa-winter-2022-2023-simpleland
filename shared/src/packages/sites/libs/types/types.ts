@@ -10,3 +10,4 @@ export { type SiteGetAllItemResponseDto } from './site-get-all-item-response-dto
 export { type SiteGetAllResponseDto } from './site-get-all-response-dto.type.js';
 export { type SitesFilterQueryDto } from './sites-filter-query-dto.type.js';
 export { type SitesGetByProjectIdParametersDto } from './sites-get-all-by-broject-id-parameters-dto.type.js';
+export { type SitesSearchDto } from './sites-search-dto.type.js';
