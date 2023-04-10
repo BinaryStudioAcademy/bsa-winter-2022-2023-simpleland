@@ -5,6 +5,7 @@ import { openAI } from '~/libs/packages/open-ai/open-ai.js';
 import { type ValueOf } from '~/libs/types/types.js';
 
 import { SectionType } from './libs/enums/enums.js';
+import { sectionTypeToUpdateSectionHandler } from './libs/maps/maps.js';
 import {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
@@ -14,7 +15,6 @@ import {
   type SiteFeedbackContent,
   type SiteFooterContent,
   type SiteHeaderContent,
-  type SiteHeaderUpdateContentDto,
   type SiteMainContent,
   type SitePortfolioContent,
   type SiteServiceContent,
@@ -90,44 +90,20 @@ class SectionService
       null;
     }
 
-    switch (payload.type) {
-      case SectionType.HEADER: {
-        const content = section.content as SiteHeaderContent;
-        const { logo, phone } = payload.content as SiteHeaderUpdateContentDto;
+    const updatedContent = sectionTypeToUpdateSectionHandler[section.type](
+      section.content,
+      payload.content,
+    );
 
-        content.logo = logo;
-        content.phone = phone;
+    const updatedSection = await this.sectionRepository.update(
+      SectionEntity.initialize({
+        id,
+        content: updatedContent,
+        type: null,
+      }),
+    );
 
-        const updatedSection = await this.sectionRepository.update(
-          SectionEntity.initialize({ id, content, type: null }),
-        );
-
-        return updatedSection.toObject();
-      }
-      case SectionType.MAIN: {
-        break;
-      }
-      case SectionType.ABOUT: {
-        break;
-      }
-      case SectionType.PORTFOLIO: {
-        break;
-      }
-      case SectionType.FEEDBACK: {
-        break;
-      }
-      case SectionType.SERVICE: {
-        break;
-      }
-      case SectionType.FOOTER: {
-        break;
-      }
-      default: {
-        throw new Error('Should not reach here');
-      }
-    }
-
-    return section;
+    return updatedSection.toObject();
   }
 
   private async createSectionContent<T extends ValueOf<typeof SectionType>>(
