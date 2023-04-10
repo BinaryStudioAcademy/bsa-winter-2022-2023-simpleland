@@ -80,7 +80,13 @@ const Site: React.FC = () => {
           return <Main content={content as SiteMainContent} key={type} />;
         }
         case SectionType.ABOUT: {
-          return <About content={content as SiteAboutContent} key={type} />;
+          return (
+            <About
+              content={content as SiteAboutContent}
+              key={type}
+              onUpdate={handleUpdate(section)}
+            />
+          );
         }
         case SectionType.PORTFOLIO: {
           return (

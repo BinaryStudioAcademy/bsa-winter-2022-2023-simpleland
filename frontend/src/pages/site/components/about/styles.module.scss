@@ -6,14 +6,13 @@
 }
 
 .about-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
   width: 1085px;
   padding: 85px 0;
 }
 
 .about-content {
   display: flex;
+  justify-content: space-between;
 }
 
 .about-left {
@@ -21,14 +20,13 @@
 }
 
 .about-right {
-  margin-right: 15px;
   padding: 185px 0;
 }
 
 .about-title {
   width: 112px;
   height: 78px;
-  margin-top: 100px;
+  margin-top: 50px;
   color: var(--site-text-color);
   font-size: 38px;
   font-family: "BN Chester", sans-serif;
@@ -42,4 +40,18 @@
   color: var(--site-text-color);
   font-size: 15px;
   line-height: 25px;
+  transform: translateX(130px);
+}
+
+.edit-about-section-block {
+  padding: 0;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  border: none;
+}
+
+.edit-about-section-block:focus {
+  box-shadow: none;
 }
