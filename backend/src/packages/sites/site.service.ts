@@ -1,4 +1,3 @@
-import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
 import { type OpenAI } from '~/libs/packages/open-ai/open-ai.package.js';
@@ -90,68 +89,17 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     );
     const site = entity.toObject();
 
-    await initAsyncItemsQueue(
-      [
-        {
+    await Promise.all(
+      Object.values(SectionType).map((type) =>
+        sectionService.create({
           siteId: site.id,
-          prompt: this.createPrompt(SectionType.HEADER, {
+          prompt: this.createPrompt(type, {
             ...payload,
             category,
           }),
-          type: SectionType.HEADER,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.MAIN, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.MAIN,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.PORTFOLIO, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.PORTFOLIO,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.ABOUT, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.ABOUT,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.SERVICE, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.SERVICE,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.FEEDBACK, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.FEEDBACK,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.FOOTER, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.FOOTER,
-        },
-      ],
-      async (section) => {
-        await sectionService.create(section);
-      },
+          type,
+        }),
+      ),
     );
 
     return site;

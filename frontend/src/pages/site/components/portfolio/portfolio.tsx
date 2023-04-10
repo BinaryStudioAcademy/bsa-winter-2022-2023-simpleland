@@ -1,6 +1,10 @@
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useCallback, useMemo, useState } from '~/libs/hooks/hooks.js';
-import { type SitePortfolioContent } from '~/packages/sections/sections.js';
+import { type ValueOf } from '~/libs/types/types.js';
+import {
+  type SectionType,
+  type SitePortfolioContent,
+} from '~/packages/sections/sections.js';
 
 import styles from './styles.module.scss';
 
@@ -8,10 +12,12 @@ const MAX_IMAGES_COUNT = 8;
 
 type Properties = {
   content: SitePortfolioContent;
+  type: ValueOf<typeof SectionType>;
 };
 
 const Portfolio: React.FC<Properties> = ({
   content: { title, categories },
+  type,
 }: Properties) => {
   const [titleFirstWord, ...titleRest] = title.split(' ');
   const [selectedCategory, setSelectedCategory] = useState<null | number>(null);
@@ -57,7 +63,7 @@ const Portfolio: React.FC<Properties> = ({
   }, [selectedImages]);
 
   return (
-    <div className={styles['section-wrapper']}>
+    <div id={type} className={styles['section-wrapper']}>
       <div className={styles['portfolio-wrapper']}>
         <div className={styles['title']}>
           {titleFirstWord}
