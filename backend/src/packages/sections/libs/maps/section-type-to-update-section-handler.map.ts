@@ -3,6 +3,8 @@ import { SectionType } from '~/packages/sections/libs/enums/enums.js';
 import {
   type SiteAboutContent,
   type SiteAboutUpdateContentDto,
+  type SiteFeedbackContent,
+  type SiteFeedbackUpdateContentDto,
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
@@ -61,7 +63,15 @@ const sectionTypeToUpdateSectionHandler: Record<
 
     return serviceContent;
   },
-  [SectionType.FEEDBACK]: () => ({}),
+  [SectionType.FEEDBACK]: (content, contentUpdates) => {
+    const feedbackContent = content as SiteFeedbackContent;
+    const { title, cards } = contentUpdates as SiteFeedbackUpdateContentDto;
+
+    feedbackContent.title = title;
+    feedbackContent.cards = cards;
+
+    return feedbackContent;
+  },
   [SectionType.FOOTER]: () => ({}),
 };
 

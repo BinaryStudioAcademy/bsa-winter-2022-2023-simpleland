@@ -5,3 +5,4 @@ export { siteCreateStepTarget } from './site-create-step-target.validation-schem
 export { siteCreateStepTone } from './site-create-step-tone.validation-schema.js';
 export { siteFilter } from './site-filter.validation-schema.js';
 export { sitesGetByProjectIdParameters } from './site-get-by-project-id-parameters.validation-schema.js';
+export { sitesSearch } from './sites-search.validation-schema.js';

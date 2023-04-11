@@ -5,6 +5,7 @@ import {
   Link,
   Loader,
   PageLayout,
+  Pagination,
 } from '~/libs/components/components.js';
 import { AppRoute, DataStatus } from '~/libs/enums/enums.js';
 import { configureString, initDebounce } from '~/libs/helpers/helpers.js';
@@ -15,6 +16,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  usePagination,
   useParams,
   useState,
   useTitle,
@@ -22,14 +24,15 @@ import {
 import { type ValueOf } from '~/libs/types/types.js';
 import { type ProjectGetAllItemResponseDto } from '~/packages/projects/projects.js';
 import {
-  type SitesFilterQueryDto,
-  sitesFilterValidationSchema,
+  type SitesSearchDto,
+  sitesSearchValidationSchema,
 } from '~/packages/sites/sites.js';
 import { actions as projectsActions } from '~/slices/projects/projects.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
 import { SiteCard } from './components/components.js';
-import { DEFAULT_SITES_FILTER_PAYLOAD } from './libs/constants.js';
+import { DEFAULT_SITES_SEARCH_PAYLOAD } from './libs/constants.js';
+import { DEFAULT_PAGE, SITES_PER_PAGE } from './libs/pagination.constants.js';
 import styles from './styles.module.scss';
 
 const Sites: React.FC = () => {
@@ -39,13 +42,37 @@ const Sites: React.FC = () => {
 
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
+  const { sites, sitesStatus, sitesCount, project, projectStatus } =
+    useAppSelector(({ sites, projects }) => ({
+      sites: sites.sites,
+      sitesStatus: sites.dataStatus,
+      sitesCount: sites.sitesCount,
+      project: projects.currentProject,
+      projectStatus: projects.dataStatus,
+    }));
+
+  const { page, handleChangePage, totalPages, isShowPagination } =
+    usePagination({
+      pageDefault: DEFAULT_PAGE,
+      rowsPerPage: SITES_PER_PAGE,
+      totalCount: sitesCount,
+    });
+
+  const { control, errors, handleSubmit, handleValuesGet } =
+    useAppForm<SitesSearchDto>({
+      defaultValues: DEFAULT_SITES_SEARCH_PAYLOAD,
+      validationSchema: sitesSearchValidationSchema,
+    });
+
   useEffect((): void => {
     if (projectId) {
       void dispatch(
         sitesActions.getSitesByProjectId({
           parameters: { projectId: Number(projectId) },
           queryParameters: {
-            name: '',
+            name: handleValuesGet('name'),
+            page,
+            limit: SITES_PER_PAGE,
           },
         }),
       );
@@ -53,37 +80,25 @@ const Sites: React.FC = () => {
         projectsActions.getCurrentProject({ id: Number(projectId) }),
       );
     }
-  }, [dispatch, projectId]);
-
-  const { sites, sitesStatus, project, projectStatus } = useAppSelector(
-    ({ sites, projects }) => ({
-      sites: sites.sites,
-      sitesStatus: sites.dataStatus,
-      project: projects.currentProject,
-      projectStatus: projects.dataStatus,
-    }),
-  );
-
-  const { control, errors, handleSubmit } = useAppForm<SitesFilterQueryDto>({
-    defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
-    validationSchema: sitesFilterValidationSchema,
-  });
+  }, [dispatch, projectId, page, handleValuesGet]);
 
   const handleSearching = useCallback((value: string) => {
     return setIsSearching(value.length > 0);
   }, []);
 
   const handleInputChange = useCallback(
-    async (data: SitesFilterQueryDto): Promise<void> => {
+    async (data: SitesSearchDto): Promise<void> => {
+      handleChangePage(DEFAULT_PAGE);
+
       await dispatch(
         sitesActions.getSitesByProjectId({
           parameters: { projectId: Number(projectId) },
-          queryParameters: data,
+          queryParameters: { name: data.name, page, limit: SITES_PER_PAGE },
         }),
       );
       handleSearching(data.name);
     },
-    [dispatch, projectId, handleSearching],
+    [dispatch, projectId, handleSearching, handleChangePage, page],
   );
 
   const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
@@ -163,6 +178,14 @@ const Sites: React.FC = () => {
                 <SiteCard key={site.id} site={site} />
               ))}
             </div>
+            {isShowPagination && (
+              <Pagination
+                currentPage={page}
+                onChangePage={handleChangePage}
+                totalPages={totalPages}
+                className={styles['pagination-wrapper']}
+              />
+            )}
           </>
         ) : (
           <div className={styles['placeholder']}>

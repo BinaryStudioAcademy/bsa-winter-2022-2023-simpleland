@@ -10,4 +10,5 @@ export {
   type SitesFilterQueryDto,
   type SitesGetByProjectIdParametersDto,
   type SitesGetByProjectIdRequestDto,
+  type SitesSearchDto,
 } from 'shared/build/index.js';

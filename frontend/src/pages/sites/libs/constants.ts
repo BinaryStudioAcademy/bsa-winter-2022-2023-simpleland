@@ -1,7 +1,7 @@
-import { type SitesFilterQueryDto } from '~/packages/sites/sites.js';
+import { type SitesSearchDto } from '~/packages/sites/sites.js';
 
-const DEFAULT_SITES_FILTER_PAYLOAD: SitesFilterQueryDto = {
+const DEFAULT_SITES_SEARCH_PAYLOAD: SitesSearchDto = {
   name: '',
 };
 
-export { DEFAULT_SITES_FILTER_PAYLOAD };
+export { DEFAULT_SITES_SEARCH_PAYLOAD };
