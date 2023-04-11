@@ -9,6 +9,7 @@ const AppRoute = {
   SITES_$SITE_ID: '/sites/:siteId',
   LOGIN: '/login',
   SUBSCRIPTION: '/subscription',
+  DOMAIN: '/domain',
   ANY: '*',
 } as const;
 
