@@ -44,16 +44,9 @@ import { sectionTypeToPosition } from './libs/maps/maps.js';
 import styles from './styles.module.scss';
 
 const Site: React.FC = () => {
+  const { siteId } = useParams() as { siteId: string };
   const dispatch = useAppDispatch();
   useTitle('My site');
-
-  const { sections, status, projectId } = useAppSelector((state) => ({
-    sections: state.sections.sections,
-    status: state.sections.dataStatus,
-    projectId: state.sites.currentSite?.projectId,
-  }));
-
-  const { siteId } = useParams() as { siteId: string };
 
   useEffect(() => {
     void Promise.all([
@@ -61,6 +54,15 @@ const Site: React.FC = () => {
       dispatch(sitesActionss.getCurrentSite({ id: Number(siteId) })),
     ]);
   }, [dispatch, siteId]);
+
+  const { sections, sectionsStatus, site, siteStatus } = useAppSelector(
+    (state) => ({
+      sections: state.sections.sections,
+      sectionsStatus: state.sections.dataStatus,
+      site: state.sites.currentSite,
+      siteStatus: state.sites.dataStatus,
+    }),
+  );
 
   const handleUpdate = useCallback(
     ({ id, type }: SectionGetAllItemResponseDto) => {
@@ -76,29 +78,6 @@ const Site: React.FC = () => {
     },
     [dispatch],
   );
-  const renderReturnButton = useCallback((): JSX.Element => {
-    return (
-      <div className={styles['button-container']}>
-        <div className={styles['button-wrapper']}>
-          <div>
-            <Link
-              to={configureString<ValueOf<typeof AppRoute>>(
-                AppRoute.PROJECTS_$PROJECT_ID_SITES,
-                {
-                  projectId,
-                },
-              )}
-            >
-              <span className={styles['link-to-projects']}>
-                <Icon iconName="arrowLeft" className={styles['back-icon']} />
-              </span>
-            </Link>
-          </div>
-          <h2>Back to all sites</h2>
-        </div>
-      </div>
-    );
-  }, [projectId]);
 
   const renderSections = (): JSX.Element[] => {
     return sortSectionsByPosition(sections, sectionTypeToPosition).map(
@@ -169,7 +148,10 @@ const Site: React.FC = () => {
     );
   };
 
-  if (status === DataStatus.PENDING) {
+  const isLoading =
+    sectionsStatus === DataStatus.PENDING || siteStatus === DataStatus.PENDING;
+
+  if (isLoading) {
     return (
       <PageLayout style="black">
         <Loader style="yellow" />
@@ -179,7 +161,25 @@ const Site: React.FC = () => {
 
   return (
     <div className={styles['site']}>
-      {renderReturnButton()}
+      <div className={styles['button-container']}>
+        <div className={styles['button-wrapper']}>
+          <div>
+            <Link
+              to={configureString<ValueOf<typeof AppRoute>>(
+                AppRoute.PROJECTS_$PROJECT_ID_SITES,
+                {
+                  projectId: site?.projectId,
+                },
+              )}
+            >
+              <span className={styles['link-to-projects']}>
+                <Icon iconName="arrowLeft" className={styles['back-icon']} />
+              </span>
+            </Link>
+          </div>
+          <h2>Back to all sites</h2>
+        </div>
+      </div>
       {renderSections()}
     </div>
   );

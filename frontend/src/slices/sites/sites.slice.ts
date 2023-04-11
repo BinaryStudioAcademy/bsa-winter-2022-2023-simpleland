@@ -44,8 +44,15 @@ const { reducer, actions, name } = createSlice({
     builder.addCase(getSitesByProjectId.rejected, (state) => {
       state.dataStatus = DataStatus.REJECTED;
     });
+    builder.addCase(getCurrentSite.pending, (state) => {
+      state.dataStatus = DataStatus.PENDING;
+    });
     builder.addCase(getCurrentSite.fulfilled, (state, { payload }) => {
+      state.dataStatus = DataStatus.FULFILLED;
       state.currentSite = payload;
+    });
+    builder.addCase(getCurrentSite.rejected, (state) => {
+      state.dataStatus = DataStatus.REJECTED;
     });
   },
 });
