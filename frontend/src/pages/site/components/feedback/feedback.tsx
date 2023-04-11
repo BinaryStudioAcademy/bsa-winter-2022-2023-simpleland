@@ -77,7 +77,7 @@ const Feedback: React.FC<Properties> = ({
                   key={card.photo}
                   control={control}
                   errors={errors}
-                  handleSectionUpdate={handleSectionUpdate}
+                  onHandleSectionUpdate={handleSectionUpdate}
                 />
               ))}
             </Carousel>
