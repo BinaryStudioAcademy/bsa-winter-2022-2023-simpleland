@@ -12,12 +12,14 @@ type Properties = {
   onCheckout: (token: Token) => void;
   price: number;
   label: string;
+  disabled: boolean;
 };
 
 const Checkout: React.FC<Properties> = ({
   onCheckout,
   price,
   label,
+  disabled,
 }: Properties) => {
   return (
     <StripeCheckout
@@ -26,6 +28,7 @@ const Checkout: React.FC<Properties> = ({
       amount={price * MULTIPLIER_TO_SMALLEST_CURRENCY_UNIT}
       label={label}
       currency={CURRENCY}
+      disabled={disabled}
     />
   );
 };
