@@ -1,3 +1,6 @@
+import { ReactComponent as Facebook } from '~/assets/img/social-media-icon/facebook.svg';
+import { ReactComponent as Linkedin } from '~/assets/img/social-media-icon/linkedin.svg';
+import { ReactComponent as Twitter } from '~/assets/img/social-media-icon/twitter.svg';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
   type SectionType,
@@ -24,17 +27,31 @@ const Footer: React.FC<Properties> = ({
         </div>
 
         <div className={styles['footer-navigation']}>
-          <div className={styles['navigation-title']}>Navigation</div>
-          <div className={styles['navigation-links']}>
-            {navigationSections.map((section) => (
-              <a
-                className={styles['navigation-link']}
-                href={`#${section}`}
-                key={section}
-              >
-                {section}
-              </a>
-            ))}
+          <div>
+            <div className={styles['navigation-title']}>Navigation</div>
+            <div className={styles['navigation-links']}>
+              {navigationSections.map((section) => (
+                <a
+                  className={styles['navigation-link']}
+                  href={`#${section}`}
+                  key={section}
+                >
+                  {section}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className={styles['social-media']}>
+            <a href="#twitter">
+              <Twitter />
+            </a>
+            <a href="#linkedin">
+              <Linkedin />
+            </a>
+            <a href="#facebook">
+              <Facebook />
+            </a>
           </div>
         </div>
       </div>
