@@ -60,6 +60,7 @@ export {
   type SectionUpdateParametersDto,
   type SectionUpdateRequestDto,
   type SiteAboutContent,
+  type SiteAboutUpdateContentDto,
   type SiteFeedbackContent,
   type SiteFooterContent,
   type SiteHeaderContent,
@@ -70,6 +71,7 @@ export {
   SectionsApiPath,
   SectionType,
   sectionUpdateValidationSchema,
+  siteAboutUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
 } from './packages/sections/sections.js';
 export {

@@ -4,6 +4,7 @@ export {
   type SectionUpdateParametersDto,
   type SectionUpdateRequestDto,
   type SiteAboutContent,
+  type SiteAboutUpdateContentDto,
   type SiteFeedbackContent,
   type SiteFooterContent,
   type SiteHeaderContent,
