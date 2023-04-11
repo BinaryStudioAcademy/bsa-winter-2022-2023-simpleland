@@ -147,6 +147,7 @@ const Site: React.FC = () => {
                 content={content as SiteServiceContent}
                 type={type}
                 key={type}
+                onUpdate={handleUpdate(section)}
               />
             );
           }

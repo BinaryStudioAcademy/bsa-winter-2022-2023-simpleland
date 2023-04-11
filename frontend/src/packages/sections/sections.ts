@@ -27,11 +27,13 @@ export {
   type SitePortfolioContent,
   type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
+  type SiteServiceUpdateContentDto,
 } from './libs/types/types.js';
 export {
   siteAboutUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
   siteMainUpdateContentValidationSchema,
   sitePortfolioUpdateContentValidationSchema,
+  siteServiceUpdateContentValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
 export { sectionsApi };
