@@ -24,11 +24,20 @@ const ProjectCard: React.FC<Properties> = ({ project, onEdit }: Properties) => {
 
   return (
     <div className={styles['card']}>
-      <Image
-        className={styles['card-image']}
-        src={avatarUrl ?? img}
-        alt="project"
-      />
+      <div className={styles['image-wrapper']}>
+        <Image
+          className={styles['card-image']}
+          src={avatarUrl ?? img}
+          alt="project"
+        />
+        <IconButton
+          icon="pencil"
+          label="edit-project"
+          className={styles['edit-project-icon']}
+          onClick={handleEdit}
+        />
+      </div>
+
       <div className={styles['card-description']}>
         <Link
           to={configureString<ValueOf<typeof AppRoute>>(
@@ -42,12 +51,6 @@ const ProjectCard: React.FC<Properties> = ({ project, onEdit }: Properties) => {
           <p>{projectCategoryToReadable[category]}</p>
         </Link>
       </div>
-      <IconButton
-        icon="pencil"
-        label="edit-project"
-        className={styles['edit-project-icon']}
-        onClick={handleEdit}
-      />
     </div>
   );
 };

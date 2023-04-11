@@ -1,6 +1,7 @@
 import { Button, Select } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
+  type SiteCreateRequestDto,
   type SiteCreateStepTone,
   siteCreateStepToneValidationSchema,
 } from '~/packages/sites/sites.js';
@@ -10,11 +11,15 @@ import styles from './styles.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateStepTone>) => void;
+  siteInfo: SiteCreateRequestDto;
 };
 
-const VoiceToneForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
-  const { control, errors, handleSubmit } = useAppForm({
-    defaultValues: DEFAULT_FORM_PAYLOAD,
+const VoiceToneForm: React.FC<Properties> = ({
+  onSubmit,
+  siteInfo,
+}: Properties) => {
+  const { control, errors, handleSubmit } = useAppForm<SiteCreateStepTone>({
+    defaultValues: { ...DEFAULT_FORM_PAYLOAD, tone: siteInfo.tone },
     validationSchema: siteCreateStepToneValidationSchema,
   });
 

@@ -1,5 +1,11 @@
-import { Loader, PageLayout } from '~/libs/components/components.js';
-import { DataStatus } from '~/libs/enums/enums.js';
+import {
+  Icon,
+  Link,
+  Loader,
+  PageLayout,
+} from '~/libs/components/components.js';
+import { AppRoute, DataStatus } from '~/libs/enums/enums.js';
+import { configureString } from '~/libs/helpers/helpers.js';
 import {
   useAppDispatch,
   useAppSelector,
@@ -8,6 +14,7 @@ import {
   useParams,
   useTitle,
 } from '~/libs/hooks/hooks.js';
+import { type ValueOf } from '~/libs/types/types.js';
 import {
   type SectionGetAllItemResponseDto,
   type SiteAboutContent,
@@ -21,6 +28,7 @@ import {
 } from '~/packages/sections/sections.js';
 import { NAVIGATION_SECTION_TYPES } from '~/pages/site/libs/constants.js';
 import { actions as sectionsActions } from '~/slices/sections/sections.js';
+import { actions as sitesActionss } from '~/slices/sites/sites.js';
 
 import {
   About,
@@ -36,19 +44,23 @@ import { sectionTypeToPosition } from './libs/maps/maps.js';
 import styles from './styles.module.scss';
 
 const Site: React.FC = () => {
+  const { siteId } = useParams() as { siteId: string };
   const dispatch = useAppDispatch();
   useTitle('My site');
 
-  const { sections, status } = useAppSelector((state) => ({
-    sections: state.sections.sections,
-    status: state.sections.dataStatus,
-  }));
-
-  const { siteId } = useParams() as { siteId: string };
-
   useEffect(() => {
     void dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) }));
+    void dispatch(sitesActionss.getCurrentSite({ id: Number(siteId) }));
   }, [dispatch, siteId]);
+
+  const { sections, sectionsStatus, site, siteStatus } = useAppSelector(
+    (state) => ({
+      sections: state.sections.sections,
+      sectionsStatus: state.sections.dataStatus,
+      site: state.sites.currentSite,
+      siteStatus: state.sites.dataStatus,
+    }),
+  );
 
   const handleUpdate = useCallback(
     ({ id, type }: SectionGetAllItemResponseDto) => {
@@ -82,7 +94,14 @@ const Site: React.FC = () => {
             );
           }
           case SectionType.MAIN: {
-            return <Main content={content as SiteMainContent} key={type} />;
+            return (
+              <Main
+                content={content as SiteMainContent}
+                type={type}
+                key={type}
+                onUpdate={handleUpdate(section)}
+              />
+            );
           }
           case SectionType.ABOUT: {
             return (
@@ -100,6 +119,7 @@ const Site: React.FC = () => {
                 content={content as SitePortfolioContent}
                 type={type}
                 key={type}
+                onUpdate={handleUpdate(section)}
               />
             );
           }
@@ -135,7 +155,10 @@ const Site: React.FC = () => {
     );
   };
 
-  if (status === DataStatus.PENDING) {
+  const isLoading =
+    sectionsStatus === DataStatus.PENDING || siteStatus === DataStatus.PENDING;
+
+  if (isLoading) {
     return (
       <PageLayout style="black">
         <Loader style="yellow" />
@@ -143,7 +166,30 @@ const Site: React.FC = () => {
     );
   }
 
-  return <div className={styles['site']}>{renderSections()}</div>;
+  return (
+    <div className={styles['site']}>
+      <div className={styles['button-container']}>
+        <div className={styles['button-wrapper']}>
+          <div>
+            <Link
+              to={configureString<ValueOf<typeof AppRoute>>(
+                AppRoute.PROJECTS_$PROJECT_ID_SITES,
+                {
+                  projectId: site?.projectId,
+                },
+              )}
+            >
+              <span className={styles['link-to-projects']}>
+                <Icon iconName="arrowLeft" className={styles['back-icon']} />
+              </span>
+            </Link>
+          </div>
+          <h2>Back to all sites</h2>
+        </div>
+      </div>
+      {renderSections()}
+    </div>
+  );
 };
 
 export { Site };

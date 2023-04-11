@@ -1,11 +1,17 @@
-import joi from 'joi';
+import joi, { type StringSchema } from 'joi';
 
-import { SiteValidationMessage } from '../enums/enums.js';
-import { type SitesFilterQueryDto } from '../types/types.js';
+import { SiteValidationMessage } from '~/packages/sites/libs/enums/enums.js';
+import { type SitesFilterQueryDto } from '~/packages/sites/libs/types/types.js';
+
+import { sitesSearch } from './sites-search.validation-schema.js';
 
 const siteFilter = joi.object<SitesFilterQueryDto, true>({
-  name: joi.string().trim().optional().allow('').messages({
-    'string.name': SiteValidationMessage.FILTER_NAME_WRONG,
+  name: sitesSearch.extract('name') as StringSchema,
+  page: joi.number().required().messages({
+    'number.page': SiteValidationMessage.FILTER_PAGE_WRONG,
+  }),
+  limit: joi.number().required().messages({
+    'number.limit': SiteValidationMessage.FILTER_LIMIT_WRONG,
   }),
 });
 

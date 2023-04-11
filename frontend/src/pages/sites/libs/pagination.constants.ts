@@ -1,0 +1,4 @@
+const DEFAULT_PAGE = 1;
+const SITES_PER_PAGE = 6;
+
+export { DEFAULT_PAGE, SITES_PER_PAGE };

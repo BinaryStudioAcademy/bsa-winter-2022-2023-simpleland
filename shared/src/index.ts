@@ -66,13 +66,17 @@ export {
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
+  type SiteMainUpdateContentDto,
   type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
   SectionsApiPath,
   SectionType,
   sectionUpdateValidationSchema,
   siteAboutUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
+  siteMainUpdateContentValidationSchema,
+  sitePortfolioUpdateContentValidationSchema,
 } from './packages/sections/sections.js';
 export {
   type SiteCreateParametersDto,
@@ -87,6 +91,7 @@ export {
   type SitesFilterQueryDto,
   type SitesGetByProjectIdParametersDto,
   type SitesGetByProjectIdRequestDto,
+  type SitesSearchDto,
   siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
   siteCreateStepTargetValidationSchema,
@@ -95,6 +100,7 @@ export {
   siteGetByProjectIdValidationSchema,
   SitesApiPath,
   sitesFilterValidationSchema,
+  sitesSearchValidationSchema,
   SiteTargetType,
   SiteToneType,
 } from './packages/sites/sites.js';

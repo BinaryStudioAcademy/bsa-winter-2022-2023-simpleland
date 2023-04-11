@@ -10,6 +10,8 @@ export {
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
+  type SiteMainUpdateContentDto,
   type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
 } from 'shared/build/index.js';
