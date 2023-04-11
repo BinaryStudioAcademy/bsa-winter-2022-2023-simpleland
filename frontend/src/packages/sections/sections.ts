@@ -19,6 +19,7 @@ export {
   type SiteAboutContent,
   type SiteAboutUpdateContentDto,
   type SiteFeedbackContent,
+  type SiteFeedbackUpdateContentDto,
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
@@ -29,6 +30,7 @@ export {
 } from './libs/types/types.js';
 export {
   siteAboutUpdateContentValidationSchema,
+  siteFeedbackUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
   sitePortfolioUpdateContentValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
