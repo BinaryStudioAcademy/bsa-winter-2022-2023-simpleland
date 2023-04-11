@@ -1,6 +1,4 @@
-import { ReactComponent as Facebook } from '~/assets/img/social-media-icon/facebook.svg';
-import { ReactComponent as Linkedin } from '~/assets/img/social-media-icon/linkedin.svg';
-import { ReactComponent as Twitter } from '~/assets/img/social-media-icon/twitter.svg';
+import { Icon } from '~/libs/components/components.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
   type SectionType,
@@ -44,13 +42,13 @@ const Footer: React.FC<Properties> = ({
 
           <div className={styles['social-media']}>
             <a href="#twitter">
-              <Twitter />
+              <Icon iconName="twitter" />
             </a>
             <a href="#linkedin">
-              <Linkedin />
+              <Icon iconName="linkedin" />
             </a>
             <a href="#facebook">
-              <Facebook />
+              <Icon iconName="facebook" />
             </a>
           </div>
         </div>
