@@ -14,6 +14,7 @@ export {
   type SiteMainContent,
   type SiteMainUpdateContentDto,
   type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
 } from './libs/types/types.js';
 export {
@@ -21,4 +22,5 @@ export {
   siteAboutUpdateContent as siteAboutUpdateContentValidationSchema,
   siteHeaderUpdateContent as siteHeaderUpdateContentValidationSchema,
   siteMainUpdateContent as siteMainUpdateContentValidationSchema,
+  sitePortfolioUpdateContent as sitePortfolioUpdateContentValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

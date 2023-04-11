@@ -7,6 +7,9 @@ type IconType =
   | 'eye'
   | 'eye-slash'
   | 'loupe'
-  | 'lock';
+  | 'lock'
+  | 'facebook'
+  | 'linkedin'
+  | 'twitter';
 
 export { type IconType };
