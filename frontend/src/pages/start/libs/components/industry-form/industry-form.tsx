@@ -11,11 +11,15 @@ import styles from './styles.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateRequestDto>) => void;
+  siteInfo: SiteCreateRequestDto;
 };
 
-const IndustryForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+const IndustryForm: React.FC<Properties> = ({
+  onSubmit,
+  siteInfo,
+}: Properties) => {
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepIndustry>({
-    defaultValues: DEFAULT_STEP_PAYLOAD,
+    defaultValues: { ...DEFAULT_STEP_PAYLOAD, industry: siteInfo.industry },
     validationSchema: siteCreateStepIndustryValidationSchema,
   });
 
