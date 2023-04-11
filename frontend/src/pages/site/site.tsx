@@ -100,6 +100,7 @@ const Site: React.FC = () => {
                 content={content as SitePortfolioContent}
                 type={type}
                 key={type}
+                onUpdate={handleUpdate(section)}
               />
             );
           }

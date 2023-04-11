@@ -5,6 +5,8 @@ import {
   type SiteAboutUpdateContentDto,
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
+  type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
 } from '~/packages/sections/libs/types/types.js';
 
 const sectionTypeToUpdateSectionHandler: Record<
@@ -30,7 +32,14 @@ const sectionTypeToUpdateSectionHandler: Record<
 
     return aboutContent;
   },
-  [SectionType.PORTFOLIO]: () => ({}),
+  [SectionType.PORTFOLIO]: (content, contentUpdates) => {
+    const portfolioContent = content as SitePortfolioContent;
+    const { title } = contentUpdates as SitePortfolioUpdateContentDto;
+
+    portfolioContent.title = title;
+
+    return portfolioContent;
+  },
   [SectionType.SERVICE]: () => ({}),
   [SectionType.FEEDBACK]: () => ({}),
   [SectionType.FOOTER]: () => ({}),

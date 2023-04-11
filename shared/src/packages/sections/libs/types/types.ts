@@ -10,4 +10,5 @@ export { type SiteHeaderContent } from './site-header-content.type.js';
 export { type SiteHeaderUpdateContentDto } from './site-header-update-content-dto.type.js';
 export { type SiteMainContent } from './site-main-content.type.js';
 export { type SitePortfolioContent } from './site-portfolio-content.type.js';
+export { type SitePortfolioUpdateContentDto } from './site-portfolio-update-content-dto.type.js';
 export { type SiteServiceContent } from './site-service-content.type.js';
