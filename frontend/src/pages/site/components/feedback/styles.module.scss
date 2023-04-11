@@ -23,3 +23,17 @@
 .title-brown {
   color: var(--site-brown-color);
 }
+
+.edit-feedback-section-content {
+  margin: auto;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+}
+
+.edit-feedback-section-content:focus {
+  box-shadow: none;
+}

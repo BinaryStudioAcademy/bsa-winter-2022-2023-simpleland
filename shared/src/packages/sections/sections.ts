@@ -8,6 +8,7 @@ export {
   type SiteAboutContent,
   type SiteAboutUpdateContentDto,
   type SiteFeedbackContent,
+  type SiteFeedbackUpdateContentDto,
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
@@ -20,6 +21,7 @@ export {
 export {
   sectionUpdate as sectionUpdateValidationSchema,
   siteAboutUpdateContent as siteAboutUpdateContentValidationSchema,
+  siteFeedbackUpdateContent as siteFeedbackUpdateContentValidationSchema,
   siteHeaderUpdateContent as siteHeaderUpdateContentValidationSchema,
   siteMainUpdateContent as siteMainUpdateContentValidationSchema,
   sitePortfolioUpdateContent as sitePortfolioUpdateContentValidationSchema,
