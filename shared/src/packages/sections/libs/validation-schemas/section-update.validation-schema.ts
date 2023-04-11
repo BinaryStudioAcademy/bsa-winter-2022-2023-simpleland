@@ -5,6 +5,7 @@ import { type SectionUpdateRequestDto } from '~/packages/sections/libs/types/typ
 
 import { siteAboutUpdateContent } from './site-about-update-content.validation-schema.js';
 import { siteHeaderUpdateContent } from './site-header-update-content.validation-schema.js';
+import { siteMainUpdateContent } from './site-main-update-content.validation-schema.js';
 
 const sectionUpdate = joi.object<SectionUpdateRequestDto>({
   type: joi
@@ -20,6 +21,10 @@ const sectionUpdate = joi.object<SectionUpdateRequestDto>({
       {
         is: SectionType.ABOUT,
         then: siteAboutUpdateContent,
+      },
+      {
+        is: SectionType.MAIN,
+        then: siteMainUpdateContent,
       },
     ],
     otherwise: joi.forbidden(),

@@ -1,5 +1,6 @@
 export { type SectionGetAllItemResponseDto } from './section-get-all-item-response-dto.type.js';
 export { type SectionGetAllResponseDto } from './section-get-all-response-dto.type.js';
+export { type SiteMainUpdateContentDto } from './section-main-update-content-dto.type.js';
 export { type SectionUpdateParametersDto } from './section-update-parameters-dto.type.js';
 export { type SectionUpdateRequestDto } from './section-update-request-dto.type.js';
 export { type SiteAboutContent } from './site-about-content.type.js';

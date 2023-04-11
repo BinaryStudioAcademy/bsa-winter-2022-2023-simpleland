@@ -66,6 +66,7 @@ export {
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
+  type SiteMainUpdateContentDto,
   type SitePortfolioContent,
   type SiteServiceContent,
   SectionsApiPath,
@@ -73,6 +74,7 @@ export {
   sectionUpdateValidationSchema,
   siteAboutUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
+  siteMainUpdateContentValidationSchema,
 } from './packages/sections/sections.js';
 export {
   type SiteCreateParametersDto,
