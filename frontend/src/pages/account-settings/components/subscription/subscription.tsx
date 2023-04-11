@@ -32,11 +32,13 @@ const Subscription: React.FC = () => {
         <div className={styles['subscription-info-benefits']} />
       </div>
       <div className={styles['subscription-buttons']}>
-        <Checkout
-          onCheckout={handleSubscribe}
-          price={SUBSCRIPTION_PRICE}
-          label="Subscribe"
-        />
+        <div className={styles['subscribe-button']}>
+          <Checkout
+            onCheckout={handleSubscribe}
+            price={SUBSCRIPTION_PRICE}
+            label="Subscribe"
+          />
+        </div>
       </div>
     </div>
   );
