@@ -20,10 +20,12 @@ import {
   useTitle,
 } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
+import { type ProjectGetAllItemResponseDto } from '~/packages/projects/projects.js';
 import {
   type SitesFilterQueryDto,
   sitesFilterValidationSchema,
 } from '~/packages/sites/sites.js';
+import { actions as projectsActions } from '~/slices/projects/projects.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
 import { SiteCard } from './components/components.js';
@@ -47,13 +49,20 @@ const Sites: React.FC = () => {
           },
         }),
       );
+      void dispatch(
+        projectsActions.getCurrentProject({ id: Number(projectId) }),
+      );
     }
   }, [dispatch, projectId]);
 
-  const { sites, status } = useAppSelector(({ sites }) => ({
-    sites: sites.sites,
-    status: sites.dataStatus,
-  }));
+  const { sites, sitesStatus, project, projectStatus } = useAppSelector(
+    ({ sites, projects }) => ({
+      sites: sites.sites,
+      sitesStatus: sites.dataStatus,
+      project: projects.currentProject,
+      projectStatus: projects.dataStatus,
+    }),
+  );
 
   const { control, errors, handleSubmit } = useAppForm<SitesFilterQueryDto>({
     defaultValues: DEFAULT_SITES_FILTER_PAYLOAD,
@@ -93,7 +102,10 @@ const Sites: React.FC = () => {
     return hasSites || isSearching;
   }, [hasSites, isSearching]);
 
-  if (status === DataStatus.PENDING) {
+  const isLoading =
+    sitesStatus === DataStatus.PENDING || projectStatus === DataStatus.PENDING;
+
+  if (isLoading) {
     return (
       <PageLayout style={isSitesShow ? 'white' : 'black'}>
         <Loader style="yellow" />
@@ -120,7 +132,9 @@ const Sites: React.FC = () => {
                   </span>
                 </Link>
               </div>
-              <h2 className={styles['title']}>Landing</h2>
+              <h2 className={styles['title']}>
+                {(project as ProjectGetAllItemResponseDto).name}
+              </h2>
             </div>
             <div className={styles['search-wrapper']}>
               <form onChange={handleFormChange}>
