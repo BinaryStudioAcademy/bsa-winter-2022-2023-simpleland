@@ -138,6 +138,7 @@ const Site: React.FC = () => {
                 content={content as SiteFeedbackContent}
                 type={type}
                 key={type}
+                onUpdate={handleUpdate(section)}
               />
             );
           }

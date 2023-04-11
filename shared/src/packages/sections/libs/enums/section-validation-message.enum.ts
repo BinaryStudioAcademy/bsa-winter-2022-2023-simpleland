@@ -6,6 +6,10 @@ const SectionValidationMessage = {
   PORTFOLIO_TITLE_REQUIRE: 'Portfolio title is required',
   MAIN_TITLE_REQUIRE: 'Main title is required',
   MAIN_DESCRIPTION_REQUIRE: 'Description is required',
+  FEEDBACK_TITLE_REQUIRE: 'Feedback title is required',
+  FEEDBACK_PROFESSION_REQUIRE: 'Profession is required',
+  FEEDBACK_REQUIRE: 'Feedback is required',
+  FEEDBACK_PHOTO_REQUIRE: 'Feedback photo is required',
 };
 
 export { SectionValidationMessage };

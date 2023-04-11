@@ -8,6 +8,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: var(--z-index-level-one);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +19,6 @@
 }
 
 .overlay-buttons {
-  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
