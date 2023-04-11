@@ -29,7 +29,7 @@ const Feedback: React.FC<Properties> = ({
 
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<SiteFeedbackUpdateContentDto>({
-      defaultValues: { title },
+      defaultValues: { title, cards },
       validationSchema: siteFeedbackUpdateContentValidationSchema,
     });
 
@@ -69,8 +69,16 @@ const Feedback: React.FC<Properties> = ({
           </div>
           <div className={styles['feedback-carousel']}>
             <Carousel slidesToShow={2} slidesToScroll={2} cellSpacing={28}>
-              {cards.map((card) => (
-                <FeedbackCard card={card} key={card.photo} />
+              {cards.map((card, index) => (
+                <FeedbackCard
+                  isEditing={isEditing}
+                  card={card}
+                  cardIndex={index}
+                  key={card.photo}
+                  control={control}
+                  errors={errors}
+                  handleSectionUpdate={handleSectionUpdate}
+                />
               ))}
             </Carousel>
           </div>
