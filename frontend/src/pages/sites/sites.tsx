@@ -120,7 +120,7 @@ const Sites: React.FC = () => {
                   </span>
                 </Link>
               </div>
-              <h2>Landing</h2>
+              <h2 className={styles['title']}>Landing</h2>
             </div>
             <div className={styles['search-wrapper']}>
               <form onChange={handleFormChange}>
