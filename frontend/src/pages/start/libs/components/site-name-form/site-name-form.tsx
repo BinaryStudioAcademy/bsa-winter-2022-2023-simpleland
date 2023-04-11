@@ -11,11 +11,15 @@ import styles from './styles.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateRequestDto>) => void;
+  siteInfo: SiteCreateRequestDto;
 };
 
-const SiteNameForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+const SiteNameForm: React.FC<Properties> = ({
+  onSubmit,
+  siteInfo,
+}: Properties) => {
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepName>({
-    defaultValues: DEFAULT_STEP_PAYLOAD,
+    defaultValues: { ...DEFAULT_STEP_PAYLOAD, name: siteInfo.name },
     validationSchema: siteCreateStepNameValidationSchema,
   });
 
