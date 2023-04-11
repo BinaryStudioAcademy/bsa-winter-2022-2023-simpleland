@@ -1,1 +1,4 @@
-export { siteHeaderUpdateContentValidationSchema } from 'shared/build/index.js';
+export {
+  siteAboutUpdateContentValidationSchema,
+  siteHeaderUpdateContentValidationSchema,
+} from 'shared/build/index.js';
