@@ -3,6 +3,7 @@ export { type SectionGetAllResponseDto } from './section-get-all-response-dto.ty
 export { type SectionUpdateParametersDto } from './section-update-parameters-dto.type.js';
 export { type SectionUpdateRequestDto } from './section-update-request-dto.type.js';
 export { type SiteAboutContent } from './site-about-content.type.js';
+export { type SiteAboutUpdateContentDto } from './site-about-update-content-dto.type.js';
 export { type SiteFeedbackContent } from './site-feedback-content.type.js';
 export { type SiteFooterContent } from './site-footer-content.type.js';
 export { type SiteHeaderContent } from './site-header-content.type.js';

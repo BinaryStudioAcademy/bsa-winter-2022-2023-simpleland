@@ -1,6 +1,8 @@
 import { type ValueOf } from '~/libs/types/types.js';
 import { SectionType } from '~/packages/sections/libs/enums/enums.js';
 import {
+  type SiteAboutContent,
+  type SiteAboutUpdateContentDto,
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
   type SitePortfolioContent,
@@ -21,7 +23,15 @@ const sectionTypeToUpdateSectionHandler: Record<
     return headerContent;
   },
   [SectionType.MAIN]: () => ({}),
-  [SectionType.ABOUT]: () => ({}),
+  [SectionType.ABOUT]: (content, contentUpdates) => {
+    const aboutContent = content as SiteAboutContent;
+    const { title, description } = contentUpdates as SiteAboutUpdateContentDto;
+
+    aboutContent.title = title;
+    aboutContent.description = description;
+
+    return aboutContent;
+  },
   [SectionType.PORTFOLIO]: (content, contentUpdates) => {
     const portfolioContent = content as SitePortfolioContent;
     const { title } = contentUpdates as SitePortfolioUpdateContentDto;

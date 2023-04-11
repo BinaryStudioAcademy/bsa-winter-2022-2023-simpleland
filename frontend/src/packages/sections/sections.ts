@@ -17,6 +17,7 @@ export {
   type SectionUpdateParametersDto,
   type SectionUpdateRequestDto,
   type SiteAboutContent,
+  type SiteAboutUpdateContentDto,
   type SiteFeedbackContent,
   type SiteFooterContent,
   type SiteHeaderContent,
@@ -27,6 +28,7 @@ export {
   type SiteServiceContent,
 } from './libs/types/types.js';
 export {
+  siteAboutUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
   sitePortfolioUpdateContentValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

@@ -3,6 +3,7 @@ import joi from 'joi';
 import { SectionType } from '~/packages/sections/libs/enums/enums.js';
 import { type SectionUpdateRequestDto } from '~/packages/sections/libs/types/types.js';
 
+import { siteAboutUpdateContent } from './site-about-update-content.validation-schema.js';
 import { siteHeaderUpdateContent } from './site-header-update-content.validation-schema.js';
 import { sitePortfolioUpdateContent } from './site-portfolio-update-content.validation-schema.js';
 
@@ -16,6 +17,10 @@ const sectionUpdate = joi.object<SectionUpdateRequestDto>({
       {
         is: SectionType.HEADER,
         then: siteHeaderUpdateContent,
+      },
+      {
+        is: SectionType.ABOUT,
+        then: siteAboutUpdateContent,
       },
       {
         is: SectionType.PORTFOLIO,
