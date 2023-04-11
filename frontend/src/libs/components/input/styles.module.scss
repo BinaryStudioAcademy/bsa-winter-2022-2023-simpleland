@@ -61,3 +61,12 @@
 .search-input {
   padding-left: 30px;
 }
+
+.textarea {
+  width: 100%;
+  font-size: 14px;
+  line-height: 24px;
+  background-color: var(--white);
+  border: 2px solid var(--black);
+  outline: none;
+}
