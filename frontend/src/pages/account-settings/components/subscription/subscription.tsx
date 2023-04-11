@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { type Token } from 'react-stripe-checkout';
 
-import { Button, Checkout } from '~/libs/components/components.js';
+import { Checkout } from '~/libs/components/components.js';
 import { useAppDispatch } from '~/libs/hooks/hooks.js';
 import { SUBSCRIPTION_PRICE } from '~/packages/subscription/subscription.js';
 import { actions as usersActions } from '~/slices/users/users.js';
