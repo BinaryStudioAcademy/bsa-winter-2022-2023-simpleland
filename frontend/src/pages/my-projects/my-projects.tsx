@@ -44,7 +44,6 @@ const MyProjects: React.FC = () => {
   }));
 
   const [isOpen, setIsOpen] = useState(false);
-  const [searchName, setSearchName] = useState('');
   const { page, handleChangePage, totalPages, isShowPagination } =
     usePagination({
       pageDefault: PAGE_DEFAULT,
@@ -75,21 +74,21 @@ const MyProjects: React.FC = () => {
   const dispatch = useAppDispatch();
   useTitle('My projects');
 
-  useEffect((): void => {
-    void dispatch(
-      projectActions.getUserProjects({
-        name: searchName,
-        page,
-        limit: PROJECTS_PER_PAGE,
-      }),
-    );
-  }, [dispatch, page, searchName]);
-
-  const { control, errors, handleSubmit } =
+  const { control, errors, handleSubmit, getValues } =
     useAppForm<ProjectGetAllParametersDto>({
       defaultValues: DEFAULT_PROJECT_FILTER_PAYLOAD,
       mode: 'onChange',
     });
+
+  useEffect((): void => {
+    void dispatch(
+      projectActions.getUserProjects({
+        name: getValues('search'),
+        page,
+        limit: PROJECTS_PER_PAGE,
+      }),
+    );
+  }, [dispatch, page, getValues]);
 
   const handleProjectSubmit = useCallback(
     (payload: ProjectCreateRequestDto & ProjectUploadImageDto): void => {
@@ -118,10 +117,17 @@ const MyProjects: React.FC = () => {
 
   const handleSearch = useCallback(
     (data: ProjectGetAllParametersDto): void => {
-      setSearchName(data.search);
       handleChangePage(PAGE_DEFAULT);
+
+      void dispatch(
+        projectActions.getUserProjects({
+          name: data.search,
+          page,
+          limit: PROJECTS_PER_PAGE,
+        }),
+      );
     },
-    [handleChangePage],
+    [handleChangePage, dispatch, page],
   );
 
   const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
@@ -129,8 +135,8 @@ const MyProjects: React.FC = () => {
   });
 
   const hasProjects = useMemo(() => {
-    return projects.length > 0 || searchName.length > 0;
-  }, [projects, searchName]);
+    return projects.length > 0 || getValues('search').length > 0;
+  }, [projects, getValues]);
 
   if (status === DataStatus.PENDING) {
     return (

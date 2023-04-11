@@ -39,7 +39,6 @@ const Sites: React.FC = () => {
   useTitle('My sites');
 
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [search, setSearch] = useState<string>('');
 
   const { sites, status, sitesCount } = useAppSelector(({ sites }) => ({
     sites: sites.sites,
@@ -54,34 +53,30 @@ const Sites: React.FC = () => {
       totalCount: sitesCount,
     });
 
+  const { control, errors, handleSubmit, getValues } =
+    useAppForm<SitesSearchDto>({
+      defaultValues: DEFAULT_SITES_SEARCH_PAYLOAD,
+      validationSchema: sitesSearchValidationSchema,
+    });
+
   useEffect((): void => {
     if (projectId) {
       void dispatch(
         sitesActions.getSitesByProjectId({
           parameters: { projectId: Number(projectId) },
           queryParameters: {
-            name: search,
+            name: getValues('name'),
             page,
             limit: SITES_PER_PAGE,
           },
         }),
       );
     }
-  }, [dispatch, projectId, page, search]);
+  }, [dispatch, projectId, page, getValues]);
 
-  const { control, errors, handleSubmit } = useAppForm<SitesSearchDto>({
-    defaultValues: DEFAULT_SITES_SEARCH_PAYLOAD,
-    validationSchema: sitesSearchValidationSchema,
-  });
-
-  const handleSearching = useCallback(
-    (value: string) => {
-      setSearch(value);
-
-      return setIsSearching(value.length > 0);
-    },
-    [setSearch],
-  );
+  const handleSearching = useCallback((value: string) => {
+    return setIsSearching(value.length > 0);
+  }, []);
 
   const handleInputChange = useCallback(
     async (data: SitesSearchDto): Promise<void> => {
