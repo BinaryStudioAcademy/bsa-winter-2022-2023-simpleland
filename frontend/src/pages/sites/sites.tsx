@@ -103,7 +103,7 @@ const Sites: React.FC = () => {
   }, [hasSites, isSearching]);
 
   const isLoading =
-    sitesStatus === DataStatus.PENDING && projectStatus === DataStatus.PENDING;
+    sitesStatus === DataStatus.PENDING || projectStatus === DataStatus.PENDING;
 
   if (isLoading) {
     return (
