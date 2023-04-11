@@ -146,7 +146,7 @@ class UserEntity implements IEntity {
     lastName: string;
     accountName: string | null;
     avatarUrl: string | null;
-    isSubscribed: boolean;
+    subscriptionEndDate: string | null;
   } {
     return {
       id: this.id as number,
@@ -155,7 +155,7 @@ class UserEntity implements IEntity {
       lastName: this.lastName as string,
       accountName: this.accountName,
       avatarUrl: this.avatarUrl,
-      isSubscribed: Boolean(this.subscriptionId),
+      subscriptionEndDate: this.subscriptionEndDate,
     };
   }
 
