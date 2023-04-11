@@ -49,10 +49,8 @@ const Site: React.FC = () => {
   useTitle('My site');
 
   useEffect(() => {
-    void Promise.all([
-      dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) })),
-      dispatch(sitesActionss.getCurrentSite({ id: Number(siteId) })),
-    ]);
+    void dispatch(sectionsActions.getSiteSections({ siteId: Number(siteId) }));
+    void dispatch(sitesActionss.getCurrentSite({ id: Number(siteId) }));
   }, [dispatch, siteId]);
 
   const { sections, sectionsStatus, site, siteStatus } = useAppSelector(
