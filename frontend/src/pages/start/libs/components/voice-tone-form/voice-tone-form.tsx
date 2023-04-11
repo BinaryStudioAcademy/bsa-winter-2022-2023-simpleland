@@ -18,7 +18,7 @@ const VoiceToneForm: React.FC<Properties> = ({
   onSubmit,
   siteInfo,
 }: Properties) => {
-  const { control, errors, handleSubmit } = useAppForm({
+  const { control, errors, handleSubmit } = useAppForm<SiteCreateStepTone>({
     defaultValues: { ...DEFAULT_FORM_PAYLOAD, tone: siteInfo.tone },
     validationSchema: siteCreateStepToneValidationSchema,
   });
