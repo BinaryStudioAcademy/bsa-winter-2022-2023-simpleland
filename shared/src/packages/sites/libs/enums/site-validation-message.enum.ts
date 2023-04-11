@@ -9,6 +9,8 @@ const SiteValidationMessage = {
   SITE_TONE_PATTERN: 'Incorrect type if voice tone',
   SITE_TARGET_REQUIRE: 'Target audience field required',
   SITE_TARGET_WRONG: 'Invalid field Target Audience',
+  FILTER_PAGE_WRONG: 'The page is wrong',
+  FILTER_LIMIT_WRONG: 'The limit is wrong',
 };
 
 export { SiteValidationMessage };
