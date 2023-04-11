@@ -42,15 +42,14 @@ const Sites: React.FC = () => {
 
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
-  const { sites, status, sitesCount, project, projectStatus } = useAppSelector(
-    ({ sites, projects }) => ({
+  const { sites, sitesStatus, sitesCount, project, projectStatus } =
+    useAppSelector(({ sites, projects }) => ({
       sites: sites.sites,
-      status: sites.dataStatus,
+      sitesStatus: sites.dataStatus,
       sitesCount: sites.sitesCount,
       project: projects.currentProject,
       projectStatus: projects.dataStatus,
-    }),
-  );
+    }));
 
   const { page, handleChangePage, totalPages, isShowPagination } =
     usePagination({
@@ -59,7 +58,7 @@ const Sites: React.FC = () => {
       totalCount: sitesCount,
     });
 
-  const { control, errors, handleSubmit, getValues } =
+  const { control, errors, handleSubmit, handleValuesGet } =
     useAppForm<SitesSearchDto>({
       defaultValues: DEFAULT_SITES_SEARCH_PAYLOAD,
       validationSchema: sitesSearchValidationSchema,
@@ -71,7 +70,7 @@ const Sites: React.FC = () => {
         sitesActions.getSitesByProjectId({
           parameters: { projectId: Number(projectId) },
           queryParameters: {
-            name: getValues('name'),
+            name: handleValuesGet('name'),
             page,
             limit: SITES_PER_PAGE,
           },
@@ -81,7 +80,7 @@ const Sites: React.FC = () => {
         projectsActions.getCurrentProject({ id: Number(projectId) }),
       );
     }
-  }, [dispatch, projectId, page, getValues]);
+  }, [dispatch, projectId, page, handleValuesGet]);
 
   const handleSearching = useCallback((value: string) => {
     return setIsSearching(value.length > 0);

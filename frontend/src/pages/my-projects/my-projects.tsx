@@ -74,7 +74,7 @@ const MyProjects: React.FC = () => {
   const dispatch = useAppDispatch();
   useTitle('My projects');
 
-  const { control, errors, handleSubmit, getValues } =
+  const { control, errors, handleSubmit, handleValuesGet } =
     useAppForm<ProjectGetAllParametersDto>({
       defaultValues: DEFAULT_PROJECT_FILTER_PAYLOAD,
       mode: 'onChange',
@@ -83,12 +83,12 @@ const MyProjects: React.FC = () => {
   useEffect((): void => {
     void dispatch(
       projectActions.getUserProjects({
-        name: getValues('search'),
+        name: handleValuesGet('search'),
         page,
         limit: PROJECTS_PER_PAGE,
       }),
     );
-  }, [dispatch, page, getValues]);
+  }, [dispatch, page, handleValuesGet]);
 
   const handleProjectSubmit = useCallback(
     (payload: ProjectCreateRequestDto & ProjectUploadImageDto): void => {
@@ -135,8 +135,8 @@ const MyProjects: React.FC = () => {
   });
 
   const hasProjects = useMemo(() => {
-    return projects.length > 0 || getValues('search').length > 0;
-  }, [projects, getValues]);
+    return projects.length > 0 || handleValuesGet('search').length > 0;
+  }, [projects, handleValuesGet]);
 
   if (status === DataStatus.PENDING) {
     return (
