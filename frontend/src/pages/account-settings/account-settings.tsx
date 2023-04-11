@@ -15,7 +15,12 @@ import {
 } from '~/packages/users/users.js';
 import { actions as usersActions } from '~/slices/users/users.js';
 
-import { Login, Profile, Subscription } from './components/components.js';
+import {
+  Domain,
+  Login,
+  Profile,
+  Subscription,
+} from './components/components.js';
 import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
@@ -65,6 +70,9 @@ const AccountSettings: React.FC = () => {
       case AppRoute.SUBSCRIPTION: {
         return <Subscription />;
       }
+      case AppRoute.DOMAIN: {
+        return <Domain />;
+      }
     }
   };
 
@@ -93,6 +101,12 @@ const AccountSettings: React.FC = () => {
                 activeClassName={styles['active-link']}
               >
                 Subscription
+              </Link>
+              <Link
+                to={AppRoute.DOMAIN}
+                activeClassName={styles['active-link']}
+              >
+                Domains
               </Link>
             </div>
           </div>
