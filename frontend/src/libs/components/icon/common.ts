@@ -3,6 +3,7 @@ import { ReactComponent as ArrowRight } from '~/assets/img/arrow-right.svg';
 import { ReactComponent as Cross } from '~/assets/img/cross.svg';
 import { ReactComponent as Eye } from '~/assets/img/eye.svg';
 import { ReactComponent as EyeSlash } from '~/assets/img/eye-slash.svg';
+import { ReactComponent as Lock } from '~/assets/img/lock.svg';
 import { ReactComponent as Loupe } from '~/assets/img/loupe.svg';
 import { ReactComponent as Pencil } from '~/assets/img/pencil.svg';
 import { ReactComponent as Plus } from '~/assets/img/plus.svg';
@@ -20,6 +21,7 @@ const iconNameToSvgIcon: Record<
   'eye': Eye,
   'eye-slash': EyeSlash,
   'loupe': Loupe,
+  'lock': Lock,
 };
 
 export { iconNameToSvgIcon };
