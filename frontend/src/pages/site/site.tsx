@@ -82,7 +82,14 @@ const Site: React.FC = () => {
             );
           }
           case SectionType.MAIN: {
-            return <Main content={content as SiteMainContent} key={type} />;
+            return (
+              <Main
+                content={content as SiteMainContent}
+                type={type}
+                key={type}
+                onUpdate={handleUpdate(section)}
+              />
+            );
           }
           case SectionType.ABOUT: {
             return (
