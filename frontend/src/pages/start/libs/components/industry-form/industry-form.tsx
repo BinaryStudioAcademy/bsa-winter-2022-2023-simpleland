@@ -1,11 +1,12 @@
 import { Button, Input } from '~/libs/components/components.js';
-import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
+import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type SiteCreateRequestDto,
   type SiteCreateStepIndustry,
   siteCreateStepIndustryValidationSchema,
 } from '~/packages/sites/sites.js';
 
+import { DEFAULT_STEP_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -17,19 +18,16 @@ const IndustryForm: React.FC<Properties> = ({
   onSubmit,
   siteInfo,
 }: Properties) => {
-  const [industry] = useState(siteInfo.industry || '');
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepIndustry>({
-    defaultValues: { industry: siteInfo.industry || '' },
+    defaultValues: { ...DEFAULT_STEP_PAYLOAD, industry: siteInfo.industry },
     validationSchema: siteCreateStepIndustryValidationSchema,
   });
 
   const handleFormSubmit = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
-      void handleSubmit((data) => {
-        onSubmit({ ...siteInfo, ...data });
-      })(event_);
+      void handleSubmit(onSubmit)(event_);
     },
-    [handleSubmit, onSubmit, siteInfo],
+    [handleSubmit, onSubmit],
   );
 
   return (
@@ -40,7 +38,7 @@ const IndustryForm: React.FC<Properties> = ({
         <Input
           type="text"
           label="Project industry"
-          placeholder={industry || 'Industry'}
+          placeholder="Industry"
           name="industry"
           control={control}
           errors={errors}

@@ -1,12 +1,12 @@
 import { Button, Select } from '~/libs/components/components.js';
-import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
+import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type SiteCreateRequestDto,
   type SiteCreateStepTarget,
   siteCreateStepTargetValidationSchema,
 } from '~/packages/sites/sites.js';
 
-import { OPTIONS } from './libs/constants.js';
+import { DEFAULT_STEP_TARGET_VALUE, OPTIONS } from './libs/constants.js';
 import styles from './style.module.scss';
 
 type Properties = {
@@ -18,20 +18,20 @@ const TargetAudienceForm: React.FC<Properties> = ({
   onSubmit,
   siteInfo,
 }: Properties): JSX.Element => {
-  const [targetAudience] = useState(siteInfo.targetAudience);
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepTarget>({
-    defaultValues: { targetAudience: siteInfo.targetAudience },
+    defaultValues: {
+      ...DEFAULT_STEP_TARGET_VALUE,
+      targetAudience: siteInfo.targetAudience,
+    },
     mode: 'onSubmit',
     validationSchema: siteCreateStepTargetValidationSchema,
   });
 
   const handleFormSubmit = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
-      void handleSubmit((data) => {
-        onSubmit({ ...siteInfo, ...data });
-      })(event_);
+      void handleSubmit(onSubmit)(event_);
     },
-    [handleSubmit, onSubmit, siteInfo],
+    [handleSubmit, onSubmit],
   );
 
   return (
@@ -44,7 +44,7 @@ const TargetAudienceForm: React.FC<Properties> = ({
           name="targetAudience"
           options={OPTIONS}
           label="Select your industry"
-          placeholder={targetAudience}
+          placeholder="Please select your industry"
           errors={errors}
           isLabelVisuallyHidden
         />

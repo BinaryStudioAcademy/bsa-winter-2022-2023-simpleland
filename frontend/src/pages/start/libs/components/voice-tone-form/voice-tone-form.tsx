@@ -1,12 +1,12 @@
 import { Button, Select } from '~/libs/components/components.js';
-import { useAppForm, useCallback, useState } from '~/libs/hooks/hooks.js';
+import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
   type SiteCreateRequestDto,
   type SiteCreateStepTone,
   siteCreateStepToneValidationSchema,
 } from '~/packages/sites/sites.js';
 
-import { OPTIONS } from './libs/constants.js';
+import { DEFAULT_FORM_PAYLOAD, OPTIONS } from './libs/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -18,19 +18,16 @@ const VoiceToneForm: React.FC<Properties> = ({
   onSubmit,
   siteInfo,
 }: Properties) => {
-  const [tone] = useState(siteInfo.tone);
   const { control, errors, handleSubmit } = useAppForm({
-    defaultValues: { tone: siteInfo.tone },
+    defaultValues: { ...DEFAULT_FORM_PAYLOAD, tone: siteInfo.tone },
     validationSchema: siteCreateStepToneValidationSchema,
   });
 
   const handleFormSubmit = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
-      void handleSubmit((data) => {
-        onSubmit({ ...siteInfo, ...data });
-      })(event_);
+      void handleSubmit(onSubmit)(event_);
     },
-    [handleSubmit, onSubmit, siteInfo],
+    [handleSubmit, onSubmit],
   );
 
   return (
@@ -40,7 +37,7 @@ const VoiceToneForm: React.FC<Properties> = ({
       <form className={styles['form']} onSubmit={handleFormSubmit}>
         <Select
           name="tone"
-          placeholder={tone}
+          placeholder="Please select your tone"
           label="Select your tone"
           options={OPTIONS}
           control={control}
