@@ -4,6 +4,10 @@
   background-color: var(--white);
 }
 
+.image-wrapper {
+  position: relative;
+}
+
 .card-image {
   width: 100%;
   height: 50%;
@@ -15,6 +19,14 @@
 }
 
 .edit-project-icon {
-  float: right;
-  margin-right: 12px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: none;
+  padding: 4px 6px;
+  border-radius: 50%;
+}
+
+.card:hover .edit-project-icon {
+  display: block;
 }
