@@ -1,9 +1,9 @@
 const getNumberOfDays = (start: Date, end: Date): number => {
-  const date1 = new Date(start);
-  const date2 = new Date(end);
+  const startDate = new Date(start);
+  const endDate = new Date(end);
 
   const oneDay = 1000 * 60 * 60 * 24;
-  const diffInTime = date2.getTime() - date1.getTime();
+  const diffInTime = endDate.getTime() - startDate.getTime();
 
   return Math.round(diffInTime / oneDay);
 };
