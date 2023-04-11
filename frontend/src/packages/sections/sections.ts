@@ -24,10 +24,12 @@ export {
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
   type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
 } from './libs/types/types.js';
 export {
   siteAboutUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
+  sitePortfolioUpdateContentValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';
 export { sectionsApi };

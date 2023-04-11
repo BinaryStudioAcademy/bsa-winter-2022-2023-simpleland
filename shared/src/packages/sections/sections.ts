@@ -13,10 +13,12 @@ export {
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
   type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
 } from './libs/types/types.js';
 export {
   sectionUpdate as sectionUpdateValidationSchema,
   siteAboutUpdateContent as siteAboutUpdateContentValidationSchema,
   siteHeaderUpdateContent as siteHeaderUpdateContentValidationSchema,
+  sitePortfolioUpdateContent as sitePortfolioUpdateContentValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

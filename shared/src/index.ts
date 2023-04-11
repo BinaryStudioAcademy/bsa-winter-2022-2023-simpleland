@@ -67,12 +67,14 @@ export {
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
   type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
   SectionsApiPath,
   SectionType,
   sectionUpdateValidationSchema,
   siteAboutUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
+  sitePortfolioUpdateContentValidationSchema,
 } from './packages/sections/sections.js';
 export {
   type SiteCreateParametersDto,
