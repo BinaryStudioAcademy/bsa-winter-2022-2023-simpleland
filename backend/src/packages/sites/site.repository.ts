@@ -19,6 +19,16 @@ class SiteRepository
     return sites.map((site) => SiteEntity.initialize(site));
   }
 
+  public async find(id: number): Promise<SiteEntity | null> {
+    const site = await this.siteModel.query().findById(id).execute();
+
+    if (!site) {
+      return null;
+    }
+
+    return SiteEntity.initialize(site);
+  }
+
   public async findAllByProjectId(
     projectId: number,
     { name, page, limit }: SitesFilterQueryDto,

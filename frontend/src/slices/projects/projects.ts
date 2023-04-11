@@ -1,5 +1,6 @@
 import {
   createProject,
+  getCurrentProject,
   getUserProjects,
   updateProject,
   uploadProjectImage,
@@ -9,6 +10,7 @@ import { actions } from './projects.slice.js';
 const allActions = {
   ...actions,
   createProject,
+  getCurrentProject,
   getUserProjects,
   uploadProjectImage,
   updateProject,

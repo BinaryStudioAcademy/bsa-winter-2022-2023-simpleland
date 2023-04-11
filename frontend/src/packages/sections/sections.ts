@@ -17,13 +17,21 @@ export {
   type SectionUpdateParametersDto,
   type SectionUpdateRequestDto,
   type SiteAboutContent,
+  type SiteAboutUpdateContentDto,
   type SiteFeedbackContent,
   type SiteFooterContent,
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
+  type SiteMainUpdateContentDto,
   type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
 } from './libs/types/types.js';
-export { siteHeaderUpdateContentValidationSchema } from './libs/validation-schemas/validation-schemas.js';
+export {
+  siteAboutUpdateContentValidationSchema,
+  siteHeaderUpdateContentValidationSchema,
+  siteMainUpdateContentValidationSchema,
+  sitePortfolioUpdateContentValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 export { sectionsApi };

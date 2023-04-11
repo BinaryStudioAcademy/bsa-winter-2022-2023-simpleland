@@ -9,6 +9,7 @@ import { SitesApiPath } from './libs/enums/enums.js';
 import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
+  type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SitesGetByProjectIdRequestDto,
 } from './libs/types/types.js';
@@ -90,6 +91,26 @@ class SitesApi extends HttpApi {
     );
 
     return await response.json<SectionGetAllResponseDto>();
+  }
+
+  public async getById(parameters: {
+    id: number;
+  }): Promise<SiteGetAllItemResponseDto | null> {
+    const response = await this.load(
+      this.getFullEndpoint(
+        configureString(SitesApiPath.$ID, {
+          id: parameters.id,
+        }),
+        {},
+      ),
+      {
+        method: 'GET',
+        contentType: ContentType.JSON,
+        hasAuth: true,
+      },
+    );
+
+    return await response.json<SiteGetAllItemResponseDto | null>();
   }
 }
 

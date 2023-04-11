@@ -1,3 +1,4 @@
+import { ApplicationError } from '~/libs/exceptions/exceptions.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
 import { type OpenAI } from '~/libs/packages/open-ai/open-ai.package.js';
@@ -17,6 +18,7 @@ import { SectionTypeToPrompt } from './libs/maps/maps.js';
 import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
+  type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SitesFilterQueryDto,
 } from './libs/types/types.js';
@@ -47,6 +49,18 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
       items: sites.map((site) => site.toObject()),
       totalCount: sites.length,
     };
+  }
+
+  public async find(id: number): Promise<SiteGetAllItemResponseDto> {
+    const site = await this.siteRepository.find(id);
+
+    if (!site) {
+      throw new ApplicationError({
+        message: `Site with id ${id} not found`,
+      });
+    }
+
+    return site.toObject();
   }
 
   public async findAllByProjectId(

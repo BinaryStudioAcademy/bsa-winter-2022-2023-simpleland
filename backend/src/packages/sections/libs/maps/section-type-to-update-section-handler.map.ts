@@ -1,8 +1,14 @@
 import { type ValueOf } from '~/libs/types/types.js';
 import { SectionType } from '~/packages/sections/libs/enums/enums.js';
 import {
+  type SiteAboutContent,
+  type SiteAboutUpdateContentDto,
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
+  type SiteMainContent,
+  type SiteMainUpdateContentDto,
+  type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
 } from '~/packages/sections/libs/types/types.js';
 
 const sectionTypeToUpdateSectionHandler: Record<
@@ -18,9 +24,32 @@ const sectionTypeToUpdateSectionHandler: Record<
 
     return headerContent;
   },
-  [SectionType.MAIN]: () => ({}),
-  [SectionType.ABOUT]: () => ({}),
-  [SectionType.PORTFOLIO]: () => ({}),
+  [SectionType.MAIN]: (content, contentUpdates) => {
+    const mainContent = content as SiteMainContent;
+    const { title, description } = contentUpdates as SiteMainUpdateContentDto;
+
+    mainContent.title = title;
+    mainContent.description = description;
+
+    return mainContent;
+  },
+  [SectionType.ABOUT]: (content, contentUpdates) => {
+    const aboutContent = content as SiteAboutContent;
+    const { title, description } = contentUpdates as SiteAboutUpdateContentDto;
+
+    aboutContent.title = title;
+    aboutContent.description = description;
+
+    return aboutContent;
+  },
+  [SectionType.PORTFOLIO]: (content, contentUpdates) => {
+    const portfolioContent = content as SitePortfolioContent;
+    const { title } = contentUpdates as SitePortfolioUpdateContentDto;
+
+    portfolioContent.title = title;
+
+    return portfolioContent;
+  },
   [SectionType.SERVICE]: () => ({}),
   [SectionType.FEEDBACK]: () => ({}),
   [SectionType.FOOTER]: () => ({}),

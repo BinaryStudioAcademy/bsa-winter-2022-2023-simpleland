@@ -22,10 +22,12 @@ import {
   useTitle,
 } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
+import { type ProjectGetAllItemResponseDto } from '~/packages/projects/projects.js';
 import {
   type SitesSearchDto,
   sitesSearchValidationSchema,
 } from '~/packages/sites/sites.js';
+import { actions as projectsActions } from '~/slices/projects/projects.js';
 import { actions as sitesActions } from '~/slices/sites/sites.js';
 
 import { SiteCard } from './components/components.js';
@@ -40,11 +42,15 @@ const Sites: React.FC = () => {
 
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
-  const { sites, status, sitesCount } = useAppSelector(({ sites }) => ({
-    sites: sites.sites,
-    status: sites.dataStatus,
-    sitesCount: sites.sitesCount,
-  }));
+  const { sites, status, sitesCount, project, projectStatus } = useAppSelector(
+    ({ sites, projects }) => ({
+      sites: sites.sites,
+      status: sites.dataStatus,
+      sitesCount: sites.sitesCount,
+      project: projects.currentProject,
+      projectStatus: projects.dataStatus,
+    }),
+  );
 
   const { page, handleChangePage, totalPages, isShowPagination } =
     usePagination({
@@ -70,6 +76,9 @@ const Sites: React.FC = () => {
             limit: SITES_PER_PAGE,
           },
         }),
+      );
+      void dispatch(
+        projectsActions.getCurrentProject({ id: Number(projectId) }),
       );
     }
   }, [dispatch, projectId, page, getValues]);
@@ -109,7 +118,10 @@ const Sites: React.FC = () => {
     return hasSites || isSearching;
   }, [hasSites, isSearching]);
 
-  if (status === DataStatus.PENDING) {
+  const isLoading =
+    sitesStatus === DataStatus.PENDING || projectStatus === DataStatus.PENDING;
+
+  if (isLoading) {
     return (
       <PageLayout style={isSitesShow ? 'white' : 'black'}>
         <Loader style="yellow" />
@@ -125,15 +137,6 @@ const Sites: React.FC = () => {
       <div className={styles['page-wrapper']}>
         {isSitesShow ? (
           <>
-            <div className={styles['search-wrapper']}>
-              <Button
-                label="Add Site"
-                icon="plus"
-                className={styles['create-button']}
-                size="small"
-                to={createSiteLink}
-              />
-            </div>
             <div className={styles['button-wrapper']}>
               <div>
                 <Link to={AppRoute.MY_PROJECTS}>
@@ -145,21 +148,32 @@ const Sites: React.FC = () => {
                   </span>
                 </Link>
               </div>
-              <h2>Landing</h2>
+              <h2 className={styles['title']}>
+                {(project as ProjectGetAllItemResponseDto).name}
+              </h2>
             </div>
-            <form onChange={handleFormChange}>
-              <Input
-                label="search"
-                type="search"
-                placeholder="Search"
-                name="name"
-                control={control}
-                errors={errors}
-                className={styles['search-input']}
-                icon="loupe"
-                isLabelVisuallyHidden
+            <div className={styles['search-wrapper']}>
+              <form onChange={handleFormChange}>
+                <Input
+                  label="search"
+                  type="search"
+                  placeholder="Search"
+                  name="name"
+                  control={control}
+                  errors={errors}
+                  className={styles['search-input']}
+                  icon="loupe"
+                  isLabelVisuallyHidden
+                />
+              </form>
+              <Button
+                label="Add Site"
+                icon="plus"
+                className={styles['create-button']}
+                size="small"
+                to={createSiteLink}
               />
-            </form>
+            </div>
             <div className={styles['cards-wrapper']}>
               {sites.map((site) => (
                 <SiteCard key={site.id} site={site} />
