@@ -49,7 +49,9 @@ const Sites: React.FC = () => {
           },
         }),
       );
-      void dispatch(projectsActions.getCurrentProject({ id: Number(projectId) }));
+      void dispatch(
+        projectsActions.getCurrentProject({ id: Number(projectId) }),
+      );
     }
   }, [dispatch, projectId]);
 
