@@ -5,6 +5,7 @@ import { configureString } from '~/libs/helpers/helpers.js';
 import { type AsyncThunkConfig, type ValueOf } from '~/libs/types/types.js';
 import {
   type SiteCreateRequestDto,
+  type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SitesGetByProjectIdRequestDto,
 } from '~/packages/sites/sites.js';
@@ -43,4 +44,14 @@ const getSitesByProjectId = createAsyncThunk<
   return await sitesApi.getByProjectId(payload);
 });
 
-export { createSite, getSitesByProjectId };
+const getCurrentSite = createAsyncThunk<
+  SiteGetAllItemResponseDto | null,
+  { id: number },
+  AsyncThunkConfig
+>(`${sliceName}/get-current-site`, async (parameters, { extra }) => {
+  const { sitesApi } = extra;
+
+  return await sitesApi.getById(parameters);
+});
+
+export { createSite, getCurrentSite, getSitesByProjectId };
