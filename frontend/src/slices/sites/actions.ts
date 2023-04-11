@@ -51,7 +51,7 @@ const getCurrentSite = createAsyncThunk<
 >(`${sliceName}/get-current-site`, async (parameters, { extra }) => {
   const { sitesApi } = extra;
 
-  return await sitesApi.getSite(parameters);
+  return await sitesApi.getById(parameters);
 });
 
 export { createSite, getCurrentSite, getSitesByProjectId };

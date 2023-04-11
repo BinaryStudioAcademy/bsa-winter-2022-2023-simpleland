@@ -88,7 +88,7 @@ class SitesApi extends HttpApi {
     return await response.json<SectionGetAllResponseDto>();
   }
 
-  public async getSite(parameters: {
+  public async getById(parameters: {
     id: number;
   }): Promise<SiteGetAllItemResponseDto | null> {
     const response = await this.load(
