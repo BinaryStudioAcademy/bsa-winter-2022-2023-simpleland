@@ -55,9 +55,10 @@ const sectionTypeToUpdateSectionHandler: Record<
   [SectionType.SERVICE]: () => ({}),
   [SectionType.FEEDBACK]: (content, contentUpdates) => {
     const feedbackContent = content as SiteFeedbackContent;
-    const { title } = contentUpdates as SiteFeedbackUpdateContentDto;
+    const { title, cards } = contentUpdates as SiteFeedbackUpdateContentDto;
 
     feedbackContent.title = title;
+    feedbackContent.cards = cards;
 
     return feedbackContent;
   },
