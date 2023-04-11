@@ -67,6 +67,7 @@ export {
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
+  type SiteMainUpdateContentDto,
   type SitePortfolioContent,
   type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
@@ -76,6 +77,7 @@ export {
   siteAboutUpdateContentValidationSchema,
   siteFeedbackUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
+  siteMainUpdateContentValidationSchema,
   sitePortfolioUpdateContentValidationSchema,
 } from './packages/sections/sections.js';
 export {
