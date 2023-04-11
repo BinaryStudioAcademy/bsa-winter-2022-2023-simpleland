@@ -31,18 +31,27 @@ class SiteRepository
 
   public async findAllByProjectId(
     projectId: number,
-    { name }: SitesFilterQueryDto,
-  ): Promise<SiteEntity[]> {
-    const sites = await this.siteModel
+    { name, page, limit }: SitesFilterQueryDto,
+  ): Promise<{
+    totalCount: number;
+    items: SiteEntity[];
+  }> {
+    const offset = page - 1;
+
+    const { total, results } = await this.siteModel
       .query()
       .where({ projectId })
       .where((builder) => {
         if (name) {
           void builder.where('name', 'ilike', `%${name}%`);
         }
-      });
+      })
+      .page(offset, limit);
 
-    return sites.map((site) => SiteEntity.initialize(site));
+    return {
+      totalCount: total,
+      items: results.map((site) => SiteEntity.initialize(site)),
+    };
   }
 
   public async create(entity: SiteEntity): Promise<SiteEntity> {

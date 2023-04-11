@@ -16,6 +16,7 @@ export {
   type SitesFilterQueryDto,
   type SitesGetByProjectIdParametersDto,
   type SitesGetByProjectIdRequestDto,
+  type SitesSearchDto,
 } from './libs/types/types.js';
 export {
   siteCreateStepIndustry as siteCreateStepIndustryValidationSchema,
@@ -25,4 +26,5 @@ export {
   siteCreate as siteCreateValidationSchema,
   sitesGetByProjectIdParameters as siteGetByProjectIdValidationSchema,
   siteFilter as sitesFilterValidationSchema,
+  sitesSearch as sitesSearchValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

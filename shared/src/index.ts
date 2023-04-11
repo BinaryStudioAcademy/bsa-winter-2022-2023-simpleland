@@ -93,6 +93,7 @@ export {
   type SitesFilterQueryDto,
   type SitesGetByProjectIdParametersDto,
   type SitesGetByProjectIdRequestDto,
+  type SitesSearchDto,
   siteCreateStepIndustryValidationSchema,
   siteCreateStepNameValidationSchema,
   siteCreateStepTargetValidationSchema,
@@ -101,6 +102,7 @@ export {
   siteGetByProjectIdValidationSchema,
   SitesApiPath,
   sitesFilterValidationSchema,
+  sitesSearchValidationSchema,
   SiteTargetType,
   SiteToneType,
 } from './packages/sites/sites.js';
