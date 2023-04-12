@@ -25,8 +25,8 @@ import {
 } from './libs/components/components.js';
 import {
   DEFAULT_SITE_PAYLOAD,
-  FORM_STEPPER_ID,
   ONE_STEP_LENGTH,
+  STEPS_FORM_SUBMIT,
 } from './libs/constants.js';
 import styles from './styles.module.scss';
 
@@ -112,6 +112,7 @@ const Start: React.FC = () => {
                 <div className={styles['stepper-wrapper']}>
                   <div className={styles['img-wrapper']}>
                     <IconButton
+                      type="button"
                       icon="arrowLeft"
                       label="Go to the previous step"
                       onClick={handlePreviousStep}
@@ -119,7 +120,7 @@ const Start: React.FC = () => {
                     />
                     <IconButton
                       type="submit"
-                      form={FORM_STEPPER_ID}
+                      form={STEPS_FORM_SUBMIT}
                       icon="arrowRight"
                       label="Go to the next step"
                       isDisabled={isLastStep}

@@ -5,7 +5,7 @@ import {
   type SiteCreateStepName,
   siteCreateStepNameValidationSchema,
 } from '~/packages/sites/sites.js';
-import { FORM_STEPPER_ID } from '~/pages/start/libs/constants.js';
+import { STEPS_FORM_SUBMIT } from '~/pages/start/libs/constants.js';
 
 import { DEFAULT_STEP_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
@@ -38,7 +38,7 @@ const SiteNameForm: React.FC<Properties> = ({
         Don&apos;t have one? Just enter your name.
       </div>
       <form
-        id={FORM_STEPPER_ID}
+        id={STEPS_FORM_SUBMIT}
         className={styles['form']}
         onSubmit={handleFormSubmit}
       >

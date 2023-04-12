@@ -5,7 +5,7 @@ import {
   type SiteCreateStepTarget,
   siteCreateStepTargetValidationSchema,
 } from '~/packages/sites/sites.js';
-import { FORM_STEPPER_ID } from '~/pages/start/libs/constants.js';
+import { STEPS_FORM_SUBMIT } from '~/pages/start/libs/constants.js';
 
 import { DEFAULT_STEP_TARGET_VALUE, OPTIONS } from './libs/constants.js';
 import styles from './style.module.scss';
@@ -42,7 +42,7 @@ const TargetAudienceForm: React.FC<Properties> = ({
       <form
         className={styles['form']}
         onSubmit={handleFormSubmit}
-        id={FORM_STEPPER_ID}
+        id={STEPS_FORM_SUBMIT}
       >
         <Select
           control={control}

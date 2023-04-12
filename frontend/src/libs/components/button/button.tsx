@@ -10,7 +10,7 @@ type Properties = {
   icon?: IconType;
   size?: 'big' | 'small';
   style?: 'primary' | 'secondary' | 'plain';
-  type?: 'button' | 'submit' | undefined;
+  type: 'button' | 'submit';
   isDisabled?: boolean;
   className?: string | undefined;
   onClick?: (() => void) | undefined;
@@ -24,7 +24,7 @@ const Button: React.FC<Properties> = ({
   label,
   size = 'big',
   style = 'primary',
-  type = 'button',
+  type,
   isDisabled = false,
   className,
   icon,
