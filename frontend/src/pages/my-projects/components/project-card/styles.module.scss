@@ -1,21 +1,38 @@
 .card {
   width: var(--card-width);
   height: var(--card-height);
+  overflow: scroll;
   background-color: var(--white);
 }
 
 .image-wrapper {
   position: relative;
+  height: 60%;
 }
 
 .card-image {
   width: 100%;
-  height: 50%;
+  height: 100%;
   object-fit: cover;
 }
 
+.title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.title {
+  margin: 0;
+}
+
 .card-description {
-  padding: 10px;
+  padding: 16px 24px;
+}
+
+.card-category {
+  margin: 0;
 }
 
 .edit-project-icon {
@@ -29,4 +46,13 @@
 
 .card:hover .edit-project-icon {
   display: block;
+}
+
+.yellow-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.yellow-icon svg path {
+  fill: var(--yellow);
 }
