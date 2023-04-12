@@ -17,12 +17,16 @@ type Properties = {
   content: SiteAboutContent;
   type: ValueOf<typeof SectionType>;
   onUpdate: (payload: unknown) => void;
+  isOwner: boolean;
+  isSubscribed: boolean;
 };
 
 const About: React.FC<Properties> = ({
   content: { description, title },
   type,
   onUpdate,
+  isOwner,
+  isSubscribed,
 }: Properties) => {
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<SiteAboutUpdateContentDto>({
@@ -38,7 +42,12 @@ const About: React.FC<Properties> = ({
     });
 
   return (
-    <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+    <Overlay
+      onEdit={handleEditingStart}
+      isEditing={isEditing}
+      isOwner={isOwner}
+      isSubscribed={isSubscribed}
+    >
       <div id={type} className={styles['about']}>
         <div className={styles['about-container']}>
           <div className={styles['about-title']}>
