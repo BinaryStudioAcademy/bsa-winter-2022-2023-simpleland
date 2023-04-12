@@ -1,13 +1,8 @@
 import { useCallback } from 'react';
 import { type Token } from 'react-stripe-checkout';
 
-import {
-  Button,
-  Checkout,
-  Disabled,
-  Icon,
-} from '~/libs/components/components.js';
-import { getNumberOfDays } from '~/libs/helpers/helpers.js';
+import { Button, Checkout, Icon } from '~/libs/components/components.js';
+import { checkSubscription, getNumberOfDays } from '~/libs/helpers/helpers.js';
 import { useAppDispatch, useAppSelector, useMemo } from '~/libs/hooks/hooks.js';
 import { SUBSCRIPTION_PRICE } from '~/packages/subscription/subscription.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
@@ -28,6 +23,14 @@ const Subscription: React.FC = () => {
     }
 
     return '';
+  }, [subscriptionEndDate]);
+
+  const isSubscriptionValid = useMemo(() => {
+    if (subscriptionEndDate) {
+      return checkSubscription(new Date(), new Date(subscriptionEndDate));
+    }
+
+    return false;
   }, [subscriptionEndDate]);
 
   const handleSubscribe = useCallback(
@@ -70,13 +73,12 @@ const Subscription: React.FC = () => {
           size="small"
           className={styles['button']}
         />
-        <Disabled isDisabled={Boolean(leftSubscriptionDays)}>
-          <Checkout
-            onCheckout={handleSubscribe}
-            price={SUBSCRIPTION_PRICE}
-            label="Subscribe"
-          />
-        </Disabled>
+        <Checkout
+          onCheckout={handleSubscribe}
+          price={SUBSCRIPTION_PRICE}
+          label="Subscribe"
+          isDisabled={isSubscriptionValid}
+        />
       </div>
     </div>
   );
