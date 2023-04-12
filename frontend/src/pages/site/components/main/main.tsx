@@ -51,10 +51,8 @@ const Main: React.FC<Properties> = ({
                   name="title"
                   label="Main section title"
                   isLabelVisuallyHidden
-                  className={getValidClassNames(
-                    styles['edit-main-section-content'],
-                  )}
                   onBlur={handleSectionUpdate}
+                  isInline
                 />
               ) : (
                 title
@@ -73,6 +71,7 @@ const Main: React.FC<Properties> = ({
                   )}
                   onBlur={handleSectionUpdate}
                   rows={10}
+                  isInline
                 />
               ) : (
                 description
