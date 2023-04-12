@@ -186,7 +186,7 @@ const Site: React.FC = () => {
               </span>
             </Link>
           </div>
-          <h2>Back to all sites</h2>
+          <h2 className={styles['button-caption']}>Back to all sites</h2>
         </div>
       </div>
       {renderSections()}
