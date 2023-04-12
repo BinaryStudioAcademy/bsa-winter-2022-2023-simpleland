@@ -74,7 +74,7 @@ const MyProjects: React.FC = () => {
   const dispatch = useAppDispatch();
   useTitle('My projects');
 
-  const { control, errors, handleSubmit, handleValuesGet } =
+  const { control, errors, handleSubmit, handleValuesGet, handleSetFocus } =
     useAppForm<ProjectGetAllParametersDto>({
       defaultValues: DEFAULT_PROJECT_FILTER_PAYLOAD,
       mode: 'onChange',
@@ -89,6 +89,10 @@ const MyProjects: React.FC = () => {
       }),
     );
   }, [dispatch, page, handleValuesGet]);
+
+  useEffect((): void => {
+    handleSetFocus('search');
+  });
 
   const handleProjectSubmit = useCallback(
     (payload: ProjectCreateRequestDto & ProjectUploadImageDto): void => {

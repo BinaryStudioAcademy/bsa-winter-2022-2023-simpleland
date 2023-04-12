@@ -58,7 +58,7 @@ const Sites: React.FC = () => {
       totalCount: sitesCount,
     });
 
-  const { control, errors, handleSubmit, handleValuesGet } =
+  const { control, errors, handleSubmit, handleValuesGet, handleSetFocus } =
     useAppForm<SitesSearchDto>({
       defaultValues: DEFAULT_SITES_SEARCH_PAYLOAD,
       validationSchema: sitesSearchValidationSchema,
@@ -81,6 +81,10 @@ const Sites: React.FC = () => {
       );
     }
   }, [dispatch, projectId, page, handleValuesGet]);
+
+  useEffect((): void => {
+    handleSetFocus('name');
+  });
 
   const handleSearching = useCallback((value: string) => {
     return setIsSearching(value.length > 0);
