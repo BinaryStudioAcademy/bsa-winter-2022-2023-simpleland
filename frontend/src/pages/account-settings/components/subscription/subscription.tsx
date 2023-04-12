@@ -8,6 +8,7 @@ import { SUBSCRIPTION_PRICE } from '~/packages/subscription/subscription.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 import { actions as usersActions } from '~/slices/users/users.js';
 
+import { checkHasSubscription } from '../../libs/helpers/helpers.js';
 import styles from './styles.module.scss';
 
 const Subscription: React.FC = () => {
@@ -23,6 +24,10 @@ const Subscription: React.FC = () => {
     }
 
     return '';
+  }, [subscriptionEndDate]);
+
+  const isSubscriptionValid = useMemo(() => {
+    return checkHasSubscription(subscriptionEndDate);
   }, [subscriptionEndDate]);
 
   const handleSubscribe = useCallback(
@@ -64,6 +69,7 @@ const Subscription: React.FC = () => {
             onCheckout={handleSubscribe}
             price={SUBSCRIPTION_PRICE}
             label="Subscribe"
+            isDisabled={isSubscriptionValid}
           />
         </div>
       </div>
