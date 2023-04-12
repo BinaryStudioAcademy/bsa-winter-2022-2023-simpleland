@@ -72,8 +72,12 @@
 
 .subscription-buttons {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
+  justify-content: center;
+}
+
+.subscribe-button {
+  display: grid;
+  width: 154px;
 }
 
 .button {
