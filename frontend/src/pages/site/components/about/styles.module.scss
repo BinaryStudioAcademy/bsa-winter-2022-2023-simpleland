@@ -6,41 +6,25 @@
 }
 
 .about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
   width: 1085px;
   padding: 85px 0;
 }
 
-.about-content {
-  display: flex;
-  justify-content: space-between;
-}
-
-.about-left {
-  flex-grow: 1;
-}
-
-.about-right {
-  padding: 185px 0;
-}
-
 .about-title {
-  width: 112px;
-  height: 78px;
-  margin-top: 50px;
+  margin-right: 48px;
   color: var(--site-text-color);
   font-size: 38px;
   font-family: "BN Chester", sans-serif;
-  line-height: 39px;
+  line-height: 40px;
 }
 
 .about-description {
-  width: 529px;
-  height: 225px;
-  margin-bottom: 55px;
   color: var(--site-text-color);
   font-size: 15px;
   line-height: 25px;
-  transform: translateX(130px);
 }
 
 .edit-about-section-content {
