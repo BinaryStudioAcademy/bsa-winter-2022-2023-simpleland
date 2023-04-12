@@ -1,7 +1,6 @@
 import { type Control, type FieldErrors } from 'react-hook-form';
 
 import { Input } from '~/libs/components/components.js';
-import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { type SiteServiceUpdateContentDto } from '~/packages/sections/sections.js';
 
 import styles from './styles.module.scss';
@@ -41,11 +40,8 @@ const ServiceCard: React.FC<Properties> = ({
               name={`cards.${cardIndex}.title`}
               label="Service title"
               isLabelVisuallyHidden
-              className={getValidClassNames(
-                styles['edit-service-card'],
-                styles['service-card-title'],
-              )}
               onBlur={onSectionUpdate}
+              isInline
             />
           ) : (
             title
@@ -59,12 +55,9 @@ const ServiceCard: React.FC<Properties> = ({
               name={`cards.${cardIndex}.description`}
               label="Service description"
               isLabelVisuallyHidden
-              className={getValidClassNames(
-                styles['edit-service-card'],
-                styles['service-card-description'],
-              )}
               rows={7}
               onBlur={onSectionUpdate}
+              isInline
             />
           ) : (
             description
