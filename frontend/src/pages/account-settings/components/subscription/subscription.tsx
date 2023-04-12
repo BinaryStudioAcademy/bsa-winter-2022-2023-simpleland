@@ -57,33 +57,31 @@ const Subscription: React.FC = () => {
           </div>
         </div>
         <div className={styles['subscription-info-benefits']}>
-          <div className={styles['benefits-wrapper']}>
-            <div className={styles['benefits-item']}>
-              <Icon
-                iconName="checkOn"
-                className={styles['check-icon-benefits']}
-              />
-              <div>Text editing</div>
-            </div>
+          <div className={styles['benefits-item']}>
+            <Icon
+              iconName="checkOn"
+              className={styles['check-icon-benefits']}
+            />
+            <div>Text editing</div>
+          </div>
 
-            <div className={styles['benefits-item-disable']}>
-              <Icon iconName="lock" className={styles['lock-icon']} />
-              <div
-                data-tooltip-id="app-main-tooltip"
-                data-tooltip-content="Coming soon"
-              >
-                Connect an existing domain
-              </div>
+          <div className={styles['benefits-item-disable']}>
+            <Icon iconName="lock" className={styles['lock-icon']} />
+            <div
+              data-tooltip-id="app-main-tooltip"
+              data-tooltip-content="Coming soon"
+            >
+              Connect an existing domain
             </div>
+          </div>
 
-            <div className={styles['benefits-item-disable']}>
-              <Icon iconName="lock" className={styles['lock-icon']} />
-              <div
-                data-tooltip-id="app-main-tooltip"
-                data-tooltip-content="Coming soon"
-              >
-                Buy a new domain name
-              </div>
+          <div className={styles['benefits-item-disable']}>
+            <Icon iconName="lock" className={styles['lock-icon']} />
+            <div
+              data-tooltip-id="app-main-tooltip"
+              data-tooltip-content="Coming soon"
+            >
+              Buy a new domain name
             </div>
           </div>
         </div>
