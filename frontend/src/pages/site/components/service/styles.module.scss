@@ -44,3 +44,17 @@
   border-radius: 7.5px;
   cursor: pointer;
 }
+
+.edit-title {
+  padding: 0;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+}
+
+.edit-title:focus {
+  box-shadow: none;
+}

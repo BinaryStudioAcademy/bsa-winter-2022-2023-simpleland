@@ -7,10 +7,30 @@
 }
 
 .subscription-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: #2c2c2c;
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
+}
+
+.title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subscription-date {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.check-icon {
+  width: 15px;
+  height: 15px;
 }
 
 .subscription-info-title {
@@ -52,8 +72,12 @@
 
 .subscription-buttons {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
+  justify-content: center;
+}
+
+.subscribe-button {
+  display: grid;
+  width: 154px;
 }
 
 .button {
