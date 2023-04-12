@@ -9,6 +9,7 @@ import {
   type UseFormHandleSubmit,
   type UseFormProps,
   type UseFormReset,
+  type UseFormSetFocus,
 } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
@@ -26,6 +27,7 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
   handleSubmit: UseFormHandleSubmit<T>;
   handleReset: UseFormReset<T>;
   handleValuesGet: UseFormGetValues<T>;
+  handleSetFocus: UseFormSetFocus<T>;
 };
 
 const useAppForm = <T extends FieldValues = FieldValues>({
@@ -50,6 +52,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
     formState: { errors },
     reset: handleReset,
     getValues: handleValuesGet,
+    setFocus: handleSetFocus,
   } = useForm<T>(parameters);
 
   return {
@@ -58,6 +61,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
     handleSubmit,
     handleReset,
     handleValuesGet,
+    handleSetFocus,
   };
 };
 
