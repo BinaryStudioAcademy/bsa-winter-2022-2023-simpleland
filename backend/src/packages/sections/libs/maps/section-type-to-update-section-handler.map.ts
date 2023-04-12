@@ -5,6 +5,8 @@ import {
   type SiteAboutUpdateContentDto,
   type SiteFeedbackContent,
   type SiteFeedbackUpdateContentDto,
+  type SiteFooterContent,
+  type SiteFooterUpdateContentDto,
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
@@ -62,7 +64,18 @@ const sectionTypeToUpdateSectionHandler: Record<
 
     return feedbackContent;
   },
-  [SectionType.FOOTER]: () => ({}),
+  [SectionType.FOOTER]: (content, contentUpdates) => {
+    const footerContent = content as SiteFooterContent;
+    const { email, address, phone } = (
+      contentUpdates as SiteFooterUpdateContentDto
+    ).contacts;
+
+    footerContent.contacts.email = email;
+    footerContent.contacts.address = address;
+    footerContent.contacts.phone = phone;
+
+    return footerContent;
+  },
 };
 
 export { sectionTypeToUpdateSectionHandler };
