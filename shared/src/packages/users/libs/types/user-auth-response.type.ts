@@ -6,6 +6,7 @@ type UserAuthResponse = {
   accountName: string | null;
   avatarUrl: string | null;
   isSubscribed: boolean | null;
+  subscriptionEndDate: string | null;
 };
 
 export { type UserAuthResponse };

@@ -10,6 +10,7 @@ type IconType =
   | 'lock'
   | 'facebook'
   | 'linkedin'
-  | 'twitter';
+  | 'twitter'
+  | 'checkOn';
 
 export { type IconType };
