@@ -1,41 +1,90 @@
-import { Carousel } from '~/libs/components/components.js';
+import { Carousel, Input } from '~/libs/components/components.js';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
+import { useAppForm } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
   type SectionType,
   type SiteFeedbackContent,
+  type SiteFeedbackUpdateContentDto,
+  siteFeedbackUpdateContentValidationSchema,
 } from '~/packages/sections/sections.js';
+import { Overlay } from '~/pages/site/components/overlay/overlay.js';
 
+import { useSectionUpdate } from '../../libs/hooks/hooks.js';
 import { FeedbackCard } from './components/components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
   content: SiteFeedbackContent;
   type: ValueOf<typeof SectionType>;
+  onUpdate: (payload: unknown) => void;
 };
 
 const Feedback: React.FC<Properties> = ({
   content: { title, cards },
   type,
+  onUpdate,
 }: Properties) => {
   const [titleFirstWord, ...titleRest] = title.split(' ');
 
+  const { control, errors, handleSubmit, handleReset } =
+    useAppForm<SiteFeedbackUpdateContentDto>({
+      defaultValues: { title, cards },
+      validationSchema: siteFeedbackUpdateContentValidationSchema,
+    });
+
+  const { isEditing, handleEditingStart, handleSectionUpdate } =
+    useSectionUpdate<SiteFeedbackUpdateContentDto>({
+      onUpdate,
+      handleReset,
+      handleSubmit,
+    });
+
   return (
-    <div id={type} className={styles['feedback']}>
-      <div className={styles['feedback-container']}>
-        <div className={styles['title']}>
-          {titleFirstWord}
-          &nbsp;
-          <span className={styles['title-brown']}>{titleRest.join(' ')}</span>
-        </div>
-        <div className={styles['feedback-carousel']}>
-          <Carousel slidesToShow={2} slidesToScroll={2} cellSpacing={28}>
-            {cards.map((card) => (
-              <FeedbackCard card={card} key={card.photo} />
-            ))}
-          </Carousel>
+    <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+      <div id={type} className={styles['feedback']}>
+        <div className={styles['feedback-container']}>
+          <div className={styles['title']}>
+            {isEditing ? (
+              <Input
+                control={control}
+                errors={errors}
+                name="title"
+                label="Feedback section title"
+                isLabelVisuallyHidden
+                className={getValidClassNames(
+                  styles['edit-feedback-section-content'],
+                )}
+                onBlur={handleSectionUpdate}
+              />
+            ) : (
+              <>
+                {titleFirstWord}
+                &nbsp;
+                <span className={styles['title-brown']}>
+                  {titleRest.join(' ')}
+                </span>
+              </>
+            )}
+          </div>
+          <div className={styles['feedback-carousel']}>
+            <Carousel slidesToShow={2} slidesToScroll={2} cellSpacing={28}>
+              {cards.map((card, index) => (
+                <FeedbackCard
+                  isEditing={isEditing}
+                  card={card}
+                  cardIndex={index}
+                  key={card.photo}
+                  control={control}
+                  errors={errors}
+                  onHandleSectionUpdate={handleSectionUpdate}
+                />
+              ))}
+            </Carousel>
+          </div>
         </div>
       </div>
-    </div>
+    </Overlay>
   );
 };
 
