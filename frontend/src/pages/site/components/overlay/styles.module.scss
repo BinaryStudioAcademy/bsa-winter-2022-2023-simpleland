@@ -41,3 +41,11 @@
 .overlay-button svg path {
   fill: var(--black);
 }
+
+.overlay-button-gray {
+  background-color: var(--gray-disable);
+}
+
+.overlay-button-gray:hover {
+  background-color: var(--gray-disable);
+}
