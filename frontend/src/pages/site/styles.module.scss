@@ -37,3 +37,17 @@ html {
   margin-top: 8px;
   margin-left: 7px;
 }
+
+@media only screen and (max-width: 1520px) {
+  .button-container {
+    width: 100%;
+  }
+
+  .button-wrapper {
+    left: 5%;
+  }
+
+  .button-caption {
+    display: none;
+  }
+}
