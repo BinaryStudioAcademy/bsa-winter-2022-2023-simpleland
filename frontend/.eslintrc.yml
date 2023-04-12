@@ -36,10 +36,6 @@ overrides:
         - off
   - files:
       - vite-env.d.ts
-    rules:
-      unicorn/prevent-abbreviations:
-        - off
-  - files:
       - index.d.ts
     rules:
       unicorn/prevent-abbreviations:
