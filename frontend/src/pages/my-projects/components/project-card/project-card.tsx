@@ -46,10 +46,18 @@ const ProjectCard: React.FC<Properties> = ({ project, onEdit }: Properties) => {
               projectId: id,
             },
           )}
+          className={styles['title-wrapper']}
         >
-          <h2>{name}</h2>
-          <p>{projectCategoryToReadable[category]}</p>
+          <h2 className={styles['title']}>{name}</h2>
+          <IconButton
+            icon="arrowRight"
+            label="Go to the project sites"
+            className={styles['yellow-icon']}
+          />
         </Link>
+        <p className={styles['card-category']}>
+          {projectCategoryToReadable[category]}
+        </p>
       </div>
     </div>
   );
