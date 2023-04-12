@@ -53,6 +53,7 @@ const Main: React.FC<Properties> = ({
                   isLabelVisuallyHidden
                   onBlur={handleSectionUpdate}
                   isInline
+                  rows={3}
                 />
               ) : (
                 title
