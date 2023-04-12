@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { type Token } from 'react-stripe-checkout';
 
-import { Button, Checkout, Icon } from '~/libs/components/components.js';
+import { Checkout, Icon } from '~/libs/components/components.js';
 import { getNumberOfDays } from '~/libs/helpers/helpers.js';
 import { useAppDispatch, useAppSelector, useMemo } from '~/libs/hooks/hooks.js';
 import { SUBSCRIPTION_PRICE } from '~/packages/subscription/subscription.js';
@@ -59,17 +59,13 @@ const Subscription: React.FC = () => {
         <div className={styles['subscription-info-benefits']} />
       </div>
       <div className={styles['subscription-buttons']}>
-        <Button
-          style="secondary"
-          label="Cancel"
-          size="small"
-          className={styles['button']}
-        />
-        <Checkout
-          onCheckout={handleSubscribe}
-          price={SUBSCRIPTION_PRICE}
-          label="Subscribe"
-        />
+        <div className={styles['subscribe-button']}>
+          <Checkout
+            onCheckout={handleSubscribe}
+            price={SUBSCRIPTION_PRICE}
+            label="Subscribe"
+          />
+        </div>
       </div>
     </div>
   );
