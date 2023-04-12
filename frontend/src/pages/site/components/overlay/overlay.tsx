@@ -1,4 +1,5 @@
 import { IconButton } from '~/libs/components/components.js';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useCallback,
   useEffect,
@@ -13,6 +14,8 @@ type Properties = {
   onUpdate: () => void;
   isEditing: boolean;
   children: React.ReactNode;
+  isOwner: boolean;
+  isSubscribed: boolean;
 };
 
 const Overlay: React.FC<Properties> = ({
@@ -20,6 +23,8 @@ const Overlay: React.FC<Properties> = ({
   onUpdate,
   isEditing,
   children,
+  isOwner,
+  isSubscribed,
 }: Properties) => {
   const [showOverlay, setShowOverlay] = useState<boolean>(false);
 
@@ -51,7 +56,7 @@ const Overlay: React.FC<Properties> = ({
     };
   }, [isEditing, overlayReference, onUpdate]);
 
-  const shouldShowOverlay = showOverlay && !isEditing;
+  const shouldShowOverlay = showOverlay && !isEditing && isOwner;
 
   return (
     <div
@@ -63,12 +68,24 @@ const Overlay: React.FC<Properties> = ({
       {shouldShowOverlay && (
         <div className={styles['overlay']}>
           <div className={styles['overlay-buttons']}>
-            <IconButton
-              label="Edit"
-              icon="pencil"
-              className={styles['overlay-button']}
-              onClick={onEdit}
-            />
+            {isSubscribed ? (
+              <IconButton
+                label="Edit"
+                icon="pencil"
+                className={styles['overlay-button']}
+                onClick={onEdit}
+              />
+            ) : (
+              <IconButton
+                label="Edit"
+                icon="pencil"
+                className={getValidClassNames(
+                  styles['overlay-button'],
+                  styles['overlay-button-gray'],
+                )}
+                tooltip="Subscription only feature"
+              />
+            )}
           </div>
         </div>
       )}

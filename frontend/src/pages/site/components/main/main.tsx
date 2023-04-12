@@ -17,12 +17,16 @@ type Properties = {
   content: SiteMainContent;
   type: ValueOf<typeof SectionType>;
   onUpdate: (payload: unknown) => void;
+  isOwner: boolean;
+  isSubscribed: boolean;
 };
 
 const Main: React.FC<Properties> = ({
   content: { description, title, picture },
   type,
   onUpdate,
+  isOwner,
+  isSubscribed,
 }: Properties) => {
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<SiteMainUpdateContentDto>({
@@ -46,6 +50,8 @@ const Main: React.FC<Properties> = ({
             onEdit={handleEditingStart}
             onUpdate={handleSectionUpdate}
             isEditing={isEditing}
+            isOwner={isOwner}
+            isSubscribed={isSubscribed}
           >
             <div className={styles['main-title']}>
               {isEditing ? (

@@ -24,12 +24,16 @@ type Properties = {
   content: SitePortfolioContent;
   type: ValueOf<typeof SectionType>;
   onUpdate: (payload: unknown) => void;
+  isOwner: boolean;
+  isSubscribed: boolean;
 };
 
 const Portfolio: React.FC<Properties> = ({
   content: { title, categories },
   type,
   onUpdate,
+  isOwner,
+  isSubscribed,
 }: Properties) => {
   const [titleFirstWord, ...titleRest] = title.split(' ');
   const [selectedCategory, setSelectedCategory] = useState<null | number>(null);
@@ -92,6 +96,8 @@ const Portfolio: React.FC<Properties> = ({
       onEdit={handleEditingStart}
       onUpdate={handleSectionUpdate}
       isEditing={isEditing}
+      isOwner={isOwner}
+      isSubscribed={isSubscribed}
     >
       <div id={type} className={styles['section-wrapper']}>
         <div className={styles['portfolio-wrapper']}>

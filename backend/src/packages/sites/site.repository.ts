@@ -14,19 +14,30 @@ class SiteRepository
   }
 
   public async findAll(): Promise<SiteEntity[]> {
-    const sites = await this.siteModel.query().execute();
+    const sites = await this.siteModel
+      .query()
+      .withGraphFetched('user')
+      .execute();
 
-    return sites.map((site) => SiteEntity.initialize(site));
+    return sites.map(({ user, ...site }) =>
+      SiteEntity.initialize({ ...site, userId: user.id }),
+    );
   }
 
   public async find(id: number): Promise<SiteEntity | null> {
-    const site = await this.siteModel.query().findById(id).execute();
+    const result = await this.siteModel
+      .query()
+      .findById(id)
+      .withGraphFetched('user')
+      .execute();
 
-    if (!site) {
+    if (!result) {
       return null;
     }
 
-    return SiteEntity.initialize(site);
+    const { user, ...site } = result;
+
+    return SiteEntity.initialize({ ...site, userId: user.id });
   }
 
   public async findAllByProjectId(
@@ -46,24 +57,28 @@ class SiteRepository
           void builder.where('name', 'ilike', `%${name}%`);
         }
       })
+      .withGraphFetched('user')
       .page(offset, limit);
 
     return {
       totalCount: total,
-      items: results.map((site) => SiteEntity.initialize(site)),
+      items: results.map(({ user, ...site }) =>
+        SiteEntity.initialize({ ...site, userId: user.id }),
+      ),
     };
   }
 
   public async create(entity: SiteEntity): Promise<SiteEntity> {
     const { name, projectId, image } = entity.toNewObject();
 
-    const site = await this.siteModel
+    const { user, ...site } = await this.siteModel
       .query()
       .insert({ name, projectId, image })
       .returning('*')
+      .withGraphFetched('user')
       .execute();
 
-    return SiteEntity.initialize(site);
+    return SiteEntity.initialize({ ...site, userId: user.id });
   }
 }
 

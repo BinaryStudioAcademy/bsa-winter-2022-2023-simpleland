@@ -60,6 +60,17 @@ class SectionRepository
 
     return SectionEntity.initialize(section);
   }
+
+  public async getSiteId(entity: SectionEntity): Promise<number> {
+    const { id } = entity.toGetSiteId();
+
+    const site = (await this.sectionModel
+      .relatedQuery('site')
+      .for(id)
+      .first()) as SiteModel;
+
+    return site.id;
+  }
 }
 
 export { SectionRepository };
