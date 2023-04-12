@@ -105,6 +105,16 @@ class SectionService
     return updatedSection.toObject();
   }
 
+  public async getSiteId(id: number): Promise<number> {
+    return await this.sectionRepository.getSiteId(
+      SectionEntity.initialize({
+        id,
+        content: null,
+        type: null,
+      }),
+    );
+  }
+
   private async createSectionContent<T extends ValueOf<typeof SectionType>>(
     prompt: string,
     type: T,

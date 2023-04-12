@@ -17,6 +17,8 @@ type Properties = {
   type: ValueOf<typeof SectionType>;
   navigationSections: readonly ValueOf<typeof SectionType>[];
   onUpdate: (payload: unknown) => void;
+  isOwner: boolean;
+  isSubscribed: boolean;
 };
 
 const Footer: React.FC<Properties> = ({
@@ -24,6 +26,8 @@ const Footer: React.FC<Properties> = ({
   navigationSections,
   type,
   onUpdate,
+  isOwner,
+  isSubscribed,
 }: Properties) => {
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<SiteFooterUpdateContentDto>({
@@ -40,7 +44,12 @@ const Footer: React.FC<Properties> = ({
 
   return (
     <div id={type} className={styles['footer']}>
-      <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+      <Overlay
+        onEdit={handleEditingStart}
+        isEditing={isEditing}
+        isOwner={isOwner}
+        isSubscribed={isSubscribed}
+      >
         <div className={styles['footer-container']}>
           <div className={styles['footer-info']}>
             <div className={styles['footer-logo']}>

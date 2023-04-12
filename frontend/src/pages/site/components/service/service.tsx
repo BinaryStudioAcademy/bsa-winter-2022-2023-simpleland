@@ -18,12 +18,16 @@ type Properties = {
   content: SiteServiceContent;
   type: ValueOf<typeof SectionType>;
   onUpdate: (payload: unknown) => void;
+  isOwner: boolean;
+  isSubscribed: boolean;
 };
 
 const Service: React.FC<Properties> = ({
   content: { title, cards },
   type,
   onUpdate,
+  isOwner,
+  isSubscribed,
 }: Properties) => {
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<SiteServiceUpdateContentDto>({
@@ -39,7 +43,12 @@ const Service: React.FC<Properties> = ({
     });
 
   return (
-    <Overlay isEditing={isEditing} onEdit={handleEditingStart}>
+    <Overlay
+      isEditing={isEditing}
+      onEdit={handleEditingStart}
+      isOwner={isOwner}
+      isSubscribed={isSubscribed}
+    >
       <div id={type} className={styles['service']}>
         <div className={styles['service-container']}>
           <div className={styles['title']}>
