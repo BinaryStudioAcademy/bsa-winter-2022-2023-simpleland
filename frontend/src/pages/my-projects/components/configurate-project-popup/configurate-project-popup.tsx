@@ -60,6 +60,7 @@ const ConfigurateProjectPopup: React.FC<Properties> = ({
       name: project?.name ?? '',
       category: project?.category ?? 'business',
     });
+    setImage(null);
   }, [project, handleReset]);
 
   const [image, setImage] = useState<{
