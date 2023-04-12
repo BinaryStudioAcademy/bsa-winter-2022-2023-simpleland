@@ -112,6 +112,7 @@ const Portfolio: React.FC<Properties> = ({
                   styles['edit-portfolio-section-content'],
                 )}
                 onBlur={handleSectionUpdate}
+                isInline
               />
             ) : (
               <>

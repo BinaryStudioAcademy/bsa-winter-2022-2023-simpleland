@@ -64,6 +64,7 @@ const Service: React.FC<Properties> = ({
                   styles['title'],
                 )}
                 onBlur={handleSectionUpdate}
+                isInline
               />
             ) : (
               title

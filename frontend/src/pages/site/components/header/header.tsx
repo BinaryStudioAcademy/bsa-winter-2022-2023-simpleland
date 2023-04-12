@@ -64,6 +64,7 @@ const Header: React.FC<Properties> = ({
                     styles['header-logo'],
                   )}
                   onBlur={handleSectionUpdate}
+                  isInline
                 />
               ) : (
                 logo
@@ -95,6 +96,7 @@ const Header: React.FC<Properties> = ({
                   styles['header-phone'],
                 )}
                 onBlur={handleSectionUpdate}
+                isInline
               />
             ) : (
               phone

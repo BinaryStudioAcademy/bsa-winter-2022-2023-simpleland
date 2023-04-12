@@ -45,8 +45,8 @@ const FeedbackCard: React.FC<Properties> = ({
                   name={`cards.${cardIndex}.name`}
                   label="Feedback author name"
                   isLabelVisuallyHidden
-                  className={styles['edit-feedback-section-content']}
                   onBlur={onHandleSectionUpdate}
+                  isInline
                 />
               </>
             ) : (
@@ -62,8 +62,8 @@ const FeedbackCard: React.FC<Properties> = ({
                   name={`cards.${cardIndex}.profession`}
                   label="Feedback author profession"
                   isLabelVisuallyHidden
-                  className={styles['edit-feedback-section-content']}
                   onBlur={onHandleSectionUpdate}
+                  isInline
                 />
               </>
             ) : (
@@ -82,8 +82,9 @@ const FeedbackCard: React.FC<Properties> = ({
               label="Feedback author name"
               isLabelVisuallyHidden
               rows={5}
-              className={styles['edit-feedback-section']}
+              className={styles['edit-feedback-section-content']}
               onBlur={onHandleSectionUpdate}
+              isInline
             />
           </>
         ) : (
