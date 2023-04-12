@@ -76,13 +76,14 @@ const sectionTypeToUpdateSectionHandler: Record<
   },
   [SectionType.FOOTER]: (content, contentUpdates) => {
     const footerContent = content as SiteFooterContent;
-    const { email, address, phone } = (
-      contentUpdates as SiteFooterUpdateContentDto
-    ).contacts;
+    const { logo, description, email, address, phone } =
+      contentUpdates as SiteFooterUpdateContentDto;
 
-    footerContent.contacts.email = email;
-    footerContent.contacts.address = address;
-    footerContent.contacts.phone = phone;
+    footerContent.logo = logo;
+    footerContent.description = description;
+    footerContent.email = email;
+    footerContent.address = address;
+    footerContent.phone = phone;
 
     return footerContent;
   },

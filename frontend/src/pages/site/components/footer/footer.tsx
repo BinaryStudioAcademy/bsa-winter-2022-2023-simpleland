@@ -1,5 +1,4 @@
 import { Icon, Input } from '~/libs/components/components.js';
-import { getValidClassNames } from '~/libs/helpers/helpers.js';
 import { useAppForm } from '~/libs/hooks/hooks.js';
 import { type ValueOf } from '~/libs/types/types.js';
 import {
@@ -21,18 +20,14 @@ type Properties = {
 };
 
 const Footer: React.FC<Properties> = ({
-  content: {
-    logo,
-    description,
-    contacts: { address, phone, email },
-  },
+  content: { logo, description, address, phone, email },
   navigationSections,
   type,
   onUpdate,
 }: Properties) => {
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<SiteFooterUpdateContentDto>({
-      defaultValues: { contacts: { address, phone, email } },
+      defaultValues: { logo, description, address, phone, email },
       validationSchema: siteFooterUpdateContentValidationSchema,
     });
 
@@ -48,8 +43,37 @@ const Footer: React.FC<Properties> = ({
       <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
         <div className={styles['footer-container']}>
           <div className={styles['footer-info']}>
-            <div className={styles['footer-logo']}>{logo}</div>
-            <div className={styles['footer-description']}>{description}</div>
+            <div className={styles['footer-logo']}>
+              {isEditing ? (
+                <Input
+                  control={control}
+                  errors={errors}
+                  name="logo"
+                  label="Footer section logo"
+                  isLabelVisuallyHidden
+                  onBlur={handleSectionUpdate}
+                  isInline
+                />
+              ) : (
+                logo
+              )}
+            </div>
+            <div className={styles['footer-description']}>
+              {isEditing ? (
+                <Input
+                  control={control}
+                  errors={errors}
+                  name="description"
+                  label="About section description"
+                  isLabelVisuallyHidden
+                  onBlur={handleSectionUpdate}
+                  rows={5}
+                  isInline
+                />
+              ) : (
+                description
+              )}
+            </div>
           </div>
 
           <div className={styles['footer-navigation']}>
@@ -90,11 +114,12 @@ const Footer: React.FC<Properties> = ({
                     <Input
                       control={control}
                       errors={errors}
-                      name="contacts.address"
+                      name="address"
                       label="Contact address"
                       isLabelVisuallyHidden
-                      className={getValidClassNames(styles['edit-address'])}
                       onBlur={handleSectionUpdate}
+                      isInline
+                      rows={6}
                     />
                   ) : (
                     <a
@@ -115,11 +140,12 @@ const Footer: React.FC<Properties> = ({
                     <Input
                       control={control}
                       errors={errors}
-                      name="contacts.email"
+                      name="email"
                       label="Contact email"
                       isLabelVisuallyHidden
-                      className={getValidClassNames(styles['edit-email'])}
                       onBlur={handleSectionUpdate}
+                      isInline
+                      rows={3}
                     />
                   ) : (
                     <a
@@ -138,11 +164,12 @@ const Footer: React.FC<Properties> = ({
                     <Input
                       control={control}
                       errors={errors}
-                      name="contacts.phone"
+                      name="phone"
                       label="Contact phone"
                       isLabelVisuallyHidden
-                      className={getValidClassNames(styles['edit-phone'])}
                       onBlur={handleSectionUpdate}
+                      isInline
+                      rows={3}
                     />
                   ) : (
                     <a

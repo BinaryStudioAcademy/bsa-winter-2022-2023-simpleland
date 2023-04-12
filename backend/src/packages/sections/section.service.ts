@@ -183,11 +183,9 @@ class SectionService
     return {
       logo: content['logo'] ?? '',
       description: content['description'] ?? '',
-      contacts: {
-        email: content['email'] ?? '',
-        address: content['address'] ?? '',
-        phone: content['phone'] ?? '',
-      },
+      email: content['email'] ?? '',
+      address: content['address'] ?? '',
+      phone: content['phone'] ?? '',
       socials: [],
     };
   }

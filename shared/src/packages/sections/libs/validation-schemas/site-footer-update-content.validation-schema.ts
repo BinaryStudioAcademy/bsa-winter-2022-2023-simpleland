@@ -5,16 +5,20 @@ import { SectionValidationMessage } from '~/packages/sections/libs/enums/enums.j
 import { type SiteFooterUpdateContentDto } from '../types/types.js';
 
 const siteFooterUpdateContent = joi.object<SiteFooterUpdateContentDto, true>({
-  contacts: joi.object({
-    email: joi.string().required().messages({
-      'string.empty': SectionValidationMessage.FOOTER_CONTACTS_EMAIL_REQUIRE,
-    }),
-    address: joi.string().required().messages({
-      'string.empty': SectionValidationMessage.FOOTER_CONTACTS_ADDRESS_REQUIRE,
-    }),
-    phone: joi.string().required().messages({
-      'string.empty': SectionValidationMessage.FOOTER_CONTACTS_PHONE_REQUIRE,
-    }),
+  logo: joi.string().required().messages({
+    'string.empty': SectionValidationMessage.FOOTER_LOGO_REQUIRE,
+  }),
+  description: joi.string().required().messages({
+    'string.empty': SectionValidationMessage.FOOTER_DESCRIPTION_REQUIRE,
+  }),
+  email: joi.string().required().messages({
+    'string.empty': SectionValidationMessage.FOOTER_EMAIL_REQUIRE,
+  }),
+  address: joi.string().required().messages({
+    'string.empty': SectionValidationMessage.FOOTER_ADDRESS_REQUIRE,
+  }),
+  phone: joi.string().required().messages({
+    'string.empty': SectionValidationMessage.FOOTER_PHONE_REQUIRE,
   }),
 });
 

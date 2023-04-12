@@ -110,20 +110,3 @@
 .footer-contacts {
   margin-left: 350px;
 }
-
-.edit-address,
-.edit-phone,
-.edit-email {
-  padding: 0;
-  font-weight: inherit;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  border: none;
-}
-
-.edit-address:focus,
-.edit-phone:focus,
-.edit-email:focus {
-  box-shadow: none;
-}

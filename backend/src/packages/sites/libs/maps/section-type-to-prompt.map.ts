@@ -27,9 +27,9 @@ const SectionTypeToPrompt: Record<
   },
   [SectionType.FOOTER]: {
     EXAMPLE:
-      'logo: id Studio\ndescription: We are one of the leading interior design and remodeling studios available for all of your residential and commercial interior design needs.\ncontacts:\nemail:michelle.rivere@idstudio.com\nphone:(808) 555-0111\naddress:3517 W. Gray St. Utica, Pennsylvania 57867',
+      'logo: id Studio\ndescription: We are one of the leading interior design and remodeling studios available for all of your residential and commercial interior design needs.\nemail: michelle.rivere@idstudio.com\nphone: (808) 555-0111\naddress: 3517 W. Gray St. Utica, Pennsylvania 57867',
     REQUEST:
-      'Generate logo text for footer section, description for footer section, contacts with email, phone, address for footer section.',
+      'Generate logo text for footer section, description for footer section, email for footer section, phone for footer section, address for footer section',
   },
   [SectionType.FEEDBACK]: {
     EXAMPLE:
