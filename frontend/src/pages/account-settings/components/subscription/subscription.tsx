@@ -18,9 +18,8 @@ import styles from './styles.module.scss';
 const Subscription: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { subscriptionEndDate, isSubscribed } = useAppSelector(({ auth }) => ({
+  const { subscriptionEndDate } = useAppSelector(({ auth }) => ({
     subscriptionEndDate: (auth.user as UserAuthResponse).subscriptionEndDate,
-    isSubscribed: (auth.user as UserAuthResponse).isSubscribed,
   }));
 
   const leftSubscriptionDays = useMemo(() => {
@@ -71,7 +70,7 @@ const Subscription: React.FC = () => {
           size="small"
           className={styles['button']}
         />
-        <Disabled isDisabled={Boolean(isSubscribed)}>
+        <Disabled isDisabled={Boolean(leftSubscriptionDays)}>
           <Checkout
             onCheckout={handleSubscribe}
             price={SUBSCRIPTION_PRICE}
