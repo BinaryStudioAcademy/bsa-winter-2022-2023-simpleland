@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 import { type Token } from 'react-stripe-checkout';
 
-import { Button, Checkout } from '~/libs/components/components.js';
+import { Button, Checkout, Disabled } from '~/libs/components/components.js';
 import { useAppDispatch, useAppSelector } from '~/libs/hooks/hooks.js';
 import { SUBSCRIPTION_PRICE } from '~/packages/subscription/subscription.js';
+import { type UserAuthResponse } from '~/packages/users/users.js';
 import { actions as usersActions } from '~/slices/users/users.js';
 
 import styles from './styles.module.scss';
@@ -12,7 +13,7 @@ const Subscription: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector(({ auth }) => ({
-    user: auth.user,
+    user: auth.user as UserAuthResponse,
   }));
   const handleSubscribe = useCallback(
     (token: Token) => {
@@ -41,12 +42,13 @@ const Subscription: React.FC = () => {
           size="small"
           className={styles['button']}
         />
-        <Checkout
-          onCheckout={handleSubscribe}
-          price={SUBSCRIPTION_PRICE}
-          label="Subscribe"
-          disabled={Boolean(user?.isSubscribed)}
-        />
+        <Disabled isDisabled={Boolean(user.isSubscribed)}>
+          <Checkout
+            onCheckout={handleSubscribe}
+            price={SUBSCRIPTION_PRICE}
+            label="Subscribe"
+          />
+        </Disabled>
       </div>
     </div>
   );
