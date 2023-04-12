@@ -67,18 +67,14 @@ const Subscription: React.FC = () => {
         <div className={styles['subscription-info-benefits']} />
       </div>
       <div className={styles['subscription-buttons']}>
-        <Button
-          style="secondary"
-          label="Cancel"
-          size="small"
-          className={styles['button']}
-        />
-        <Checkout
-          onCheckout={handleSubscribe}
-          price={SUBSCRIPTION_PRICE}
-          label="Subscribe"
-          isDisabled={isSubscriptionValid}
-        />
+        <div className={styles['subscribe-button']}>
+          <Checkout
+            onCheckout={handleSubscribe}
+            price={SUBSCRIPTION_PRICE}
+            label="Subscribe"
+            isDisabled={isSubscriptionValid}
+          />
+        </div>
       </div>
     </div>
   );
