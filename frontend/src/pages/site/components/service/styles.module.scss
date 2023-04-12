@@ -23,24 +23,10 @@
 .service-cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-bottom: 80px;
 }
 
-.service-button-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.service-button {
-  width: 206px;
-  height: 45px;
-  margin: 85px;
-  color: var(--site-text-color);
-  font-weight: 700;
-  font-size: 15px;
-  font-family: Gilroy, serif;
-  line-height: 22px;
-  background: transparent;
-  border: 2px solid var(--site-brown-color);
-  border-radius: 7.5px;
-  cursor: pointer;
+.edit-title {
+  width: 300px;
+  margin: auto;
 }

@@ -17,12 +17,15 @@ import { token } from '~/libs/packages/token/token.js';
 import {
   authorization as authorizationPlugin,
   file as filePlugin,
+  sectionEditingPermission as sectionEditingPermissionPlugin,
 } from '~/libs/plugins/plugins.js';
 import {
   type ServerCommonErrorResponse,
   type ServerValidationErrorResponse,
   type ValidationSchema,
 } from '~/libs/types/types.js';
+import { sectionService } from '~/packages/sections/sections.js';
+import { siteService } from '~/packages/sites/sites.js';
 import { subscriptionService } from '~/packages/subscription/subscription.js';
 import { userService } from '~/packages/users/users.js';
 
@@ -101,6 +104,10 @@ class ServerApp implements IServerApp {
       token,
     });
     await this.app.register(filePlugin);
+    await this.app.register(sectionEditingPermissionPlugin, {
+      sectionService,
+      siteService,
+    });
   }
 
   public async initMiddlewares(): Promise<void> {

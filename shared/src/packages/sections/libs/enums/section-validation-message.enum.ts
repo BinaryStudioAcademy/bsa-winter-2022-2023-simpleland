@@ -10,6 +10,10 @@ const SectionValidationMessage = {
   FEEDBACK_PROFESSION_REQUIRE: 'Profession is required',
   FEEDBACK_REQUIRE: 'Feedback is required',
   FEEDBACK_PHOTO_REQUIRE: 'Feedback photo is required',
+  SERVICE_TITLE_REQUIRE: 'Title is required',
+  SERVICE_CARD_TITLE_REQUIRE: 'Service title is required',
+  SERVICE_CARD_DESCRIPTION_REQUIRE: 'Service description is required',
+  SERVICE_CARD_IMAGE_REQUIRE: 'Service image is required',
 };
 
 export { SectionValidationMessage };

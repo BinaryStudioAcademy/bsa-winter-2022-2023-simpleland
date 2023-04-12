@@ -11,24 +11,29 @@ class SiteEntity implements IEntity {
 
   private 'image': string | null;
 
+  private 'userId': number | null;
+
   private constructor({
     id,
     name,
     publishedUrl,
     projectId,
     image,
+    userId,
   }: {
     id: number | null;
     name: string;
     publishedUrl: string | null;
     projectId: number;
     image: string | null;
+    userId: number | null;
   }) {
     this.id = id;
     this.name = name;
     this.publishedUrl = publishedUrl;
     this.projectId = projectId;
     this.image = image;
+    this.userId = userId;
   }
 
   public static initialize({
@@ -37,12 +42,14 @@ class SiteEntity implements IEntity {
     projectId,
     publishedUrl,
     image,
+    userId,
   }: {
     id: number;
     name: string;
     publishedUrl: string | null;
     projectId: number;
     image: string | null;
+    userId: number | null;
   }): SiteEntity {
     return new SiteEntity({
       id,
@@ -50,6 +57,7 @@ class SiteEntity implements IEntity {
       projectId,
       publishedUrl,
       image,
+      userId,
     });
   }
 
@@ -68,6 +76,7 @@ class SiteEntity implements IEntity {
       projectId,
       name,
       image,
+      userId: null,
     });
   }
 
@@ -77,6 +86,7 @@ class SiteEntity implements IEntity {
     publishedUrl: string | null;
     projectId: number;
     image: string | null;
+    userId: number;
   } {
     return {
       id: this.id as number,
@@ -84,6 +94,7 @@ class SiteEntity implements IEntity {
       publishedUrl: this.publishedUrl,
       projectId: this.projectId,
       image: this.image,
+      userId: this.userId as number,
     };
   }
 

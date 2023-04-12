@@ -17,12 +17,16 @@ type Properties = {
   content: SiteHeaderContent;
   onUpdate: (payload: unknown) => void;
   navigationSections: readonly ValueOf<typeof SectionType>[];
+  isOwner: boolean;
+  isSubscribed: boolean;
 };
 
 const Header: React.FC<Properties> = ({
   content: { logo, phone },
   onUpdate,
   navigationSections,
+  isOwner,
+  isSubscribed,
 }: Properties) => {
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<SiteHeaderUpdateContentDto>({
@@ -39,7 +43,12 @@ const Header: React.FC<Properties> = ({
 
   return (
     <div className={styles['header']}>
-      <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+      <Overlay
+        onEdit={handleEditingStart}
+        isEditing={isEditing}
+        isOwner={isOwner}
+        isSubscribed={isSubscribed}
+      >
         <div className={styles['header-container']}>
           <div className={styles['header-navigation']}>
             <div className={styles['header-logo']}>
@@ -55,6 +64,7 @@ const Header: React.FC<Properties> = ({
                     styles['header-logo'],
                   )}
                   onBlur={handleSectionUpdate}
+                  isInline
                 />
               ) : (
                 logo
@@ -86,6 +96,7 @@ const Header: React.FC<Properties> = ({
                   styles['header-phone'],
                 )}
                 onBlur={handleSectionUpdate}
+                isInline
               />
             ) : (
               phone

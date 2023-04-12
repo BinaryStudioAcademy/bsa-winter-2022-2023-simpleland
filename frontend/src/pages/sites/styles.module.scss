@@ -4,7 +4,7 @@
 
 .page-wrapper {
   --card-width: 294px;
-  --card-height: 296px;
+  --card-height: 280px;
   --card-gap: 20px;
 
   display: flex;
@@ -97,4 +97,5 @@
 
 .pagination-wrapper {
   align-self: end;
+  margin-top: 30px;
 }

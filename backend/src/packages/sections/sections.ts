@@ -15,7 +15,10 @@ export { SectionModel } from './section.model.js';
 export { sectionService };
 export { SectionType } from './libs/enums/enums.js';
 export { sectionController };
+export { SectionsApiPath } from './libs/enums/enums.js';
 export {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SectionUpdateParametersDto,
 } from './libs/types/types.js';
+export { type SectionService } from './section.service.js';
