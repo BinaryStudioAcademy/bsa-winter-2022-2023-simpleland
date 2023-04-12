@@ -46,6 +46,7 @@ const ServiceCard: React.FC<Properties> = ({
                 styles['service-card-title'],
               )}
               onBlur={onSectionUpdate}
+              isInline
             />
           ) : (
             title
@@ -65,6 +66,7 @@ const ServiceCard: React.FC<Properties> = ({
               )}
               rows={7}
               onBlur={onSectionUpdate}
+              isInline
             />
           ) : (
             description
