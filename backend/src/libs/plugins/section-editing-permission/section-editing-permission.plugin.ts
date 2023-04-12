@@ -13,7 +13,7 @@ import {
 import { type SiteService } from '~/packages/sites/sites.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 
-import { SECTION_EDITING_ROUTE } from './libs/constants/constants.js';
+import { SectionEditingRoute } from './libs/enums/enums.js';
 
 type SectionEditingPermissionPluginParameters = {
   sectionService: SectionService;
@@ -36,9 +36,8 @@ const sectionEditingPermission: FastifyPluginAsync<SectionEditingPermissionPlugi
         }: FastifyRequest<{
           Params: SectionUpdateParametersDto;
         }>) => {
-          const isSectionEditPath =
-            routerPath === SECTION_EDITING_ROUTE.routerPath;
-          const isSectionEditMethod = method === SECTION_EDITING_ROUTE.method;
+          const isSectionEditPath = routerPath === SectionEditingRoute.PATH;
+          const isSectionEditMethod = method === SectionEditingRoute.METHOD;
 
           const isRestrictedRoute = isSectionEditPath && isSectionEditMethod;
 
