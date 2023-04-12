@@ -73,7 +73,7 @@ const Footer: React.FC<Properties> = ({
                   control={control}
                   errors={errors}
                   name="description"
-                  label="About section description"
+                  label="Footer section description"
                   isLabelVisuallyHidden
                   onBlur={handleSectionUpdate}
                   rows={5}
