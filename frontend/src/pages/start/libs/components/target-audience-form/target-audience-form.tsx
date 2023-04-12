@@ -1,6 +1,7 @@
 import { Button, Select } from '~/libs/components/components.js';
 import { useAppForm, useCallback } from '~/libs/hooks/hooks.js';
 import {
+  type SiteCreateRequestDto,
   type SiteCreateStepTarget,
   siteCreateStepTargetValidationSchema,
 } from '~/packages/sites/sites.js';
@@ -11,13 +12,18 @@ import styles from './style.module.scss';
 
 type Properties = {
   onSubmit: (sitePayload: Partial<SiteCreateStepTarget>) => void;
+  siteInfo: SiteCreateRequestDto;
 };
 
 const TargetAudienceForm: React.FC<Properties> = ({
   onSubmit,
+  siteInfo,
 }: Properties): JSX.Element => {
   const { control, errors, handleSubmit } = useAppForm<SiteCreateStepTarget>({
-    defaultValues: DEFAULT_STEP_TARGET_VALUE,
+    defaultValues: {
+      ...DEFAULT_STEP_TARGET_VALUE,
+      targetAudience: siteInfo.targetAudience,
+    },
     mode: 'onSubmit',
     validationSchema: siteCreateStepTargetValidationSchema,
   });

@@ -1,4 +1,4 @@
-import { initAsyncItemsQueue } from '~/libs/helpers/helpers.js';
+import { ApplicationError } from '~/libs/exceptions/exceptions.js';
 import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
 import { type OpenAI } from '~/libs/packages/open-ai/open-ai.package.js';
@@ -18,6 +18,7 @@ import { SectionTypeToPrompt } from './libs/maps/maps.js';
 import {
   type SiteCreateRequestDto,
   type SiteCreateResponseDto,
+  type SiteGetAllItemResponseDto,
   type SiteGetAllResponseDto,
   type SitesFilterQueryDto,
 } from './libs/types/types.js';
@@ -46,20 +47,34 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
 
     return {
       items: sites.map((site) => site.toObject()),
+      totalCount: sites.length,
     };
+  }
+
+  public async find(id: number): Promise<SiteGetAllItemResponseDto> {
+    const site = await this.siteRepository.find(id);
+
+    if (!site) {
+      throw new ApplicationError({
+        message: `Site with id ${id} not found`,
+      });
+    }
+
+    return site.toObject();
   }
 
   public async findAllByProjectId(
     projectId: number,
     queryParameters: SitesFilterQueryDto,
   ): Promise<SiteGetAllResponseDto> {
-    const sites = await this.siteRepository.findAllByProjectId(
+    const { items, totalCount } = await this.siteRepository.findAllByProjectId(
       projectId,
       queryParameters,
     );
 
     return {
-      items: sites.map((site) => site.toObject()),
+      totalCount,
+      items: items.map((item) => item.toObject()),
     };
   }
 
@@ -84,68 +99,17 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     );
     const site = entity.toObject();
 
-    await initAsyncItemsQueue(
-      [
-        {
+    await Promise.all(
+      Object.values(SectionType).map((type) =>
+        sectionService.create({
           siteId: site.id,
-          prompt: this.createPrompt(SectionType.HEADER, {
+          prompt: this.createPrompt(type, {
             ...payload,
             category,
           }),
-          type: SectionType.HEADER,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.MAIN, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.MAIN,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.PORTFOLIO, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.PORTFOLIO,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.ABOUT, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.ABOUT,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.SERVICE, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.SERVICE,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.FEEDBACK, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.FEEDBACK,
-        },
-        {
-          siteId: site.id,
-          prompt: this.createPrompt(SectionType.FOOTER, {
-            ...payload,
-            category,
-          }),
-          type: SectionType.FOOTER,
-        },
-      ],
-      async (section) => {
-        await sectionService.create(section);
-      },
+          type,
+        }),
+      ),
     );
 
     return site;

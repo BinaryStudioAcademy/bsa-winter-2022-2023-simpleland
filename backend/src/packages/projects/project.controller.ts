@@ -12,6 +12,7 @@ import {
   type ProjectFilterQueryDto,
   projectCreateValidationSchema,
   projectFilterValidationSchema,
+  projectUpdateValidationSchema,
 } from '~/packages/projects/projects.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 
@@ -94,6 +95,19 @@ class ProjectController extends Controller {
         this.create(
           options as ApiHandlerOptions<{
             user: UserAuthResponse;
+            body: ProjectCreateRequestDto;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: ProjectsApiPath.$ID,
+      method: 'PUT',
+      validation: { body: projectUpdateValidationSchema },
+      handler: (options) =>
+        this.update(
+          options as ApiHandlerOptions<{
+            params: { id: number };
             body: ProjectCreateRequestDto;
           }>,
         ),
@@ -234,6 +248,45 @@ class ProjectController extends Controller {
         userId: options.user.id,
         category: options.body.category,
       }),
+    };
+  }
+
+  /**
+   * @swagger
+   * /projects/:id:
+   *    put:
+   *      description: Updating project name and category. Returning project
+   *      requestBody:
+   *        description: Project name and description
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *              properties:
+   *                name: string;
+   *                category: string;
+   *      responses:
+   *        200:
+   *          description: Successful update
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/Project'
+   */
+
+  private async update(
+    options: ApiHandlerOptions<{
+      params: { id: number };
+      body: ProjectCreateRequestDto;
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    return {
+      status: HttpCode.OK,
+      payload: await this.projectService.update(
+        options.params.id,
+        options.body,
+      ),
     };
   }
 

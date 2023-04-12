@@ -14,12 +14,26 @@ export { SectionType } from './libs/enums/enums.js';
 export {
   type SectionGetAllItemResponseDto,
   type SectionGetAllResponseDto,
+  type SectionUpdateParametersDto,
+  type SectionUpdateRequestDto,
   type SiteAboutContent,
+  type SiteAboutUpdateContentDto,
   type SiteFeedbackContent,
+  type SiteFeedbackUpdateContentDto,
   type SiteFooterContent,
   type SiteHeaderContent,
+  type SiteHeaderUpdateContentDto,
   type SiteMainContent,
+  type SiteMainUpdateContentDto,
   type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
 } from './libs/types/types.js';
+export {
+  siteAboutUpdateContentValidationSchema,
+  siteFeedbackUpdateContentValidationSchema,
+  siteHeaderUpdateContentValidationSchema,
+  siteMainUpdateContentValidationSchema,
+  sitePortfolioUpdateContentValidationSchema,
+} from './libs/validation-schemas/validation-schemas.js';
 export { sectionsApi };

@@ -24,3 +24,43 @@
   font-size: 15px;
   line-height: 25px;
 }
+
+.footer-navigation {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  gap: 46px;
+}
+
+.navigation-title {
+  margin-bottom: 24px;
+  color: var(--site-text-color);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
+.navigation-links {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.navigation-link,
+.navigation-link:active {
+  color: var(--site-text-color);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+}
+
+.navigation-link::first-letter {
+  text-transform: uppercase;
+}
+
+.social-media {
+  display: flex;
+  gap: 14px;
+}

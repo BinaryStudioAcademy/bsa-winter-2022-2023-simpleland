@@ -34,7 +34,15 @@ import {
  *           minimum: 1
  *         name:
  *           type: string
+ *         projectId:
+ *           type: number
+ *           format: int64
+ *           minimum: 1
  *         publishedUrl:
+ *           type: string
+ *           format: uri
+ *           nullable: true
+ *         image:
  *           type: string
  *           format: uri
  *           nullable: true
@@ -45,6 +53,9 @@ import {
  *         - footer
  *         - main
  *         - about
+ *         - feedback
+ *         - services
+ *         - portfolio
  *     Section:
  *       type: object
  *       properties:
@@ -52,8 +63,6 @@ import {
  *           type: number
  *           format: int64
  *           minimum: 1
- *         name:
- *           type: string
  *         type:
  *           $ref: '#/components/schemas/SectionType'
  *         content:
@@ -80,6 +89,17 @@ class SiteController extends Controller {
           options as ApiHandlerOptions<{
             params: SitesGetByProjectIdParametersDto;
             query: SitesFilterQueryDto;
+          }>,
+        ),
+    });
+
+    this.addRoute({
+      path: SitesApiPath.$ID,
+      method: 'GET',
+      handler: (options) =>
+        this.find(
+          options as ApiHandlerOptions<{
+            params: { id: number };
           }>,
         ),
     });
@@ -147,6 +167,40 @@ class SiteController extends Controller {
         options.params.projectId,
         options.query,
       ),
+    };
+  }
+
+  /**
+   * @swagger
+   * /sites/{id}:
+   *   get:
+   *     description: Get a site by ID
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: ID of the site to retrieve
+   *     responses:
+   *       '200':
+   *         description: OK
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Site'
+   */
+
+  private async find(
+    options: ApiHandlerOptions<{
+      params: { id: number };
+    }>,
+  ): Promise<ApiHandlerResponse> {
+    const { id } = options.params;
+
+    return {
+      status: HttpCode.OK,
+      payload: await this.siteService.find(id),
     };
   }
 

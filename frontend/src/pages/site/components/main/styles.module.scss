@@ -19,6 +19,7 @@
 
 .main-title {
   margin-bottom: 29px;
+  padding-top: 15px;
   color: #3d3737;
   font-size: 62px;
   font-family: "BN Chester", sans-serif;
@@ -48,4 +49,18 @@
 
 .main-picture {
   object-fit: cover;
+}
+
+.edit-main-section-content {
+  height: 100%;
+  padding: 0;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  border: none;
+}
+
+.edit-main-section-content:focus {
+  box-shadow: none;
 }

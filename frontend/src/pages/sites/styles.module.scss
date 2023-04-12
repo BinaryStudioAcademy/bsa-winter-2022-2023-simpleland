@@ -10,14 +10,13 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  gap: 24px;
   width: calc(var(--card-width) * 3 + var(--card-gap) * 2);
-  margin: 108px auto 24px;
+  margin: 98px auto 24px;
 }
 
 .search-wrapper {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
 }
 
 .create-button {
@@ -30,7 +29,6 @@
   gap: var(--card-gap);
   width: calc(var(--card-width) * 3 + var(--card-gap) * 2);
   height: max-content;
-  margin-top: 18px;
 }
 
 .placeholder {
@@ -91,4 +89,12 @@
   height: 12px;
   margin-top: 8px;
   margin-left: 7px;
+}
+
+.title {
+  margin-top: 0;
+}
+
+.pagination-wrapper {
+  align-self: end;
 }

@@ -36,7 +36,7 @@ This is the repository responsible for SimpleLand's apps.
 
 ### 🛖 Application Schema
 
-TBA
+![SimpleLand app schema](https://simpleland-development-bucket.s3.eu-central-1.amazonaws.com/simpleland-app-schema.png)
 
 ### 💽 DB Schema
 

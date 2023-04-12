@@ -1,21 +1,52 @@
+import { Input } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useCallback, useMemo, useState } from '~/libs/hooks/hooks.js';
-import { type SitePortfolioContent } from '~/packages/sections/sections.js';
+import {
+  useAppForm,
+  useCallback,
+  useMemo,
+  useState,
+} from '~/libs/hooks/hooks.js';
+import { type ValueOf } from '~/libs/types/types.js';
+import {
+  type SectionType,
+  type SitePortfolioContent,
+  type SitePortfolioUpdateContentDto,
+} from '~/packages/sections/sections.js';
+import { sitePortfolioUpdateContentValidationSchema } from '~/packages/sections/sections.js';
 
+import { useSectionUpdate } from '../../libs/hooks/hooks.js';
+import { Overlay } from '../overlay/overlay.js';
 import styles from './styles.module.scss';
 
 const MAX_IMAGES_COUNT = 8;
 
 type Properties = {
   content: SitePortfolioContent;
+  type: ValueOf<typeof SectionType>;
+  onUpdate: (payload: unknown) => void;
 };
 
 const Portfolio: React.FC<Properties> = ({
   content: { title, categories },
+  type,
+  onUpdate,
 }: Properties) => {
   const [titleFirstWord, ...titleRest] = title.split(' ');
   const [selectedCategory, setSelectedCategory] = useState<null | number>(null);
   const [isAllVisible, setIsAllVisible] = useState(false);
+
+  const { control, errors, handleSubmit, handleReset } =
+    useAppForm<SitePortfolioUpdateContentDto>({
+      defaultValues: { title },
+      validationSchema: sitePortfolioUpdateContentValidationSchema,
+    });
+
+  const { isEditing, handleEditingStart, handleSectionUpdate } =
+    useSectionUpdate<SitePortfolioUpdateContentDto>({
+      onUpdate,
+      handleReset,
+      handleSubmit,
+    });
 
   const handleSelectCategory = useCallback((value: number | null) => {
     return () => {
@@ -57,64 +88,84 @@ const Portfolio: React.FC<Properties> = ({
   }, [selectedImages]);
 
   return (
-    <div className={styles['section-wrapper']}>
-      <div className={styles['portfolio-wrapper']}>
-        <div className={styles['title']}>
-          {titleFirstWord}
-          &nbsp;
-          <span className={styles['title-brown']}>{titleRest.join(' ')}</span>
-        </div>
-
-        <div className={styles['button-wrapper']}>
-          <div className={styles['categories-wrapper']}>
-            <button
-              onClick={handleSelectCategory(null)}
-              className={getValidClassNames(
-                styles['button'],
-                isActiveCategory(null) && styles['button-brown'],
-              )}
-            >
-              All
-            </button>
-            {categories.map((category, index) => (
-              <button
-                key={`${category.name}/${index}`}
-                onClick={handleSelectCategory(index)}
+    <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+      <div id={type} className={styles['section-wrapper']}>
+        <div className={styles['portfolio-wrapper']}>
+          <div className={styles['title']}>
+            {isEditing ? (
+              <Input
+                control={control}
+                errors={errors}
+                name="title"
+                label="About section title"
+                isLabelVisuallyHidden
                 className={getValidClassNames(
-                  styles['button'],
-                  isActiveCategory(index) && styles['button-brown'],
+                  styles['edit-portfolio-section-content'],
                 )}
-              >
-                {category.name}
-              </button>
-            ))}
+                onBlur={handleSectionUpdate}
+              />
+            ) : (
+              <>
+                {titleFirstWord}
+                &nbsp;
+                <span className={styles['title-brown']}>
+                  {titleRest.join(' ')}
+                </span>
+              </>
+            )}
           </div>
 
-          {isVisibleViewButtonLabel && (
-            <button
-              className={getValidClassNames(
-                styles['button'],
-                styles['button-view'],
-              )}
-              onClick={handleChangeIsAllVisible}
-            >
-              {viewButtonLabel}
-            </button>
-          )}
-        </div>
+          <div className={styles['button-wrapper']}>
+            <div className={styles['categories-wrapper']}>
+              <button
+                onClick={handleSelectCategory(null)}
+                className={getValidClassNames(
+                  styles['button'],
+                  isActiveCategory(null) && styles['button-brown'],
+                )}
+              >
+                All
+              </button>
+              {categories.map((category, index) => (
+                <button
+                  key={`${category.name}/${index}`}
+                  onClick={handleSelectCategory(index)}
+                  className={getValidClassNames(
+                    styles['button'],
+                    isActiveCategory(index) && styles['button-brown'],
+                  )}
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
 
-        <div className={styles['images-wrapper']}>
-          {visibleSelectedImages.map((image, index) => (
-            <img
-              key={`portfolio-${index}`}
-              src={image}
-              alt={`portfolio-${index}`}
-              className={styles['image']}
-            />
-          ))}
+            {isVisibleViewButtonLabel && (
+              <button
+                className={getValidClassNames(
+                  styles['button'],
+                  styles['button-view'],
+                )}
+                onClick={handleChangeIsAllVisible}
+              >
+                {viewButtonLabel}
+              </button>
+            )}
+          </div>
+
+          <div className={styles['images-wrapper']}>
+            {visibleSelectedImages.map((image, index) => (
+              <img
+                key={`portfolio-${index}`}
+                src={image}
+                alt={`portfolio-${index}`}
+                className={styles['image']}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </Overlay>
   );
 };
 
