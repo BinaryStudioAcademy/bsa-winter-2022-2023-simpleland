@@ -10,7 +10,7 @@ type Properties = {
   icon?: IconType;
   size?: 'big' | 'small';
   style?: 'primary' | 'secondary' | 'plain';
-  type: 'button' | 'submit';
+  type?: 'button' | 'submit' | undefined;
   isDisabled?: boolean;
   className?: string | undefined;
   onClick?: (() => void) | undefined;
@@ -31,7 +31,7 @@ const Button: React.FC<Properties> = ({
   icon,
   isLabelVisuallyHidden = false,
   to,
-  form,
+  form = '',
   tooltip,
 }: Properties) => {
   const content = (
