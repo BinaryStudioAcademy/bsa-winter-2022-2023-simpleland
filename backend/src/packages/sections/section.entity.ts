@@ -81,6 +81,14 @@ class SectionEntity implements IEntity {
       content: this.content,
     };
   }
+
+  public toGetSiteId(): {
+    id: number;
+  } {
+    return {
+      id: this.id as number,
+    };
+  }
 }
 
 export { SectionEntity };
