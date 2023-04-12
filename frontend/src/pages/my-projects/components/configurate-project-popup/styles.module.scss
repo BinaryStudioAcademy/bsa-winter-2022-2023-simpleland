@@ -3,11 +3,11 @@
   flex-direction: column;
   gap: 10px;
   width: 340px;
-  margin: 0 auto;
+  margin: 0 auto 27px;
 }
 
 .submit-button {
-  margin: 32px auto 0;
+  margin: 52px auto 0;
 }
 
 .choose-image-wrapper {
@@ -44,4 +44,8 @@
   height: 50%;
   object-fit: cover;
   border: 2px solid var(--black);
+}
+
+.input-wrapper {
+  margin-top: 20px;
 }
