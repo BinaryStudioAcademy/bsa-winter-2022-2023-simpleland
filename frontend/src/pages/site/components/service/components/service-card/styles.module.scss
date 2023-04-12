@@ -40,3 +40,18 @@
   font-size: 18px;
   line-height: 22px;
 }
+
+.edit-service-card {
+  height: 100%;
+  padding: 0;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+}
+
+.edit-service-card:focus {
+  box-shadow: none;
+}
