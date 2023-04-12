@@ -26,6 +26,7 @@ import {
   type SiteServiceContent,
   SectionType,
 } from '~/packages/sections/sections.js';
+import { type SiteGetAllItemResponseDto } from '~/packages/sites/sites.js';
 import { NAVIGATION_SECTION_TYPES } from '~/pages/site/libs/constants.js';
 import { actions as sectionsActions } from '~/slices/sections/sections.js';
 import { actions as sitesActionss } from '~/slices/sites/sites.js';
@@ -53,14 +54,18 @@ const Site: React.FC = () => {
     void dispatch(sitesActionss.getCurrentSite({ id: Number(siteId) }));
   }, [dispatch, siteId]);
 
-  const { sections, sectionsStatus, site, siteStatus } = useAppSelector(
+  const { sections, sectionsStatus, site, siteStatus, user } = useAppSelector(
     (state) => ({
       sections: state.sections.sections,
       sectionsStatus: state.sections.dataStatus,
-      site: state.sites.currentSite,
+      site: state.sites.currentSite as SiteGetAllItemResponseDto,
       siteStatus: state.sites.dataStatus,
+      user: state.auth.user,
     }),
   );
+
+  const isOwner = user?.id === site.userId;
+  const isSubscribed = Boolean(user?.subscriptionEndDate);
 
   const handleUpdate = useCallback(
     ({ id, type }: SectionGetAllItemResponseDto) => {
@@ -90,6 +95,8 @@ const Site: React.FC = () => {
                 key={type}
                 onUpdate={handleUpdate(section)}
                 navigationSections={NAVIGATION_SECTION_TYPES}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -100,6 +107,8 @@ const Site: React.FC = () => {
                 type={type}
                 key={type}
                 onUpdate={handleUpdate(section)}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -110,6 +119,8 @@ const Site: React.FC = () => {
                 key={type}
                 type={type}
                 onUpdate={handleUpdate(section)}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -120,6 +131,8 @@ const Site: React.FC = () => {
                 type={type}
                 key={type}
                 onUpdate={handleUpdate(section)}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -129,6 +142,8 @@ const Site: React.FC = () => {
                 content={content as SiteFooterContent}
                 navigationSections={NAVIGATION_SECTION_TYPES}
                 key={type}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -139,6 +154,8 @@ const Site: React.FC = () => {
                 type={type}
                 key={type}
                 onUpdate={handleUpdate(section)}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -149,6 +166,8 @@ const Site: React.FC = () => {
                 type={type}
                 key={type}
                 onUpdate={handleUpdate(section)}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -177,7 +196,7 @@ const Site: React.FC = () => {
               to={configureString<ValueOf<typeof AppRoute>>(
                 AppRoute.PROJECTS_$PROJECT_ID_SITES,
                 {
-                  projectId: site?.projectId,
+                  projectId: site.projectId,
                 },
               )}
             >

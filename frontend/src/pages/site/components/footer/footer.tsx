@@ -10,6 +10,8 @@ import styles from './styles.module.scss';
 type Properties = {
   content: SiteFooterContent;
   navigationSections: readonly ValueOf<typeof SectionType>[];
+  isOwner: boolean;
+  isSubscribed: boolean;
 };
 
 const Footer: React.FC<Properties> = ({
