@@ -1,5 +1,6 @@
 import { ReactComponent as ArrowLeft } from '~/assets/img/arrow-left.svg';
 import { ReactComponent as ArrowRight } from '~/assets/img/arrow-right.svg';
+import { ReactComponent as CheckOn } from '~/assets/img/check-on.svg';
 import { ReactComponent as Cross } from '~/assets/img/cross.svg';
 import { ReactComponent as Eye } from '~/assets/img/eye.svg';
 import { ReactComponent as EyeSlash } from '~/assets/img/eye-slash.svg';
@@ -28,6 +29,7 @@ const iconNameToSvgIcon: Record<
   'facebook': Facebook,
   'linkedin': Linkedin,
   'twitter': Twitter,
+  'checkOn': CheckOn,
 };
 
 export { iconNameToSvgIcon };
