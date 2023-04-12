@@ -2,7 +2,6 @@ button.StripeCheckout {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  width: 100%;
   background: var(--yellow) !important;
   border: 0 !important;
   border-radius: 0 !important;
@@ -13,6 +12,15 @@ button.StripeCheckout {
 
 button.StripeCheckout:hover {
   background: var(--black) !important;
+}
+
+button[disabled] {
+  border-radius: 0 !important;
+  cursor: not-allowed !important;
+}
+
+button[disabled] span {
+  border-radius: 0 !important;
 }
 
 button.StripeCheckout span {
