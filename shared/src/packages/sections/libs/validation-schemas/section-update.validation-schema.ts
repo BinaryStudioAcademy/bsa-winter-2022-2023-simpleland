@@ -5,6 +5,7 @@ import { type SectionUpdateRequestDto } from '~/packages/sections/libs/types/typ
 
 import { siteAboutUpdateContent } from './site-about-update-content.validation-schema.js';
 import { siteFeedbackUpdateContent } from './site-feedback-update-content.validation-schema.js';
+import { siteFooterUpdateContent } from './site-footer-update-content.validation-schema.js';
 import { siteHeaderUpdateContent } from './site-header-update-content.validation-schema.js';
 import { siteMainUpdateContent } from './site-main-update-content.validation-schema.js';
 import { sitePortfolioUpdateContent } from './site-portfolio-update-content.validation-schema.js';
@@ -35,6 +36,10 @@ const sectionUpdate = joi.object<SectionUpdateRequestDto>({
       {
         is: SectionType.MAIN,
         then: siteMainUpdateContent,
+      },
+      {
+        is: SectionType.FOOTER,
+        then: siteFooterUpdateContent,
       },
     ],
     otherwise: joi.forbidden(),

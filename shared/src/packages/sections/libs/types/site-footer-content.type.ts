@@ -1,7 +1,11 @@
 type SiteFooterContent = {
   logo: string;
   description: string;
-  contacts: string[];
+  contacts: {
+    email: string;
+    address: string;
+    phone: string;
+  };
   socials: string[];
 };
 

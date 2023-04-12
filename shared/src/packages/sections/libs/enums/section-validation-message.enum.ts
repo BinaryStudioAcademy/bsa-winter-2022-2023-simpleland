@@ -10,6 +10,9 @@ const SectionValidationMessage = {
   FEEDBACK_PROFESSION_REQUIRE: 'Profession is required',
   FEEDBACK_REQUIRE: 'Feedback is required',
   FEEDBACK_PHOTO_REQUIRE: 'Feedback photo is required',
+  FOOTER_CONTACTS_EMAIL_REQUIRE: 'Email is required',
+  FOOTER_CONTACTS_ADDRESS_REQUIRE: 'Address is required',
+  FOOTER_CONTACTS_PHONE_REQUIRE: 'Phone is required',
 };
 
 export { SectionValidationMessage };

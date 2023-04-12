@@ -8,6 +8,7 @@ export { type SiteAboutUpdateContentDto } from './site-about-update-content-dto.
 export { type SiteFeedbackContent } from './site-feedback-content.type.js';
 export { type SiteFeedbackUpdateContentDto } from './site-feedback-update-content-dto.type.js';
 export { type SiteFooterContent } from './site-footer-content.type.js';
+export { type SiteFooterUpdateContentDto } from './site-footer-update-content-dto.type.js';
 export { type SiteHeaderContent } from './site-header-content.type.js';
 export { type SiteHeaderUpdateContentDto } from './site-header-update-content-dto.type.js';
 export { type SiteMainContent } from './site-main-content.type.js';
