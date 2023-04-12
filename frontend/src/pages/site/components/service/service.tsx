@@ -74,11 +74,6 @@ const Service: React.FC<Properties> = ({
               />
             ))}
           </div>
-          <div className={styles['service-button-wrapper']}>
-            <button className={styles['service-button']}>
-              FREE CONSULTATION
-            </button>
-          </div>
         </div>
       </div>
     </Overlay>
