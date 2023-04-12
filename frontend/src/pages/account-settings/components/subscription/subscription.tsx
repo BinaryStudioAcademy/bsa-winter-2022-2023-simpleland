@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { type Token } from 'react-stripe-checkout';
 
-import { Button, Checkout, Icon } from '~/libs/components/components.js';
+import { Checkout, Icon } from '~/libs/components/components.js';
 import { checkSubscription, getNumberOfDays } from '~/libs/helpers/helpers.js';
 import { useAppDispatch, useAppSelector, useMemo } from '~/libs/hooks/hooks.js';
 import { SUBSCRIPTION_PRICE } from '~/packages/subscription/subscription.js';
