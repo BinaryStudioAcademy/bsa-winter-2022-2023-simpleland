@@ -1,4 +1,5 @@
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
+import { DatabaseSortDirection as SortDirection } from '~/libs/packages/database/database.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectModel } from '~/packages/projects/project.model.js';
 
@@ -66,7 +67,7 @@ class ProjectRepository implements Omit<IRepository, 'update' | 'delete'> {
           void builder.where('name', 'ilike', `%${name}%`);
         }
       })
-      .orderBy('created_at', 'desc')
+      .orderBy('created_at', SortDirection.DESCENDING)
       .page(offset, limit)
       .withGraphFetched(this.defaultRelationExpression)
       .execute();
