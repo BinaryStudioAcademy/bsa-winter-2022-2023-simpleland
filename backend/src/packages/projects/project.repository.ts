@@ -66,7 +66,7 @@ class ProjectRepository implements Omit<IRepository, 'update' | 'delete'> {
           void builder.where('name', 'ilike', `%${name}%`);
         }
       })
-      .orderBy('created_at')
+      .orderBy('created_at', 'desc')
       .page(offset, limit)
       .withGraphFetched(this.defaultRelationExpression)
       .execute();

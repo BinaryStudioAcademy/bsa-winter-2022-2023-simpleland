@@ -39,7 +39,7 @@ const PAGE_DEFAULT = 1;
 const MyProjects: React.FC = () => {
   const { projects, status, projectsCount } = useAppSelector((state) => ({
     projectsCount: state.projects.projectsCount,
-    projects: [...state.projects.projects].reverse(),
+    projects: state.projects.projects,
     status: state.projects.dataStatus,
   }));
 
