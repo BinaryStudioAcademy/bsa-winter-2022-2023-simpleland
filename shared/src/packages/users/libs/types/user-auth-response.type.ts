@@ -5,6 +5,7 @@ type UserAuthResponse = {
   lastName: string;
   accountName: string | null;
   avatarUrl: string | null;
+  subscriptionEndDate: string | null;
 };
 
 export { type UserAuthResponse };
