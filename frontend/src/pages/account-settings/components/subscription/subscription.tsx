@@ -2,12 +2,13 @@ import { useCallback } from 'react';
 import { type Token } from 'react-stripe-checkout';
 
 import { Checkout, Icon } from '~/libs/components/components.js';
-import { checkSubscription, getNumberOfDays } from '~/libs/helpers/helpers.js';
+import { getNumberOfDays } from '~/libs/helpers/helpers.js';
 import { useAppDispatch, useAppSelector, useMemo } from '~/libs/hooks/hooks.js';
 import { SUBSCRIPTION_PRICE } from '~/packages/subscription/subscription.js';
 import { type UserAuthResponse } from '~/packages/users/users.js';
 import { actions as usersActions } from '~/slices/users/users.js';
 
+import { checkHasSubscription } from '../../libs/helpers/helpers.js';
 import styles from './styles.module.scss';
 
 const Subscription: React.FC = () => {
@@ -26,11 +27,7 @@ const Subscription: React.FC = () => {
   }, [subscriptionEndDate]);
 
   const isSubscriptionValid = useMemo(() => {
-    if (subscriptionEndDate) {
-      return checkSubscription(new Date(), new Date(subscriptionEndDate));
-    }
-
-    return false;
+    return checkHasSubscription(subscriptionEndDate);
   }, [subscriptionEndDate]);
 
   const handleSubscribe = useCallback(
