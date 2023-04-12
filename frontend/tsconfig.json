@@ -2,6 +2,7 @@
   "extends": "../tsconfig.json",
   "include": ["src"],
   "exclude": ["node_modules"],
+  "files": ["src/index.d.ts"],
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",

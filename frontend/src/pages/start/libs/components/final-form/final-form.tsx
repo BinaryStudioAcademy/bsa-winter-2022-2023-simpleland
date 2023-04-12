@@ -24,13 +24,13 @@ const FinalForm: React.FC<Properties> = ({
 
       <div className={styles['info-wrapper']}>
         <div className={styles['info-item']}>
-          <div>Site industry</div>
-          <div className={styles['item-name']}>{industry}</div>
+          <div>Site name</div>
+          <div className={styles['item-name']}>{name}</div>
         </div>
 
         <div className={styles['info-item']}>
-          <div>Site name</div>
-          <div className={styles['item-name']}>{name}</div>
+          <div>Site industry</div>
+          <div className={styles['item-name']}>{industry}</div>
         </div>
 
         <div className={styles['info-item']}>

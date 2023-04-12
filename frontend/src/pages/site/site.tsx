@@ -150,6 +150,7 @@ const Site: React.FC = () => {
                 content={content as SiteServiceContent}
                 type={type}
                 key={type}
+                onUpdate={handleUpdate(section)}
               />
             );
           }
@@ -187,7 +188,7 @@ const Site: React.FC = () => {
               </span>
             </Link>
           </div>
-          <h2>Back to all sites</h2>
+          <h2 className={styles['button-caption']}>Back to all sites</h2>
         </div>
       </div>
       {renderSections()}

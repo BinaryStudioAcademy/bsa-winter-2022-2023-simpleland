@@ -5,3 +5,4 @@ export { siteFooterUpdateContent } from './site-footer-update-content.validation
 export { siteHeaderUpdateContent } from './site-header-update-content.validation-schema.js';
 export { siteMainUpdateContent } from './site-main-update-content.validation-schema.js';
 export { sitePortfolioUpdateContent } from './site-portfolio-update-content.validation-schema.js';
+export { siteServiceUpdateContent } from './site-service-update-content.validation-schema.js';

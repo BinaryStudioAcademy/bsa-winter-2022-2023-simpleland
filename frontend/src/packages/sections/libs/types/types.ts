@@ -16,4 +16,5 @@ export {
   type SitePortfolioContent,
   type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
+  type SiteServiceUpdateContentDto,
 } from 'shared/build/index.js';

@@ -18,6 +18,7 @@ export {
   type SitePortfolioContent,
   type SitePortfolioUpdateContentDto,
   type SiteServiceContent,
+  type SiteServiceUpdateContentDto,
 } from './libs/types/types.js';
 export {
   sectionUpdate as sectionUpdateValidationSchema,
@@ -27,4 +28,5 @@ export {
   siteHeaderUpdateContent as siteHeaderUpdateContentValidationSchema,
   siteMainUpdateContent as siteMainUpdateContentValidationSchema,
   sitePortfolioUpdateContent as sitePortfolioUpdateContentValidationSchema,
+  siteServiceUpdateContent as siteServiceUpdateContentValidationSchema,
 } from './libs/validation-schemas/validation-schemas.js';

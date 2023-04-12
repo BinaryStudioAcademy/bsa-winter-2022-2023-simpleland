@@ -9,6 +9,7 @@ import { siteFooterUpdateContent } from './site-footer-update-content.validation
 import { siteHeaderUpdateContent } from './site-header-update-content.validation-schema.js';
 import { siteMainUpdateContent } from './site-main-update-content.validation-schema.js';
 import { sitePortfolioUpdateContent } from './site-portfolio-update-content.validation-schema.js';
+import { siteServiceUpdateContent } from './site-service-update-content.validation-schema.js';
 
 const sectionUpdate = joi.object<SectionUpdateRequestDto>({
   type: joi
@@ -36,6 +37,10 @@ const sectionUpdate = joi.object<SectionUpdateRequestDto>({
       {
         is: SectionType.MAIN,
         then: siteMainUpdateContent,
+      },
+      {
+        is: SectionType.SERVICE,
+        then: siteServiceUpdateContent,
       },
       {
         is: SectionType.FOOTER,
