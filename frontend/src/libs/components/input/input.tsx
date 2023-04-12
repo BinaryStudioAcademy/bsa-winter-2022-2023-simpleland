@@ -26,6 +26,7 @@ type Properties<T extends FieldValues> = {
   isLabelVisuallyHidden?: boolean;
   onBlur?: () => void;
   rows?: number;
+  isInline?: boolean;
 };
 
 const Input = <T extends FieldValues>({
@@ -42,6 +43,7 @@ const Input = <T extends FieldValues>({
   isLabelVisuallyHidden = false,
   onBlur,
   rows,
+  isInline,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
@@ -53,6 +55,7 @@ const Input = <T extends FieldValues>({
     hasError && styles['has-error'],
     icon && styles['search-input'],
     rows && styles['textarea'],
+    isInline && styles['inline-input'],
     className,
   );
 

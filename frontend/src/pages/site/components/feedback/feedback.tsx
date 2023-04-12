@@ -56,6 +56,7 @@ const Feedback: React.FC<Properties> = ({
                   styles['edit-feedback-section-content'],
                 )}
                 onBlur={handleSectionUpdate}
+                isInline
               />
             ) : (
               <>
