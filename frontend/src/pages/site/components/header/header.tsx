@@ -39,7 +39,11 @@ const Header: React.FC<Properties> = ({
 
   return (
     <div className={styles['header']}>
-      <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+      <Overlay
+        onEdit={handleEditingStart}
+        isEditing={isEditing}
+        onUpdate={handleSectionUpdate}
+      >
         <div className={styles['header-container']}>
           <div className={styles['header-navigation']}>
             <div className={styles['header-logo']}>
@@ -54,7 +58,6 @@ const Header: React.FC<Properties> = ({
                     styles['edit-input'],
                     styles['header-logo'],
                   )}
-                  onBlur={handleSectionUpdate}
                   isInline
                 />
               ) : (
@@ -86,7 +89,6 @@ const Header: React.FC<Properties> = ({
                   styles['edit-input'],
                   styles['header-phone'],
                 )}
-                onBlur={handleSectionUpdate}
                 isInline
               />
             ) : (

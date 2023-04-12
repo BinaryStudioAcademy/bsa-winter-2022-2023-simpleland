@@ -88,7 +88,11 @@ const Portfolio: React.FC<Properties> = ({
   }, [selectedImages]);
 
   return (
-    <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+    <Overlay
+      onEdit={handleEditingStart}
+      onUpdate={handleSectionUpdate}
+      isEditing={isEditing}
+    >
       <div id={type} className={styles['section-wrapper']}>
         <div className={styles['portfolio-wrapper']}>
           <div className={styles['title']}>
@@ -102,7 +106,6 @@ const Portfolio: React.FC<Properties> = ({
                 className={getValidClassNames(
                   styles['edit-portfolio-section-content'],
                 )}
-                onBlur={handleSectionUpdate}
                 isInline
               />
             ) : (

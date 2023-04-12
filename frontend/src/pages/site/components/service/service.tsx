@@ -39,7 +39,11 @@ const Service: React.FC<Properties> = ({
     });
 
   return (
-    <Overlay isEditing={isEditing} onEdit={handleEditingStart}>
+    <Overlay
+      isEditing={isEditing}
+      onUpdate={handleSectionUpdate}
+      onEdit={handleEditingStart}
+    >
       <div id={type} className={styles['service']}>
         <div className={styles['service-container']}>
           <div className={styles['title']}>
@@ -54,7 +58,6 @@ const Service: React.FC<Properties> = ({
                   styles['edit-title'],
                   styles['title'],
                 )}
-                onBlur={handleSectionUpdate}
                 isInline
               />
             ) : (
@@ -70,7 +73,6 @@ const Service: React.FC<Properties> = ({
                 errors={errors}
                 cardIndex={index}
                 isEditing={isEditing}
-                onSectionUpdate={handleSectionUpdate}
               />
             ))}
           </div>

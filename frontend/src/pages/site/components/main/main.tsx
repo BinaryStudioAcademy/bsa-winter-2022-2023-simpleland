@@ -42,7 +42,11 @@ const Main: React.FC<Properties> = ({
       <div className={styles['main-content']}>
         <div className={styles['main-content-left']} />
         <div className={styles['main-content-right']}>
-          <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+          <Overlay
+            onEdit={handleEditingStart}
+            onUpdate={handleSectionUpdate}
+            isEditing={isEditing}
+          >
             <div className={styles['main-title']}>
               {isEditing ? (
                 <Input
@@ -51,7 +55,6 @@ const Main: React.FC<Properties> = ({
                   name="title"
                   label="Main section title"
                   isLabelVisuallyHidden
-                  onBlur={handleSectionUpdate}
                   isInline
                   rows={3}
                 />
@@ -70,7 +73,6 @@ const Main: React.FC<Properties> = ({
                   className={getValidClassNames(
                     styles['edit-main-section-content'],
                   )}
-                  onBlur={handleSectionUpdate}
                   rows={10}
                   isInline
                 />

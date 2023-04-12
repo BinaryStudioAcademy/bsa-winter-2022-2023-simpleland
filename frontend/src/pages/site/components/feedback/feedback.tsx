@@ -41,7 +41,11 @@ const Feedback: React.FC<Properties> = ({
     });
 
   return (
-    <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+    <Overlay
+      onEdit={handleEditingStart}
+      onUpdate={handleSectionUpdate}
+      isEditing={isEditing}
+    >
       <div id={type} className={styles['feedback']}>
         <div className={styles['feedback-container']}>
           <div className={styles['title']}>
@@ -55,7 +59,6 @@ const Feedback: React.FC<Properties> = ({
                 className={getValidClassNames(
                   styles['edit-feedback-section-content'],
                 )}
-                onBlur={handleSectionUpdate}
                 isInline
               />
             ) : (
@@ -78,7 +81,6 @@ const Feedback: React.FC<Properties> = ({
                   key={card.photo}
                   control={control}
                   errors={errors}
-                  onHandleSectionUpdate={handleSectionUpdate}
                 />
               ))}
             </Carousel>
