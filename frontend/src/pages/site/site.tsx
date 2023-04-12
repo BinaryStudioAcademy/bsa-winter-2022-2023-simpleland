@@ -53,14 +53,18 @@ const Site: React.FC = () => {
     void dispatch(sitesActionss.getCurrentSite({ id: Number(siteId) }));
   }, [dispatch, siteId]);
 
-  const { sections, sectionsStatus, site, siteStatus } = useAppSelector(
+  const { sections, sectionsStatus, site, siteStatus, user } = useAppSelector(
     (state) => ({
       sections: state.sections.sections,
       sectionsStatus: state.sections.dataStatus,
       site: state.sites.currentSite,
       siteStatus: state.sites.dataStatus,
+      user: state.auth.user,
     }),
   );
+
+  const isOwner = user?.id === site?.userId;
+  const isSubscribed = Boolean(user?.subscriptionEndDate);
 
   const handleUpdate = useCallback(
     ({ id, type }: SectionGetAllItemResponseDto) => {
@@ -90,6 +94,8 @@ const Site: React.FC = () => {
                 key={type}
                 onUpdate={handleUpdate(section)}
                 navigationSections={NAVIGATION_SECTION_TYPES}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -100,6 +106,8 @@ const Site: React.FC = () => {
                 type={type}
                 key={type}
                 onUpdate={handleUpdate(section)}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -110,6 +118,8 @@ const Site: React.FC = () => {
                 key={type}
                 type={type}
                 onUpdate={handleUpdate(section)}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -120,6 +130,8 @@ const Site: React.FC = () => {
                 type={type}
                 key={type}
                 onUpdate={handleUpdate(section)}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -129,6 +141,8 @@ const Site: React.FC = () => {
                 content={content as SiteFooterContent}
                 navigationSections={NAVIGATION_SECTION_TYPES}
                 key={type}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -139,6 +153,8 @@ const Site: React.FC = () => {
                 type={type}
                 key={type}
                 onUpdate={handleUpdate(section)}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -149,6 +165,8 @@ const Site: React.FC = () => {
                 type={type}
                 key={type}
                 onUpdate={handleUpdate(section)}
+                isOwner={isOwner}
+                isSubscribed={isSubscribed}
               />
             );
           }
@@ -186,7 +204,7 @@ const Site: React.FC = () => {
               </span>
             </Link>
           </div>
-          <h2>Back to all sites</h2>
+          <h2 className={styles['button-caption']}>Back to all sites</h2>
         </div>
       </div>
       {renderSections()}

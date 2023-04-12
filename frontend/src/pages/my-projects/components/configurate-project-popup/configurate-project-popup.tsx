@@ -60,6 +60,7 @@ const ConfigurateProjectPopup: React.FC<Properties> = ({
       name: project?.name ?? '',
       category: project?.category ?? 'business',
     });
+    setImage(null);
   }, [project, handleReset]);
 
   const [image, setImage] = useState<{
@@ -126,13 +127,14 @@ const ConfigurateProjectPopup: React.FC<Properties> = ({
               onChange={handleImageChange}
             />
           </label>
-
-          <Input
-            control={control}
-            errors={errors}
-            label="Enter your project name"
-            name="name"
-          />
+          <div className={styles['input-wrapper']}>
+            <Input
+              control={control}
+              errors={errors}
+              label="Enter your project name"
+              name="name"
+            />
+          </div>
           <div className={styles['select-wrapper']}>
             <Select
               control={control}

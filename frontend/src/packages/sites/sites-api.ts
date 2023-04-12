@@ -106,7 +106,7 @@ class SitesApi extends HttpApi {
       {
         method: 'GET',
         contentType: ContentType.JSON,
-        hasAuth: true,
+        hasAuth: false,
       },
     );
 
