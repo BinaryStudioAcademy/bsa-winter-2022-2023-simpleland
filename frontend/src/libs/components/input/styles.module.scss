@@ -70,3 +70,22 @@
   border: 2px solid var(--black);
   outline: none;
 }
+
+.inline-input {
+  height: 100%;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  text-align: center;
+  background-color: transparent;
+  background-image: linear-gradient(#ffb61d, #ffb61d);
+  background-repeat: no-repeat;
+  background-position: center bottom 2px;
+  background-size: calc(100% - 0%) 2px;
+  border: none;
+}
+
+.inline-input:focus {
+  background: transparent;
+  box-shadow: none;
+}
