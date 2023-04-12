@@ -18,12 +18,16 @@ type Properties = {
   content: SiteFeedbackContent;
   type: ValueOf<typeof SectionType>;
   onUpdate: (payload: unknown) => void;
+  isOwner: boolean;
+  isSubscribed: boolean;
 };
 
 const Feedback: React.FC<Properties> = ({
   content: { title, cards },
   type,
   onUpdate,
+  isOwner,
+  isSubscribed,
 }: Properties) => {
   const [titleFirstWord, ...titleRest] = title.split(' ');
 
@@ -41,7 +45,12 @@ const Feedback: React.FC<Properties> = ({
     });
 
   return (
-    <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+    <Overlay
+      onEdit={handleEditingStart}
+      isEditing={isEditing}
+      isOwner={isOwner}
+      isSubscribed={isSubscribed}
+    >
       <div id={type} className={styles['feedback']}>
         <div className={styles['feedback-container']}>
           <div className={styles['title']}>
@@ -56,6 +65,7 @@ const Feedback: React.FC<Properties> = ({
                   styles['edit-feedback-section-content'],
                 )}
                 onBlur={handleSectionUpdate}
+                isInline
               />
             ) : (
               <>

@@ -17,6 +17,7 @@ type Properties = {
   isLabelVisuallyHidden?: boolean;
   to?: ValueOf<typeof AppRoute> | undefined;
   form?: string | undefined;
+  tooltip?: string | undefined;
 };
 
 const Button: React.FC<Properties> = ({
@@ -31,6 +32,7 @@ const Button: React.FC<Properties> = ({
   isLabelVisuallyHidden = false,
   to,
   form,
+  tooltip,
 }: Properties) => {
   const content = (
     <>
@@ -52,6 +54,10 @@ const Button: React.FC<Properties> = ({
     className,
   );
 
+  const tooltipProperties = tooltip
+    ? { 'data-tooltip-content': tooltip, 'data-tooltip-id': 'app-main-tooltip' }
+    : {};
+
   return to ? (
     <Link to={to} className={validClassNames}>
       {content}
@@ -63,6 +69,7 @@ const Button: React.FC<Properties> = ({
       type={type}
       disabled={isDisabled}
       className={validClassNames}
+      {...tooltipProperties}
     >
       {content}
     </button>

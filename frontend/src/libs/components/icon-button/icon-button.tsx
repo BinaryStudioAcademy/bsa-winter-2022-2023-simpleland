@@ -21,6 +21,7 @@ const IconButton: React.FC<Properties> = ({
   to,
   form,
   type,
+  tooltip,
 }: Properties) => (
   <Button
     form={form}
@@ -33,6 +34,7 @@ const IconButton: React.FC<Properties> = ({
     to={to}
     className={getValidClassNames(styles['icon-button'], className)}
     isLabelVisuallyHidden
+    tooltip={tooltip}
   />
 );
 

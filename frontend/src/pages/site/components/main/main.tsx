@@ -17,12 +17,16 @@ type Properties = {
   content: SiteMainContent;
   type: ValueOf<typeof SectionType>;
   onUpdate: (payload: unknown) => void;
+  isOwner: boolean;
+  isSubscribed: boolean;
 };
 
 const Main: React.FC<Properties> = ({
   content: { description, title, picture },
   type,
   onUpdate,
+  isOwner,
+  isSubscribed,
 }: Properties) => {
   const { control, errors, handleSubmit, handleReset } =
     useAppForm<SiteMainUpdateContentDto>({
@@ -42,7 +46,12 @@ const Main: React.FC<Properties> = ({
       <div className={styles['main-content']}>
         <div className={styles['main-content-left']} />
         <div className={styles['main-content-right']}>
-          <Overlay onEdit={handleEditingStart} isEditing={isEditing}>
+          <Overlay
+            onEdit={handleEditingStart}
+            isEditing={isEditing}
+            isOwner={isOwner}
+            isSubscribed={isSubscribed}
+          >
             <div className={styles['main-title']}>
               {isEditing ? (
                 <Input
@@ -51,10 +60,9 @@ const Main: React.FC<Properties> = ({
                   name="title"
                   label="Main section title"
                   isLabelVisuallyHidden
-                  className={getValidClassNames(
-                    styles['edit-main-section-content'],
-                  )}
                   onBlur={handleSectionUpdate}
+                  isInline
+                  rows={3}
                 />
               ) : (
                 title
@@ -73,13 +81,13 @@ const Main: React.FC<Properties> = ({
                   )}
                   onBlur={handleSectionUpdate}
                   rows={10}
+                  isInline
                 />
               ) : (
                 description
               )}
             </div>
           </Overlay>
-          <button className={styles['main-button']}>Get started</button>
         </div>
       </div>
 
