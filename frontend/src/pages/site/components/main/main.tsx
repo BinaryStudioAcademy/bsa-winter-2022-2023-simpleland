@@ -79,7 +79,6 @@ const Main: React.FC<Properties> = ({
               )}
             </div>
           </Overlay>
-          <button className={styles['main-button']}>Get started</button>
         </div>
       </div>
 
