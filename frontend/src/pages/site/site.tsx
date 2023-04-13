@@ -190,25 +190,27 @@ const Site: React.FC = () => {
 
   return (
     <div className={styles['site']}>
-      <div className={styles['button-container']}>
-        <div className={styles['button-wrapper']}>
-          <div>
-            <Link
-              to={configureString<ValueOf<typeof AppRoute>>(
-                AppRoute.PROJECTS_$PROJECT_ID_SITES,
-                {
-                  projectId: site?.projectId,
-                },
-              )}
-            >
-              <span className={styles['link-to-projects']}>
-                <Icon iconName="arrowLeft" className={styles['back-icon']} />
-              </span>
-            </Link>
+      {isOwner && (
+        <div className={styles['button-container']}>
+          <div className={styles['button-wrapper']}>
+            <div>
+              <Link
+                to={configureString<ValueOf<typeof AppRoute>>(
+                  AppRoute.PROJECTS_$PROJECT_ID_SITES,
+                  {
+                    projectId: site?.projectId,
+                  },
+                )}
+              >
+                <span className={styles['link-to-projects']}>
+                  <Icon iconName="arrowLeft" className={styles['back-icon']} />
+                </span>
+              </Link>
+            </div>
+            <h2 className={styles['button-caption']}>Back to all sites</h2>
           </div>
-          <h2 className={styles['button-caption']}>Back to all sites</h2>
         </div>
-      </div>
+      )}
       {renderSections()}
     </div>
   );
