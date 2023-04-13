@@ -1,6 +1,6 @@
 import mockImage from 'src/assets/img/site-mock-image.jpg';
 
-import { Divider, IconButton, Link } from '~/libs/components/components.js';
+import { IconButton, Link } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import { configureString } from '~/libs/helpers/helpers.js';
 import { type ValueOf } from '~/libs/types/types.js';
@@ -41,8 +41,6 @@ const SiteCard: React.FC<Properties> = ({ site }: Properties) => {
               />
             </div>
           </Link>
-
-          <Divider />
         </div>
       </div>
     </div>

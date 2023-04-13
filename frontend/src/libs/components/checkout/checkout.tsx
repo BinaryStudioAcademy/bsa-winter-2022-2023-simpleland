@@ -22,14 +22,16 @@ const Checkout: React.FC<Properties> = ({
   isDisabled,
 }: Properties) => {
   return (
-    <StripeCheckout
-      stripeKey={config.ENV.STRIPE.STRIPE_PUBLIC_KEY}
-      token={onCheckout}
-      amount={price * MULTIPLIER_TO_SMALLEST_CURRENCY_UNIT}
-      label={label}
-      currency={CURRENCY}
-      disabled={isDisabled}
-    />
+    <div className="stripe-wrapper">
+      <StripeCheckout
+        stripeKey={config.ENV.STRIPE.STRIPE_PUBLIC_KEY}
+        token={onCheckout}
+        amount={price * MULTIPLIER_TO_SMALLEST_CURRENCY_UNIT}
+        label={label}
+        currency={CURRENCY}
+        disabled={isDisabled}
+      />
+    </div>
   );
 };
 

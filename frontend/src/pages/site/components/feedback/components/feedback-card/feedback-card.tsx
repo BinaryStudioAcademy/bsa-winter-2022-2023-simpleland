@@ -9,7 +9,6 @@ type Properties = {
   isEditing: boolean;
   control: Control<SiteFeedbackUpdateContentDto>;
   errors: FieldErrors<SiteFeedbackUpdateContentDto>;
-  onHandleSectionUpdate: () => void;
   cardIndex: number;
   card: {
     photo: string;
@@ -24,7 +23,6 @@ const FeedbackCard: React.FC<Properties> = ({
   cardIndex,
   control,
   errors,
-  onHandleSectionUpdate,
   card: { name, photo, profession, feedback },
 }: Properties) => {
   return (
@@ -45,7 +43,6 @@ const FeedbackCard: React.FC<Properties> = ({
                   name={`cards.${cardIndex}.name`}
                   label="Feedback author name"
                   isLabelVisuallyHidden
-                  onBlur={onHandleSectionUpdate}
                   isInline
                 />
               </>
@@ -62,7 +59,6 @@ const FeedbackCard: React.FC<Properties> = ({
                   name={`cards.${cardIndex}.profession`}
                   label="Feedback author profession"
                   isLabelVisuallyHidden
-                  onBlur={onHandleSectionUpdate}
                   isInline
                 />
               </>
@@ -83,7 +79,6 @@ const FeedbackCard: React.FC<Properties> = ({
               isLabelVisuallyHidden
               rows={5}
               className={styles['edit-feedback-section-content']}
-              onBlur={onHandleSectionUpdate}
               isInline
             />
           </>

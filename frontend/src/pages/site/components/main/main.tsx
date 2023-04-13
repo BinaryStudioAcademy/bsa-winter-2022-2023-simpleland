@@ -48,6 +48,7 @@ const Main: React.FC<Properties> = ({
         <div className={styles['main-content-right']}>
           <Overlay
             onEdit={handleEditingStart}
+            onUpdate={handleSectionUpdate}
             isEditing={isEditing}
             isOwner={isOwner}
             isSubscribed={isSubscribed}
@@ -60,7 +61,6 @@ const Main: React.FC<Properties> = ({
                   name="title"
                   label="Main section title"
                   isLabelVisuallyHidden
-                  onBlur={handleSectionUpdate}
                   isInline
                   rows={3}
                 />
@@ -79,7 +79,6 @@ const Main: React.FC<Properties> = ({
                   className={getValidClassNames(
                     styles['edit-main-section-content'],
                   )}
-                  onBlur={handleSectionUpdate}
                   rows={10}
                   isInline
                 />
