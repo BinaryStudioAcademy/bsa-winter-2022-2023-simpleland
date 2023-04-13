@@ -170,9 +170,7 @@ class SectionService
     const content = await openAI.createCompletion(prompt);
 
     const image = await openAI.createImage(
-      `Main site image with light background color without text. This image connected with ${
-        content['title'] ?? ''
-      }`,
+      content['imageDescription'] ?? '',
       ImageSize.LARGE,
     );
 
@@ -258,7 +256,7 @@ class SectionService
     await Promise.all(
       portfolioContent.categories.map(async (category) => {
         const rawImages = await openAI.createImages(
-          `Find website portfolio images for the ${category.name} category.`,
+          content[`${category.name}ImageDescription`] ?? '',
           SectionService.portfolioCategoryImagesQuantity,
         );
         const images = await Promise.all(
