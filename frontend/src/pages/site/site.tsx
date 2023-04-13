@@ -141,6 +141,8 @@ const Site: React.FC = () => {
                 content={content as SiteFooterContent}
                 navigationSections={NAVIGATION_SECTION_TYPES}
                 key={type}
+                type={type}
+                onUpdate={handleUpdate(section)}
                 isOwner={isOwner}
                 isSubscribed={isSubscribed}
               />

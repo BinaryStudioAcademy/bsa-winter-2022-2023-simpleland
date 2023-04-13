@@ -33,6 +33,11 @@
   height: 15px;
 }
 
+.check-icon-benefits {
+  width: 24px;
+  height: 16px;
+}
+
 .subscription-info-title {
   display: flex;
   flex-direction: column;
@@ -66,8 +71,32 @@
 }
 
 .subscription-info-benefits {
-  height: 185px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 32px 24px;
+  color: var(--gray-600);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
   background-color: var(--gray-100);
+}
+
+.benefits-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.benefits-item-disable {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gray-300);
+}
+
+.lock-icon {
+  fill: var(--yellow);
 }
 
 .subscription-buttons {
