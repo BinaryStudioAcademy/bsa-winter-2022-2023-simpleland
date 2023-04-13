@@ -1,8 +1,8 @@
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
-import { DatabaseSortDirection as SortDirection } from '~/libs/packages/database/database.js';
 import { ProjectEntity } from '~/packages/projects/project.entity.js';
 import { type ProjectModel } from '~/packages/projects/project.model.js';
 
+import { ProjectsSortDirection as SortDirection } from './libs/enums/enums.js';
 import { type ProjectFilterQueryDto } from './libs/types/types.js';
 
 class ProjectRepository implements Omit<IRepository, 'update' | 'delete'> {

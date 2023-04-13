@@ -52,6 +52,7 @@ export {
   projectCreateValidationSchema,
   projectFilterValidationSchema,
   ProjectsApiPath,
+  ProjectsSortDirection,
   projectUpdateValidationSchema,
 } from './packages/projects/projects.js';
 export {

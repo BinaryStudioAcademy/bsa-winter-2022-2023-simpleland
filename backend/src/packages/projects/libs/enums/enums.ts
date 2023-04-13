@@ -1,1 +1,5 @@
-export { ProjectCategory, ProjectsApiPath } from 'shared/build/index.js';
+export {
+  ProjectCategory,
+  ProjectsApiPath,
+  ProjectsSortDirection,
+} from 'shared/build/index.js';
