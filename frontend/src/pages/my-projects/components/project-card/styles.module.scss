@@ -24,6 +24,9 @@
 
 .title {
   margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .card-description {
