@@ -46,6 +46,7 @@ const Service: React.FC<Properties> = ({
     <Overlay
       isEditing={isEditing}
       onEdit={handleEditingStart}
+      onUpdate={handleSectionUpdate}
       isOwner={isOwner}
       isSubscribed={isSubscribed}
     >
@@ -63,7 +64,6 @@ const Service: React.FC<Properties> = ({
                   styles['edit-title'],
                   styles['title'],
                 )}
-                onBlur={handleSectionUpdate}
                 isInline
               />
             ) : (
@@ -79,7 +79,6 @@ const Service: React.FC<Properties> = ({
                 errors={errors}
                 cardIndex={index}
                 isEditing={isEditing}
-                onSectionUpdate={handleSectionUpdate}
               />
             ))}
           </div>

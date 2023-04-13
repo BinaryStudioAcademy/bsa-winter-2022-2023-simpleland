@@ -140,7 +140,7 @@ const MyProjects: React.FC = () => {
 
   if (status === DataStatus.PENDING) {
     return (
-      <PageLayout style="black">
+      <PageLayout style="white">
         <Loader style="yellow" />
       </PageLayout>
     );

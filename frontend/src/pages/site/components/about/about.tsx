@@ -44,6 +44,7 @@ const About: React.FC<Properties> = ({
   return (
     <Overlay
       onEdit={handleEditingStart}
+      onUpdate={handleSectionUpdate}
       isEditing={isEditing}
       isOwner={isOwner}
       isSubscribed={isSubscribed}
@@ -58,7 +59,6 @@ const About: React.FC<Properties> = ({
                 name="title"
                 label="About section title"
                 isLabelVisuallyHidden
-                onBlur={handleSectionUpdate}
                 isInline
                 rows={3}
               />
@@ -77,7 +77,6 @@ const About: React.FC<Properties> = ({
                 className={getValidClassNames(
                   styles['edit-about-section-content'],
                 )}
-                onBlur={handleSectionUpdate}
                 rows={10}
                 isInline
               />
