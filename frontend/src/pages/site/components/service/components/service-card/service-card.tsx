@@ -15,7 +15,6 @@ type Properties = {
   errors: FieldErrors<SiteServiceUpdateContentDto>;
   cardIndex: number;
   isEditing: boolean;
-  onSectionUpdate: () => void;
 };
 
 const ServiceCard: React.FC<Properties> = ({
@@ -24,7 +23,6 @@ const ServiceCard: React.FC<Properties> = ({
   errors,
   cardIndex,
   isEditing,
-  onSectionUpdate,
 }: Properties) => {
   return (
     <div className={styles['service-card']}>
@@ -40,7 +38,6 @@ const ServiceCard: React.FC<Properties> = ({
               name={`cards.${cardIndex}.title`}
               label="Service title"
               isLabelVisuallyHidden
-              onBlur={onSectionUpdate}
               isInline
             />
           ) : (
@@ -56,7 +53,6 @@ const ServiceCard: React.FC<Properties> = ({
               label="Service description"
               isLabelVisuallyHidden
               rows={7}
-              onBlur={onSectionUpdate}
               isInline
             />
           ) : (

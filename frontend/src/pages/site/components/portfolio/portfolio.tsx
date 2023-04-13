@@ -94,6 +94,7 @@ const Portfolio: React.FC<Properties> = ({
   return (
     <Overlay
       onEdit={handleEditingStart}
+      onUpdate={handleSectionUpdate}
       isEditing={isEditing}
       isOwner={isOwner}
       isSubscribed={isSubscribed}
@@ -111,7 +112,6 @@ const Portfolio: React.FC<Properties> = ({
                 className={getValidClassNames(
                   styles['edit-portfolio-section-content'],
                 )}
-                onBlur={handleSectionUpdate}
                 isInline
               />
             ) : (
