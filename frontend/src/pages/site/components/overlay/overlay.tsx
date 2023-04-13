@@ -1,11 +1,17 @@
 import { IconButton } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { useCallback, useState } from '~/libs/hooks/hooks.js';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from '~/libs/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
   onEdit: () => void;
+  onUpdate: () => void;
   isEditing: boolean;
   children: React.ReactNode;
   isOwner: boolean;
@@ -14,12 +20,15 @@ type Properties = {
 
 const Overlay: React.FC<Properties> = ({
   onEdit,
+  onUpdate,
   isEditing,
   children,
   isOwner,
   isSubscribed,
 }: Properties) => {
   const [showOverlay, setShowOverlay] = useState<boolean>(false);
+
+  const overlayReference = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = useCallback((): void => {
     setShowOverlay(true);
@@ -29,6 +38,24 @@ const Overlay: React.FC<Properties> = ({
     setShowOverlay(false);
   }, [setShowOverlay]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent): void => {
+      if (
+        isEditing &&
+        overlayReference.current &&
+        !overlayReference.current.contains(event.target as Node)
+      ) {
+        onUpdate();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isEditing, overlayReference, onUpdate]);
+
   const shouldShowOverlay = showOverlay && !isEditing && isOwner;
 
   return (
@@ -36,6 +63,7 @@ const Overlay: React.FC<Properties> = ({
       className={styles['overlay-wrapper']}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      ref={overlayReference}
     >
       {shouldShowOverlay && (
         <div className={styles['overlay']}>

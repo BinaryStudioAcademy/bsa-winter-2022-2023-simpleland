@@ -4,7 +4,7 @@ import {
   type UseFormReset,
 } from 'react-hook-form';
 
-import { useCallback, useState } from '~/libs/hooks/hooks.js';
+import { useCallback, useEffect, useState } from '~/libs/hooks/hooks.js';
 
 type ReturnValue = {
   isEditing: boolean;
@@ -35,6 +35,20 @@ const useSectionUpdate = <T extends FieldValues = FieldValues>({
     })();
     setIsEditing(false);
   }, [handleSubmit, onUpdate, handleReset]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        handleSectionUpdate();
+        setIsEditing(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [setIsEditing, handleSectionUpdate]);
 
   return { isEditing, handleEditingStart, handleSectionUpdate };
 };
