@@ -17,6 +17,10 @@ const WHITE_ROUTES: WhiteRoute[] = [
     methods: ['GET'],
   },
   {
+    routerPath: `/api/v1${ApiPath.SITES}${SitesApiPath.$ID}`,
+    methods: ['GET'],
+  },
+  {
     routerPath: '/v1/documentation',
     methods: ['GET'],
   },

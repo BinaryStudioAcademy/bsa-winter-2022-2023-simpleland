@@ -105,6 +105,16 @@ class SectionService
     return updatedSection.toObject();
   }
 
+  public async getSiteId(id: number): Promise<number> {
+    return await this.sectionRepository.getSiteId(
+      SectionEntity.initialize({
+        id,
+        content: null,
+        type: null,
+      }),
+    );
+  }
+
   private async createSectionContent<T extends ValueOf<typeof SectionType>>(
     prompt: string,
     type: T,
@@ -160,9 +170,7 @@ class SectionService
     const content = await openAI.createCompletion(prompt);
 
     const image = await openAI.createImage(
-      `Main site image with light background color without text. This image connected with ${
-        content['title'] ?? ''
-      }`,
+      content['imageDescription'] ?? '',
       ImageSize.LARGE,
     );
 
@@ -183,7 +191,9 @@ class SectionService
     return {
       logo: content['logo'] ?? '',
       description: content['description'] ?? '',
-      contacts: [],
+      email: content['email'] ?? '',
+      address: content['address'] ?? '',
+      phone: content['phone'] ?? '',
       socials: [],
     };
   }
@@ -246,7 +256,7 @@ class SectionService
     await Promise.all(
       portfolioContent.categories.map(async (category) => {
         const rawImages = await openAI.createImages(
-          `Find website portfolio images for the ${category.name} category.`,
+          content[`${category.name}ImageDescription`] ?? '',
           SectionService.portfolioCategoryImagesQuantity,
         );
         const images = await Promise.all(

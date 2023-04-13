@@ -19,6 +19,7 @@ const IconButton: React.FC<Properties> = ({
   isDisabled = false,
   className,
   to,
+  tooltip,
 }: Properties) => (
   <Button
     icon={icon}
@@ -29,6 +30,7 @@ const IconButton: React.FC<Properties> = ({
     to={to}
     className={getValidClassNames(styles['icon-button'], className)}
     isLabelVisuallyHidden
+    tooltip={tooltip}
   />
 );
 
