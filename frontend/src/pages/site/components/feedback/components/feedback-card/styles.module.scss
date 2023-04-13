@@ -24,7 +24,7 @@
 }
 
 .feedback-card-photo {
-  z-index: 5;
+  z-index: var(--z-index-level-ground);
   display: block;
   width: 159px;
   height: 159px;
