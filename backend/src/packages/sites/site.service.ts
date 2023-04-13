@@ -13,7 +13,11 @@ import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteRepository } from '~/packages/sites/site.repository.js';
 
 import { PROMPT_HEADING } from './libs/constants/constants.js';
-import { SiteTargetType, SiteToneType } from './libs/enums/enums.js';
+import {
+  SiteImagePrompt,
+  SiteTargetType,
+  SiteToneType,
+} from './libs/enums/enums.js';
 import { SectionTypeToPrompt } from './libs/maps/maps.js';
 import {
   type SiteCreateRequestDto,
@@ -85,9 +89,17 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   ): Promise<SiteCreateResponseDto> {
     const { category } = await projectService.find(payload.projectId);
 
-    const siteImage = await this.openAI.createImage(
-      this.createSiteImagePrompt(payload),
+    const image = await this.openAI.createCompletion(
+      this.createPrompt('siteImage', {
+        ...payload,
+        category,
+      }),
     );
+
+    const siteImage = await this.openAI.createImage(
+      image['imageDescription'] ?? '',
+    );
+
     const { url } = await this.file.upload({ file: siteImage });
 
     const entity = await this.siteRepository.create(
@@ -122,7 +134,7 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   }
 
   private createPrompt(
-    type: ValueOf<typeof SectionType>,
+    type: ValueOf<typeof SectionType> | 'siteImage',
     siteInfo: SiteCreateRequestDto & { category: string },
   ): string {
     const exampleSiteDescription = this.createSiteDescription({
@@ -138,7 +150,8 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
       category: siteInfo.category,
     });
 
-    const { EXAMPLE, REQUEST } = SectionTypeToPrompt[type];
+    const { EXAMPLE, REQUEST } =
+      type === 'siteImage' ? SiteImagePrompt : SectionTypeToPrompt[type];
 
     const prompt = [
       PROMPT_HEADING,
@@ -161,15 +174,6 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
     category,
   }: SiteCreateRequestDto & { category: string }): string => {
     return `Generate content for a website with name ${name} and ${category}. It is a site for a ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
-  };
-
-  private createSiteImagePrompt = ({
-    name,
-    industry,
-    tone,
-    targetAudience,
-  }: SiteCreateRequestDto): string => {
-    return `Generate content for a website with name ${name}. It is a site for ${industry} company. The target audience is ${targetAudience}. The tone and style should be ${tone}.`;
   };
 }
 
