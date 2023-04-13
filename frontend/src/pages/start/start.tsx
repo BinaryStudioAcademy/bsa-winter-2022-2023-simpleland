@@ -26,7 +26,7 @@ import {
 import {
   DEFAULT_SITE_PAYLOAD,
   ONE_STEP_LENGTH,
-  STEPS_FORM_SUBMIT,
+  STEPS_FORM_SUBMIT_ID,
 } from './libs/constants.js';
 import styles from './styles.module.scss';
 
@@ -120,7 +120,7 @@ const Start: React.FC = () => {
                     />
                     <IconButton
                       type="submit"
-                      form={STEPS_FORM_SUBMIT}
+                      formId={STEPS_FORM_SUBMIT_ID}
                       icon="arrowRight"
                       label="Go to the next step"
                       isDisabled={isLastStep}

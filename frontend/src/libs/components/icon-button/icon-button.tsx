@@ -19,12 +19,12 @@ const IconButton: React.FC<Properties> = ({
   isDisabled = false,
   className,
   to,
-  form,
+  formId,
   type,
   tooltip,
 }: Properties) => (
   <Button
-    form={form}
+    formId={formId}
     type={type}
     icon={icon}
     label={label}

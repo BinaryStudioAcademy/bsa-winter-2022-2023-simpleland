@@ -5,7 +5,7 @@ import {
   type SiteCreateStepTone,
   siteCreateStepToneValidationSchema,
 } from '~/packages/sites/sites.js';
-import { STEPS_FORM_SUBMIT } from '~/pages/start/libs/constants.js';
+import { STEPS_FORM_SUBMIT_ID } from '~/pages/start/libs/constants.js';
 
 import { DEFAULT_FORM_PAYLOAD, OPTIONS } from './libs/constants.js';
 import styles from './styles.module.scss';
@@ -38,7 +38,7 @@ const VoiceToneForm: React.FC<Properties> = ({
       <form
         className={styles['form']}
         onSubmit={handleFormSubmit}
-        id={STEPS_FORM_SUBMIT}
+        id={STEPS_FORM_SUBMIT_ID}
       >
         <Select
           name="tone"

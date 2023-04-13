@@ -16,7 +16,7 @@ type Properties = {
   onClick?: (() => void) | undefined;
   isLabelVisuallyHidden?: boolean;
   to?: ValueOf<typeof AppRoute> | undefined;
-  form?: string | undefined;
+  formId?: string | undefined;
   tooltip?: string | undefined;
 };
 
@@ -31,7 +31,7 @@ const Button: React.FC<Properties> = ({
   icon,
   isLabelVisuallyHidden = false,
   to,
-  form = '',
+  formId,
   tooltip,
 }: Properties) => {
   const content = (
@@ -64,7 +64,7 @@ const Button: React.FC<Properties> = ({
     </Link>
   ) : (
     <button
-      form={form}
+      form={formId}
       onClick={onClick}
       type={type}
       disabled={isDisabled}
