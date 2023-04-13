@@ -49,6 +49,7 @@ const Footer: React.FC<Properties> = ({
         isEditing={isEditing}
         isOwner={isOwner}
         isSubscribed={isSubscribed}
+        onUpdate={handleSectionUpdate}
       >
         <div className={styles['footer-container']}>
           <div className={styles['footer-info']}>
