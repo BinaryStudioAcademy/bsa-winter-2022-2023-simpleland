@@ -1,7 +1,6 @@
 export {
   ProjectCategory,
   ProjectsApiPath,
-  ProjectsSortDirection,
   ProjectValidationMessage,
 } from './libs/enums/enums.js';
 export {

@@ -3,6 +3,7 @@ export {
   AppEnvironment,
   ContentType,
   ServerErrorType,
+  SortDirection,
 } from './libs/enums/enums.js';
 export {
   ApplicationError,
@@ -52,7 +53,6 @@ export {
   projectCreateValidationSchema,
   projectFilterValidationSchema,
   ProjectsApiPath,
-  ProjectsSortDirection,
   projectUpdateValidationSchema,
 } from './packages/projects/projects.js';
 export {

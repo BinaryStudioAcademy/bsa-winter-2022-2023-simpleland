@@ -1,5 +1,5 @@
 export {
   ProjectCategory,
   ProjectsApiPath,
-  ProjectsSortDirection,
+  SortDirection,
 } from 'shared/build/index.js';
