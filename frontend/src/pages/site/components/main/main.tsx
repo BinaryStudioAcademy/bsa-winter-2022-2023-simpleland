@@ -89,13 +89,11 @@ const Main: React.FC<Properties> = ({
           </Overlay>
         </div>
       </div>
-      <div className={styles['container']}>
-        <Image
-          src={picture}
-          alt="SimpleLand"
-          className={styles['main-picture']}
-        />
-      </div>
+      <Image
+        src={picture}
+        alt="SimpleLand"
+        className={styles['main-picture']}
+      />
     </div>
   );
 };
