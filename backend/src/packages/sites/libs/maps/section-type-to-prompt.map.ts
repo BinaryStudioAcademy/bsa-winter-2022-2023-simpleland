@@ -12,8 +12,9 @@ const SectionTypeToPrompt: Record<
   },
   [SectionType.MAIN]: {
     EXAMPLE:
-      'title: We create your space better\ndescription: Our team creates comfortable spaces for our clients. We’ve been designing your everyday life and work through great ideas since 1999.',
-    REQUEST: 'Generate title for main section, description for main section.',
+      'title: We create your space better\ndescription: Our team creates comfortable spaces for our clients. We’ve been designing your everyday life and work through great ideas since 1999.\nimageDescription: Picture showcases a sleek and sophisticated black sofa in a modern interior room designed by an interior design company. The room exudes a sense of elegance and simplicity, with clean lines and minimalistic decor. The black sofa is the focal point of the room, inviting viewers to imagine themselves lounging on its plush cushions.',
+    REQUEST:
+      'Generate title for main section, description for main section, imageDescription for main section.',
   },
   [SectionType.ABOUT]: {
     EXAMPLE:
@@ -21,9 +22,10 @@ const SectionTypeToPrompt: Record<
     REQUEST: 'Generate title for about section, description for about section.',
   },
   [SectionType.PORTFOLIO]: {
-    EXAMPLE: 'categories: commercial,residential,office,other',
+    EXAMPLE:
+      'categories: commercial,residential,office,other\ncommercialImageDescription: Interior of a modern retail store with sleek furniture and lighting\nresidentialImageDescription: A cozy living room with a comfortable sofa and a fireplace\nofficeImageDescription: An open-plan office with modern furniture and plenty of natural light\notherImageDescription: An artistic installation in a public space, featuring colorful and dynamic designs.',
     REQUEST:
-      'Generate four category names for the portfolio section, separated by commas without spaces',
+      'Generate four category names for the portfolio section, separated by commas without spaces and imageDescription for each category. If you supposed to place space in category name replace it with hyphen',
   },
   [SectionType.FOOTER]: {
     EXAMPLE:
