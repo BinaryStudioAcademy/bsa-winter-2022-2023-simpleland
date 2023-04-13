@@ -1,6 +1,7 @@
 export {
   siteAboutUpdateContentValidationSchema,
   siteFeedbackUpdateContentValidationSchema,
+  siteFooterUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
   siteMainUpdateContentValidationSchema,
   sitePortfolioUpdateContentValidationSchema,
