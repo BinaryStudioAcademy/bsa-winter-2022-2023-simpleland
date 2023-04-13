@@ -190,7 +190,7 @@ const Site: React.FC = () => {
 
   return (
     <div className={styles['site']}>
-      {isOwner ? (
+      {isOwner && (
         <div className={styles['button-container']}>
           <div className={styles['button-wrapper']}>
             <div>
@@ -210,7 +210,7 @@ const Site: React.FC = () => {
             <h2 className={styles['button-caption']}>Back to all sites</h2>
           </div>
         </div>
-      ) : null}
+      )}
       {renderSections()}
     </div>
   );
