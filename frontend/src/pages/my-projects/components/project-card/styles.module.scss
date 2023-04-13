@@ -1,7 +1,6 @@
 .card {
   width: var(--card-width);
   height: var(--card-height);
-  overflow: scroll;
   background-color: var(--white);
 }
 
@@ -25,6 +24,9 @@
 
 .title {
   margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .card-description {
