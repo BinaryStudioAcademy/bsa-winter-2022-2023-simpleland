@@ -128,6 +128,14 @@ const Sites: React.FC = () => {
     );
   }
 
+  const isError =
+    sitesStatus === DataStatus.REJECTED ||
+    projectStatus === DataStatus.REJECTED;
+
+  if (isError) {
+    return <PageLayout style={isSitesShow ? 'white' : 'black'} />;
+  }
+
   return (
     <PageLayout
       style={isSitesShow ? 'white' : 'black'}
