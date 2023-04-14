@@ -47,6 +47,7 @@ const Feedback: React.FC<Properties> = ({
   return (
     <Overlay
       onEdit={handleEditingStart}
+      onUpdate={handleSectionUpdate}
       isEditing={isEditing}
       isOwner={isOwner}
       isSubscribed={isSubscribed}
@@ -64,7 +65,6 @@ const Feedback: React.FC<Properties> = ({
                 className={getValidClassNames(
                   styles['edit-feedback-section-content'],
                 )}
-                onBlur={handleSectionUpdate}
                 isInline
               />
             ) : (
@@ -87,7 +87,6 @@ const Feedback: React.FC<Properties> = ({
                   key={card.photo}
                   control={control}
                   errors={errors}
-                  onHandleSectionUpdate={handleSectionUpdate}
                 />
               ))}
             </Carousel>

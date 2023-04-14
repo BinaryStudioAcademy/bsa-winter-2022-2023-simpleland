@@ -1,10 +1,9 @@
-type SiteFooterContent = {
+type SiteFooterUpdateContentDto = {
   logo: string;
   description: string;
   email: string;
   address: string;
   phone: string;
-  socials: string[];
 };
 
-export { type SiteFooterContent };
+export { type SiteFooterUpdateContentDto };

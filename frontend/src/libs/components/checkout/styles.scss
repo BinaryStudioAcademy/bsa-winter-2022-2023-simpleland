@@ -2,8 +2,10 @@ button.StripeCheckout {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
+  width: 154px !important;
+  height: 32px !important;
   background: var(--yellow) !important;
-  border: 0 !important;
+  border: none !important;
   border-radius: 0 !important;
   outline: none !important;
   box-shadow: none !important;
@@ -14,13 +16,15 @@ button.StripeCheckout:hover {
   background: var(--black) !important;
 }
 
-button[disabled] {
+.stripe-wrapper button[disabled] {
+  width: 154px !important;
+  height: 32px !important;
+  background-color: var(--yellow) !important;
+  border: none !important;
   border-radius: 0 !important;
+  outline: none !important;
   cursor: not-allowed !important;
-}
-
-button[disabled] span {
-  border-radius: 0 !important;
+  opacity: 0.3 !important;
 }
 
 button.StripeCheckout span {
@@ -36,6 +40,24 @@ button.StripeCheckout span {
   text-shadow: none !important;
   background: none !important;
   box-shadow: none !important;
+}
+
+.stripe-wrapper button[disabled] span {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 32px !important;
+  color: var(--gray-600) !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  font-family: Roboto, sans-serif !important;
+  font-style: normal !important;
+  line-height: 16px !important;
+  letter-spacing: 0.5px !important;
+  background: var(--yellow) !important;
+  border: none !important;
+  border-width: 0;
+  border-radius: 0 !important;
 }
 
 button.StripeCheckout:hover span {

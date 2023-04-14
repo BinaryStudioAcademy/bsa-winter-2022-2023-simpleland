@@ -3,6 +3,7 @@ export {
   AppEnvironment,
   ContentType,
   ServerErrorType,
+  SortDirection,
 } from './libs/enums/enums.js';
 export {
   ApplicationError,
@@ -64,6 +65,7 @@ export {
   type SiteFeedbackContent,
   type SiteFeedbackUpdateContentDto,
   type SiteFooterContent,
+  type SiteFooterUpdateContentDto,
   type SiteHeaderContent,
   type SiteHeaderUpdateContentDto,
   type SiteMainContent,
@@ -77,6 +79,7 @@ export {
   sectionUpdateValidationSchema,
   siteAboutUpdateContentValidationSchema,
   siteFeedbackUpdateContentValidationSchema,
+  siteFooterUpdateContentValidationSchema,
   siteHeaderUpdateContentValidationSchema,
   siteMainUpdateContentValidationSchema,
   sitePortfolioUpdateContentValidationSchema,

@@ -16,9 +16,15 @@ const updateUser = createAsyncThunk<
   UserUpdateRequestDto,
   AsyncThunkConfig
 >(`${sliceName}/update-user`, async (updateUserPayload, { extra }) => {
-  const { userApi } = extra;
+  const { userApi, notification } = extra;
 
-  return await userApi.updateUser(updateUserPayload);
+  const user = await userApi.updateUser(updateUserPayload);
+
+  notification.success(
+    'Your profile information has been successfully changed',
+  );
+
+  return user;
 });
 
 const updateUserLogin = createAsyncThunk<
@@ -60,9 +66,13 @@ const updateUserAvatar = createAsyncThunk<
   FormData,
   AsyncThunkConfig
 >(`${sliceName}/update-user-avatar`, async (payload, { extra }) => {
-  const { userApi } = extra;
+  const { userApi, notification } = extra;
 
-  return await userApi.updateUserAvatar(payload);
+  const user = await userApi.updateUserAvatar(payload);
+
+  notification.success('Your avatar has been successfully changed');
+
+  return user;
 });
 
 const subscribe = createAsyncThunk<
@@ -70,9 +80,13 @@ const subscribe = createAsyncThunk<
   SubscribeRequestDto,
   AsyncThunkConfig
 >(`${sliceName}/subscribe`, async (payload, { extra }) => {
-  const { subscriptionApi } = extra;
+  const { subscriptionApi, notification } = extra;
 
-  return await subscriptionApi.subscribe(payload);
+  const subscription = await subscriptionApi.subscribe(payload);
+
+  notification.success('Your subscription has been successfully changed');
+
+  return subscription;
 });
 
 export {
