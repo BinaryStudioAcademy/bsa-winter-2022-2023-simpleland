@@ -89,7 +89,6 @@ const Main: React.FC<Properties> = ({
           </Overlay>
         </div>
       </div>
-
       <Image
         src={picture}
         alt="SimpleLand"

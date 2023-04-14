@@ -1,3 +1,4 @@
+import { SortDirection } from '~/libs/enums/enums.js';
 import { type IRepository } from '~/libs/interfaces/interfaces.js';
 import { SiteEntity } from '~/packages/sites/site.entity.js';
 import { type SiteModel } from '~/packages/sites/site.model.js';
@@ -57,6 +58,7 @@ class SiteRepository
           void builder.where('name', 'ilike', `%${name}%`);
         }
       })
+      .orderBy('created_at', SortDirection.DESCENDING)
       .withGraphFetched('user')
       .page(offset, limit);
 
