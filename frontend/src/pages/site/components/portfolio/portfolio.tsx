@@ -1,5 +1,8 @@
 import { Input } from '~/libs/components/components.js';
-import { getValidClassNames } from '~/libs/helpers/helpers.js';
+import {
+  camelToSpaceSeparated,
+  getValidClassNames,
+} from '~/libs/helpers/helpers.js';
 import {
   useAppForm,
   useCallback,
@@ -145,7 +148,7 @@ const Portfolio: React.FC<Properties> = ({
                     isActiveCategory(index) && styles['button-brown'],
                   )}
                 >
-                  {category.name}
+                  {camelToSpaceSeparated(category.name)}
                 </button>
               ))}
             </div>
