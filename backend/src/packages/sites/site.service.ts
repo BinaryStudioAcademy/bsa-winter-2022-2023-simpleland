@@ -3,6 +3,7 @@ import { type IService } from '~/libs/interfaces/interfaces.js';
 import { type File } from '~/libs/packages/file/file.package.js';
 import { type OpenAI } from '~/libs/packages/open-ai/open-ai.package.js';
 import { type ValueOf } from '~/libs/types/types.js';
+import { type ProjectService } from '~/packages/projects/project.service.js';
 import { projectService } from '~/packages/projects/projects.js';
 import {
   type SectionGetAllResponseDto,
@@ -28,6 +29,7 @@ import {
 } from './libs/types/types.js';
 
 type Constructor = {
+  projectService: ProjectService;
   siteRepository: SiteRepository;
   file: File;
   openAI: OpenAI;
@@ -36,11 +38,19 @@ type Constructor = {
 class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   private siteRepository: SiteRepository;
 
+  private projectService: ProjectService;
+
   private file: File;
 
   private openAI: OpenAI;
 
-  public constructor({ siteRepository, file, openAI }: Constructor) {
+  public constructor({
+    projectService,
+    siteRepository,
+    file,
+    openAI,
+  }: Constructor) {
+    this.projectService = projectService;
     this.siteRepository = siteRepository;
     this.file = file;
     this.openAI = openAI;
@@ -68,11 +78,20 @@ class SiteService implements Omit<IService, 'find' | 'update' | 'delete'> {
   }
 
   public async findAllByProjectId(
+    userId: number,
     projectId: number,
     queryParameters: SitesFilterQueryDto,
   ): Promise<SiteGetAllResponseDto> {
+    const project = await this.projectService.find(projectId);
+
+    if (project.userId !== userId) {
+      throw new ApplicationError({
+        message: 'Access denied',
+      });
+    }
+
     const { items, totalCount } = await this.siteRepository.findAllByProjectId(
-      projectId,
+      project.id,
       queryParameters,
     );
 

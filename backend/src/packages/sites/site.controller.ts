@@ -8,6 +8,7 @@ import { HttpCode } from '~/libs/packages/http/http.js';
 import { type ILogger } from '~/libs/packages/logger/logger.js';
 import { type SiteService } from '~/packages/sites/site.service.js';
 
+import { type UserAuthResponse } from '../users/users.js';
 import { SitesApiPath } from './libs/enums/enums.js';
 import {
   type SiteCreateParametersDto,
@@ -89,6 +90,7 @@ class SiteController extends Controller {
           options as ApiHandlerOptions<{
             params: SitesGetByProjectIdParametersDto;
             query: SitesFilterQueryDto;
+            user: UserAuthResponse;
           }>,
         ),
     });
@@ -159,11 +161,13 @@ class SiteController extends Controller {
     options: ApiHandlerOptions<{
       params: SitesGetByProjectIdParametersDto;
       query: SitesFilterQueryDto;
+      user: UserAuthResponse;
     }>,
   ): Promise<ApiHandlerResponse> {
     return {
       status: HttpCode.OK,
       payload: await this.siteService.findAllByProjectId(
+        options.user.id,
         options.params.projectId,
         options.query,
       ),
