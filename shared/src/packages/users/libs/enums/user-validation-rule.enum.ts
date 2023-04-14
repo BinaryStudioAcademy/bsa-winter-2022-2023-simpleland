@@ -5,7 +5,7 @@ const UserValidationRule = {
     /^(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,./:;<=>?@[\\\]^_`{|}~-])(?=.*[a-z]).{8,30}$/,
   FIRST_NAME_REGEX: /^[A-Z]['A-Za-z-]{1,29}$/,
   LAST_NAME_REGEX: /^[A-Z]['A-Za-z-]{1,29}$/,
-  ACCOUNT_NAME_REGEX: /^[A-Z]['A-Za-z-]{1,29}$/,
+  ACCOUNT_NAME_REGEX: /^[\w!#$%&()*+,./:;<=>?@[\\\]^-{|}~“-]{1,29}$/,
 } as const;
 
 export { UserValidationRule };

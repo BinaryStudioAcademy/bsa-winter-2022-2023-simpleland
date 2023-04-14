@@ -9,7 +9,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 1085px;
-  margin-left: 150px;
+  margin-left: 230px;
   padding: 85px 0;
 }
 
@@ -31,7 +31,6 @@
   flex-direction: column;
   justify-self: center;
   gap: 46px;
-  margin-left: 150px;
 }
 
 .navigation-title,
@@ -100,6 +99,7 @@
 .contact-phone-link:active,
 .contact-address-link:active,
 .contact-email-link:active {
+  flex-direction: row;
   color: var(--site-text-color);
   font-weight: 500;
   font-size: 12px;
@@ -108,5 +108,5 @@
 }
 
 .footer-contacts {
-  margin-left: 350px;
+  margin-left: 118px;
 }

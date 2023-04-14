@@ -53,45 +53,42 @@ const Main: React.FC<Properties> = ({
             isOwner={isOwner}
             isSubscribed={isSubscribed}
           >
-            <div className={styles['main-content-right-wrapper']}>
-              <div className={styles['main-title']}>
-                {isEditing ? (
-                  <Input
-                    control={control}
-                    errors={errors}
-                    name="title"
-                    label="Main section title"
-                    isLabelVisuallyHidden
-                    isInline
-                    rows={3}
-                  />
-                ) : (
-                  title
-                )}
-              </div>
-              <div className={styles['main-description']}>
-                {isEditing ? (
-                  <Input
-                    control={control}
-                    errors={errors}
-                    name="description"
-                    label="Main section description"
-                    isLabelVisuallyHidden
-                    className={getValidClassNames(
-                      styles['edit-main-section-content'],
-                    )}
-                    rows={10}
-                    isInline
-                  />
-                ) : (
-                  description
-                )}
-              </div>
+            <div className={styles['main-title']}>
+              {isEditing ? (
+                <Input
+                  control={control}
+                  errors={errors}
+                  name="title"
+                  label="Main section title"
+                  isLabelVisuallyHidden
+                  isInline
+                  rows={3}
+                />
+              ) : (
+                title
+              )}
+            </div>
+            <div className={styles['main-description']}>
+              {isEditing ? (
+                <Input
+                  control={control}
+                  errors={errors}
+                  name="description"
+                  label="Main section description"
+                  isLabelVisuallyHidden
+                  className={getValidClassNames(
+                    styles['edit-main-section-content'],
+                  )}
+                  rows={10}
+                  isInline
+                />
+              ) : (
+                description
+              )}
             </div>
           </Overlay>
         </div>
       </div>
-
       <Image
         src={picture}
         alt="SimpleLand"
