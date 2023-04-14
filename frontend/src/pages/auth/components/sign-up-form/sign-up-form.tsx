@@ -17,6 +17,7 @@ import {
 } from '~/packages/users/users.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from './libs/constants.js';
+import { SignUpFormTooltip } from './libs/enums/enums.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -57,6 +58,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           name="firstName"
           control={control}
           errors={errors}
+          tooltip={SignUpFormTooltip.FIRST_NAME}
+          isTooltipShowedOnlyOnError
         />
         <Input
           type="text"
@@ -65,6 +68,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
           name="lastName"
           control={control}
           errors={errors}
+          tooltip={SignUpFormTooltip.LAST_NAME}
+          isTooltipShowedOnlyOnError
         />
         <Input
           type="text"
@@ -83,6 +88,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
             name="password"
             control={control}
             errors={errors}
+            tooltip={SignUpFormTooltip.PASSWORD}
+            isTooltipShowedOnlyOnError
           />
           <IconButton
             label="password"
