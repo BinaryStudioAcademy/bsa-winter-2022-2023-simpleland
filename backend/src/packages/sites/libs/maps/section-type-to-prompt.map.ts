@@ -25,7 +25,7 @@ const SectionTypeToPrompt: Record<
     EXAMPLE:
       'categories: commercial,residential,office,other\ncommercialImageDescription: Interior of a modern retail store with sleek furniture and lighting\nresidentialImageDescription: A cozy living room with a comfortable sofa and a fireplace\nofficeImageDescription: An open-plan office with modern furniture and plenty of natural light\notherImageDescription: An artistic installation in a public space, featuring colorful and dynamic designs.',
     REQUEST:
-      'Generate four category names for the portfolio section, separated by commas without spaces and imageDescription for each category. If you supposed to place space in category name replace it with hyphen',
+      'Generate four category names for the portfolio section, separated by commas without spaces and imageDescription for each category.',
   },
   [SectionType.FOOTER]: {
     EXAMPLE:
