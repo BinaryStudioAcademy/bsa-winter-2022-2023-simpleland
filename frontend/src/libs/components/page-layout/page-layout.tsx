@@ -5,7 +5,7 @@ import { useAppSelector } from '~/libs/hooks/hooks.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   style?: 'yellow' | 'black' | 'white';
   className?: string | undefined;
 };

@@ -132,6 +132,14 @@ const Sites: React.FC = () => {
     );
   }
 
+  const isError =
+    sitesStatus === DataStatus.REJECTED ||
+    projectStatus === DataStatus.REJECTED;
+
+  if (isError) {
+    return <PageLayout style={isSitesShow ? 'white' : 'black'} />;
+  }
+
   return (
     <PageLayout
       style={isSitesShow ? 'white' : 'black'}
@@ -141,11 +149,16 @@ const Sites: React.FC = () => {
         {isSitesShow ? (
           <>
             <div className={styles['button-wrapper']}>
-              <Link to={AppRoute.MY_PROJECTS}>
-                <span className={styles['link-to-projects']}>
-                  <Icon iconName="arrowLeft" className={styles['back-icon']} />
-                </span>
-              </Link>
+              <div>
+                <Link to={AppRoute.MY_PROJECTS}>
+                  <span className={styles['link-to-projects']}>
+                    <Icon
+                      iconName="arrowLeft"
+                      className={styles['back-icon']}
+                    />
+                  </span>
+                </Link>
+              </div>
               <h2 className={styles['title']}>
                 {(project as ProjectGetAllItemResponseDto).name}
               </h2>

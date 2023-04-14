@@ -43,14 +43,14 @@ const Footer: React.FC<Properties> = ({
     });
 
   return (
-    <div id={type} className={styles['footer']}>
-      <Overlay
-        onEdit={handleEditingStart}
-        isEditing={isEditing}
-        isOwner={isOwner}
-        isSubscribed={isSubscribed}
-        onUpdate={handleSectionUpdate}
-      >
+    <Overlay
+      onEdit={handleEditingStart}
+      isEditing={isEditing}
+      isOwner={isOwner}
+      isSubscribed={isSubscribed}
+      onUpdate={handleSectionUpdate}
+    >
+      <div id={type} className={styles['footer']}>
         <div className={styles['footer-container']}>
           <div className={styles['footer-info']}>
             <div className={styles['footer-logo']}>
@@ -194,8 +194,8 @@ const Footer: React.FC<Properties> = ({
             </div>
           </div>
         </div>
-      </Overlay>
-    </div>
+      </div>
+    </Overlay>
   );
 };
 
