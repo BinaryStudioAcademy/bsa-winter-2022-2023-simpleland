@@ -10,6 +10,7 @@ export {
   ValidationError,
 } from './libs/exceptions/exceptions.js';
 export {
+  camelToSpaceSeparated,
   configureString,
   initAsyncItemsQueue,
   initDebounce,
