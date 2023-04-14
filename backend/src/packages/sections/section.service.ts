@@ -33,7 +33,7 @@ class SectionService
 
   private file: File;
 
-  private static feedbackCardsQuantity = 2;
+  private static feedbackCardsQuantity = 4;
 
   private static portfolioCategoryImagesQuantity = 2;
 
