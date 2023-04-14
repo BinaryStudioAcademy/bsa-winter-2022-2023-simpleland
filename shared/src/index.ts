@@ -3,6 +3,7 @@ export {
   AppEnvironment,
   ContentType,
   ServerErrorType,
+  SortDirection,
 } from './libs/enums/enums.js';
 export {
   ApplicationError,
