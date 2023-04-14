@@ -129,7 +129,7 @@ const Footer: React.FC<Properties> = ({
                       isLabelVisuallyHidden
                       onBlur={handleSectionUpdate}
                       isInline
-                      rows={6}
+                      rows={2}
                     />
                   ) : (
                     <a
@@ -155,7 +155,7 @@ const Footer: React.FC<Properties> = ({
                       isLabelVisuallyHidden
                       onBlur={handleSectionUpdate}
                       isInline
-                      rows={3}
+                      rows={1}
                     />
                   ) : (
                     <a
@@ -179,7 +179,7 @@ const Footer: React.FC<Properties> = ({
                       isLabelVisuallyHidden
                       onBlur={handleSectionUpdate}
                       isInline
-                      rows={3}
+                      rows={1}
                     />
                   ) : (
                     <a

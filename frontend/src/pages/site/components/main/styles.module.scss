@@ -12,18 +12,10 @@
 }
 
 .main-content-right {
-  display: flex;
   width: 530px;
+  margin-top: 30px;
   margin-right: 15px;
   padding: 185px 0;
-}
-
-.main-content-right-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
 }
 
 .main-title {
@@ -43,7 +35,6 @@
 }
 
 .main-picture {
-  height: 750px;
   object-fit: cover;
 }
 
