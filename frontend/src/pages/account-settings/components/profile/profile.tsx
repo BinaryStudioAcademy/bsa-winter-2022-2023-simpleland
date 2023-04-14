@@ -21,15 +21,14 @@ const Profile: React.FC<Properties> = ({
   onUpdateUser,
   onUpdateUserAvatar,
 }: Properties) => {
-  const { control, errors, handleSubmit, handleReset } =
-    useAppForm<UserUpdateRequestDto>({
-      defaultValues: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        accountName: user.accountName ?? '',
-      },
-      validationSchema: userUpdateValidationSchema,
-    });
+  const { control, errors, handleSubmit } = useAppForm<UserUpdateRequestDto>({
+    defaultValues: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      accountName: user.accountName ?? '',
+    },
+    validationSchema: userUpdateValidationSchema,
+  });
 
   const handleUpdateUserDetails = useCallback(
     (event_: React.BaseSyntheticEvent): void => {
@@ -79,14 +78,6 @@ const Profile: React.FC<Properties> = ({
         />
       </div>
       <div className={styles['buttons']}>
-        <Button
-          type="button"
-          style="secondary"
-          size="small"
-          label="Cancel"
-          className={styles['button']}
-          onClick={handleReset}
-        />
         <Button
           type="submit"
           style="primary"

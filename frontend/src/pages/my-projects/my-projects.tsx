@@ -155,39 +155,37 @@ const MyProjects: React.FC = () => {
         <div className={styles['page-wrapper']}>
           {hasProjects ? (
             <>
-              <div>
-                <div className={styles['search-wrapper']}>
-                  <form onChange={handleFormChange}>
-                    <Input
-                      label="search"
-                      type="search"
-                      placeholder="Search"
-                      name="search"
-                      control={control}
-                      errors={errors}
-                      className={styles['search-input']}
-                      icon="loupe"
-                      isLabelVisuallyHidden
-                    />
-                  </form>
-                  <Button
-                    label="Add Project"
-                    icon="plus"
-                    className={styles['create-button']}
-                    size="small"
-                    onClick={handleModalOpen}
+              <div className={styles['search-wrapper']}>
+                <form onChange={handleFormChange}>
+                  <Input
+                    label="search"
+                    type="search"
+                    placeholder="Search"
+                    name="search"
+                    control={control}
+                    errors={errors}
+                    className={styles['search-input']}
+                    icon="loupe"
+                    isLabelVisuallyHidden
                   />
-                </div>
+                </form>
+                <Button
+                  label="Add Project"
+                  icon="plus"
+                  className={styles['create-button']}
+                  size="small"
+                  onClick={handleModalOpen}
+                />
+              </div>
 
-                <div className={styles['cards-wrapper']}>
-                  {projects.map((card) => (
-                    <ProjectCard
-                      key={card.id}
-                      project={card}
-                      onEdit={handleProjectEdit}
-                    />
-                  ))}
-                </div>
+              <div className={styles['cards-wrapper']}>
+                {projects.map((card) => (
+                  <ProjectCard
+                    key={card.id}
+                    project={card}
+                    onEdit={handleProjectEdit}
+                  />
+                ))}
               </div>
 
               {isShowPagination && (
