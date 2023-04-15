@@ -4,9 +4,10 @@ const UserValidationMessage = {
   EMAIL_IS_INVALID: 'Incorrect email format',
   PASSWORD_IS_INVALID: 'Incorrect password',
   PASSWORD_REQUIRE: 'Password is required',
-  NEW_PASSWORD_IS_INVALID: 'Repeat New password must match the New password',
+  NEW_PASSWORD_IS_INVALID:
+    'The value of the repeat new password must match the new password',
   NEW_PASSWORD_CANNOT_BE_SAME_AS_OLD:
-    'New password cannot be same as old password',
+    'New password cannot be the same as the previous one',
   FIRST_NAME_REQUIRE: 'First name is required',
   FIRST_NAME_IS_INVALID: 'Incorrect first name',
   LAST_NAME_REQUIRE: 'Last name is required',

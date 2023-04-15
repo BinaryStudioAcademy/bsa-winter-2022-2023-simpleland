@@ -18,6 +18,11 @@
   outline: none;
 }
 
+.input[type="password"]::-ms-reveal,
+.input[type="password"]::-ms-clear {
+  display: none;
+}
+
 .input::placeholder {
   color: var(--gray-300);
   font-size: 14px;
