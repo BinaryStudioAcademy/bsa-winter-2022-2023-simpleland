@@ -33,11 +33,11 @@ class SectionService
 
   private file: File;
 
-  private static feedbackCardsQuantity = 4;
+  private static feedbackCardsQuantity = 1;
 
-  private static portfolioCategoryImagesQuantity = 2;
+  private static portfolioCategoryImagesQuantity = 1;
 
-  private static serviceCardsQuantity = 4;
+  private static serviceCardsQuantity = 1;
 
   public constructor({ sectionRepository, file }: Constructor) {
     this.sectionRepository = sectionRepository;
