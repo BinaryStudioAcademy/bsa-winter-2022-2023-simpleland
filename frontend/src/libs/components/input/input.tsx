@@ -54,7 +54,7 @@ const Input = <T extends FieldValues>({
   const error = errors[name]?.message;
   const hasError = Boolean(error);
 
-  const shouldShowTooltip = isTooltipShowedOnlyOnError ? hasError : true;
+  const shouldShowTooltip = !isTooltipShowedOnlyOnError || hasError;
 
   const tooltipProperties =
     tooltip && shouldShowTooltip
