@@ -27,6 +27,8 @@ type Properties<T extends FieldValues> = {
   onBlur?: () => void;
   rows?: number;
   isInline?: boolean;
+  tooltip?: string | undefined;
+  isTooltipShowedOnlyOnError?: boolean | undefined;
 };
 
 const Input = <T extends FieldValues>({
@@ -44,11 +46,23 @@ const Input = <T extends FieldValues>({
   onBlur,
   rows,
   isInline,
+  tooltip,
+  isTooltipShowedOnlyOnError = false,
 }: Properties<T>): JSX.Element => {
   const { field } = useFormController({ name, control });
 
   const error = errors[name]?.message;
   const hasError = Boolean(error);
+
+  const shouldShowTooltip = !isTooltipShowedOnlyOnError || hasError;
+
+  const tooltipProperties =
+    tooltip && shouldShowTooltip
+      ? {
+          'data-tooltip-content': tooltip,
+          'data-tooltip-id': 'app-main-tooltip',
+        }
+      : {};
 
   const validClassNames = getValidClassNames(
     styles['input'],
@@ -60,7 +74,7 @@ const Input = <T extends FieldValues>({
   );
 
   return (
-    <label className={styles['label']}>
+    <label className={styles['label']} {...tooltipProperties}>
       <span
         className={getValidClassNames(
           styles['input-label'],

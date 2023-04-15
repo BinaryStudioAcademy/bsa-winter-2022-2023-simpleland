@@ -12,6 +12,7 @@ import {
 } from '~/packages/users/users.js';
 
 import { DEFAULT_UPDATE_PASSWORD_PAYLOAD } from './libs/constants.js';
+import { PASSWORD_TOOLTIP } from './libs/tooltip.constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -72,6 +73,8 @@ const CreatePasswordForm: React.FC<Properties> = ({
               name="newPassword"
               control={control}
               errors={errors}
+              tooltip={PASSWORD_TOOLTIP}
+              isTooltipShowedOnlyOnError
             />
             <IconButton
               label="New password"
