@@ -22,6 +22,8 @@
 }
 
 .about-description {
+  height: 300px;
+  overflow-y: auto;
   color: var(--site-text-color);
   font-size: 15px;
   line-height: 25px;

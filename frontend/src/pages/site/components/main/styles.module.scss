@@ -6,6 +6,7 @@
 
 .main-content {
   display: flex;
+  height: 950px;
 }
 
 .main-content-left {
@@ -29,7 +30,9 @@
 }
 
 .main-description {
+  height: 370px;
   margin-bottom: 55px;
+  overflow: auto;
   color: var(--site-text-color);
   font-size: 15px;
   line-height: 25px;

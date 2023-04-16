@@ -34,9 +34,15 @@
 }
 
 .service-card-title {
+  height: 45px;
   margin-bottom: 10px;
   color: var(--site-text-color);
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
+}
+
+.service-card-description {
+  height: 250px;
+  overflow: auto;
 }
