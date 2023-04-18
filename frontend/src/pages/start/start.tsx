@@ -23,7 +23,11 @@ import {
   TargetAudienceForm,
   VoiceToneForm,
 } from './libs/components/components.js';
-import { DEFAULT_SITE_PAYLOAD, ONE_STEP_LENGTH } from './libs/constants.js';
+import {
+  DEFAULT_SITE_PAYLOAD,
+  ONE_STEP_LENGTH,
+  STEPS_FORM_SUBMIT_ID,
+} from './libs/constants.js';
 import styles from './styles.module.scss';
 
 const steps = [
@@ -108,15 +112,17 @@ const Start: React.FC = () => {
                 <div className={styles['stepper-wrapper']}>
                   <div className={styles['img-wrapper']}>
                     <IconButton
+                      type="button"
                       icon="arrowLeft"
                       label="Go to the previous step"
                       onClick={handlePreviousStep}
                       isDisabled={isFirstStep}
                     />
                     <IconButton
+                      type="submit"
+                      formId={STEPS_FORM_SUBMIT_ID}
                       icon="arrowRight"
                       label="Go to the next step"
-                      onClick={handleNextStep}
                       isDisabled={isLastStep}
                     />
                   </div>

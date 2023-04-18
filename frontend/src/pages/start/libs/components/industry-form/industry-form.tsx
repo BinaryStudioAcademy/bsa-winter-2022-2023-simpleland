@@ -5,6 +5,7 @@ import {
   type SiteCreateStepIndustry,
   siteCreateStepIndustryValidationSchema,
 } from '~/packages/sites/sites.js';
+import { STEPS_FORM_SUBMIT_ID } from '~/pages/start/libs/constants.js';
 
 import { DEFAULT_STEP_PAYLOAD } from './libs/constants.js';
 import styles from './styles.module.scss';
@@ -34,7 +35,11 @@ const IndustryForm: React.FC<Properties> = ({
     <>
       <h2 className={styles['title']}>What is your industry?</h2>
       <div className={styles['subtitle']}>Just enter your it.</div>
-      <form className={styles['form']} onSubmit={handleFormSubmit}>
+      <form
+        id={STEPS_FORM_SUBMIT_ID}
+        className={styles['form']}
+        onSubmit={handleFormSubmit}
+      >
         <Input
           type="text"
           label="Project industry"

@@ -5,6 +5,7 @@ import {
   type SiteCreateStepTarget,
   siteCreateStepTargetValidationSchema,
 } from '~/packages/sites/sites.js';
+import { STEPS_FORM_SUBMIT_ID } from '~/pages/start/libs/constants.js';
 
 import { DEFAULT_STEP_TARGET_VALUE, OPTIONS } from './libs/constants.js';
 import styles from './style.module.scss';
@@ -38,7 +39,11 @@ const TargetAudienceForm: React.FC<Properties> = ({
     <>
       <h2 className={styles['title']}>What is your Target audience?</h2>
       <div className={styles['subtitle']}>Choose the age</div>
-      <form className={styles['form']} onSubmit={handleFormSubmit}>
+      <form
+        className={styles['form']}
+        onSubmit={handleFormSubmit}
+        id={STEPS_FORM_SUBMIT_ID}
+      >
         <Select
           control={control}
           name="targetAudience"
